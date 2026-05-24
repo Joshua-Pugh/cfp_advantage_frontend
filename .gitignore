@@ -28,8 +28,3 @@ yarn-error.log*
 dist/
 build/
 
-# Config files with sensitive/environment-specific data
-config.js
-
-# Internal documentation
-deployment_notes.md
