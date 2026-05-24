@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CFP ADVANTAGE MODEL v3.6</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">CFP ADVANTAGE MODEL v3.6</p>
+          <h1>Football Intelligence Dashboard</h1>
+        </div>
+        <p class="header-note">Team strength, matchup outlooks, and postgame control recaps.</p>
+      </header>
+
+      <nav class="workspace-tabs" aria-label="Intelligence views">
+        <button id="pregameViewTab" class="workspace-tab is-active" type="button">Matchup Preview</button>
+        <button id="postgameViewTab" class="workspace-tab" type="button">Game Recap</button>
+        <button id="teamBoardViewTab" class="workspace-tab" type="button">Team Board</button>
+        <button id="explorerViewTab" class="workspace-tab" type="button">Football Intelligence Explorer</button>
+      </nav>
+
+      <section class="loader-panel is-hidden" id="loaderPanel" role="status" aria-live="polite">
+        <div class="loader-mark" aria-hidden="true"></div>
+        <div>
+          <p class="eyebrow">CFP Advantage Model</p>
+          <h2 id="loaderTitle">Fetching Data...</h2>
+          <p id="loaderMessage">Please wait.</p>
+        </div>
+      </section>
+
+      <section id="pregameView" class="workspace-view">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Pregame Intelligence</p>
+            <h2>Matchup Preview <button class="info-button" type="button" data-help="expected-margin" aria-label="Learn about ADV Expected Margin" aria-expanded="false">?</button></h2>
+          </div>
+        </div>
+        <div class="matchup-builder">
+          <div class="filter-grid">
+            <label>
+              <span>Season</span>
+              <select id="seasonSelect"></select>
+            </label>
+            <label>
+              <span>Tier</span>
+              <select id="tierFilter">
+                <option value="all">All</option>
+                <option value="fbs" selected>FBS</option>
+                <option value="power">Power</option>
+                <option value="g5">G5</option>
+                <option value="fcs">FCS</option>
+                <option value="independent">Independent</option>
+              </select>
+            </label>
+            <label>
+              <span>Conference</span>
+              <select id="conferenceFilter"><option value="all">All conferences</option></select>
+            </label>
+            <label>
+              <span>Rank Range</span>
+              <select id="rankFilter">
+                <option value="all" selected>All ranked teams</option>
+                <option value="10">Top 10</option>
+                <option value="25">Top 25</option>
+                <option value="50">Top 50</option>
+                <option value="100">Top 100</option>
+              </select>
+            </label>
+          </div>
+          <div class="matchup-controls">
+            <label>
+              <span>Search Team A</span>
+              <input id="previewSearchA" type="search" placeholder="Search ranked teams">
+            </label>
+            <label>
+              <span>Team A</span>
+              <select id="previewTeamA"></select>
+            </label>
+            <label>
+              <span>Search Team B</span>
+              <input id="previewSearchB" type="search" placeholder="Search ranked teams">
+            </label>
+            <label>
+              <span>Team B</span>
+              <select id="previewTeamB"></select>
+            </label>
+            <button id="previewButton" type="button">Build Matchup</button>
+          </div>
+        </div>
+        <div id="matchupEmpty" class="empty-state">Select two ranked teams to create a matchup preview.</div>
+        <div id="matchupCard" class="matchup-card is-hidden">
+          <div class="matchup-headline">
+            <div>
+              <p class="eyebrow">Model Outlook</p>
+              <h2 id="previewWinner">-</h2>
+              <p id="previewInterpretation" class="interpretation"></p>
+            </div>
+            <div class="headline-metric">
+              <span>ADV Expected Margin <button class="info-button" type="button" data-help="expected-margin" aria-label="Learn about ADV Expected Margin" aria-expanded="false">?</button></span>
+              <strong id="previewMargin">-</strong>
+              <small id="previewConfidence">-</small>
+            </div>
+          </div>
+          <div id="previewComparison" class="comparison-grid"></div>
+          <div id="actualMatchupPanel" class="actual-game-panel is-hidden">
+            <div>
+              <p class="eyebrow">Played This Season</p>
+              <p id="actualGameLine" class="actual-game-line"></p>
+              <p id="actualGameComparison" class="interpretation"></p>
+            </div>
+            <button id="viewActualRecapButton" type="button">View Actual Game Recap</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="postgameView" class="workspace-view is-hidden">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Postgame Intelligence</p>
+            <h2>Control Recap <button class="info-button" type="button" data-help="deserved-margin" aria-label="Learn about ADV Deserved Margin" aria-expanded="false">?</button></h2>
+          </div>
+          <span class="panel-note">Completed game analysis</span>
+        </div>
+        <div id="recapEmpty" class="empty-state">Choose a completed game in the Football Intelligence Explorer to open a control recap.</div>
+        <section id="recapPanel" class="scoreboard is-hidden" aria-label="Game control recap">
+          <article class="team-panel" id="awayPanel">
+            <p class="team-label">Away</p>
+            <h2 id="awayName">-</h2>
+            <div class="featured-value">
+              <span>Net ADV</span>
+              <strong id="awayAdv">-</strong>
+            </div>
+          </article>
+          <article class="game-panel">
+            <p id="gameDate">Select a game</p>
+            <strong id="advMargin">-</strong>
+            <span id="scoreLine">Waiting for game analysis</span>
+            <div class="control-metrics">
+              <div>
+                <span>ADV Deserved Margin <button class="info-button" type="button" data-help="deserved-margin" aria-label="Learn about ADV Deserved Margin" aria-expanded="false">?</button></span>
+                <strong id="deservedMargin">-</strong>
+              </div>
+              <div>
+                <span>Actual Score Margin</span>
+                <strong id="actualMargin">-</strong>
+              </div>
+              <div>
+                <span>Scoreboard vs ADV Gap <button class="info-button" type="button" data-help="scoreboard-gap" aria-label="Learn about Scoreboard vs ADV Gap" aria-expanded="false">?</button></span>
+                <strong id="scoreboardGap">-</strong>
+              </div>
+            </div>
+            <p class="recap-interpretation" id="projectionLine"></p>
+          </article>
+          <article class="team-panel" id="homePanel">
+            <p class="team-label">Home</p>
+            <h2 id="homeName">-</h2>
+            <div class="featured-value">
+              <span>Net ADV</span>
+              <strong id="homeAdv">-</strong>
+            </div>
+          </article>
+        </section>
+      </section>
+
+      <section id="teamBoardView" class="workspace-view is-hidden">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Team Season Intelligence</p>
+            <h2>ADV SRS Board <button class="info-button" type="button" data-help="adv-srs" aria-label="Learn about ADV SRS" aria-expanded="false">?</button></h2>
+          </div>
+          <span id="boardSeasonLabel" class="panel-note"></span>
+        </div>
+        <div class="table-wrap board-wrap">
+          <table class="board-table">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Team</th>
+                <th>ADV SRS</th>
+                <th>OFF</th>
+                <th>DEF</th>
+                <th>Weak Side <button class="info-button" type="button" data-help="weak-side" aria-label="Learn about Weak-Side Profile" aria-expanded="false">?</button></th>
+                <th>SOS % <button class="info-button" type="button" data-help="sos" aria-label="Learn about SOS Percentile" aria-expanded="false">?</button></th>
+                <th>CR <button class="info-button" type="button" data-help="cr" aria-label="Learn about Control Rate" aria-expanded="false">?</button></th>
+                <th>Tags</th>
+              </tr>
+            </thead>
+            <tbody id="teamBoardTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="explorerView" class="workspace-view is-hidden">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Game Explorer</p>
+            <h2>Football Intelligence Explorer</h2>
+          </div>
+        </div>
+        <div class="explorer-controls">
+          <label>
+            <span>Season</span>
+            <select id="explorerSeasonSelect"></select>
+          </label>
+          <label>
+            <span>Tier</span>
+            <select id="explorerTierSelect">
+              <option value="all">All</option>
+              <option value="fbs" selected>FBS</option>
+              <option value="power">Power</option>
+              <option value="g5">G5</option>
+              <option value="fcs">FCS</option>
+              <option value="independent">Independent</option>
+            </select>
+          </label>
+          <label>
+            <span>Team Search</span>
+            <input id="teamSearch" type="search" placeholder="Search teams or shorthand">
+          </label>
+          <label>
+            <span>Team</span>
+            <select id="teamSelect"></select>
+          </label>
+        </div>
+        <div id="teamHistoryEmpty" class="empty-state">Select a team to view its record and historical schedule.</div>
+        <section id="teamHistoryPanel" class="history-panel is-hidden" aria-label="Team historical schedule">
+          <header class="history-header">
+            <div>
+              <p class="eyebrow">Season Record</p>
+              <h2 id="historyTeamName">-</h2>
+              <p id="historyTeamContext" class="interpretation"></p>
+            </div>
+            <label class="history-mode">
+              <span>Schedule View</span>
+              <select id="scheduleViewSelect">
+                <option value="pre_playoff" selected>Regular + Conference Championship</option>
+                <option value="regular_only">Regular Season Only</option>
+                <option value="postseason">Postseason Only</option>
+                <option value="full">Full Schedule</option>
+              </select>
+            </label>
+          </header>
+          <div id="recordSummary" class="record-summary"></div>
+          <div id="scheduleSections" class="schedule-sections"></div>
+        </section>
+      </section>
+    </main>
+
+    <div class="help-overlay is-hidden" id="helpOverlay">
+      <section class="help-dialog" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+        <button class="help-close" id="helpCloseButton" type="button" aria-label="Close help">X</button>
+        <p class="eyebrow">Metric Guide</p>
+        <h2 id="helpTitle"></h2>
+        <p id="helpBody"></p>
+      </section>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
