@@ -1,9 +1,14 @@
+const IS_LOCAL_HOST = ["127.0.0.1", "localhost"].includes(window.location.hostname);
+const LOCAL_API_OVERRIDE = IS_LOCAL_HOST ? new URLSearchParams(window.location.search).get("api") : "";
 const API_BASE = (
+  LOCAL_API_OVERRIDE ||
   (window.CFP_ADV_CONFIG && window.CFP_ADV_CONFIG.API_BASE_URL) ||
   window.CFP_API_BASE ||
-  new URLSearchParams(window.location.search).get("api") ||
   "http://127.0.0.1:8000"
 ).replace(/\/$/, "");
+const APP_CONFIG = window.CFP_ADV_CONFIG || {};
+const USE_STATIC_FALLBACK = APP_CONFIG.USE_STATIC_FALLBACK === true;
+const APP_ENVIRONMENT = APP_CONFIG.ENVIRONMENT || "local";
 
 const DEVELOPER_MODE = false;
 
@@ -127,13 +132,29 @@ function signed(value) {
   return `${Number(value) >= 0 ? "+" : ""}${Number(value).toFixed(2)}`;
 }
 
+function validSeason(value) {
+  return /^\d{4}$/.test(String(value || ""));
+}
+
 async function api(path) {
-  const response = await fetch(`${API_BASE}${path}`);
-  if (!response.ok) {
-    const detail = await response.json().catch(() => ({}));
-    throw new Error(detail.detail || `Request failed: ${response.status}`);
+  try {
+    const response = await fetch(`${API_BASE}${path}`);
+    if (!response.ok) {
+      const detail = await response.json().catch(() => ({}));
+      const message = detail.detail && typeof detail.detail === "object"
+        ? detail.detail.error || JSON.stringify(detail.detail)
+        : detail.detail || detail.error || `Request failed: ${response.status}`;
+      throw new Error(message);
+    }
+    console.info("CFP Advantage data source:", "api", path);
+    return response.json();
+  } catch (error) {
+    console.error("CFP Advantage endpoint failed:", path, error.message);
+    if (USE_STATIC_FALLBACK) {
+      console.info("CFP Advantage data source:", "static fallback unavailable for this endpoint", path);
+    }
+    throw error;
   }
-  return response.json();
 }
 
 function setOptions(select, rows, getValue, getLabel, placeholder = "") {
@@ -243,8 +264,11 @@ function populateConferenceFilter() {
 }
 
 async function loadBoard(season) {
-  const data = await api(`/api/product-a/team-board?season=${encodeURIComponent(season)}&limit=300`);
-  state.boardRows = data.rows || [];
+  if (!validSeason(season)) {
+    throw new Error("No model season is available from the API.");
+  }
+  const data = await api(`/api/teams?season=${encodeURIComponent(season)}&tier=all`);
+  state.boardRows = (data.team_options || []).filter((row) => row.adv_srs_rank !== null && row.adv_srs_rank !== undefined);
   populateConferenceFilter();
   updateMatchupSelectors();
   renderTeamBoard();
@@ -263,8 +287,11 @@ async function renderMatchupPreview() {
     els.matchupCard.classList.add("is-hidden");
     return;
   }
-  const params = new URLSearchParams({ season: els.season.value, team_a: teamA, team_b: teamB });
-  const row = await api(`/api/product-a/matchup-preview?${params.toString()}`);
+  if (!validSeason(els.season.value)) {
+    throw new Error("Select an available season before building a matchup.");
+  }
+  const params = new URLSearchParams({ season: els.season.value, teamA: teamA, teamB: teamB });
+  const row = await api(`/api/matchup?${params.toString()}`);
   const a = row.team_a;
   const b = row.team_b;
   const accuracy = Number(row.confidence_bucket.historical_accuracy) * 100;
@@ -319,8 +346,11 @@ function renderTeamBoard() {
 }
 
 async function loadSeasons() {
-  const data = await api("/api/product-a/team-board?limit=1");
-  state.seasons = data.available_seasons || [];
+  const data = await api("/api/seasons");
+  state.seasons = data.seasons || [];
+  if (!state.seasons.length) {
+    throw new Error("No model seasons are available from the API.");
+  }
   setOptions(els.season, state.seasons, (season) => season, (season) => season);
   setOptions(els.explorerSeason, state.seasons, (season) => season, (season) => season);
   const latest = String(state.seasons[state.seasons.length - 1] || "");
@@ -333,6 +363,9 @@ function explorerTeamLabel(team) {
 }
 
 async function loadExplorerTeams() {
+  if (!validSeason(els.explorerSeason.value)) {
+    throw new Error("No model season is available for the explorer.");
+  }
   const params = new URLSearchParams({ season: els.explorerSeason.value, tier: els.explorerTier.value });
   const data = await api(`/api/teams?${params.toString()}`);
   state.explorerTeams = data.team_options || [];
@@ -392,6 +425,9 @@ async function loadExplorerSchedule() {
   }
   const season = els.explorerSeason.value;
   const team = els.team.value;
+  if (!validSeason(season)) {
+    throw new Error("No model season is available for the explorer.");
+  }
   const [profile, schedule] = await Promise.all([
     api(`/api/team/${encodeURIComponent(season)}/${encodeURIComponent(team)}`),
     api(`/api/team/${encodeURIComponent(season)}/${encodeURIComponent(team)}/schedule?view=${encodeURIComponent(els.scheduleView.value)}`),
@@ -429,11 +465,11 @@ function clearRecap() {
 function renderRecap(data) {
   const game = data.game;
   const recap = data.postgame_control;
-  const awayAbbr = recap.away_abbr;
-  const homeAbbr = recap.home_abbr;
-  const awayTotal = Number(data.team_totals[awayAbbr] || 0);
-  const homeTotal = Number(data.team_totals[homeAbbr] || 0);
-  const netWinner = homeTotal >= awayTotal ? game.home_team : game.away_team;
+  const awayAbbr = recap.away_abbr || game.away_team;
+  const homeAbbr = recap.home_abbr || game.home_team;
+  const homeTotal = Number(recap.net_adv_home);
+  const awayTotal = -homeTotal;
+  const netWinner = homeTotal >= 0 ? game.home_team : game.away_team;
   els.awayName.textContent = `${game.away_team} (${awayAbbr})`;
   els.homeName.textContent = `${game.home_team} (${homeAbbr})`;
   setMetric(els.awayAdv, awayTotal);
@@ -475,6 +511,8 @@ async function refreshProductSeason() {
 }
 
 async function boot() {
+  console.info("CFP Advantage API base:", API_BASE);
+  console.info("CFP Advantage environment:", APP_ENVIRONMENT, "| static fallback enabled:", USE_STATIC_FALLBACK);
   showStatus("Fetching Data...", "Preparing football intelligence views.", true);
   clearRecap();
   await loadSeasons();
@@ -545,5 +583,8 @@ if (DEVELOPER_MODE) {
 }
 
 boot().catch((error) => {
-  showStatus("Data Unavailable", `API unavailable at ${API_BASE}: ${error.message}`, false);
+  const message = USE_STATIC_FALLBACK
+    ? `API unavailable at ${API_BASE}: ${error.message}`
+    : "Explorer unavailable - API connection failed.";
+  showStatus("Data Unavailable", message, false);
 });
