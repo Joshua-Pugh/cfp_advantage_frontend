@@ -1,4 +1,4 @@
 window.CFP_ADV_CONFIG = {
-  API_BASE_URL: "http://127.0.0.1:8000",
+  API_BASE_URL: "https://cfp-advantage-model-1.onrender.com",
   APP_VERSION: "v3.6",
 };
