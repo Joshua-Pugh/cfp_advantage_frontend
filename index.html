@@ -3,14 +3,14 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CFP ADVANTAGE MODEL v3.6</title>
+    <title>CFP ADVANTAGE MODEL v3.8</title>
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <main class="app-shell">
       <header class="topbar">
         <div>
-          <p class="eyebrow">CFP ADVANTAGE MODEL v3.6</p>
+          <p class="eyebrow">CFP ADVANTAGE MODEL v3.8</p>
           <h1>Football Intelligence Dashboard</h1>
         </div>
         <p class="header-note">Team strength, matchup outlooks, and postgame control recaps.</p>
@@ -154,6 +154,7 @@
               </div>
             </div>
             <p class="recap-interpretation" id="projectionLine"></p>
+            <div id="recapYardsContext" class="yard-context is-hidden"></div>
           </article>
           <article class="team-panel" id="homePanel">
             <p class="team-label">Home</p>
@@ -174,17 +175,67 @@
           </div>
           <span id="boardSeasonLabel" class="panel-note"></span>
         </div>
+        <div class="board-controls" aria-label="Team board filters">
+          <label>
+            <span>Season</span>
+            <select id="boardSeasonSelect"></select>
+          </label>
+          <label>
+            <span>Conference</span>
+            <select id="boardConferenceFilter"><option value="all">All conferences</option></select>
+          </label>
+          <label>
+            <span>Tier</span>
+            <select id="boardTierFilter">
+              <option value="fbs" selected>All FBS</option>
+              <option value="power">Power 4</option>
+              <option value="g5">G5</option>
+            </select>
+          </label>
+          <label>
+            <span>Team Search</span>
+            <input id="boardSearch" type="search" placeholder="Search teams">
+          </label>
+          <label>
+            <span>Minimum Games</span>
+            <input id="boardMinGames" type="number" min="0" max="20" step="1" value="0">
+          </label>
+          <label>
+            <span>Sort</span>
+            <select id="boardSort">
+              <option value="adv_srs" selected>ADV SRS</option>
+              <option value="off_adv_srs">OFF ADV SRS</option>
+              <option value="def_adv_srs">DEF ADV SRS</option>
+              <option value="adv_sos">ADV SOS</option>
+              <option value="raw_adv_margin_avg">Raw ADV Margin Avg</option>
+              <option value="raw_score_margin_avg">Raw Score Margin Avg</option>
+              <option value="games">Games Played</option>
+              <option value="yards_per_game">Yards/Game</option>
+              <option value="yards_differential_per_game">Yard Differential/Game</option>
+              <option value="team">Team Name</option>
+              <option value="conference">Conference</option>
+            </select>
+          </label>
+        </div>
+        <div id="boardState" class="board-state" role="status" aria-live="polite"></div>
         <div class="table-wrap board-wrap">
           <table class="board-table">
             <thead>
               <tr>
                 <th>Rank</th>
                 <th>Team</th>
+                <th>Games</th>
                 <th>ADV SRS</th>
                 <th>OFF</th>
                 <th>DEF</th>
                 <th>Weak Side <button class="info-button" type="button" data-help="weak-side" aria-label="Learn about Weak-Side Profile" aria-expanded="false">?</button></th>
+                <th>ADV SOS</th>
                 <th>SOS % <button class="info-button" type="button" data-help="sos" aria-label="Learn about SOS Percentile" aria-expanded="false">?</button></th>
+                <th>Raw ADV Margin</th>
+                <th>Raw Score Margin</th>
+                <th>Yards/G</th>
+                <th>Yards Allowed/G</th>
+                <th>Yard +/-</th>
                 <th>CR <button class="info-button" type="button" data-help="cr" aria-label="Learn about Control Rate" aria-expanded="false">?</button></th>
                 <th>Tags</th>
               </tr>

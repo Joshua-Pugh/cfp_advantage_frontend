@@ -700,6 +700,49 @@ tbody tr.is-selected {
   max-height: 680px;
 }
 
+.board-controls {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(130px, 1fr));
+  gap: 12px;
+  padding: 0 20px 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.board-controls label {
+  min-width: 0;
+}
+
+.board-state {
+  min-height: 18px;
+  padding: 12px 20px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.board-state.is-error {
+  color: var(--red);
+}
+
+.board-state.is-empty {
+  color: #5c6670;
+}
+
+.yard-context {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.yard-context strong {
+  margin-left: 4px;
+  color: var(--ink);
+}
+
 .board-table tbody tr {
   cursor: default;
 }
@@ -832,7 +875,8 @@ pre {
   }
 
   .control-grid,
-  .explorer-controls {
+  .explorer-controls,
+  .board-controls {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -880,6 +924,7 @@ pre {
   .filter-grid,
   .matchup-controls,
   .explorer-controls,
+  .board-controls,
   .comparison-grid,
   .report-grid,
   .control-metrics {

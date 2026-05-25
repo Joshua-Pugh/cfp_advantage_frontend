@@ -45,6 +45,7 @@ const HELP_CONTENT = {
 
 const state = {
   seasons: [],
+  matchupRows: [],
   boardRows: [],
   filteredRows: [],
   explorerTeams: [],
@@ -113,8 +114,16 @@ const els = {
   actualMargin: $("actualMargin"),
   scoreboardGap: $("scoreboardGap"),
   projectionLine: $("projectionLine"),
+  recapYardsContext: $("recapYardsContext"),
   teamBoardTable: $("teamBoardTable"),
   boardSeasonLabel: $("boardSeasonLabel"),
+  boardSeason: $("boardSeasonSelect"),
+  boardConference: $("boardConferenceFilter"),
+  boardTier: $("boardTierFilter"),
+  boardSearch: $("boardSearch"),
+  boardMinGames: $("boardMinGames"),
+  boardSort: $("boardSort"),
+  boardState: $("boardState"),
   helpOverlay: $("helpOverlay"),
   helpTitle: $("helpTitle"),
   helpBody: $("helpBody"),
@@ -224,7 +233,7 @@ function rankingRowsForFilters() {
   const tier = els.tierFilter.value;
   const conference = els.conferenceFilter.value;
   const maxRank = els.rankFilter.value === "all" ? Infinity : Number(els.rankFilter.value);
-  return state.boardRows.filter((row) => {
+  return state.matchupRows.filter((row) => {
     const tierMatch = tier === "independent"
       ? String(row.conference || "").toLowerCase().includes("independent")
       : tier === "all" || tier === "fbs"
@@ -253,7 +262,7 @@ function updateMatchupSelectors() {
 }
 
 function populateConferenceFilter() {
-  const conferences = [...new Set(state.boardRows.map((row) => row.conference).filter(Boolean))].sort();
+  const conferences = [...new Set(state.matchupRows.map((row) => row.conference).filter(Boolean))].sort();
   setOptions(
     els.conferenceFilter,
     ["all", ...conferences],
@@ -263,15 +272,77 @@ function populateConferenceFilter() {
   els.conferenceFilter.value = "all";
 }
 
-async function loadBoard(season) {
+function populateBoardConferenceFilter() {
+  const previous = els.boardConference.value;
+  const conferences = [...new Set(state.boardRows.map((row) => row.conference).filter(Boolean))].sort();
+  setOptions(
+    els.boardConference,
+    ["all", ...conferences],
+    (value) => value,
+    (value) => value === "all" ? "All conferences" : value
+  );
+  if (conferences.includes(previous)) els.boardConference.value = previous;
+}
+
+function setBoardStatus(message, kind = "") {
+  els.boardState.textContent = message;
+  els.boardState.classList.toggle("is-error", kind === "error");
+  els.boardState.classList.toggle("is-empty", kind === "empty");
+}
+
+function boardRowsForFilters() {
+  const tier = els.boardTier.value;
+  const conference = els.boardConference.value;
+  const query = els.boardSearch.value.trim().toLowerCase();
+  const minimumGames = Number(els.boardMinGames.value || 0);
+  const numericSorts = new Set(["adv_srs", "off_adv_srs", "def_adv_srs", "adv_sos", "raw_adv_margin_avg", "raw_score_margin_avg", "games", "yards_per_game", "yards_differential_per_game"]);
+  const sortField = els.boardSort.value;
+  const rows = state.boardRows.filter((row) => {
+    const tierMatch = tier === "fbs"
+      ? ["power", "g5"].includes(String(row.tier || "").toLowerCase())
+      : String(row.tier || "").toLowerCase() === tier;
+    const conferenceMatch = conference === "all" || row.conference === conference;
+    const searchMatch = !query || String(row.team || "").toLowerCase().includes(query);
+    const games = Number(row.games ?? row.pre_playoff_games ?? row.overall_games ?? 0);
+    return tierMatch && conferenceMatch && searchMatch && games >= minimumGames;
+  });
+  return rows.sort((left, right) => {
+    if (numericSorts.has(sortField)) {
+      const difference = Number(right[sortField] ?? -Infinity) - Number(left[sortField] ?? -Infinity);
+      if (difference) return difference;
+    } else {
+      const comparison = String(left[sortField] || "").localeCompare(String(right[sortField] || ""));
+      if (comparison) return comparison;
+    }
+    return Number(left.adv_srs_rank || Infinity) - Number(right.adv_srs_rank || Infinity);
+  });
+}
+
+async function fetchRankedRows(season) {
   if (!validSeason(season)) {
     throw new Error("No model season is available from the API.");
   }
   const data = await api(`/api/teams?season=${encodeURIComponent(season)}&tier=all`);
-  state.boardRows = (data.team_options || []).filter((row) => row.adv_srs_rank !== null && row.adv_srs_rank !== undefined);
+  return (data.team_options || []).filter((row) => row.adv_srs_rank !== null && row.adv_srs_rank !== undefined);
+}
+
+async function loadMatchupRows(season) {
+  state.matchupRows = await fetchRankedRows(season);
   populateConferenceFilter();
   updateMatchupSelectors();
-  renderTeamBoard();
+}
+
+async function loadBoard(season) {
+  setBoardStatus("Loading team board...");
+  try {
+    state.boardRows = await fetchRankedRows(season);
+    populateBoardConferenceFilter();
+    console.info("CFP Advantage board teams returned:", state.boardRows.length, "| season:", season);
+    renderTeamBoard();
+  } catch (error) {
+    setBoardStatus(`Team board unavailable: ${error.message}`, "error");
+    throw error;
+  }
 }
 
 function metricTile(label, value) {
@@ -323,25 +394,45 @@ async function renderMatchupPreview() {
 }
 
 function renderTeamBoard() {
-  els.boardSeasonLabel.textContent = `${els.season.value} qualified board | ${state.filteredRows.length} teams shown`;
+  const rows = boardRowsForFilters();
+  const filters = {
+    season: els.boardSeason.value,
+    tier: els.boardTier.value,
+    conference: els.boardConference.value,
+    search: els.boardSearch.value.trim(),
+    minimumGames: Number(els.boardMinGames.value || 0),
+    sort: els.boardSort.value,
+  };
+  console.info("CFP Advantage board filters:", filters, "| shown:", rows.length);
+  els.boardSeasonLabel.textContent = `${els.boardSeason.value} qualified board | ${rows.length} teams shown`;
   els.teamBoardTable.innerHTML = "";
-  state.filteredRows.forEach((row) => {
+  rows.forEach((row) => {
     const tr = document.createElement("tr");
     tr.innerHTML = `
       <td>#${row.adv_srs_rank}</td>
       <td><strong>${row.team}</strong><small class="table-subtitle">${row.conference || row.tier || ""}</small></td>
+      <td>${row.games ?? row.pre_playoff_games ?? row.overall_games ?? "-"}</td>
       <td>${formatNumber(row.adv_srs)}</td>
       <td>${formatNumber(row.off_adv_srs)}</td>
       <td>${formatNumber(row.def_adv_srs)}</td>
       <td>${formatNumber(row.weaker_side_srs)}</td>
+      <td>${formatNumber(row.adv_sos)}</td>
       <td>${formatNumber(row.adv_sos_percentile)}%</td>
+      <td>${formatNumber(row.raw_adv_margin_avg)}</td>
+      <td>${formatNumber(row.raw_score_margin_avg)}</td>
+      <td>${formatNumber(row.yards_per_game)}</td>
+      <td>${formatNumber(row.yards_allowed_per_game)}</td>
+      <td>${signed(row.yards_differential_per_game)}</td>
       <td>${formatNumber(row.control_rate_pct)}%</td>
       <td><span class="tag-text">${(row.title_signal_tags || "").split("|").slice(0, 2).join(" | ") || "-"}</span></td>
     `;
     els.teamBoardTable.appendChild(tr);
   });
-  if (!state.filteredRows.length) {
-    els.teamBoardTable.innerHTML = '<tr><td colspan="9" class="empty">No qualified teams match these filters.</td></tr>';
+  if (!rows.length) {
+    setBoardStatus("No results match the selected filters.", "empty");
+    els.teamBoardTable.innerHTML = '<tr><td colspan="16" class="empty">No qualified teams match these filters.</td></tr>';
+  } else {
+    setBoardStatus(`${rows.length} qualified teams displayed.`);
   }
 }
 
@@ -352,9 +443,11 @@ async function loadSeasons() {
     throw new Error("No model seasons are available from the API.");
   }
   setOptions(els.season, state.seasons, (season) => season, (season) => season);
+  setOptions(els.boardSeason, state.seasons, (season) => season, (season) => season);
   setOptions(els.explorerSeason, state.seasons, (season) => season, (season) => season);
   const latest = String(state.seasons[state.seasons.length - 1] || "");
   els.season.value = latest;
+  els.boardSeason.value = latest;
   els.explorerSeason.value = latest;
 }
 
@@ -404,7 +497,7 @@ function renderScheduleSections(rows) {
         <div class="schedule-week">${row.display_week}</div>
         <div class="schedule-opponent">
           <strong>${row.is_home ? "vs" : "at"} ${row.opponent}</strong>
-          <span>${row.date || ""}${row.is_neutral ? " | Neutral Site" : ""}</span>
+          <span>${row.date || ""}${row.is_neutral ? " | Neutral Site" : ""}${row.team_total_yards !== null && row.team_total_yards !== undefined ? ` | Yards ${row.team_total_yards}-${row.opponent_total_yards}` : ""}</span>
         </div>
         <div class="schedule-score ${resultClass(row.result_w_l)}">${row.result_w_l} ${row.team_score}-${row.opponent_score}</div>
         ${row.has_adv_recap ? `<button class="recap-link" type="button" data-game-id="${row.game_id}">View Recap</button>` : ""}
@@ -444,6 +537,13 @@ async function loadExplorerSchedule() {
     recordMetric("Nonconference", record.nonconference_record),
     recordMetric("Pre-Playoff", record.pre_playoff_record),
     recordMetric("Postseason", record.postseason_record),
+    ...(profile.intelligence && profile.intelligence.yards_per_game !== null && profile.intelligence.yards_per_game !== undefined
+      ? [
+          recordMetric("Yards/Game", formatNumber(profile.intelligence.yards_per_game)),
+          recordMetric("Yards Allowed/Game", formatNumber(profile.intelligence.yards_allowed_per_game)),
+          recordMetric("Yard +/-", signed(profile.intelligence.yards_differential_per_game)),
+        ]
+      : []),
   ].join("");
   renderScheduleSections(schedule.schedule || []);
   els.teamHistoryEmpty.classList.add("is-hidden");
@@ -460,6 +560,7 @@ function clearRecap() {
   state.hasRecap = false;
   els.recapEmpty.classList.remove("is-hidden");
   els.recapPanel.classList.add("is-hidden");
+  els.recapYardsContext.classList.add("is-hidden");
 }
 
 function renderRecap(data) {
@@ -483,6 +584,16 @@ function renderRecap(data) {
   setMetric(els.actualMargin, actualWinnerMargin);
   setMetric(els.scoreboardGap, actualWinnerMargin - deservedWinnerMargin);
   els.projectionLine.textContent = recap.summary;
+  const yards = data.yards_context || {};
+  if (yards.available) {
+    els.recapYardsContext.innerHTML = `
+      <span>${game.away_team} yards <strong>${yards.away_total_yards}</strong></span>
+      <span>${game.home_team} yards <strong>${yards.home_total_yards}</strong></span>
+    `;
+    els.recapYardsContext.classList.remove("is-hidden");
+  } else {
+    els.recapYardsContext.classList.add("is-hidden");
+  }
   state.hasRecap = true;
   els.recapEmpty.classList.add("is-hidden");
   els.recapPanel.classList.remove("is-hidden");
@@ -503,7 +614,7 @@ async function analyzeGame(gameId) {
 
 async function refreshProductSeason() {
   showStatus("Loading Team Intelligence...", "Refreshing qualified rankings and matchup options.", true);
-  await loadBoard(els.season.value);
+  await loadMatchupRows(els.season.value);
   els.matchupEmpty.textContent = "Select two ranked teams to create a matchup preview.";
   els.matchupEmpty.classList.remove("is-hidden");
   els.matchupCard.classList.add("is-hidden");
@@ -516,6 +627,7 @@ async function boot() {
   showStatus("Fetching Data...", "Preparing football intelligence views.", true);
   clearRecap();
   await loadSeasons();
+  await loadMatchupRows(els.season.value);
   await loadBoard(els.season.value);
   hideStatus();
   setWorkspaceView("pregame");
@@ -554,8 +666,16 @@ els.season.addEventListener("change", refreshProductSeason);
 [els.tierFilter, els.conferenceFilter, els.rankFilter].forEach((filter) => {
   filter.addEventListener("change", () => {
     updateMatchupSelectors();
-    renderTeamBoard();
   });
+});
+[els.boardConference, els.boardTier, els.boardSort].forEach((filter) => {
+  filter.addEventListener("change", renderTeamBoard);
+});
+[els.boardSearch, els.boardMinGames].forEach((input) => {
+  input.addEventListener("input", renderTeamBoard);
+});
+els.boardSeason.addEventListener("change", () => {
+  loadBoard(els.boardSeason.value).catch((error) => setBoardStatus(`Team board unavailable: ${error.message}`, "error"));
 });
 [els.previewSearchA, els.previewSearchB].forEach((input) => input.addEventListener("input", updateMatchupSelectors));
 els.previewButton.addEventListener("click", () => renderMatchupPreview().catch((error) => showStatus("Preview Unavailable", error.message, false)));
