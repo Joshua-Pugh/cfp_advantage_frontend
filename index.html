@@ -3,17 +3,26 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CFP ADVANTAGE MODEL v3.8</title>
+    <title>CFP Advantage Product A v4</title>
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <main class="app-shell">
       <header class="topbar">
         <div>
-          <p class="eyebrow">CFP ADVANTAGE MODEL v3.8</p>
+          <p class="eyebrow">CFP ADVANTAGE PRODUCT A v4</p>
           <h1>Football Intelligence Dashboard</h1>
         </div>
-        <p class="header-note">Team strength, matchup outlooks, and postgame control recaps.</p>
+        <div class="header-stack">
+          <p class="header-note">Team strength, matchup outlooks, and postgame control recaps.</p>
+          <nav class="page-nav" aria-label="Site pages">
+            <a href="historical.html">Historical</a>
+            <a href="bracket-room.html">Bracket Room</a>
+            <a href="metrics.html">Metrics</a>
+            <a href="news.html">News</a>
+            <a href="legal.html">Legal</a>
+          </nav>
+        </div>
       </header>
 
       <nav class="workspace-tabs" aria-label="Intelligence views">
@@ -21,6 +30,7 @@
         <button id="postgameViewTab" class="workspace-tab" type="button">Game Recap</button>
         <button id="teamBoardViewTab" class="workspace-tab" type="button">Team Board</button>
         <button id="explorerViewTab" class="workspace-tab" type="button">Football Intelligence Explorer</button>
+        <button id="metricsViewTab" class="workspace-tab" type="button">Metrics Guide</button>
       </nav>
 
       <section class="loader-panel is-hidden" id="loaderPanel" role="status" aria-live="polite">
@@ -299,7 +309,38 @@
           <div id="scheduleSections" class="schedule-sections"></div>
         </section>
       </section>
+
+      <section id="metricsView" class="workspace-view is-hidden">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Product A Guide</p>
+            <h2>ADV Metrics Guide</h2>
+          </div>
+          <span class="panel-note">Plain-English definitions, no formulas</span>
+        </div>
+        <div class="metrics-intro">
+          <p>CFP Advantage explains team strength, matchup context, and football-control signals. These metrics are structured football intelligence, not guarantees or betting advice.</p>
+        </div>
+        <div id="metricCatalogState" class="board-state" role="status" aria-live="polite"></div>
+        <section class="guide-section">
+          <h3>Model Metrics</h3>
+          <div id="metricCatalogGrid" class="guide-grid"></div>
+        </section>
+        <section class="guide-section">
+          <h3>Traditional Stats For Comparison</h3>
+          <p class="guide-note">These stats help users compare familiar football numbers beside ADV. They do not replace ADV SRS.</p>
+          <div id="comparisonStatsGrid" class="guide-grid compact"></div>
+        </section>
+      </section>
     </main>
+
+    <section id="termsBanner" class="terms-banner is-hidden" aria-label="Terms acknowledgement">
+      <div>
+        <p class="eyebrow">CFP Advantage</p>
+        <p id="termsBannerText">CFP Advantage provides football intelligence and model-derived context. It does not provide guarantees, betting advice, or financial advice.</p>
+      </div>
+      <button id="termsAcceptButton" type="button">Accept</button>
+    </section>
 
     <div class="help-overlay is-hidden" id="helpOverlay">
       <section class="help-dialog" role="dialog" aria-modal="true" aria-labelledby="helpTitle">

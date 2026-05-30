@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Historical Matchup | CFP Advantage</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body data-page="historical">
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">CFP ADVANTAGE PRODUCT A</p>
+          <h1>Historical Matchup</h1>
+        </div>
+        <nav class="page-nav" aria-label="Site pages">
+          <a href="index.html">Dashboard</a>
+          <a href="metrics.html">Metrics</a>
+          <a href="bracket-room.html">Bracket Room</a>
+          <a href="news.html">News</a>
+          <a href="legal.html">Legal</a>
+        </nav>
+      </header>
+      <p id="pageStatus" class="page-status">Loading...</p>
+      <section class="workspace-view static-page">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">As The Model Saw It</p>
+            <h2>Pregame Matchup Builder</h2>
+          </div>
+        </div>
+        <div class="matchup-controls page-controls">
+          <label><span>Season</span><select id="seasonSelect"></select></label>
+          <label><span>Team A</span><select id="teamASelect"></select></label>
+          <label><span>Team B</span><select id="teamBSelect"></select></label>
+          <button id="buildHistoricalButton" type="button">Build View</button>
+        </div>
+        <div id="historicalResult" class="page-result">
+          <div class="empty-state">Choose a season and two teams.</div>
+        </div>
+      </section>
+    </main>
+    <script src="config.js"></script>
+    <script src="site.js"></script>
+  </body>
+</html>

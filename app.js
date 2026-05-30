@@ -9,6 +9,10 @@ const API_BASE = (
 const APP_CONFIG = window.CFP_ADV_CONFIG || {};
 const USE_STATIC_FALLBACK = APP_CONFIG.USE_STATIC_FALLBACK === true;
 const APP_ENVIRONMENT = APP_CONFIG.ENVIRONMENT || "local";
+const TERMS_ACCEPTED_KEY = "cfp_adv_terms_accepted";
+const TERMS_VERSION_KEY = "cfp_adv_terms_version";
+const TERMS_ACCEPTED_AT_KEY = "cfp_adv_terms_accepted_at";
+const DEFAULT_TERMS_VERSION = "2026-05-29-product-a-v4";
 
 const DEVELOPER_MODE = false;
 
@@ -50,6 +54,9 @@ const state = {
   filteredRows: [],
   explorerTeams: [],
   games: [],
+  metricCatalog: [],
+  comparisonStats: [],
+  termsVersion: DEFAULT_TERMS_VERSION,
   selectedActualGame: null,
   hasRecap: false,
   activeView: "pregame",
@@ -97,10 +104,12 @@ const els = {
   postgameView: $("postgameView"),
   teamBoardView: $("teamBoardView"),
   explorerView: $("explorerView"),
+  metricsView: $("metricsView"),
   pregameViewTab: $("pregameViewTab"),
   postgameViewTab: $("postgameViewTab"),
   teamBoardViewTab: $("teamBoardViewTab"),
   explorerViewTab: $("explorerViewTab"),
+  metricsViewTab: $("metricsViewTab"),
   recapEmpty: $("recapEmpty"),
   recapPanel: $("recapPanel"),
   awayName: $("awayName"),
@@ -128,6 +137,12 @@ const els = {
   helpTitle: $("helpTitle"),
   helpBody: $("helpBody"),
   helpClose: $("helpCloseButton"),
+  metricCatalogState: $("metricCatalogState"),
+  metricCatalogGrid: $("metricCatalogGrid"),
+  comparisonStatsGrid: $("comparisonStatsGrid"),
+  termsBanner: $("termsBanner"),
+  termsBannerText: $("termsBannerText"),
+  termsAcceptButton: $("termsAcceptButton"),
 };
 
 function formatNumber(value) {
@@ -205,12 +220,94 @@ function setWorkspaceView(view) {
     postgame: [els.postgameViewTab, els.postgameView],
     board: [els.teamBoardViewTab, els.teamBoardView],
     explorer: [els.explorerViewTab, els.explorerView],
+    metrics: [els.metricsViewTab, els.metricsView],
   };
   Object.entries(mapping).forEach(([key, [button, panel]]) => {
     const active = key === view;
     button.classList.toggle("is-active", active);
     panel.classList.toggle("is-hidden", !active);
   });
+}
+
+function storageGet(key) {
+  try {
+    return window.localStorage.getItem(key);
+  } catch (error) {
+    console.warn("CFP Advantage localStorage unavailable:", error.message);
+    return null;
+  }
+}
+
+function storageSet(key, value) {
+  try {
+    window.localStorage.setItem(key, value);
+  } catch (error) {
+    console.warn("CFP Advantage localStorage write unavailable:", error.message);
+  }
+}
+
+function showTermsBanner(message) {
+  if (!els.termsBanner) return;
+  const accepted = storageGet(TERMS_ACCEPTED_KEY) === "true";
+  const version = storageGet(TERMS_VERSION_KEY);
+  if (accepted && version === state.termsVersion) return;
+  if (message) els.termsBannerText.textContent = message;
+  els.termsBanner.classList.remove("is-hidden");
+}
+
+function acceptTerms() {
+  storageSet(TERMS_ACCEPTED_KEY, "true");
+  storageSet(TERMS_VERSION_KEY, state.termsVersion);
+  storageSet(TERMS_ACCEPTED_AT_KEY, new Date().toISOString());
+  els.termsBanner.classList.add("is-hidden");
+}
+
+function renderMetricCards(rows) {
+  els.metricCatalogGrid.innerHTML = rows.map((metric) => `
+    <article class="guide-card">
+      <span>${metric.group || "Metric"}</span>
+      <h4>${metric.name}</h4>
+      <p>${metric.plain_english || ""}</p>
+      <dl>
+        <div><dt>Use for</dt><dd>${metric.use_for || "-"}</dd></div>
+        <div><dt>Limit</dt><dd>${metric.limit || "-"}</dd></div>
+      </dl>
+    </article>
+  `).join("");
+}
+
+function renderComparisonStats(rows) {
+  els.comparisonStatsGrid.innerHTML = rows.map((stat) => `
+    <article class="guide-card compact">
+      <span>${stat.group || "Stat"}</span>
+      <h4>${stat.name}</h4>
+      <p>${stat.note || ""}</p>
+      <small class="status-pill">${String(stat.status || "planned").replace(/_/g, " ")}</small>
+    </article>
+  `).join("");
+}
+
+async function loadProductGuides() {
+  els.metricCatalogState.textContent = "Loading metric guide...";
+  try {
+    const [metrics, stats, legal] = await Promise.all([
+      api("/api/product-a/metric-catalog"),
+      api("/api/product-a/comparison-stats"),
+      api("/api/legal/acknowledgement"),
+    ]);
+    state.metricCatalog = metrics.metrics || [];
+    state.comparisonStats = stats.stats || [];
+    state.termsVersion = legal.terms_version || DEFAULT_TERMS_VERSION;
+    renderMetricCards(state.metricCatalog);
+    renderComparisonStats(state.comparisonStats);
+    els.metricCatalogState.textContent = `${state.metricCatalog.length} public metrics and ${state.comparisonStats.length} comparison stats loaded.`;
+    showTermsBanner(legal.message);
+  } catch (error) {
+    els.metricCatalogState.textContent = `Metric guide unavailable from API: ${error.message}`;
+    renderMetricCards([]);
+    renderComparisonStats([]);
+    showTermsBanner();
+  }
 }
 
 function openHelp(key, trigger) {
@@ -629,6 +726,7 @@ async function boot() {
   await loadSeasons();
   await loadMatchupRows(els.season.value);
   await loadBoard(els.season.value);
+  await loadProductGuides();
   hideStatus();
   setWorkspaceView("pregame");
 }
@@ -662,6 +760,8 @@ els.pregameViewTab.addEventListener("click", () => setWorkspaceView("pregame"));
 els.postgameViewTab.addEventListener("click", () => setWorkspaceView("postgame"));
 els.teamBoardViewTab.addEventListener("click", () => setWorkspaceView("board"));
 els.explorerViewTab.addEventListener("click", openExplorer);
+els.metricsViewTab.addEventListener("click", () => setWorkspaceView("metrics"));
+els.termsAcceptButton.addEventListener("click", acceptTerms);
 els.season.addEventListener("change", refreshProductSeason);
 [els.tierFilter, els.conferenceFilter, els.rankFilter].forEach((filter) => {
   filter.addEventListener("change", () => {

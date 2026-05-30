@@ -54,6 +54,114 @@ select {
   text-align: right;
 }
 
+.header-stack {
+  display: grid;
+  justify-items: end;
+  gap: 10px;
+}
+
+.page-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.page-nav a {
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+  background: #fff;
+}
+
+.page-nav a:hover {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.page-status {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.page-status.ok {
+  color: var(--green);
+}
+
+.page-status.warn {
+  color: var(--gold);
+}
+
+.page-status.error {
+  color: var(--red);
+}
+
+.static-page {
+  padding-bottom: 18px;
+}
+
+.page-controls {
+  padding: 20px;
+}
+
+.page-result {
+  padding: 0 20px 20px;
+}
+
+.insight-panel {
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfcfd;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.summary-grid > div {
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.summary-grid span {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.summary-grid strong {
+  display: block;
+  margin-top: 6px;
+  font-size: 20px;
+}
+
+.compact-table {
+  margin: 18px 20px 4px;
+}
+
+.legal-copy {
+  max-width: 760px;
+  padding: 20px;
+  color: var(--muted);
+  font-weight: 650;
+}
+
 .workspace-tabs {
   display: flex;
   gap: 6px;
@@ -790,6 +898,136 @@ tbody tr.is-selected {
   font-size: 13px;
 }
 
+.metrics-intro {
+  padding: 18px 20px 0;
+  color: var(--muted);
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.metrics-intro p {
+  max-width: 920px;
+  margin: 0;
+}
+
+.guide-section {
+  padding: 18px 20px 22px;
+  border-top: 1px solid var(--line);
+}
+
+.guide-section h3 {
+  margin: 0 0 12px;
+  font-size: 16px;
+}
+
+.guide-note {
+  max-width: 880px;
+  margin: 0 0 14px;
+  color: var(--muted);
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.guide-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.guide-grid.compact {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.guide-card {
+  min-height: 190px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fbfcfa;
+}
+
+.guide-card.compact {
+  min-height: 150px;
+}
+
+.guide-card span,
+.status-pill {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.guide-card h4 {
+  margin: 7px 0 8px;
+  font-size: 17px;
+}
+
+.guide-card p {
+  margin: 0 0 12px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.guide-card dl {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+.guide-card dt {
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.guide-card dd {
+  margin: 2px 0 0;
+  color: var(--muted);
+  line-height: 1.35;
+}
+
+.status-pill {
+  display: inline-block;
+  padding: 4px 7px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #edf1f3;
+}
+
+.terms-banner {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 30;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 14px;
+  width: min(620px, calc(100% - 36px));
+  padding: 16px;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.terms-banner.is-hidden {
+  display: none;
+}
+
+.terms-banner p:last-child {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.terms-banner button {
+  min-width: 96px;
+}
+
 .help-overlay {
   position: fixed;
   inset: 0;
@@ -896,7 +1134,9 @@ pre {
   }
 
   .comparison-grid,
-  .report-grid {
+  .report-grid,
+  .guide-grid,
+  .guide-grid.compact {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -925,9 +1165,19 @@ pre {
   .matchup-controls,
   .explorer-controls,
   .board-controls,
-  .comparison-grid,
-  .report-grid,
-  .control-metrics {
+    .comparison-grid,
+    .report-grid,
+    .guide-grid,
+    .guide-grid.compact,
+    .control-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .terms-banner {
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    width: auto;
     grid-template-columns: 1fr;
   }
 
