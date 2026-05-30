@@ -513,49 +513,226 @@ async function renderTeamPage() {
     api(`/api/team/${encodeURIComponent(season)}/${encodeURIComponent(team)}`),
     api(`/api/team/${encodeURIComponent(season)}/${encodeURIComponent(team)}/schedule?view=full`),
   ]);
+  
   const intel = profile.intelligence || {};
   const stats = profile.comparison_stats || {};
-  const conversion = profile.drive_conversion || {};
+  const record = profile.record || {};
   const games = schedule.schedule || [];
+  
+  // Store data for tab switching
+  window.__teamPageData = {
+    season,
+    team,
+    intel,
+    stats,
+    record,
+    games,
+  };
+
   $("teamPageResult").innerHTML = `
+    <div id="teamScheduleView" class="team-view-panel is-active">
+      ${renderTeamScheduleView(season, team, intel, record, games)}
+    </div>
+    <div id="teamStatsView" class="team-view-panel">
+      ${renderTeamStatsView(intel, stats)}
+    </div>
+  `;
+
+  // Setup tab switching
+  $("teamScheduleTab").addEventListener("click", () => switchTeamTab("schedule"));
+  $("teamStatsTab").addEventListener("click", () => switchTeamTab("stats"));
+
+  setStatus("Team profile loaded.", "ok");
+}
+
+function switchTeamTab(tabName) {
+  const scheduleView = $("teamScheduleView");
+  const statsView = $("teamStatsView");
+  const scheduleTab = $("teamScheduleTab");
+  const statsTab = $("teamStatsTab");
+
+  if (tabName === "schedule") {
+    scheduleView.classList.add("is-active");
+    statsView.classList.remove("is-active");
+    scheduleTab.classList.add("is-active");
+    statsTab.classList.remove("is-active");
+  } else {
+    statsView.classList.add("is-active");
+    scheduleView.classList.remove("is-active");
+    statsTab.classList.add("is-active");
+    scheduleTab.classList.remove("is-active");
+  }
+}
+
+function renderTeamScheduleView(season, team, intel, record, games) {
+  const recordSummary = [
+    `<div class="record-tile"><span>Overall</span><strong>${record.overall_record || "-"}</strong></div>`,
+    `<div class="record-tile"><span>Regular</span><strong>${record.regular_record || "-"}</strong></div>`,
+    `<div class="record-tile"><span>Conference</span><strong>${record.conference_record || "-"}</strong></div>`,
+    `<div class="record-tile"><span>Nonconference</span><strong>${record.nonconference_record || "-"}</strong></div>`,
+    `<div class="record-tile"><span>Pre-Playoff</span><strong>${record.pre_playoff_record || "-"}</strong></div>`,
+    `<div class="record-tile"><span>Postseason</span><strong>${record.postseason_record || "-"}</strong></div>`,
+    ...(intel.yards_per_game !== null && intel.yards_per_game !== undefined
+      ? [
+          `<div class="record-tile"><span>Yards/Game</span><strong>${formatNumber(intel.yards_per_game)}</strong></div>`,
+          `<div class="record-tile"><span>Yards Allowed/Game</span><strong>${formatNumber(intel.yards_allowed_per_game)}</strong></div>`,
+          `<div class="record-tile"><span>Yard +/-</span><strong>${signed(intel.yards_differential_per_game)}</strong></div>`,
+        ]
+      : []),
+  ].join("");
+
+  const sections = [
+    ["regular_season", "Regular Season"],
+    ["conference_championship", "Conference Championship"],
+    ["postseason", "Postseason"],
+  ];
+
+  const scheduleSections = sections.map(([key, title]) => {
+    const items = games.filter((row) => row.schedule_section === key);
+    if (!items.length) return "";
+    const gamesList = items.map((row) => {
+      const weekField = row.display_week || row.week ?? row.week_number ?? row.week_num ?? "-";
+      const resultClass = row.result_w_l === "W" ? "result-win" : row.result_w_l === "L" ? "result-loss" : "";
+      return `
+        <article class="schedule-game">
+          <div class="schedule-week">${escapeHtml(weekField)}</div>
+          <div class="schedule-opponent">
+            <strong>${row.is_home ? "vs" : "at"} ${escapeHtml(row.opponent || row.opponent_name || "-")}</strong>
+            <span>${row.date || ""}${row.is_neutral ? " | Neutral Site" : ""}${row.team_total_yards !== null && row.team_total_yards !== undefined ? ` | Yards ${row.team_total_yards}-${row.opponent_total_yards}` : ""}</span>
+          </div>
+          <div class="schedule-score ${resultClass}">${row.result_w_l} ${row.team_score}-${row.opponent_score}</div>
+        </article>
+      `;
+    }).join("");
+    return `<section class="schedule-group"><h3>${title}</h3>${gamesList}</section>`;
+  }).join("") || '<div class="empty-state compact">No games available for this view.</div>';
+
+  return `
     <div class="insight-panel">
       <p class="eyebrow">${escapeHtml(season)} Team Profile</p>
       <h2>${escapeHtml(team)}</h2>
-      <div class="summary-grid">
-        <div><span>ADV Rank</span><strong>#${escapeHtml(intel.adv_srs_rank || "-")}</strong></div>
-        <div><span>ADV Strength Rating</span><strong>${formatNumber(intel.adv_srs, 2)}</strong></div>
-        <div><span>Offense</span><strong>${formatNumber(intel.off_adv_srs, 2)}</strong></div>
-        <div><span>Defense</span><strong>${formatNumber(intel.def_adv_srs, 2)}</strong></div>
-        <div><span>Control Rate</span><strong>${formatNumber(intel.control_rate_pct, 1)}%</strong></div>
-        ${buildTeamStatRows(stats, conversion)}
+      <div class="record-summary">
+        ${recordSummary}
       </div>
     </div>
     <div class="context-callout">
       <h3>Schedule</h3>
-      <div class="table-wrap">
-        <table class="data-table compact-table">
-          <thead><tr><th>Week</th><th>Opponent</th><th>Score</th><th>ADV Recap</th></tr></thead>
-          <tbody>
-            ${games.map((game) => {
-              const weekField = game.week ?? game.week_number ?? game.week_num ?? game.week_no ?? game.week_name ?? game.week_display ?? "-";
-              const scoreLine = game.team_score != null
-                ? `${escapeHtml(game.team_score)}-${escapeHtml(game.opponent_score)}`
-                : escapeHtml(game.score || "-");
-              return `
-                <tr>
-                  <td>${escapeHtml(weekField)}</td>
-                  <td>${escapeHtml(game.opponent || game.opponent_name || game.opponent_team || "-")}</td>
-                  <td>${scoreLine}</td>
-                  <td>${game.has_adv_recap ? "Available" : "-"}</td>
-                </tr>
-              `;
-            }).join("")}
-          </tbody>
-        </table>
+      <div class="schedule-sections">
+        ${scheduleSections}
       </div>
     </div>
   `;
-  setStatus("Team profile loaded.", "ok");
+}
+
+function renderTeamStatsView(intel, stats) {
+  const statCategories = [
+    {
+      name: "Team Overview & Scoring",
+      fields: [
+        { key: "points_per_game", label: "Points / Game" },
+        { key: "opp_points_per_game", label: "Opp Points / Game" },
+        { key: "total_points", label: "Total Points" },
+        { key: "total_touchdowns", label: "Total Touchdowns" },
+        { key: "passing_touchdowns", label: "Passing Touchdowns" },
+        { key: "rushing_touchdowns", label: "Rushing Touchdowns" },
+        { key: "first_downs_per_game", label: "First Downs / Game" },
+        { key: "rushing_first_downs", label: "Rushing First Downs" },
+        { key: "passing_first_downs", label: "Passing First Downs" },
+        { key: "penalty_first_downs", label: "Penalty First Downs" },
+      ],
+    },
+    {
+      name: "Passing Statistics",
+      fields: [
+        { key: "passing_yards_per_game", label: "Passing Yards / Game" },
+        { key: "completions", label: "Completions" },
+        { key: "passing_attempts", label: "Passing Attempts" },
+        { key: "completion_percentage", label: "Completion %", format: "percent" },
+        { key: "yards_per_attempt", label: "Yards / Attempt" },
+        { key: "passing_touchdowns", label: "Passing TD" },
+        { key: "interceptions_thrown", label: "Interceptions" },
+      ],
+    },
+    {
+      name: "Rushing Statistics",
+      fields: [
+        { key: "rushing_yards_per_game", label: "Rushing Yards / Game" },
+        { key: "rushing_attempts", label: "Rushing Attempts" },
+        { key: "yards_per_rush", label: "Yards / Rush" },
+        { key: "rushing_touchdowns", label: "Rushing TD" },
+      ],
+    },
+    {
+      name: "Defensive & Line Metrics",
+      fields: [
+        { key: "yards_allowed_per_game", label: "Yards Allowed / Game" },
+        { key: "passing_yards_allowed", label: "Passing Yards Allowed" },
+        { key: "rushing_yards_allowed", label: "Rushing Yards Allowed" },
+        { key: "sacks", label: "Sacks" },
+        { key: "interceptions", label: "Interceptions" },
+        { key: "fumbles_recovered", label: "Fumbles Recovered" },
+        { key: "pass_deflections", label: "Pass Deflections" },
+        { key: "tackles_for_loss", label: "Tackles For Loss" },
+      ],
+    },
+    {
+      name: "Situational & Special Teams",
+      fields: [
+        { key: "third_down_rate", label: "3rd Down Conversion %", format: "percent" },
+        { key: "fourth_down_rate", label: "4th Down Conversion %", format: "percent" },
+        { key: "red_zone_score_rate", label: "Red Zone Score %", format: "percent" },
+        { key: "red_zone_td_rate", label: "Red Zone TD %", format: "percent" },
+        { key: "turnover_margin", label: "Turnover Margin", format: "signed" },
+        { key: "field_goal_percentage", label: "Field Goal %", format: "percent" },
+        { key: "field_goals_made", label: "Field Goals Made" },
+        { key: "field_goals_attempted", label: "Field Goals Attempted" },
+        { key: "punting_average", label: "Punting Average" },
+        { key: "kick_return_yards", label: "Kick Return Yards" },
+        { key: "punt_return_yards", label: "Punt Return Yards" },
+        { key: "penalties", label: "Total Penalties" },
+        { key: "penalty_yards", label: "Penalty Yards" },
+      ],
+    },
+  ];
+
+  const allData = { ...intel, ...stats };
+
+  const sections = statCategories.map((category) => {
+    const rows = category.fields
+      .map((field) => {
+        const value = allData[field.key];
+        if (value === null || value === undefined || value === "") return "";
+
+        let displayValue = "-";
+        if (field.format === "percent") {
+          displayValue = `${formatNumber(Number(value) * 100, 1)}%`;
+        } else if (field.format === "signed") {
+          displayValue = signed(value);
+        } else if (Number.isFinite(Number(value))) {
+          displayValue = Number.isInteger(Number(value))
+            ? String(value)
+            : formatNumber(value, 1);
+        } else {
+          displayValue = escapeHtml(value);
+        }
+
+        return `<div><span>${escapeHtml(field.label)}</span><strong>${displayValue}</strong></div>`;
+      })
+      .filter((row) => row.length > 0)
+      .join("");
+
+    if (!rows) return "";
+    return `
+      <div class="insight-panel">
+        <h3>${escapeHtml(category.name)}</h3>
+        <div class="summary-grid">
+          ${rows}
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  return sections || '<div class="empty-state">No statistics available for this team.</div>';
 }
 
 async function boot() {

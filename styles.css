@@ -429,6 +429,14 @@ select {
   display: none;
 }
 
+.team-view-panel {
+  display: none;
+}
+
+.team-view-panel.is-active {
+  display: block;
+}
+
 .panel-heading {
   display: flex;
   min-height: 76px;
