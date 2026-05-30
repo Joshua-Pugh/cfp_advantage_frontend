@@ -13,6 +13,36 @@ const TERMS_ACCEPTED_KEY = "cfp_adv_terms_accepted";
 const TERMS_VERSION_KEY = "cfp_adv_terms_version";
 const TERMS_ACCEPTED_AT_KEY = "cfp_adv_terms_accepted_at";
 const DEFAULT_TERMS_VERSION = "2026-05-29-product-a-v4";
+const TERMS_GATE_MESSAGE = "Before entering CFP Advantage, please review and accept the Terms of Use. CFP Advantage provides football intelligence and model-derived context for informational and entertainment purposes. It does not guarantee outcomes, and access is only allowed if you agree to the Terms, Privacy Policy, Refund Policy, and Disclaimer.";
+const METRIC_DISPLAY = {
+  "ADV SRS": ["ADV Strength Rating (ADV SRS)", "Measures a team's overall football-control strength after accounting for schedule context. Higher values indicate stronger season-level team quality."],
+  "OFF ADV SRS": ["Offensive ADV Strength Rating (OFF ADV SRS)", "Measures how much value a team's offense creates through sustained, useful football control."],
+  "DEF ADV SRS": ["Defensive ADV Strength Rating (DEF ADV SRS)", "Measures how much a team's defense suppresses opponent control and scoring opportunity."],
+  "ADV SOS": ["ADV Strength of Schedule (ADV SOS)", "Measures the quality of opponents a team faced through the ADV lens."],
+  "Control Rate": ["Control Rate (CR)", "Measures how often a team creates useful control opportunities across its games. It is a consistency signal, not a final score measure."],
+  "DCE": ["Drive Conversion Efficiency (DCE)", "Measures how efficiently a team's scoreboard output lines up with its underlying drive control."],
+  "Weak-Side Profile": ["Weak-Side Profile", "Shows the weaker side of a team's offense/defense profile so users can spot balance or fragility."],
+  "ADV Expected Margin": ["ADV Expected Margin", "A matchup margin estimate created from the difference between two teams' ADV strength profiles."],
+  "ADV Deserved Margin": ["ADV Deserved Margin", "A postgame control recap that compares how the game was played to the final scoreboard result."],
+  "Scoreboard vs ADV Gap": ["Scoreboard vs ADV Gap", "Shows when the final score looked stronger or weaker than the underlying football-control profile."],
+};
+const COMPARISON_DISPLAY = {
+  "Total Yards": "Total offensive yardage gained.",
+  "Yards Per Play": "Average yards gained per offensive play.",
+  "Passing Yards": "Yards gained through the passing game.",
+  "Rushing Yards": "Yards gained through the running game.",
+  "Explosive Plays": "High-impact plays that create large chunks of field position or scoring opportunity.",
+  "Points Per Drive": "Average points produced per offensive drive.",
+  "ADV Drive Conversion": "How often meaningful ADV control drives turn into points, with touchdown and field goal quality separated where available.",
+  "First Downs": "How often an offense extends possessions by earning a new set of downs.",
+  "Third/Fourth Down Conversions": "How often an offense converts critical downs to keep drives alive.",
+  "Red Zone Efficiency": "How often a team turns red zone trips into points and touchdowns.",
+  "Turnover Margin": "Difference between takeaways and giveaways.",
+  "Penalties / Penalty Yards": "Penalty volume and field-position cost.",
+  "Sacks / TFL": "Negative-play pressure created or allowed.",
+  "Kick/Punt Returns": "Return-yard context for special teams field position.",
+  "Time of Possession": "How long a team controlled the football.",
+};
 
 const DEVELOPER_MODE = false;
 
@@ -151,6 +181,15 @@ function formatNumber(value) {
     : Number(value).toFixed(2);
 }
 
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 function signed(value) {
   if (value === null || value === undefined || Number.isNaN(Number(value))) return "-";
   return `${Number(value) >= 0 ? "+" : ""}${Number(value).toFixed(2)}`;
@@ -251,8 +290,9 @@ function showTermsBanner(message) {
   const accepted = storageGet(TERMS_ACCEPTED_KEY) === "true";
   const version = storageGet(TERMS_VERSION_KEY);
   if (accepted && version === state.termsVersion) return;
-  if (message) els.termsBannerText.textContent = message;
+  els.termsBannerText.textContent = message || TERMS_GATE_MESSAGE;
   els.termsBanner.classList.remove("is-hidden");
+  document.body.classList.add("terms-locked");
 }
 
 function acceptTerms() {
@@ -260,18 +300,15 @@ function acceptTerms() {
   storageSet(TERMS_VERSION_KEY, state.termsVersion);
   storageSet(TERMS_ACCEPTED_AT_KEY, new Date().toISOString());
   els.termsBanner.classList.add("is-hidden");
+  document.body.classList.remove("terms-locked");
 }
 
 function renderMetricCards(rows) {
   els.metricCatalogGrid.innerHTML = rows.map((metric) => `
     <article class="guide-card">
-      <span>${metric.group || "Metric"}</span>
-      <h4>${metric.name}</h4>
-      <p>${metric.plain_english || ""}</p>
-      <dl>
-        <div><dt>Use for</dt><dd>${metric.use_for || "-"}</dd></div>
-        <div><dt>Limit</dt><dd>${metric.limit || "-"}</dd></div>
-      </dl>
+      <span>${escapeHtml(metric.group || "Metric")}</span>
+      <h4>${escapeHtml(publicMetricName(metric.name))}</h4>
+      <p>${escapeHtml(publicMetricDescription(metric))}</p>
     </article>
   `).join("");
 }
@@ -279,12 +316,23 @@ function renderMetricCards(rows) {
 function renderComparisonStats(rows) {
   els.comparisonStatsGrid.innerHTML = rows.map((stat) => `
     <article class="guide-card compact">
-      <span>${stat.group || "Stat"}</span>
-      <h4>${stat.name}</h4>
-      <p>${stat.note || ""}</p>
-      <small class="status-pill">${String(stat.status || "planned").replace(/_/g, " ")}</small>
+      <span>${escapeHtml(stat.group || "Stat")}</span>
+      <h4>${escapeHtml(publicMetricName(stat.name))}</h4>
+      <p>${escapeHtml(publicMetricDescription(stat))}</p>
     </article>
   `).join("");
+}
+
+function publicMetricName(name) {
+  return METRIC_DISPLAY[name]?.[0] || name;
+}
+
+function publicMetricDescription(metric) {
+  return METRIC_DISPLAY[metric.name]?.[1]
+    || COMPARISON_DISPLAY[metric.name]
+    || metric.plain_english
+    || metric.note
+    || "Football context metric used to compare teams and games.";
 }
 
 async function loadProductGuides() {
@@ -301,12 +349,12 @@ async function loadProductGuides() {
     renderMetricCards(state.metricCatalog);
     renderComparisonStats(state.comparisonStats);
     els.metricCatalogState.textContent = `${state.metricCatalog.length} public metrics and ${state.comparisonStats.length} comparison stats loaded.`;
-    showTermsBanner(legal.message);
+    showTermsBanner(TERMS_GATE_MESSAGE);
   } catch (error) {
     els.metricCatalogState.textContent = `Metric guide unavailable from API: ${error.message}`;
     renderMetricCards([]);
     renderComparisonStats([]);
-    showTermsBanner();
+    showTermsBanner(TERMS_GATE_MESSAGE);
   }
 }
 
