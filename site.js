@@ -2,6 +2,7 @@ const CONFIG = window.CFP_ADV_CONFIG || {};
 const API_BASE = (CONFIG.API_BASE_URL || "https://cfp-advantage-model-1.onrender.com").replace(/\/$/, "");
 const CACHE_PREFIX = "cfp_adv_api_cache:";
 const CACHE_TTL_MS = 1000 * 60 * 20;
+const apiMemoryCache = new Map();
 const TERMS_ACCEPTED_KEY = "cfp_adv_terms_accepted";
 const TERMS_VERSION_KEY = "cfp_adv_terms_version";
 const TERMS_ACCEPTED_AT_KEY = "cfp_adv_terms_accepted_at";
@@ -48,9 +49,14 @@ function $(id) {
 
 async function api(path) {
   const key = `${CACHE_PREFIX}${path}`;
+  const memory = apiMemoryCache.get(key);
+  if (memory && Date.now() - memory.stored_at < CACHE_TTL_MS) {
+    return memory.data;
+  }
   try {
     const cached = JSON.parse(window.sessionStorage.getItem(key) || "null");
     if (cached && Date.now() - cached.stored_at < CACHE_TTL_MS) {
+      apiMemoryCache.set(key, cached);
       return cached.data;
     }
   } catch (error) {
@@ -61,6 +67,7 @@ async function api(path) {
     throw new Error(`${path} failed with ${response.status}`);
   }
   const data = await response.json();
+  apiMemoryCache.set(key, { stored_at: Date.now(), data });
   try {
     window.sessionStorage.setItem(key, JSON.stringify({ stored_at: Date.now(), data }));
   } catch (error) {
@@ -318,7 +325,9 @@ async function populateHistoricalTeams() {
   const season = $("seasonSelect").value;
   if (!season) return;
   const payload = await api(`/api/product-a/team-board?season=${encodeURIComponent(season)}`);
-  const teams = (payload.teams || payload.rows || []).filter((row) => row.team);
+  const teams = (payload.teams || payload.rows || [])
+    .filter((row) => row.team)
+    .sort((left, right) => String(left.team).localeCompare(String(right.team)));
   window.__historicalTeams = teams;
   const options = teams.map((team) => `<option value="${team.team}">${team.team}</option>`).join("");
   $("teamASelect").innerHTML = options;
@@ -405,13 +414,35 @@ async function buildHistoricalMatchup() {
 
 async function loadBracketPage() {
   setStatus("Loading Bracket Room...");
-  const seasonsPayload = await api("/api/seasons");
-  const season = (seasonsPayload.seasons || [])[0];
+  let seasonsPayload;
+  try {
+    seasonsPayload = await api("/api/product-a/bracket-room/seasons");
+  } catch (error) {
+    seasonsPayload = await api("/api/seasons");
+  }
+  const seasons = (seasonsPayload.seasons || []).slice().sort((a, b) => Number(b) - Number(a));
+  const select = $("bracketSeasonSelect");
+  if (select) {
+    select.innerHTML = seasons.map((season) => `<option value="${escapeHtml(season)}">${escapeHtml(season)}</option>`).join("");
+    if (!select.dataset.bound) {
+      select.addEventListener("change", () => renderBracketSeason(select.value));
+      select.dataset.bound = "true";
+    }
+  }
+  const season = select?.value || seasons[0];
   if (!season) {
     setStatus("No seasons returned by API.", "warn");
     return;
   }
-  const payload = await api(`/api/product-a/bracket-room?season=${encodeURIComponent(season)}`);
+  await renderBracketSeason(season);
+}
+
+async function renderBracketSeason(season) {
+  setStatus(`Loading ${season} Bracket Room...`);
+  const [payload, treePayload] = await Promise.all([
+    api(`/api/product-a/bracket-room?season=${encodeURIComponent(season)}`),
+    api(`/api/product-a/bracket-room/tree?season=${encodeURIComponent(season)}`),
+  ]);
   const summary = payload.summary || {};
   const titleRows = (payload.title_probabilities || []).slice(0, 12);
   const leverageRows = (payload.team_leverage || []).slice(0, 12);
@@ -443,7 +474,116 @@ async function loadBracketPage() {
     { label: "Upset Risk", render: (row) => `${formatNumber(Number(row.upset_risk) * 100, 1)}%` },
     { label: "Risk Label", key: "upset_risk_label" },
   ]);
-  setStatus("Bracket Room loaded.", "ok");
+  renderBracketTree(treePayload.tree || []);
+  setStatus(`${season} Bracket Room loaded.`, "ok");
+}
+
+function renderBracketTree(rows) {
+  const target = $("bracketTree");
+  if (!target) return;
+  if (!rows.length) {
+    target.innerHTML = '<div class="empty-state compact">No bracket tree available for this season.</div>';
+    return;
+  }
+  const roundLabels = {
+    cfp_first_round: "First Round",
+    cfp_quarterfinal: "Quarterfinals",
+    cfp_semifinal: "Semifinals",
+    cfp_semifinal_four_team: "Semifinals",
+    national_championship: "Championship",
+    national_championship_four_team: "Championship",
+  };
+  const byRound = rows.reduce((acc, row) => {
+    const key = row.round_name || "round";
+    acc[key] = acc[key] || [];
+    acc[key].push(row);
+    return acc;
+  }, {});
+  target.innerHTML = Object.entries(byRound).map(([round, games]) => `
+    <section class="bracket-round">
+      <h3>${escapeHtml(roundLabels[round] || round)}</h3>
+      ${games.map((game) => bracketGameCard(game)).join("")}
+    </section>
+  `).join("");
+  target.querySelectorAll("[data-bracket-game]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const game = rows.find((row) => row.game_key === button.dataset.bracketGame);
+      if (game) openBracketDiagnostic(game);
+    });
+  });
+}
+
+function bracketTeamLabel(side) {
+  const seed = side.seed ? `${side.seed} ` : "";
+  return `${seed}${side.display || side.team || "-"}`;
+}
+
+function bracketGameCard(game) {
+  const prob = game.probability || {};
+  const favorite = prob.favorite || "-";
+  const winPct = prob.favorite_win_probability ? `${formatNumber(Number(prob.favorite_win_probability) * 100, 1)}%` : "-";
+  return `
+    <button class="bracket-game-card" type="button" data-bracket-game="${escapeHtml(game.game_key)}">
+      <span>${escapeHtml(bracketTeamLabel(game.team_a || {}))}</span>
+      <span>${escapeHtml(bracketTeamLabel(game.team_b || {}))}</span>
+      <small>Model lean: ${escapeHtml(favorite)} (${escapeHtml(winPct)})</small>
+    </button>
+  `;
+}
+
+function openBracketDiagnostic(game) {
+  const modal = $("bracketModal");
+  const content = $("bracketModalContent");
+  if (!modal || !content) return;
+  const prob = game.probability || {};
+  const teamA = game.diagnostic?.team_a || {};
+  const teamB = game.diagnostic?.team_b || {};
+  content.innerHTML = `
+    <p class="eyebrow">Matchup Diagnostic</p>
+    <h2>${escapeHtml(bracketTeamLabel(game.team_a || {}))} vs ${escapeHtml(bracketTeamLabel(game.team_b || {}))}</h2>
+    <div class="summary-grid">
+      <div><span>Model Lean</span><strong>${escapeHtml(prob.favorite || "-")}</strong></div>
+      <div><span>Projected Margin</span><strong>${formatNumber(prob.projected_margin_team_a, 1)}</strong></div>
+      <div><span>Favorite Win Probability</span><strong>${prob.favorite_win_probability ? `${formatNumber(Number(prob.favorite_win_probability) * 100, 1)}%` : "-"}</strong></div>
+      <div><span>Upset Risk</span><strong>${prob.upset_risk ? `${formatNumber(Number(prob.upset_risk) * 100, 1)}%` : "-"}</strong></div>
+    </div>
+    <div class="diagnostic-grid">
+      ${diagnosticProfile(teamA)}
+      ${diagnosticProfile(teamB)}
+    </div>
+    <p class="interpretation">This is football-intelligence context only. It compares team strength, control consistency, and drive-conversion profile without market or ATS language.</p>
+  `;
+  modal.classList.remove("is-hidden");
+  const close = $("bracketModalClose");
+  if (close && !close.dataset.bound) {
+    close.addEventListener("click", closeBracketDiagnostic);
+    close.dataset.bound = "true";
+  }
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) closeBracketDiagnostic();
+  }, { once: true });
+}
+
+function diagnosticProfile(team) {
+  return `
+    <article class="insight-panel compact">
+      <h3>${escapeHtml(team.seed ? `${team.seed} ${team.team}` : team.team || "-")}</h3>
+      <div class="summary-grid mini">
+        <div><span>ADV SRS</span><strong>${formatNumber(team.adv_srs, 1)}</strong></div>
+        <div><span>ADV Rank</span><strong>${escapeHtml(team.adv_srs_rank ?? "-")}</strong></div>
+        <div><span>Control Rate (CR)</span><strong>${formatNumber(team.cr, 3)}</strong></div>
+        <div><span>SOS Percentile</span><strong>${formatNumber(Number(team.adv_sos_percentile) * 100, 1)}%</strong></div>
+        <div><span>ADV Drive Conversion</span><strong>${team.scoring_conversion_rate ? `${formatNumber(Number(team.scoring_conversion_rate) * 100, 1)}%` : "-"}</strong></div>
+        <div><span>Points / Control Drive</span><strong>${formatNumber(team.points_per_control_drive, 2)}</strong></div>
+        <div><span>Red Zone Score</span><strong>${team.red_zone_score_rate ? `${formatNumber(Number(team.red_zone_score_rate) * 100, 1)}%` : "-"}</strong></div>
+        <div><span>Turnover Margin</span><strong>${escapeHtml(team.turnover_margin ?? "-")}</strong></div>
+      </div>
+    </article>
+  `;
+}
+
+function closeBracketDiagnostic() {
+  $("bracketModal")?.classList.add("is-hidden");
 }
 
 async function loadLegalPage() {
@@ -460,17 +600,27 @@ async function loadLegalPage() {
   setStatus("Legal acknowledgement loaded.", "ok");
 }
 
-async function loadNewsPage() {
+async function loadNewsPage(targetId = "newsList", limit = 8, sliceResults = true) {
   setStatus("Loading news...");
-  const payload = await api("/api/news/latest?limit=8");
+  const payload = await api(`/api/news/latest?limit=${limit}`);
   const rows = payload.items || [];
-  $("newsList").innerHTML = rows.length ? rows.map((item) => `
+  const container = $(targetId);
+  if (!container) {
+    setStatus("No news container found.", "warn");
+    return;
+  }
+  const itemsToShow = sliceResults ? rows.slice(0, limit) : rows;
+  container.innerHTML = itemsToShow.length
+    ? itemsToShow
+        .map((item) => `
     <article class="news-item">
       <span>${escapeHtml(item.source || "College Football")}</span>
       <h3><a href="${escapeHtml(item.link)}" rel="noopener noreferrer" target="_blank">${escapeHtml(item.title)}</a></h3>
       <p>${escapeHtml(item.published || "Recent")}</p>
     </article>
-  `).join("") : `
+  `).join("")
+   
+    : `
     <article class="insight-panel">
       <p class="eyebrow">News Feed</p>
       <h2>No headlines available</h2>
@@ -497,7 +647,9 @@ async function populateTeamPageTeams() {
   const season = $("teamSeasonSelect").value;
   if (!season) return;
   const payload = await api(`/api/product-a/team-board?season=${encodeURIComponent(season)}&limit=300`);
-  const teams = (payload.teams || payload.rows || []).filter((row) => row.team);
+  const teams = (payload.teams || payload.rows || [])
+    .filter((row) => row.team)
+    .sort((left, right) => String(left.team).localeCompare(String(right.team)));
   $("teamPageSelect").innerHTML = teams.map((team) => `<option value="${escapeHtml(team.team)}">${escapeHtml(team.team)}</option>`).join("");
 }
 
@@ -531,7 +683,7 @@ async function renderTeamPage() {
     };
 
     const scheduleHtml = renderTeamScheduleView(season, team, intel, record, games);
-    const statsHtml = renderTeamStatsView(intel, stats);
+    const statsHtml = renderTeamStatsView(intel, stats, games);
 
     $("teamPageResult").innerHTML = `
       <div id="teamScheduleView" class="team-view-panel is-active">
@@ -581,13 +733,6 @@ function renderTeamScheduleView(season, team, intel, record, games) {
     `<div class="record-tile"><span>Nonconference</span><strong>${record.nonconference_record || "-"}</strong></div>`,
     `<div class="record-tile"><span>Pre-Playoff</span><strong>${record.pre_playoff_record || "-"}</strong></div>`,
     `<div class="record-tile"><span>Postseason</span><strong>${record.postseason_record || "-"}</strong></div>`,
-    ...(intel.yards_per_game !== null && intel.yards_per_game !== undefined
-      ? [
-          `<div class="record-tile"><span>Yards/Game</span><strong>${formatNumber(intel.yards_per_game)}</strong></div>`,
-          `<div class="record-tile"><span>Yards Allowed/Game</span><strong>${formatNumber(intel.yards_allowed_per_game)}</strong></div>`,
-          `<div class="record-tile"><span>Yard +/-</span><strong>${signed(intel.yards_differential_per_game)}</strong></div>`,
-        ]
-      : []),
   ].join("");
 
   const sections = [
@@ -643,126 +788,159 @@ function renderTeamScheduleView(season, team, intel, record, games) {
   `;
 }
 
-function renderTeamStatsView(intel, stats) {
-  // Map of field names to labels and formatting instructions
-  const fieldMetadata = {
-    // Team Overview & Scoring
-    points_per_game: { label: "Points / Game", category: "Team Overview & Scoring" },
-    opp_points_per_game: { label: "Opp Points / Game", category: "Team Overview & Scoring" },
-    total_points: { label: "Total Points", category: "Team Overview & Scoring" },
-    total_touchdowns: { label: "Total Touchdowns", category: "Team Overview & Scoring" },
-    passing_touchdowns: { label: "Passing Touchdowns", category: "Team Overview & Scoring" },
-    rushing_touchdowns: { label: "Rushing Touchdowns", category: "Team Overview & Scoring" },
-    first_downs_per_game: { label: "First Downs / Game", category: "Team Overview & Scoring" },
-    rushing_first_downs: { label: "Rushing First Downs", category: "Team Overview & Scoring" },
-    passing_first_downs: { label: "Passing First Downs", category: "Team Overview & Scoring" },
-    penalty_first_downs: { label: "Penalty First Downs", category: "Team Overview & Scoring" },
-    
-    // Passing Statistics
-    passing_yards_per_game: { label: "Passing Yards / Game", category: "Passing Statistics" },
-    completions: { label: "Completions", category: "Passing Statistics" },
-    passing_attempts: { label: "Passing Attempts", category: "Passing Statistics" },
-    completion_percentage: { label: "Completion %", category: "Passing Statistics", format: "percent" },
-    yards_per_attempt: { label: "Yards / Attempt", category: "Passing Statistics" },
-    interceptions_thrown: { label: "Interceptions", category: "Passing Statistics" },
-    
-    // Rushing Statistics
-    rushing_yards_per_game: { label: "Rushing Yards / Game", category: "Rushing Statistics" },
-    rushing_attempts: { label: "Rushing Attempts", category: "Rushing Statistics" },
-    yards_per_rush: { label: "Yards / Rush", category: "Rushing Statistics" },
-    
-    // Defensive & Line Metrics
-    yards_allowed_per_game: { label: "Yards Allowed / Game", category: "Defensive & Line Metrics" },
-    passing_yards_allowed: { label: "Passing Yards Allowed", category: "Defensive & Line Metrics" },
-    rushing_yards_allowed: { label: "Rushing Yards Allowed", category: "Defensive & Line Metrics" },
-    sacks: { label: "Sacks", category: "Defensive & Line Metrics" },
-    interceptions: { label: "Interceptions", category: "Defensive & Line Metrics" },
-    fumbles_recovered: { label: "Fumbles Recovered", category: "Defensive & Line Metrics" },
-    pass_deflections: { label: "Pass Deflections", category: "Defensive & Line Metrics" },
-    tackles_for_loss: { label: "Tackles For Loss", category: "Defensive & Line Metrics" },
-    
-    // Situational & Special Teams
-    third_down_rate: { label: "3rd Down Conversion %", category: "Situational & Special Teams", format: "percent" },
-    fourth_down_rate: { label: "4th Down Conversion %", category: "Situational & Special Teams", format: "percent" },
-    red_zone_score_rate: { label: "Red Zone Score %", category: "Situational & Special Teams", format: "percent" },
-    red_zone_td_rate: { label: "Red Zone TD %", category: "Situational & Special Teams", format: "percent" },
-    turnover_margin: { label: "Turnover Margin", category: "Situational & Special Teams", format: "signed" },
-    field_goal_percentage: { label: "Field Goal %", category: "Situational & Special Teams", format: "percent" },
-    field_goals_made: { label: "Field Goals Made", category: "Situational & Special Teams" },
-    field_goals_attempted: { label: "Field Goals Attempted", category: "Situational & Special Teams" },
-    punting_average: { label: "Punting Average", category: "Situational & Special Teams" },
-    kick_return_yards: { label: "Kick Return Yards", category: "Situational & Special Teams" },
-    punt_return_yards: { label: "Punt Return Yards", category: "Situational & Special Teams" },
-    penalties: { label: "Total Penalties", category: "Situational & Special Teams" },
-    penalty_yards: { label: "Penalty Yards", category: "Situational & Special Teams" },
-  };
+function renderTeamStatsView(intel, stats, games = []) {
+  const scoredGames = (Array.isArray(games) ? games : []).filter((game) => isFiniteNumber(game.team_score) && isFiniteNumber(game.opponent_score));
+  const gamesPlayed = numberOrNull(stats.games) || numberOrNull(intel.games) || scoredGames.length || null;
+  const pointsFor = scoredGames.length ? scoredGames.reduce((sum, game) => sum + Number(game.team_score), 0) : numberOrNull(stats.drive_points);
+  const pointsAgainst = scoredGames.length ? scoredGames.reduce((sum, game) => sum + Number(game.opponent_score), 0) : null;
+  const passCompletions = numberOrNull(stats.pass_completions);
+  const passAttempts = numberOrNull(stats.pass_attempts);
+  const passCompletionPct = passCompletions !== null && passAttempts ? (passCompletions / passAttempts) * 100 : null;
+  const passingTds = numberOrNull(stats.pass_tds);
+  const rushingTds = numberOrNull(stats.rush_tds);
+  const totalTds = [passingTds, rushingTds].every((value) => value === null) ? null : (passingTds || 0) + (rushingTds || 0);
+  const giveawayCount = numberOrNull(stats.turnovers);
+  const takeaways = numberOrNull(stats.takeaways);
+  const turnoverMargin = numberOrNull(stats.turnover_margin);
+  const defPassAllowed = numberOrNull(stats.def_pass_yards_allowed_per_game);
+  const defRushAllowed = numberOrNull(stats.def_rush_yards_allowed_per_game);
+  const defPassAllowedTotal = numberOrNull(stats.def_pass_yards_allowed);
+  const defRushAllowedTotal = numberOrNull(stats.def_rush_yards_allowed);
+  const totalAllowed = defPassAllowed !== null || defRushAllowed !== null
+    ? decimal((defPassAllowed || 0) + (defRushAllowed || 0), 1)
+    : decimal(intel.yards_allowed_per_game, 1);
+  const totalDefensiveYardsAllowed = defPassAllowedTotal !== null || defRushAllowedTotal !== null
+    ? whole((defPassAllowedTotal || 0) + (defRushAllowedTotal || 0))
+    : whole(intel.total_yards_allowed);
 
-  const allData = { ...intel, ...stats };
-  const categoryMap = new Map();
-
-  // Group fields by category, only including fields that have data
-  Object.entries(allData).forEach(([key, value]) => {
-    if (value === null || value === undefined || value === "") return;
-
-    let meta = fieldMetadata[key];
-    if (!meta) {
-      // Auto-categorize unknown fields
-      let category = "Other Statistics";
-      let label = String(key)
-        .replace(/_/g, " ")
-        .replace(/\b\w/g, (chr) => chr.toUpperCase());
-      meta = { label, category };
-    }
-
-    if (!categoryMap.has(meta.category)) {
-      categoryMap.set(meta.category, []);
-    }
-
-    let displayValue = "-";
-    if (meta.format === "percent") {
-      displayValue = `${formatNumber(Number(value) * 100, 1)}%`;
-    } else if (meta.format === "signed") {
-      displayValue = signed(value);
-    } else if (Number.isFinite(Number(value))) {
-      displayValue = Number.isInteger(Number(value)) ? String(value) : formatNumber(value, 1);
-    } else {
-      displayValue = escapeHtml(String(value));
-    }
-
-    categoryMap.get(meta.category).push(
-      `<div><span>${escapeHtml(meta.label)}</span><strong>${displayValue}</strong></div>`
-    );
-  });
-
-  if (categoryMap.size === 0) {
-    return '<div class="empty-state">No statistics available for this team.</div>';
-  }
-
-  // Order categories as shown
-  const categoryOrder = [
-    "Team Overview & Scoring",
-    "Passing Statistics",
-    "Rushing Statistics",
-    "Defensive & Line Metrics",
-    "Situational & Special Teams",
-    "Other Statistics",
+  const categories = [
+    {
+      name: "Team Overview & Scoring",
+      rows: [
+        ["Points Per Game (PPG)", `${pointsPerGame(pointsFor, gamesPlayed)} scored / ${pointsPerGame(pointsAgainst, gamesPlayed)} allowed`],
+        ["Total Points", whole(pointsFor)],
+        ["Total Offensive Yards", whole(stats.total_yards ?? intel.total_yards_for)],
+        ["Total Defensive Yards Allowed", totalDefensiveYardsAllowed],
+        ["Touchdowns", `Total ${whole(totalTds)} | Pass ${whole(passingTds)} | Rush ${whole(rushingTds)}`],
+        ["First Downs per Game", `Total ${decimal(stats.first_downs_per_game, 1)} | Rush ${decimal(stats.rush_first_downs_per_game, 1)} | Pass ${decimal(stats.pass_first_downs_per_game, 1)}`],
+      ],
+    },
+    {
+      name: "Passing Statistics",
+      rows: [
+        ["Passing Yards Per Game", decimal(stats.pass_yards_per_game, 1)],
+        ["Completions / Attempts (COMP/ATT)", `${whole(passCompletions)} / ${whole(passAttempts)}`],
+        ["Completion Percentage (COMP%)", percentWhole(passCompletionPct)],
+        ["Yards Per Pass Attempt (Y/A or YPA)", decimal(stats.yards_per_pass_attempt, 2)],
+        ["Passing Touchdowns (TD)", whole(passingTds)],
+        ["Interceptions (INT)", whole(stats.interceptions_thrown)],
+      ],
+    },
+    {
+      name: "Rushing Statistics",
+      rows: [
+        ["Rushing Yards Per Game", decimal(stats.rush_yards_per_game, 1)],
+        ["Rushing Attempts (ATT)", whole(stats.rush_attempts)],
+        ["Yards Per Rush Attempt (Y/A or Avg)", decimal(stats.yards_per_rush, 2)],
+        ["Rushing Touchdowns (TD)", whole(rushingTds)],
+      ],
+    },
+    {
+      name: "Defensive & Line Metrics",
+      rows: [
+        ["Yards Allowed Per Game", `Total ${totalAllowed} | Pass ${decimal(stats.def_pass_yards_allowed_per_game, 1)} | Rush ${decimal(stats.def_rush_yards_allowed_per_game, 1)}`],
+        ["Sacks", whole(stats.sacks_made)],
+        ["Interceptions & Fumbles Recovered", `INT ${whole(stats.interceptions_made)} | Fumbles ${whole(stats.fumbles_recovered)}`],
+        ["Tackles For Loss (TFL)", whole(stats.tfl_made)],
+      ],
+    },
+    {
+      name: "Situational & Special Teams",
+      rows: [
+        ["3rd Down Conversions", conversion(stats.third_down_conversions, stats.third_down_attempts, stats.third_down_rate)],
+        ["4th Down Conversions", conversion(stats.fourth_down_conversions, stats.fourth_down_attempts, stats.fourth_down_rate)],
+        ["Red Zone Efficiency", `Score ${rate(stats.red_zone_score_rate)} | TD ${rate(stats.red_zone_td_rate)} | FG ${rate(stats.red_zone_fg_rate)} | Pts/Trip ${decimal(stats.red_zone_points_per_trip, 2)}`],
+        ["Turnover Margin", `Takeaways ${whole(takeaways)} | Giveaways ${whole(giveawayCount)} | Margin ${signed(turnoverMargin)}`],
+        ["Field Goal Percentage (FG%)", fieldGoalLine(stats)],
+        ["Punting Average", decimal(stats.punting_average, 1)],
+        ["Kick/Punt Return Yards", `Kick ${decimal(stats.kick_return_yards_per_game, 1)} / game | Punt ${decimal(stats.punt_return_yards_per_game, 1)} / game`],
+        ["Penalties / Penalty Yards", `${whole(stats.penalties)} penalties / ${whole(stats.penalty_yards)} yards`],
+      ],
+    },
   ];
 
-  const sections = categoryOrder
-    .filter((cat) => categoryMap.has(cat))
-    .map(
-      (cat) => `
-        <div class="insight-panel">
-          <h3>${cat}</h3>
-          <div class="summary-grid">
-            ${categoryMap.get(cat).join("")}
-          </div>
+  return categories.map((category) => `
+    <div class="insight-panel stat-category">
+      <h3>${escapeHtml(category.name)}</h3>
+      ${category.rows.map(([label, value]) => `
+        <div class="stat-row compact-stat-row">
+          <strong>${escapeHtml(label)}</strong>
+          <div class="stat-value">${escapeHtml(value)}</div>
         </div>
-      `
-    )
-    .join("");
+      `).join("")}
+    </div>
+  `).join("");
+}
 
-  return sections;
+function isFiniteNumber(value) {
+  return value !== null && value !== undefined && value !== "" && Number.isFinite(Number(value));
+}
+
+function numberOrNull(value) {
+  return isFiniteNumber(value) ? Number(value) : null;
+}
+
+function whole(value) {
+  const number = numberOrNull(value);
+  return number === null ? "-" : String(Math.round(number));
+}
+
+function decimal(value, digits = 1) {
+  const number = numberOrNull(value);
+  return number === null ? "-" : number.toFixed(digits);
+}
+
+function rate(value) {
+  const number = numberOrNull(value);
+  return number === null ? "-" : `${(number * 100).toFixed(2)}%`;
+}
+
+function percentWhole(value) {
+  const number = numberOrNull(value);
+  return number === null ? "-" : `${number.toFixed(2)}%`;
+}
+
+function signed(value) {
+  const number = numberOrNull(value);
+  if (number === null) return "-";
+  return number > 0 ? `+${Math.round(number)}` : String(Math.round(number));
+}
+
+function fieldGoalLine(stats) {
+  const made = numberOrNull(stats.field_goals_made);
+  const attempts = numberOrNull(stats.field_goals_attempted);
+  if (made === null && attempts === null) return "-";
+  return `${whole(made)} / ${whole(attempts)} (${rate(stats.field_goal_rate)})`;
+}
+
+function conversion(made, attempts, storedRate) {
+  const madeNumber = numberOrNull(made);
+  const attemptsNumber = numberOrNull(attempts);
+  const pct = attemptsNumber ? (madeNumber || 0) / attemptsNumber : numberOrNull(storedRate);
+  const pctText = pct === null ? "-" : `${(pct * 100).toFixed(2)}%`;
+  return `${whole(madeNumber)} / ${whole(attemptsNumber)} (${pctText})`;
+}
+
+function pointsPerGame(points, gamesPlayed) {
+  const pointsNumber = numberOrNull(points);
+  const gamesNumber = numberOrNull(gamesPlayed);
+  return pointsNumber === null || !gamesNumber ? "-" : (pointsNumber / gamesNumber).toFixed(1);
+}
+
+function perGame(total, gamesPlayed) {
+  const totalNumber = numberOrNull(total);
+  const gamesNumber = numberOrNull(gamesPlayed);
+  return totalNumber === null || !gamesNumber ? "-" : (totalNumber / gamesNumber).toFixed(1);
 }
 
 async function boot() {
@@ -773,7 +951,8 @@ async function boot() {
     if (page === "historical") await loadHistoricalPage();
     if (page === "bracket") await loadBracketPage();
     if (page === "legal") await loadLegalPage();
-    if (page === "news") await loadNewsPage();
+    if (page === "news") await loadNewsPage("newsList", 20, false);
+    if (page === "home") await loadNewsPage("homeNewsList", 3, true);
     if (page === "team") await loadTeamPage();
   } catch (error) {
     console.error(error);

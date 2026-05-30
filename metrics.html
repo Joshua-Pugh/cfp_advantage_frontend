@@ -19,6 +19,7 @@
           <a href="historical.html">Build Historical Matchup</a>
           <a href="bracket-room.html">Bracket Room</a>
           <a class="is-active" href="metrics.html">Metrics Guide</a>
+          <a href="team.html">Team Page</a>
           <a href="news.html">News</a>
           <a href="legal.html">Legal</a>
         </nav>
@@ -27,20 +28,24 @@
       <section class="workspace-view static-page">
         <div class="panel-heading">
           <div>
-            <p class="eyebrow">Metric Definitions</p>
-            <h2>Core ADV Metrics</h2>
+            <p class="eyebrow">CFP Advantage Guide</p>
+            <h2>Core Metrics</h2>
           </div>
+          <span class="panel-note">Plain-English definitions, no formulas</span>
         </div>
-        <div id="coreMetricGrid" class="metric-guide-grid"></div>
-      </section>
-      <section class="workspace-view static-page">
-        <div class="panel-heading">
-          <div>
-            <p class="eyebrow">Football Context</p>
-            <h2>Traditional Football Stats</h2>
-          </div>
+        <div class="metrics-intro">
+          <p>CFP Advantage explains team strength, matchup context, and football-control signals in plain language.</p>
         </div>
-        <div id="comparisonMetricGrid" class="metric-guide-grid"></div>
+        <div id="metricCatalogState" class="board-state" role="status" aria-live="polite"></div>
+        <section class="guide-section">
+          <h3>Model Metrics</h3>
+          <div id="metricCatalogGrid" class="guide-grid"></div>
+        </section>
+        <section class="guide-section">
+          <h3>Traditional Stats For Comparison</h3>
+          <p class="guide-note">These stats help users compare familiar football numbers beside ADV. They do not replace ADV Strength Rating (ADV SRS).</p>
+          <div id="comparisonStatsGrid" class="guide-grid compact"></div>
+        </section>
       </section>
     </main>
     <script src="config.js"></script>

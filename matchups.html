@@ -21,6 +21,7 @@
             <a href="historical.html">Build Historical Matchup</a>
             <a href="bracket-room.html">Bracket Room</a>
             <a href="metrics.html">Metrics Guide</a>
+            <a href="team.html">Team Page</a>
             <a href="news.html">News</a>
             <a href="legal.html">Legal</a>
           </nav>
@@ -30,9 +31,6 @@
       <nav class="workspace-tabs" aria-label="Intelligence views">
         <button id="pregameViewTab" class="workspace-tab is-active" type="button">Matchup Preview</button>
         <button id="postgameViewTab" class="workspace-tab" type="button">Game Recap</button>
-        <button id="teamBoardViewTab" class="workspace-tab" type="button">Team Board</button>
-        <button id="explorerViewTab" class="workspace-tab" type="button">Football Intelligence Explorer</button>
-        <button id="metricsViewTab" class="workspace-tab" type="button">Metrics Guide</button>
       </nav>
 
       <section class="loader-panel is-hidden" id="loaderPanel" role="status" aria-live="polite">
@@ -312,28 +310,6 @@
         </section>
       </section>
 
-      <section id="metricsView" class="workspace-view is-hidden">
-        <div class="panel-heading">
-          <div>
-            <p class="eyebrow">CFP Advantage Guide</p>
-            <h2>ADV Metrics Guide</h2>
-          </div>
-          <span class="panel-note">Plain-English definitions, no formulas</span>
-        </div>
-        <div class="metrics-intro">
-          <p>CFP Advantage explains team strength, matchup context, and football-control signals in plain language.</p>
-        </div>
-        <div id="metricCatalogState" class="board-state" role="status" aria-live="polite"></div>
-        <section class="guide-section">
-          <h3>Model Metrics</h3>
-          <div id="metricCatalogGrid" class="guide-grid"></div>
-        </section>
-        <section class="guide-section">
-          <h3>Traditional Stats For Comparison</h3>
-          <p class="guide-note">These stats help users compare familiar football numbers beside ADV. They do not replace ADV SRS.</p>
-          <div id="comparisonStatsGrid" class="guide-grid compact"></div>
-        </section>
-      </section>
     </main>
 
     <section id="termsBanner" class="terms-banner is-hidden" aria-label="Terms acknowledgement">

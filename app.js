@@ -9,6 +9,9 @@ const API_BASE = (
 const APP_CONFIG = window.CFP_ADV_CONFIG || {};
 const USE_STATIC_FALLBACK = APP_CONFIG.USE_STATIC_FALLBACK === true;
 const APP_ENVIRONMENT = APP_CONFIG.ENVIRONMENT || "local";
+const CACHE_PREFIX = "cfp_adv_api_cache:";
+const CACHE_TTL_MS = 1000 * 60 * 20;
+const apiMemoryCache = new Map();
 const TERMS_ACCEPTED_KEY = "cfp_adv_terms_accepted";
 const TERMS_VERSION_KEY = "cfp_adv_terms_version";
 const TERMS_ACCEPTED_AT_KEY = "cfp_adv_terms_accepted_at";
@@ -134,12 +137,10 @@ const els = {
   postgameView: $("postgameView"),
   teamBoardView: $("teamBoardView"),
   explorerView: $("explorerView"),
-  metricsView: $("metricsView"),
   pregameViewTab: $("pregameViewTab"),
   postgameViewTab: $("postgameViewTab"),
   teamBoardViewTab: $("teamBoardViewTab"),
   explorerViewTab: $("explorerViewTab"),
-  metricsViewTab: $("metricsViewTab"),
   recapEmpty: $("recapEmpty"),
   recapPanel: $("recapPanel"),
   awayName: $("awayName"),
@@ -201,6 +202,18 @@ function validSeason(value) {
 
 async function api(path) {
   try {
+    const cacheKey = `${CACHE_PREFIX}${path}`;
+    const memory = apiMemoryCache.get(cacheKey);
+    if (memory && Date.now() - memory.stored_at < CACHE_TTL_MS) return memory.data;
+    try {
+      const cached = JSON.parse(window.sessionStorage.getItem(cacheKey) || "null");
+      if (cached && Date.now() - cached.stored_at < CACHE_TTL_MS) {
+        apiMemoryCache.set(cacheKey, cached);
+        return cached.data;
+      }
+    } catch (error) {
+      console.warn("CFP Advantage cache read unavailable:", error.message);
+    }
     const response = await fetch(`${API_BASE}${path}`);
     if (!response.ok) {
       const detail = await response.json().catch(() => ({}));
@@ -210,7 +223,14 @@ async function api(path) {
       throw new Error(message);
     }
     console.info("CFP Advantage data source:", "api", path);
-    return response.json();
+    const data = await response.json();
+    apiMemoryCache.set(cacheKey, { stored_at: Date.now(), data });
+    try {
+      window.sessionStorage.setItem(cacheKey, JSON.stringify({ stored_at: Date.now(), data }));
+    } catch (error) {
+      console.warn("CFP Advantage cache write unavailable:", error.message);
+    }
+    return data;
   } catch (error) {
     console.error("CFP Advantage endpoint failed:", path, error.message);
     if (USE_STATIC_FALLBACK) {
@@ -259,9 +279,9 @@ function setWorkspaceView(view) {
     postgame: [els.postgameViewTab, els.postgameView],
     board: [els.teamBoardViewTab, els.teamBoardView],
     explorer: [els.explorerViewTab, els.explorerView],
-    metrics: [els.metricsViewTab, els.metricsView],
   };
   Object.entries(mapping).forEach(([key, [button, panel]]) => {
+    if (!button || !panel) return;
     const active = key === view;
     button.classList.toggle("is-active", active);
     panel.classList.toggle("is-hidden", !active);
@@ -304,6 +324,7 @@ function acceptTerms() {
 }
 
 function renderMetricCards(rows) {
+  if (!els.metricCatalogGrid) return;
   els.metricCatalogGrid.innerHTML = rows.map((metric) => `
     <article class="guide-card">
       <span>${escapeHtml(metric.group || "Metric")}</span>
@@ -314,6 +335,7 @@ function renderMetricCards(rows) {
 }
 
 function renderComparisonStats(rows) {
+  if (!els.comparisonStatsGrid) return;
   els.comparisonStatsGrid.innerHTML = rows.map((stat) => `
     <article class="guide-card compact">
       <span>${escapeHtml(stat.group || "Stat")}</span>
@@ -336,6 +358,16 @@ function publicMetricDescription(metric) {
 }
 
 async function loadProductGuides() {
+  if (!els.metricCatalogState) {
+    try {
+      const legal = await api("/api/legal/acknowledgement");
+      state.termsVersion = legal.terms_version || DEFAULT_TERMS_VERSION;
+      showTermsBanner(TERMS_GATE_MESSAGE);
+    } catch (error) {
+      showTermsBanner(TERMS_GATE_MESSAGE);
+    }
+    return;
+  }
   els.metricCatalogState.textContent = "Loading metric guide...";
   try {
     const [metrics, stats, legal] = await Promise.all([
@@ -397,8 +429,9 @@ function searchRows(rows, query) {
 
 function updateMatchupSelectors() {
   state.filteredRows = rankingRowsForFilters();
-  const aRows = searchRows(state.filteredRows, els.previewSearchA.value);
-  const bRows = searchRows(state.filteredRows, els.previewSearchB.value);
+  const byTeam = (left, right) => String(left.team || "").localeCompare(String(right.team || ""));
+  const aRows = searchRows(state.filteredRows, els.previewSearchA.value).slice().sort(byTeam);
+  const bRows = searchRows(state.filteredRows, els.previewSearchB.value).slice().sort(byTeam);
   setOptions(els.previewTeamA, aRows, (row) => row.team, (row) => `#${row.adv_srs_rank} ${row.team} (${row.tier.toUpperCase()})`, "Select Team A");
   setOptions(els.previewTeamB, bRows, (row) => row.team, (row) => `#${row.adv_srs_rank} ${row.team} (${row.tier.toUpperCase()})`, "Select Team B");
   if (!els.previewTeamA.value && aRows.length) els.previewTeamA.value = aRows[0].team;
@@ -606,7 +639,9 @@ async function loadExplorerTeams() {
   }
   const params = new URLSearchParams({ season: els.explorerSeason.value, tier: els.explorerTier.value });
   const data = await api(`/api/teams?${params.toString()}`);
-  state.explorerTeams = data.team_options || [];
+  state.explorerTeams = (data.team_options || [])
+    .slice()
+    .sort((left, right) => String(left.name || "").localeCompare(String(right.name || "")));
   renderExplorerTeams();
 }
 
@@ -682,13 +717,6 @@ async function loadExplorerSchedule() {
     recordMetric("Nonconference", record.nonconference_record),
     recordMetric("Pre-Playoff", record.pre_playoff_record),
     recordMetric("Postseason", record.postseason_record),
-    ...(profile.intelligence && profile.intelligence.yards_per_game !== null && profile.intelligence.yards_per_game !== undefined
-      ? [
-          recordMetric("Yards/Game", formatNumber(profile.intelligence.yards_per_game)),
-          recordMetric("Yards Allowed/Game", formatNumber(profile.intelligence.yards_allowed_per_game)),
-          recordMetric("Yard +/-", signed(profile.intelligence.yards_differential_per_game)),
-        ]
-      : []),
   ].join("");
   renderScheduleSections(schedule.schedule || []);
   els.teamHistoryEmpty.classList.add("is-hidden");
@@ -773,7 +801,7 @@ async function boot() {
   clearRecap();
   await loadSeasons();
   await loadMatchupRows(els.season.value);
-  await loadBoard(els.season.value);
+  if (els.teamBoardViewTab && els.teamBoardView) await loadBoard(els.season.value);
   await loadProductGuides();
   hideStatus();
   setWorkspaceView("pregame");
@@ -806,9 +834,9 @@ document.addEventListener("keydown", (event) => {
 
 els.pregameViewTab.addEventListener("click", () => setWorkspaceView("pregame"));
 els.postgameViewTab.addEventListener("click", () => setWorkspaceView("postgame"));
-els.teamBoardViewTab.addEventListener("click", () => setWorkspaceView("board"));
-els.explorerViewTab.addEventListener("click", openExplorer);
-els.metricsViewTab.addEventListener("click", () => setWorkspaceView("metrics"));
+if (els.teamBoardViewTab) els.teamBoardViewTab.addEventListener("click", () => setWorkspaceView("board"));
+if (els.explorerViewTab) els.explorerViewTab.addEventListener("click", openExplorer);
+if (els.metricsViewTab) els.metricsViewTab.addEventListener("click", () => setWorkspaceView("metrics"));
 els.termsAcceptButton.addEventListener("click", acceptTerms);
 els.season.addEventListener("change", refreshProductSeason);
 [els.tierFilter, els.conferenceFilter, els.rankFilter].forEach((filter) => {
@@ -816,35 +844,37 @@ els.season.addEventListener("change", refreshProductSeason);
     updateMatchupSelectors();
   });
 });
-[els.boardConference, els.boardTier, els.boardSort].forEach((filter) => {
+[els.boardConference, els.boardTier, els.boardSort].filter(Boolean).forEach((filter) => {
   filter.addEventListener("change", renderTeamBoard);
 });
-[els.boardSearch, els.boardMinGames].forEach((input) => {
+[els.boardSearch, els.boardMinGames].filter(Boolean).forEach((input) => {
   input.addEventListener("input", renderTeamBoard);
 });
-els.boardSeason.addEventListener("change", () => {
-  loadBoard(els.boardSeason.value).catch((error) => setBoardStatus(`Team board unavailable: ${error.message}`, "error"));
-});
+if (els.boardSeason) {
+  els.boardSeason.addEventListener("change", () => {
+    loadBoard(els.boardSeason.value).catch((error) => setBoardStatus(`Team board unavailable: ${error.message}`, "error"));
+  });
+}
 [els.previewSearchA, els.previewSearchB].forEach((input) => input.addEventListener("input", updateMatchupSelectors));
 els.previewButton.addEventListener("click", () => renderMatchupPreview().catch((error) => showStatus("Preview Unavailable", error.message, false)));
 els.viewActualRecapButton.addEventListener("click", () => {
   if (state.selectedActualGame) analyzeGame(state.selectedActualGame.game_id);
 });
-els.explorerSeason.addEventListener("change", async () => {
+if (els.explorerSeason) els.explorerSeason.addEventListener("change", async () => {
   els.teamSearch.value = "";
   await loadExplorerTeams();
   await loadExplorerSchedule();
 });
-els.explorerTier.addEventListener("change", async () => {
+if (els.explorerTier) els.explorerTier.addEventListener("change", async () => {
   els.teamSearch.value = "";
   await loadExplorerTeams();
   await loadExplorerSchedule();
 });
-els.teamSearch.addEventListener("input", () => {
+if (els.teamSearch) els.teamSearch.addEventListener("input", () => {
   renderExplorerTeams();
 });
-els.team.addEventListener("change", loadExplorerSchedule);
-els.scheduleView.addEventListener("change", loadExplorerSchedule);
+if (els.team) els.team.addEventListener("change", loadExplorerSchedule);
+if (els.scheduleView) els.scheduleView.addEventListener("change", loadExplorerSchedule);
 
 if (DEVELOPER_MODE) {
   document.body.dataset.developerMode = "true";
