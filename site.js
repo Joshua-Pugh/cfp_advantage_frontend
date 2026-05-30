@@ -1,5 +1,7 @@
 const CONFIG = window.CFP_ADV_CONFIG || {};
 const API_BASE = (CONFIG.API_BASE_URL || "https://cfp-advantage-model-1.onrender.com").replace(/\/$/, "");
+const CACHE_PREFIX = "cfp_adv_api_cache:";
+const CACHE_TTL_MS = 1000 * 60 * 20;
 const TERMS_ACCEPTED_KEY = "cfp_adv_terms_accepted";
 const TERMS_VERSION_KEY = "cfp_adv_terms_version";
 const TERMS_ACCEPTED_AT_KEY = "cfp_adv_terms_accepted_at";
@@ -45,11 +47,26 @@ function $(id) {
 }
 
 async function api(path) {
+  const key = `${CACHE_PREFIX}${path}`;
+  try {
+    const cached = JSON.parse(window.sessionStorage.getItem(key) || "null");
+    if (cached && Date.now() - cached.stored_at < CACHE_TTL_MS) {
+      return cached.data;
+    }
+  } catch (error) {
+    console.warn("CFP Advantage cache read unavailable:", error.message);
+  }
   const response = await fetch(`${API_BASE}${path}`);
   if (!response.ok) {
     throw new Error(`${path} failed with ${response.status}`);
   }
-  return response.json();
+  const data = await response.json();
+  try {
+    window.sessionStorage.setItem(key, JSON.stringify({ stored_at: Date.now(), data }));
+  } catch (error) {
+    console.warn("CFP Advantage cache write unavailable:", error.message);
+  }
+  return data;
 }
 
 function formatNumber(value, digits = 1) {
@@ -64,6 +81,100 @@ function escapeHtml(value) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
+}
+
+function signed(value) {
+  if (value === null || value === undefined || Number.isNaN(Number(value))) return "-";
+  return `${Number(value) >= 0 ? "+" : ""}${Number(value).toFixed(2)}`;
+}
+
+const teamStatLabels = {
+  yards_per_game: "Yards / Game",
+  yards_allowed_per_game: "Yards Allowed / Game",
+  yards_differential_per_game: "Yard Differential / Game",
+  points_per_drive: "Points / Drive",
+  points_per_game: "Points / Game",
+  opp_points_per_game: "Opp Points / Game",
+  red_zone_score_rate: "Red Zone Score Rate",
+  third_down_rate: "Third Down Rate",
+  turnover_margin: "Turnover Margin",
+  scoring_conversion_rate: "ADV Drive Conversion",
+  drive_conversion_rate: "Drive Conversion Rate",
+  avg_starting_field_position: "Avg Starting Field Position",
+  time_of_possession: "Time of Possession",
+  completion_rate: "Completion Rate",
+  field_goal_rate: "Field Goal Rate",
+};
+
+function prettyStatLabel(key) {
+  return teamStatLabels[key] || String(key)
+    .replace(/_/g, " ")
+    .replace(/\b\w/g, (chr) => chr.toUpperCase());
+}
+
+function formatTeamStatValue(key, value) {
+  if (value === null || value === undefined || value === "") return "-";
+  const numeric = Number(value);
+  const percentKeys = new Set([
+    "third_down_rate",
+    "red_zone_score_rate",
+    "scoring_conversion_rate",
+    "drive_conversion_rate",
+    "completion_rate",
+    "field_goal_rate",
+  ]);
+  const signedKeys = new Set([
+    "turnover_margin",
+    "yards_differential_per_game",
+  ]);
+  if (percentKeys.has(key)) {
+    return `${formatNumber(Number(value) * 100, 1)}%`;
+  }
+  if (signedKeys.has(key) && Number.isFinite(numeric)) {
+    return signed(numeric);
+  }
+  if (Number.isFinite(numeric)) {
+    return Number.isInteger(numeric) ? String(numeric) : formatNumber(numeric, 1);
+  }
+  return escapeHtml(value);
+}
+
+function buildTeamStatRows(stats = {}, conversion = {}) {
+  const primaryOrder = [
+    "yards_per_game",
+    "yards_allowed_per_game",
+    "yards_differential_per_game",
+    "points_per_game",
+    "points_per_drive",
+    "scoring_conversion_rate",
+    "drive_conversion_rate",
+    "red_zone_score_rate",
+    "third_down_rate",
+    "turnover_margin",
+  ];
+  const rows = [];
+  const added = new Set();
+
+  const addRow = (key, value) => {
+    if (value === null || value === undefined || value === "") return;
+    added.add(key);
+    rows.push(
+      `<div><span>${escapeHtml(prettyStatLabel(key))}</span><strong>${escapeHtml(formatTeamStatValue(key, value))}</strong></div>`
+    );
+  };
+
+  primaryOrder.forEach((key) => {
+    if (key in stats) addRow(key, stats[key]);
+    else if (key in conversion) addRow(key, conversion[key]);
+  });
+
+  Object.entries(stats).forEach(([key, value]) => {
+    if (!added.has(key)) addRow(key, value);
+  });
+  Object.entries(conversion).forEach(([key, value]) => {
+    if (!added.has(key)) addRow(key, value);
+  });
+  return rows.join("");
 }
 
 function setStatus(message, tone = "") {
@@ -159,9 +270,9 @@ function renderMetricCards(target, rows) {
   const el = $(target);
   if (!el) return;
   el.innerHTML = rows.map((metric) => `
-    <article class="metric-guide-card">
-      <p class="eyebrow">${escapeHtml(metric.group || "Metric")}</p>
-      <h3>${escapeHtml(publicMetricName(metric.name))}</h3>
+    <article class="guide-card">
+      <span>${escapeHtml(metric.group || "Metric")}</span>
+      <h4>${escapeHtml(publicMetricName(metric.name))}</h4>
       <p>${escapeHtml(publicMetricDescription(metric))}</p>
     </article>
   `).join("");
@@ -185,8 +296,8 @@ async function loadMetricPage() {
     api("/api/product-a/metric-catalog"),
     api("/api/product-a/comparison-stats"),
   ]);
-  renderMetricCards("coreMetricGrid", metrics.metrics || []);
-  renderMetricCards("comparisonMetricGrid", stats.stats || []);
+  renderMetricCards("metricCatalogGrid", metrics.metrics || []);
+  renderMetricCards("comparisonStatsGrid", stats.stats || []);
   setStatus("Metric catalog loaded.", "ok");
 }
 
@@ -293,23 +404,46 @@ async function buildHistoricalMatchup() {
 }
 
 async function loadBracketPage() {
-  setStatus("Loading Bracket Room shell...");
+  setStatus("Loading Bracket Room...");
   const seasonsPayload = await api("/api/seasons");
   const season = (seasonsPayload.seasons || [])[0];
   if (!season) {
     setStatus("No seasons returned by API.", "warn");
     return;
   }
-  const payload = await api(`/api/product-a/team-board?season=${encodeURIComponent(season)}`);
-  const rows = (payload.teams || payload.rows || []).slice(0, 12);
+  const payload = await api(`/api/product-a/bracket-room?season=${encodeURIComponent(season)}`);
+  const summary = payload.summary || {};
+  const titleRows = (payload.title_probabilities || []).slice(0, 12);
+  const leverageRows = (payload.team_leverage || []).slice(0, 12);
+  const upsetRows = (payload.matchup_probabilities || []).slice(0, 8);
+  const rows = leverageRows.length ? leverageRows : titleRows;
+  $("bracketSummary").innerHTML = `
+    <div class="summary-grid">
+      <div><span>Season</span><strong>${escapeHtml(season)}</strong></div>
+      <div><span>Title Favorite</span><strong>${escapeHtml(summary.title_favorite || titleRows[0]?.team || "-")}</strong></div>
+      <div><span>Favorite Probability</span><strong>${formatNumber((summary.title_favorite_probability ?? titleRows[0]?.title_probability) * 100, 1)}%</strong></div>
+      <div><span>Actual Champion</span><strong>${escapeHtml(summary.actual_champion || "-")}</strong></div>
+      <div><span>Champion Probability Rank</span><strong>${escapeHtml(summary.actual_champion_probability_rank || "-")}</strong></div>
+      <div><span>High Upset-Risk Matchups</span><strong>${escapeHtml(summary.high_upset_risk_matchups ?? "-")}</strong></div>
+    </div>
+  `;
   renderRows("bracketTable", rows, [
-    { label: "Rank", render: (row) => row.adv_srs_rank ?? "-" },
+    { label: "Title Rank", render: (row) => row.title_probability_rank ?? row.adv_srs_rank ?? "-" },
     { label: "Team", key: "team" },
-    { label: "Conf", key: "conference" },
+    { label: "Seed", key: "seed" },
     { label: "ADV SRS", render: (row) => formatNumber(row.adv_srs, 2) },
-    { label: "SOS", render: (row) => formatNumber(row.adv_sos, 2) },
+    { label: "Title Probability", render: (row) => `${formatNumber(Number(row.title_probability) * 100, 1)}%` },
+    { label: "Path Leverage", render: (row) => formatNumber(row.path_leverage_index, 3) },
+    { label: "Context", render: (row) => escapeHtml(row.risk_notes || row.title_signal_tags || "-") },
   ]);
-  setStatus("Bracket Room shell loaded. Title-probability endpoint is the next backend exposure step.", "ok");
+  renderRows("bracketUpsetTable", upsetRows, [
+    { label: "Favorite", key: "favorite" },
+    { label: "Opponent", key: "underdog" },
+    { label: "Favorite Win %", render: (row) => `${formatNumber(Number(row.favorite_win_probability) * 100, 1)}%` },
+    { label: "Upset Risk", render: (row) => `${formatNumber(Number(row.upset_risk) * 100, 1)}%` },
+    { label: "Risk Label", key: "upset_risk_label" },
+  ]);
+  setStatus("Bracket Room loaded.", "ok");
 }
 
 async function loadLegalPage() {
@@ -327,14 +461,101 @@ async function loadLegalPage() {
 }
 
 async function loadNewsPage() {
-  setStatus("News endpoint pending.", "warn");
-  $("newsList").innerHTML = `
+  setStatus("Loading news...");
+  const payload = await api("/api/news/latest?limit=8");
+  const rows = payload.items || [];
+  $("newsList").innerHTML = rows.length ? rows.map((item) => `
+    <article class="news-item">
+      <span>${escapeHtml(item.source || "College Football")}</span>
+      <h3><a href="${escapeHtml(item.link)}" rel="noopener noreferrer" target="_blank">${escapeHtml(item.title)}</a></h3>
+      <p>${escapeHtml(item.published || "Recent")}</p>
+    </article>
+  `).join("") : `
     <article class="insight-panel">
-      <p class="eyebrow">Backend-Cached RSS</p>
-      <h2>News Feed Ready For Endpoint</h2>
-      <p class="interpretation">The page is ready for <code>/api/news/latest</code>. It should be backend-cached RSS only, refreshed on the server, and never fetched directly from the browser.</p>
+      <p class="eyebrow">News Feed</p>
+      <h2>No headlines available</h2>
+      <p class="interpretation">The backend news cache did not return current headlines.</p>
     </article>
   `;
+  setStatus("News loaded.", "ok");
+}
+
+async function loadTeamPage() {
+  setStatus("Loading teams...");
+  const seasonsPayload = await api("/api/seasons");
+  const seasons = seasonsPayload.seasons || [];
+  const seasonSelect = $("teamSeasonSelect");
+  seasonSelect.innerHTML = seasons.map((season) => `<option value="${season}">${season}</option>`).join("");
+  seasonSelect.value = String(seasons[0] || "");
+  await populateTeamPageTeams();
+  seasonSelect.addEventListener("change", populateTeamPageTeams);
+  $("loadTeamButton").addEventListener("click", renderTeamPage);
+  setStatus("Team page ready.", "ok");
+}
+
+async function populateTeamPageTeams() {
+  const season = $("teamSeasonSelect").value;
+  if (!season) return;
+  const payload = await api(`/api/product-a/team-board?season=${encodeURIComponent(season)}&limit=300`);
+  const teams = (payload.teams || payload.rows || []).filter((row) => row.team);
+  $("teamPageSelect").innerHTML = teams.map((team) => `<option value="${escapeHtml(team.team)}">${escapeHtml(team.team)}</option>`).join("");
+}
+
+async function renderTeamPage() {
+  const season = $("teamSeasonSelect").value;
+  const team = $("teamPageSelect").value;
+  if (!season || !team) {
+    setStatus("Choose a season and team.", "warn");
+    return;
+  }
+  setStatus("Loading team profile...");
+  const [profile, schedule] = await Promise.all([
+    api(`/api/team/${encodeURIComponent(season)}/${encodeURIComponent(team)}`),
+    api(`/api/team/${encodeURIComponent(season)}/${encodeURIComponent(team)}/schedule?view=full`),
+  ]);
+  const intel = profile.intelligence || {};
+  const stats = profile.comparison_stats || {};
+  const conversion = profile.drive_conversion || {};
+  const games = schedule.schedule || [];
+  $("teamPageResult").innerHTML = `
+    <div class="insight-panel">
+      <p class="eyebrow">${escapeHtml(season)} Team Profile</p>
+      <h2>${escapeHtml(team)}</h2>
+      <div class="summary-grid">
+        <div><span>ADV Rank</span><strong>#${escapeHtml(intel.adv_srs_rank || "-")}</strong></div>
+        <div><span>ADV Strength Rating</span><strong>${formatNumber(intel.adv_srs, 2)}</strong></div>
+        <div><span>Offense</span><strong>${formatNumber(intel.off_adv_srs, 2)}</strong></div>
+        <div><span>Defense</span><strong>${formatNumber(intel.def_adv_srs, 2)}</strong></div>
+        <div><span>Control Rate</span><strong>${formatNumber(intel.control_rate_pct, 1)}%</strong></div>
+        ${buildTeamStatRows(stats, conversion)}
+      </div>
+    </div>
+    <div class="context-callout">
+      <h3>Schedule</h3>
+      <div class="table-wrap">
+        <table class="data-table compact-table">
+          <thead><tr><th>Week</th><th>Opponent</th><th>Score</th><th>ADV Recap</th></tr></thead>
+          <tbody>
+            ${games.map((game) => {
+              const weekField = game.week ?? game.week_number ?? game.week_num ?? game.week_no ?? game.week_name ?? game.week_display ?? "-";
+              const scoreLine = game.team_score != null
+                ? `${escapeHtml(game.team_score)}-${escapeHtml(game.opponent_score)}`
+                : escapeHtml(game.score || "-");
+              return `
+                <tr>
+                  <td>${escapeHtml(weekField)}</td>
+                  <td>${escapeHtml(game.opponent || game.opponent_name || game.opponent_team || "-")}</td>
+                  <td>${scoreLine}</td>
+                  <td>${game.has_adv_recap ? "Available" : "-"}</td>
+                </tr>
+              `;
+            }).join("")}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+  setStatus("Team profile loaded.", "ok");
 }
 
 async function boot() {
@@ -346,6 +567,7 @@ async function boot() {
     if (page === "bracket") await loadBracketPage();
     if (page === "legal") await loadLegalPage();
     if (page === "news") await loadNewsPage();
+    if (page === "team") await loadTeamPage();
   } catch (error) {
     console.error(error);
     setStatus(error.message, "error");
