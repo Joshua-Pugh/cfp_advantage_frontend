@@ -509,40 +509,49 @@ async function renderTeamPage() {
     return;
   }
   setStatus("Loading team profile...");
-  const [profile, schedule] = await Promise.all([
-    api(`/api/team/${encodeURIComponent(season)}/${encodeURIComponent(team)}`),
-    api(`/api/team/${encodeURIComponent(season)}/${encodeURIComponent(team)}/schedule?view=full`),
-  ]);
-  
-  const intel = profile.intelligence || {};
-  const stats = profile.comparison_stats || {};
-  const record = profile.record || {};
-  const games = schedule.schedule || [];
-  
-  // Store data for tab switching
-  window.__teamPageData = {
-    season,
-    team,
-    intel,
-    stats,
-    record,
-    games,
-  };
+  try {
+    const [profile, schedule] = await Promise.all([
+      api(`/api/team/${encodeURIComponent(season)}/${encodeURIComponent(team)}`),
+      api(`/api/team/${encodeURIComponent(season)}/${encodeURIComponent(team)}/schedule?view=full`),
+    ]);
+    
+    const intel = profile.intelligence || {};
+    const stats = profile.comparison_stats || {};
+    const record = profile.record || {};
+    const games = Array.isArray(schedule.schedule) ? schedule.schedule : [];
+    
+    // Store data for tab switching
+    window.__teamPageData = {
+      season,
+      team,
+      intel,
+      stats,
+      record,
+      games,
+    };
 
-  $("teamPageResult").innerHTML = `
-    <div id="teamScheduleView" class="team-view-panel is-active">
-      ${renderTeamScheduleView(season, team, intel, record, games)}
-    </div>
-    <div id="teamStatsView" class="team-view-panel">
-      ${renderTeamStatsView(intel, stats)}
-    </div>
-  `;
+    const scheduleHtml = renderTeamScheduleView(season, team, intel, record, games);
+    const statsHtml = renderTeamStatsView(intel, stats);
 
-  // Setup tab switching
-  $("teamScheduleTab").addEventListener("click", () => switchTeamTab("schedule"));
-  $("teamStatsTab").addEventListener("click", () => switchTeamTab("stats"));
+    $("teamPageResult").innerHTML = `
+      <div id="teamScheduleView" class="team-view-panel is-active">
+        ${scheduleHtml}
+      </div>
+      <div id="teamStatsView" class="team-view-panel">
+        ${statsHtml}
+      </div>
+    `;
 
-  setStatus("Team profile loaded.", "ok");
+    // Setup tab switching
+    $("teamScheduleTab").addEventListener("click", () => switchTeamTab("schedule"));
+    $("teamStatsTab").addEventListener("click", () => switchTeamTab("stats"));
+
+    setStatus("Team profile loaded.", "ok");
+  } catch (error) {
+    console.error("Team page error:", error);
+    setStatus(`Error loading team: ${error.message}`, "error");
+    $("teamPageResult").innerHTML = `<div class="empty-state">${escapeHtml(error.message)}</div>`;
+  }
 }
 
 function switchTeamTab(tabName) {
@@ -588,19 +597,29 @@ function renderTeamScheduleView(season, team, intel, record, games) {
   ];
 
   const scheduleSections = sections.map(([key, title]) => {
-    const items = games.filter((row) => row.schedule_section === key);
+    const items = Array.isArray(games) ? games.filter((row) => row.schedule_section === key) : [];
     if (!items.length) return "";
     const gamesList = items.map((row) => {
-      const weekField = row.display_week || row.week ?? row.week_number ?? row.week_num ?? "-";
+      const weekField = row.display_week ?? row.week ?? row.week_number ?? row.week_num ?? "-";
       const resultClass = row.result_w_l === "W" ? "result-win" : row.result_w_l === "L" ? "result-loss" : "";
+      const score = `${String(row.team_score || "-")}-${String(row.opponent_score || "-")}`;
+      const opponent = String(row.opponent || row.opponent_name || "-");
+      const homeAway = row.is_home ? "vs" : "at";
+      const dateStr = row.date ? String(row.date) : "";
+      const neutralStr = row.is_neutral ? " | Neutral Site" : "";
+      const yardsStr = row.team_total_yards != null && row.opponent_total_yards != null 
+        ? ` | Yards ${String(row.team_total_yards)}-${String(row.opponent_total_yards)}`
+        : "";
+      const resultStr = row.result_w_l ? String(row.result_w_l) : "-";
+      
       return `
         <article class="schedule-game">
-          <div class="schedule-week">${escapeHtml(weekField)}</div>
+          <div class="schedule-week">${escapeHtml(String(weekField))}</div>
           <div class="schedule-opponent">
-            <strong>${row.is_home ? "vs" : "at"} ${escapeHtml(row.opponent || row.opponent_name || "-")}</strong>
-            <span>${row.date || ""}${row.is_neutral ? " | Neutral Site" : ""}${row.team_total_yards !== null && row.team_total_yards !== undefined ? ` | Yards ${row.team_total_yards}-${row.opponent_total_yards}` : ""}</span>
+            <strong>${homeAway} ${escapeHtml(opponent)}</strong>
+            <span>${escapeHtml(dateStr)}${escapeHtml(neutralStr)}${escapeHtml(yardsStr)}</span>
           </div>
-          <div class="schedule-score ${resultClass}">${row.result_w_l} ${row.team_score}-${row.opponent_score}</div>
+          <div class="schedule-score ${resultClass}">${escapeHtml(resultStr)} ${escapeHtml(score)}</div>
         </article>
       `;
     }).join("");
