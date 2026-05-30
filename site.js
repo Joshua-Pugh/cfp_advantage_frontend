@@ -644,114 +644,125 @@ function renderTeamScheduleView(season, team, intel, record, games) {
 }
 
 function renderTeamStatsView(intel, stats) {
-  const statCategories = [
-    {
-      name: "Team Overview & Scoring",
-      fields: [
-        { key: "points_per_game", label: "Points / Game" },
-        { key: "opp_points_per_game", label: "Opp Points / Game" },
-        { key: "total_points", label: "Total Points" },
-        { key: "total_touchdowns", label: "Total Touchdowns" },
-        { key: "passing_touchdowns", label: "Passing Touchdowns" },
-        { key: "rushing_touchdowns", label: "Rushing Touchdowns" },
-        { key: "first_downs_per_game", label: "First Downs / Game" },
-        { key: "rushing_first_downs", label: "Rushing First Downs" },
-        { key: "passing_first_downs", label: "Passing First Downs" },
-        { key: "penalty_first_downs", label: "Penalty First Downs" },
-      ],
-    },
-    {
-      name: "Passing Statistics",
-      fields: [
-        { key: "passing_yards_per_game", label: "Passing Yards / Game" },
-        { key: "completions", label: "Completions" },
-        { key: "passing_attempts", label: "Passing Attempts" },
-        { key: "completion_percentage", label: "Completion %", format: "percent" },
-        { key: "yards_per_attempt", label: "Yards / Attempt" },
-        { key: "passing_touchdowns", label: "Passing TD" },
-        { key: "interceptions_thrown", label: "Interceptions" },
-      ],
-    },
-    {
-      name: "Rushing Statistics",
-      fields: [
-        { key: "rushing_yards_per_game", label: "Rushing Yards / Game" },
-        { key: "rushing_attempts", label: "Rushing Attempts" },
-        { key: "yards_per_rush", label: "Yards / Rush" },
-        { key: "rushing_touchdowns", label: "Rushing TD" },
-      ],
-    },
-    {
-      name: "Defensive & Line Metrics",
-      fields: [
-        { key: "yards_allowed_per_game", label: "Yards Allowed / Game" },
-        { key: "passing_yards_allowed", label: "Passing Yards Allowed" },
-        { key: "rushing_yards_allowed", label: "Rushing Yards Allowed" },
-        { key: "sacks", label: "Sacks" },
-        { key: "interceptions", label: "Interceptions" },
-        { key: "fumbles_recovered", label: "Fumbles Recovered" },
-        { key: "pass_deflections", label: "Pass Deflections" },
-        { key: "tackles_for_loss", label: "Tackles For Loss" },
-      ],
-    },
-    {
-      name: "Situational & Special Teams",
-      fields: [
-        { key: "third_down_rate", label: "3rd Down Conversion %", format: "percent" },
-        { key: "fourth_down_rate", label: "4th Down Conversion %", format: "percent" },
-        { key: "red_zone_score_rate", label: "Red Zone Score %", format: "percent" },
-        { key: "red_zone_td_rate", label: "Red Zone TD %", format: "percent" },
-        { key: "turnover_margin", label: "Turnover Margin", format: "signed" },
-        { key: "field_goal_percentage", label: "Field Goal %", format: "percent" },
-        { key: "field_goals_made", label: "Field Goals Made" },
-        { key: "field_goals_attempted", label: "Field Goals Attempted" },
-        { key: "punting_average", label: "Punting Average" },
-        { key: "kick_return_yards", label: "Kick Return Yards" },
-        { key: "punt_return_yards", label: "Punt Return Yards" },
-        { key: "penalties", label: "Total Penalties" },
-        { key: "penalty_yards", label: "Penalty Yards" },
-      ],
-    },
-  ];
+  // Map of field names to labels and formatting instructions
+  const fieldMetadata = {
+    // Team Overview & Scoring
+    points_per_game: { label: "Points / Game", category: "Team Overview & Scoring" },
+    opp_points_per_game: { label: "Opp Points / Game", category: "Team Overview & Scoring" },
+    total_points: { label: "Total Points", category: "Team Overview & Scoring" },
+    total_touchdowns: { label: "Total Touchdowns", category: "Team Overview & Scoring" },
+    passing_touchdowns: { label: "Passing Touchdowns", category: "Team Overview & Scoring" },
+    rushing_touchdowns: { label: "Rushing Touchdowns", category: "Team Overview & Scoring" },
+    first_downs_per_game: { label: "First Downs / Game", category: "Team Overview & Scoring" },
+    rushing_first_downs: { label: "Rushing First Downs", category: "Team Overview & Scoring" },
+    passing_first_downs: { label: "Passing First Downs", category: "Team Overview & Scoring" },
+    penalty_first_downs: { label: "Penalty First Downs", category: "Team Overview & Scoring" },
+    
+    // Passing Statistics
+    passing_yards_per_game: { label: "Passing Yards / Game", category: "Passing Statistics" },
+    completions: { label: "Completions", category: "Passing Statistics" },
+    passing_attempts: { label: "Passing Attempts", category: "Passing Statistics" },
+    completion_percentage: { label: "Completion %", category: "Passing Statistics", format: "percent" },
+    yards_per_attempt: { label: "Yards / Attempt", category: "Passing Statistics" },
+    interceptions_thrown: { label: "Interceptions", category: "Passing Statistics" },
+    
+    // Rushing Statistics
+    rushing_yards_per_game: { label: "Rushing Yards / Game", category: "Rushing Statistics" },
+    rushing_attempts: { label: "Rushing Attempts", category: "Rushing Statistics" },
+    yards_per_rush: { label: "Yards / Rush", category: "Rushing Statistics" },
+    
+    // Defensive & Line Metrics
+    yards_allowed_per_game: { label: "Yards Allowed / Game", category: "Defensive & Line Metrics" },
+    passing_yards_allowed: { label: "Passing Yards Allowed", category: "Defensive & Line Metrics" },
+    rushing_yards_allowed: { label: "Rushing Yards Allowed", category: "Defensive & Line Metrics" },
+    sacks: { label: "Sacks", category: "Defensive & Line Metrics" },
+    interceptions: { label: "Interceptions", category: "Defensive & Line Metrics" },
+    fumbles_recovered: { label: "Fumbles Recovered", category: "Defensive & Line Metrics" },
+    pass_deflections: { label: "Pass Deflections", category: "Defensive & Line Metrics" },
+    tackles_for_loss: { label: "Tackles For Loss", category: "Defensive & Line Metrics" },
+    
+    // Situational & Special Teams
+    third_down_rate: { label: "3rd Down Conversion %", category: "Situational & Special Teams", format: "percent" },
+    fourth_down_rate: { label: "4th Down Conversion %", category: "Situational & Special Teams", format: "percent" },
+    red_zone_score_rate: { label: "Red Zone Score %", category: "Situational & Special Teams", format: "percent" },
+    red_zone_td_rate: { label: "Red Zone TD %", category: "Situational & Special Teams", format: "percent" },
+    turnover_margin: { label: "Turnover Margin", category: "Situational & Special Teams", format: "signed" },
+    field_goal_percentage: { label: "Field Goal %", category: "Situational & Special Teams", format: "percent" },
+    field_goals_made: { label: "Field Goals Made", category: "Situational & Special Teams" },
+    field_goals_attempted: { label: "Field Goals Attempted", category: "Situational & Special Teams" },
+    punting_average: { label: "Punting Average", category: "Situational & Special Teams" },
+    kick_return_yards: { label: "Kick Return Yards", category: "Situational & Special Teams" },
+    punt_return_yards: { label: "Punt Return Yards", category: "Situational & Special Teams" },
+    penalties: { label: "Total Penalties", category: "Situational & Special Teams" },
+    penalty_yards: { label: "Penalty Yards", category: "Situational & Special Teams" },
+  };
 
   const allData = { ...intel, ...stats };
+  const categoryMap = new Map();
 
-  const sections = statCategories.map((category) => {
-    const rows = category.fields
-      .map((field) => {
-        const value = allData[field.key];
-        if (value === null || value === undefined || value === "") return "";
+  // Group fields by category, only including fields that have data
+  Object.entries(allData).forEach(([key, value]) => {
+    if (value === null || value === undefined || value === "") return;
 
-        let displayValue = "-";
-        if (field.format === "percent") {
-          displayValue = `${formatNumber(Number(value) * 100, 1)}%`;
-        } else if (field.format === "signed") {
-          displayValue = signed(value);
-        } else if (Number.isFinite(Number(value))) {
-          displayValue = Number.isInteger(Number(value))
-            ? String(value)
-            : formatNumber(value, 1);
-        } else {
-          displayValue = escapeHtml(value);
-        }
+    let meta = fieldMetadata[key];
+    if (!meta) {
+      // Auto-categorize unknown fields
+      let category = "Other Statistics";
+      let label = String(key)
+        .replace(/_/g, " ")
+        .replace(/\b\w/g, (chr) => chr.toUpperCase());
+      meta = { label, category };
+    }
 
-        return `<div><span>${escapeHtml(field.label)}</span><strong>${displayValue}</strong></div>`;
-      })
-      .filter((row) => row.length > 0)
-      .join("");
+    if (!categoryMap.has(meta.category)) {
+      categoryMap.set(meta.category, []);
+    }
 
-    if (!rows) return "";
-    return `
-      <div class="insight-panel">
-        <h3>${escapeHtml(category.name)}</h3>
-        <div class="summary-grid">
-          ${rows}
+    let displayValue = "-";
+    if (meta.format === "percent") {
+      displayValue = `${formatNumber(Number(value) * 100, 1)}%`;
+    } else if (meta.format === "signed") {
+      displayValue = signed(value);
+    } else if (Number.isFinite(Number(value))) {
+      displayValue = Number.isInteger(Number(value)) ? String(value) : formatNumber(value, 1);
+    } else {
+      displayValue = escapeHtml(String(value));
+    }
+
+    categoryMap.get(meta.category).push(
+      `<div><span>${escapeHtml(meta.label)}</span><strong>${displayValue}</strong></div>`
+    );
+  });
+
+  if (categoryMap.size === 0) {
+    return '<div class="empty-state">No statistics available for this team.</div>';
+  }
+
+  // Order categories as shown
+  const categoryOrder = [
+    "Team Overview & Scoring",
+    "Passing Statistics",
+    "Rushing Statistics",
+    "Defensive & Line Metrics",
+    "Situational & Special Teams",
+    "Other Statistics",
+  ];
+
+  const sections = categoryOrder
+    .filter((cat) => categoryMap.has(cat))
+    .map(
+      (cat) => `
+        <div class="insight-panel">
+          <h3>${cat}</h3>
+          <div class="summary-grid">
+            ${categoryMap.get(cat).join("")}
+          </div>
         </div>
-      </div>
-    `;
-  }).join("");
+      `
+    )
+    .join("");
 
-  return sections || '<div class="empty-state">No statistics available for this team.</div>';
+  return sections;
 }
 
 async function boot() {
