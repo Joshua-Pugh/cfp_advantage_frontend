@@ -1,0 +1,68 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Model Strength vs Poll Perception | CFP Advantage</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body data-page="rankings">
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">CFP ADVANTAGE</p>
+          <h1>Model Strength vs Poll Perception</h1>
+        </div>
+        <nav class="page-nav" aria-label="Site pages">
+          <a href="index.html">Home</a>
+          <a href="matchups.html">Matchups</a>
+          <a href="historical.html">Build Historical Matchup</a>
+          <a href="bracket-room.html">Bracket Room</a>
+          <a href="metrics.html">Metrics Guide</a>
+          <a href="team.html">Team Page</a>
+          <a class="is-active" href="rankings.html">Model vs Poll</a>
+          <a href="news.html">News</a>
+          <a href="legal.html">Legal</a>
+        </nav>
+      </header>
+      <p id="pageStatus" class="page-status">Loading...</p>
+      <section class="workspace-view static-page">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Public Perception Context</p>
+            <h2>CFP Advantage Strength Board vs AP Poll Reference</h2>
+          </div>
+          <span class="panel-note">Drive-level strength compared with human poll rank</span>
+        </div>
+        <p class="guide-note">
+          This is not a traditional poll. The CFP Advantage board ranks teams by drive-level strength profile,
+          not resume, win-loss record, brand perception, or voter consensus.
+        </p>
+        <div class="matchup-controls page-controls">
+          <label><span>Season</span><select id="rankSeasonSelect"></select></label>
+          <label><span>Week</span><select id="rankWeekSelect"></select></label>
+          <button id="loadRankingsButton" type="button">Load Rankings</button>
+        </div>
+        <div id="rankingsSummary" class="page-result"></div>
+        <div class="rankings-grid">
+          <section class="insight-panel">
+            <p class="eyebrow">CFP Advantage Strength Board</p>
+            <div id="advTop25Table"></div>
+          </section>
+          <section class="insight-panel">
+            <p class="eyebrow">AP Poll Reference</p>
+            <div id="apTop25Table"></div>
+          </section>
+        </div>
+        <section class="insight-panel">
+          <p class="eyebrow">Rank Gap</p>
+          <h2>Strength Profile vs Poll Perception</h2>
+          <div id="rankCompareTable"></div>
+        </section>
+      </section>
+    </main>
+    <script src="config.js"></script>
+    <script src="site.js"></script>
+  </body>
+</html>
+

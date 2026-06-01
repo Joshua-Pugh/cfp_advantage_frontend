@@ -15,8 +15,8 @@ const apiMemoryCache = new Map();
 const TERMS_ACCEPTED_KEY = "cfp_adv_terms_accepted";
 const TERMS_VERSION_KEY = "cfp_adv_terms_version";
 const TERMS_ACCEPTED_AT_KEY = "cfp_adv_terms_accepted_at";
-const DEFAULT_TERMS_VERSION = "2026-05-29-product-a-v4";
-const TERMS_GATE_MESSAGE = "Before entering CFP Advantage, please review and accept the Terms of Use. CFP Advantage provides football intelligence and model-derived context for informational and entertainment purposes. It does not guarantee outcomes, and access is only allowed if you agree to the Terms, Privacy Policy, Refund Policy, and Disclaimer.";
+const DEFAULT_TERMS_VERSION = "2026-06-01-access-terms-v5";
+const TERMS_GATE_MESSAGE = "Before entering CFP Advantage, please review and accept the Terms of Use. CFP Advantage provides football intelligence and model-derived context for informational and educational purposes. It does not guarantee outcomes and is not betting, financial, or professional advice. To access this free site, you must be at least 13 years old. Purchases of premium content or subscriptions are restricted to individuals 18 years of age or older, or the age of majority in their jurisdiction. This site uses browser localStorage to remember your terms acknowledgement and display preferences on this device. By accepting, you agree to the Terms, Privacy Policy, Refund Policy, and Disclaimer.";
 const METRIC_DISPLAY = {
   "ADV SRS": ["ADV Strength Rating (ADV SRS)", "Measures a team's overall football-control strength after accounting for schedule context. Higher values indicate stronger season-level team quality."],
   "OFF ADV SRS": ["Offensive ADV Strength Rating (OFF ADV SRS)", "Measures how much value a team's offense creates through sustained, useful football control."],
@@ -182,6 +182,13 @@ function formatNumber(value) {
     : Number(value).toFixed(2);
 }
 
+function formatPercent(value, digits = 1) {
+  const number = Number(value);
+  if (!Number.isFinite(number)) return "-";
+  const pct = Math.abs(number) <= 1 ? number * 100 : number;
+  return `${pct.toFixed(digits)}%`;
+}
+
 function escapeHtml(value) {
   return String(value ?? "")
     .replace(/&/g, "&amp;")
@@ -194,6 +201,43 @@ function escapeHtml(value) {
 function signed(value) {
   if (value === null || value === undefined || Number.isNaN(Number(value))) return "-";
   return `${Number(value) >= 0 ? "+" : ""}${Number(value).toFixed(2)}`;
+}
+
+function numericOrNull(value) {
+  const number = Number(value);
+  return value === null || value === undefined || value === "" || !Number.isFinite(number) ? null : number;
+}
+
+function decimal(value, digits = 1) {
+  const number = numericOrNull(value);
+  return number === null ? "-" : number.toFixed(digits);
+}
+
+function signedDecimal(value, digits = 1) {
+  const number = numericOrNull(value);
+  return number === null ? "-" : `${number >= 0 ? "+" : ""}${number.toFixed(digits)}`;
+}
+
+function rate(value) {
+  const number = numericOrNull(value);
+  if (number === null) return "-";
+  const pct = Math.abs(number) <= 1 ? number * 100 : number;
+  return `${pct.toFixed(1)}%`;
+}
+
+function whole(value) {
+  const number = numericOrNull(value);
+  return number === null ? "-" : String(Math.round(number));
+}
+
+function presentScore(value) {
+  if (value === 0 || value === "0") return "0";
+  if (value === null || value === undefined || value === "") return "-";
+  return String(value);
+}
+
+function cleanDash(value) {
+  return value === null || value === undefined || value === "" || value === "null / null" || value === "- / -" ? "-" : value;
 }
 
 function validSeason(value) {
@@ -539,8 +583,15 @@ async function renderMatchupPreview() {
   if (!validSeason(els.season.value)) {
     throw new Error("Select an available season before building a matchup.");
   }
-  const params = new URLSearchParams({ season: els.season.value, teamA: teamA, teamB: teamB });
-  const row = await api(`/api/matchup?${params.toString()}`);
+  showStatus("Building Matchup...", "Loading team profiles and model outlook.", true);
+  let row;
+  try {
+    const params = new URLSearchParams({ season: els.season.value, teamA: teamA, teamB: teamB });
+    row = await api(`/api/matchup?${params.toString()}`);
+  } catch (error) {
+    showStatus("Preview Unavailable", error.message, false);
+    throw error;
+  }
   const a = row.team_a;
   const b = row.team_b;
   const accuracy = Number(row.confidence_bucket.historical_accuracy) * 100;
@@ -555,8 +606,8 @@ async function renderMatchupPreview() {
     metricTile("OFF Strength", `${formatNumber(a.off_adv_srs)} vs ${formatNumber(b.off_adv_srs)}`),
     metricTile("DEF Strength", `${formatNumber(a.def_adv_srs)} vs ${formatNumber(b.def_adv_srs)}`),
     metricTile("Weak-Side Profile", `${formatNumber(a.weaker_side_srs)} vs ${formatNumber(b.weaker_side_srs)}`),
-    metricTile("SOS Percentile", `${formatNumber(a.adv_sos_percentile)}% vs ${formatNumber(b.adv_sos_percentile)}%`),
-    metricTile("Control Rate", `${formatNumber(a.control_rate_pct)}% vs ${formatNumber(b.control_rate_pct)}%`),
+    metricTile("SOS Percentile", `${formatPercent(a.adv_sos_percentile)} vs ${formatPercent(b.adv_sos_percentile)}`),
+    metricTile("Control Rate", `${formatPercent(a.control_rate_pct)} vs ${formatPercent(b.control_rate_pct)}`),
   ].join("");
   const playedGame = (row.games_played || [])[0];
   state.selectedActualGame = playedGame || null;
@@ -569,6 +620,7 @@ async function renderMatchupPreview() {
   } else {
     els.actualMatchupPanel.classList.add("is-hidden");
   }
+  hideStatus();
 }
 
 function renderTeamBoard() {
@@ -737,40 +789,119 @@ function clearRecap() {
 }
 
 function renderRecap(data) {
-  const game = data.game;
-  const recap = data.postgame_control;
-  const awayAbbr = recap.away_abbr || game.away_team;
-  const homeAbbr = recap.home_abbr || game.home_team;
-  const homeTotal = Number(recap.net_adv_home);
-  const awayTotal = -homeTotal;
-  const netWinner = homeTotal >= 0 ? game.home_team : game.away_team;
-  els.awayName.textContent = `${game.away_team} (${awayAbbr})`;
-  els.homeName.textContent = `${game.home_team} (${homeAbbr})`;
-  setMetric(els.awayAdv, awayTotal);
-  setMetric(els.homeAdv, homeTotal);
-  els.gameDate.textContent = `${game.date || "Unknown date"} | ${game.away_team} at ${game.home_team}`;
-  els.advMargin.textContent = `${netWinner} ${signed(Math.abs(homeTotal - awayTotal))} ADV`;
-  els.scoreLine.textContent = `${game.away_points}-${game.home_points} final score`;
-  const actualWinnerMargin = recap.actual_winner === game.home_team ? recap.actual_margin_home : -recap.actual_margin_home;
-  const deservedWinnerMargin = recap.adv_control_winner === game.home_team ? recap.adv_deserved_margin_home : -recap.adv_deserved_margin_home;
-  setMetric(els.deservedMargin, deservedWinnerMargin);
-  setMetric(els.actualMargin, actualWinnerMargin);
-  setMetric(els.scoreboardGap, actualWinnerMargin - deservedWinnerMargin);
-  els.projectionLine.textContent = recap.summary;
-  const yards = data.yards_context || {};
-  if (yards.available) {
-    els.recapYardsContext.innerHTML = `
-      <span>${game.away_team} yards <strong>${yards.away_total_yards}</strong></span>
-      <span>${game.home_team} yards <strong>${yards.home_total_yards}</strong></span>
-    `;
-    els.recapYardsContext.classList.remove("is-hidden");
-  } else {
-    els.recapYardsContext.classList.add("is-hidden");
-  }
+  els.recapPanel.innerHTML = renderGameRecapCard(data, true);
+  els.recapPanel.classList.add("recap-card-host");
   state.hasRecap = true;
   els.recapEmpty.classList.add("is-hidden");
   els.recapPanel.classList.remove("is-hidden");
   setWorkspaceView("postgame");
+}
+
+function renderGameRecapCard(payload, compact = false) {
+  const game = payload.game || {};
+  const control = payload.postgame_control || {};
+  const yards = payload.yards_context || {};
+  const boxScore = payload.box_score || {};
+  const conversion = payload.adv_drive_conversion || {};
+  const title = `${game.away_team || "Away"} at ${game.home_team || "Home"}`;
+  const score = `${presentScore(game.away_points)}-${presentScore(game.home_points)}`;
+  return `
+    <article class="recap-detail ${compact ? "compact-recap" : ""}">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">${escapeHtml(game.season || "-")} Week ${escapeHtml(game.week || "-")}</p>
+          <h2>${escapeHtml(title)}</h2>
+        </div>
+        <span class="panel-note">${escapeHtml(game.date || "")}</span>
+      </div>
+      <div class="summary-grid recap-summary-grid">
+        <div><span>Final Score</span><strong>${escapeHtml(score)}</strong></div>
+        <div><span>Actual Winner</span><strong>${escapeHtml(control.actual_winner || "-")}</strong></div>
+        <div><span>ADV Control Winner</span><strong>${escapeHtml(control.adv_control_winner || "-")}</strong></div>
+        <div><span>ADV Deserved Margin</span><strong>${decimal(control.adv_deserved_margin_home, 1)}</strong></div>
+        <div><span>Actual Margin</span><strong>${decimal(control.actual_margin_home, 1)}</strong></div>
+        <div><span>Scoreboard vs ADV Gap</span><strong>${decimal(control.scoreboard_gap_home, 1)}</strong></div>
+      </div>
+      <p class="interpretation">${escapeHtml(control.summary || "Postgame control recap unavailable.")}</p>
+      ${renderModelMetricRecapCard(control, conversion)}
+      ${renderRecapBoxScoreCard(game, yards, boxScore)}
+    </article>
+  `;
+}
+
+function renderModelMetricRecapCard(control, conversion = {}) {
+  const homeConversion = conversion.home || {};
+  const awayConversion = conversion.away || {};
+  const rows = [
+    ["Net ADV", signedDecimal(control.net_adv_home, 1), "Home perspective"],
+    ["ADV Deserved Margin", decimal(control.adv_deserved_margin_home, 1), "Home perspective"],
+    ["Scoreboard vs ADV Gap", signedDecimal(control.scoreboard_gap_home, 1), "Home perspective"],
+    ["Home Control Rate (CR)", rate(homeConversion.game_control_rate), "Game-level control"],
+    ["Away Control Rate (CR)", rate(awayConversion.game_control_rate), "Game-level control"],
+    ["Home ADV Drive Conversion", rate(homeConversion.scoring_conversion_rate), "Control drives to points"],
+    ["Away ADV Drive Conversion", rate(awayConversion.scoring_conversion_rate), "Control drives to points"],
+  ];
+  return `
+    <section class="box-score-panel">
+      <h3>Model Control Metrics</h3>
+      <div class="recap-metric-grid">
+        ${rows.map(([label, value, note]) => `
+          <div>
+            <span>${escapeHtml(label)}</span>
+            <strong>${escapeHtml(value)}</strong>
+            <small>${escapeHtml(note)}</small>
+          </div>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderRecapBoxScoreCard(game, yards, boxScore = {}) {
+  const away = boxScore.away || {};
+  const home = boxScore.home || {};
+  const rows = [
+    ["Points", game.away_points, game.home_points],
+    ["Total Yards", valueOrFallback(away.total_yards, yards.away_total_yards), valueOrFallback(home.total_yards, yards.home_total_yards)],
+    ["Yards / Play", decimal(valueOrFallback(away.yards_per_play, yards.away_yards_per_play), 2), decimal(valueOrFallback(home.yards_per_play, yards.home_yards_per_play), 2)],
+    ["Passing", `${whole(away.pass_completions)} / ${whole(away.pass_attempts)}, ${whole(away.pass_yards)} yds`, `${whole(home.pass_completions)} / ${whole(home.pass_attempts)}, ${whole(home.pass_yards)} yds`],
+    ["Rushing", `${whole(away.rush_attempts)} att, ${whole(away.rush_yards)} yds`, `${whole(home.rush_attempts)} att, ${whole(home.rush_yards)} yds`],
+    ["First Downs", away.first_downs, home.first_downs],
+    ["3rd Down", conversionLine(away.third_down_conversions, away.third_down_attempts, away.third_down_rate), conversionLine(home.third_down_conversions, home.third_down_attempts, home.third_down_rate)],
+    ["4th Down", conversionLine(away.fourth_down_conversions, away.fourth_down_attempts, away.fourth_down_rate), conversionLine(home.fourth_down_conversions, home.fourth_down_attempts, home.fourth_down_rate)],
+    ["Red Zone", redZoneLine(away), redZoneLine(home)],
+    ["Turnovers", away.turnovers, home.turnovers],
+    ["Penalties", `${whole(away.penalties)} / ${whole(away.penalty_yards)} yds`, `${whole(home.penalties)} / ${whole(home.penalty_yards)} yds`],
+  ];
+  return `
+    <section class="box-score-panel">
+      <h3>Box Score</h3>
+      <table class="data-table compact-table box-score-table">
+        <thead>
+          <tr><th>Stat</th><th>${escapeHtml(game.away_team || "Away")}</th><th>${escapeHtml(game.home_team || "Home")}</th></tr>
+        </thead>
+        <tbody>
+          ${rows.map(([label, awayValue, homeValue]) => `<tr><td>${escapeHtml(label)}</td><td>${escapeHtml(cleanDash(awayValue))}</td><td>${escapeHtml(cleanDash(homeValue))}</td></tr>`).join("")}
+        </tbody>
+      </table>
+    </section>
+  `;
+}
+
+function valueOrFallback(value, fallback) {
+  return value === null || value === undefined || value === "" ? fallback : value;
+}
+
+function redZoneLine(stats) {
+  return `${whole(stats.red_zone_scores)}/${whole(stats.red_zone_trips)} score | TD ${whole(stats.red_zone_tds)} | FG ${whole(stats.red_zone_fgs)}`;
+}
+
+function conversionLine(made, attempts, storedRate) {
+  const madeNumber = numericOrNull(made);
+  const attemptsNumber = numericOrNull(attempts);
+  const pct = attemptsNumber ? (madeNumber || 0) / attemptsNumber : numericOrNull(storedRate);
+  const pctText = pct === null ? "-" : `${(pct * 100).toFixed(1)}%`;
+  return `${whole(madeNumber)} / ${whole(attemptsNumber)} (${pctText})`;
 }
 
 async function analyzeGame(gameId) {

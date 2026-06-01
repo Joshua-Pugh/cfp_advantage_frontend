@@ -263,12 +263,22 @@ select {
 }
 
 .site-footer {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px 20px;
   margin-top: 28px;
   padding: 18px 0 0;
   border-top: 1px solid var(--line);
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+.site-footer a {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: center;
 }
 
 .page-status {
@@ -494,6 +504,10 @@ select {
   align-items: end;
 }
 
+.historical-controls {
+  grid-template-columns: minmax(120px, 0.6fr) minmax(190px, 0.9fr) minmax(280px, 1.8fr) 210px;
+}
+
 .empty-state {
   padding: 34px 22px;
   color: var(--muted);
@@ -700,6 +714,13 @@ select {
   font-weight: 900;
 }
 
+.schedule-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
 .result-win {
   color: var(--green);
 }
@@ -795,6 +816,25 @@ select:disabled {
   opacity: 0.58;
 }
 
+.secondary-button {
+  border-color: var(--line);
+  background: #eef4f1;
+  color: var(--green);
+}
+
+.compact-action {
+  height: 34px;
+  padding: 0 10px;
+  font-size: 12px;
+}
+
+.text-link {
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
 .loader-panel {
   display: flex;
   align-items: center;
@@ -848,6 +888,10 @@ select:disabled {
   grid-template-columns: minmax(0, 1fr) minmax(260px, 0.7fr) minmax(0, 1fr);
   gap: 16px;
   margin: 16px;
+}
+
+.scoreboard.recap-card-host {
+  display: block;
 }
 
 .summary-panel {
@@ -940,6 +984,39 @@ select:disabled {
   display: block;
   margin-top: 5px;
   font-size: 19px;
+}
+
+.metric-help-toggle {
+  height: auto;
+  margin-top: 12px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #f7f8f5;
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.metric-help-panel {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+}
+
+.metric-help-panel.is-hidden {
+  display: none;
+}
+
+.metric-help-panel p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
 }
 
 .metric-row strong {
@@ -1038,13 +1115,13 @@ th {
   text-transform: uppercase;
 }
 
-tbody tr {
-  cursor: pointer;
-}
-
 tbody tr:hover,
 tbody tr.is-selected {
   background: #f0f6f3;
+}
+
+tbody tr.is-clickable {
+  cursor: pointer;
 }
 
 .board-wrap {
@@ -1241,10 +1318,11 @@ tbody tr.is-selected {
 .terms-banner {
   position: fixed;
   inset: 0;
-  z-index: 100;
+  z-index: 10000;
   display: grid;
   place-items: center;
   padding: 24px;
+  min-height: 100dvh;
   background: rgba(16, 24, 32, 0.52);
   backdrop-filter: blur(10px);
 }
@@ -1255,6 +1333,8 @@ tbody tr.is-selected {
 
 .terms-card {
   width: min(760px, 100%);
+  max-height: calc(100dvh - 32px);
+  overflow: auto;
   padding: clamp(26px, 5vw, 44px);
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 8px;
@@ -1405,34 +1485,43 @@ body.terms-locked .app-shell {
 
 .bracket-tree {
   display: grid;
-  grid-template-columns: repeat(4, minmax(220px, 1fr));
-  gap: 14px;
+  grid-template-columns: repeat(4, minmax(260px, 1fr));
+  gap: 18px;
   margin: 18px 0 26px;
+  padding: 20px;
+  overflow-x: visible;
+  align-items: start;
 }
 
 .bracket-round {
   display: grid;
-  align-content: start;
-  gap: 10px;
+  gap: 14px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #f8faf8;
 }
 
 .bracket-round h3 {
-  margin: 0;
-  color: #2e4149;
-  font-size: 14px;
+  margin: 0 0 6px;
+  color: var(--green);
+  font-size: 13px;
+  font-weight: 900;
+  text-transform: uppercase;
 }
 
 .bracket-game-card {
   display: grid;
   gap: 6px;
   width: 100%;
-  padding: 12px;
+  min-height: 92px;
+  padding: 14px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: 10px;
   background: #ffffff;
   color: var(--ink);
   text-align: left;
-  box-shadow: 0 8px 20px rgba(24, 32, 38, 0.06);
+  box-shadow: none;
 }
 
 .bracket-game-card:hover {
@@ -1441,11 +1530,16 @@ body.terms-locked .app-shell {
 }
 
 .bracket-game-card span {
-  font-weight: 800;
+  display: block;
+  font-size: 14px;
+  line-height: 1.35;
 }
 
 .bracket-game-card small {
-  color: var(--muted);
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 800;
 }
 
 .bracket-modal {
@@ -1472,6 +1566,67 @@ body.terms-locked .app-shell {
   border-radius: 8px;
   background: var(--panel);
   box-shadow: var(--shadow);
+}
+
+.recap-modal-card {
+  width: min(1080px, 100%);
+}
+
+.recap-detail {
+  display: grid;
+  gap: 18px;
+}
+
+.recap-detail .panel-heading {
+  padding: 0 0 16px;
+}
+
+.recap-summary-grid {
+  margin: 0;
+}
+
+.box-score-panel {
+  overflow: auto;
+}
+
+.recap-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.recap-metric-grid div {
+  min-height: 82px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-soft);
+}
+
+.recap-metric-grid span,
+.recap-metric-grid small {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.recap-metric-grid strong {
+  display: block;
+  margin: 4px 0;
+  font-size: 24px;
+}
+
+.box-score-table td,
+.box-score-table th {
+  white-space: nowrap;
+}
+
+.rankings-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin: 18px 0;
 }
 
 .diagnostic-grid {
@@ -1580,12 +1735,32 @@ pre {
     .guide-grid.compact,
     .control-metrics,
     .bracket-tree,
+    .rankings-grid,
     .diagnostic-grid {
     grid-template-columns: 1fr;
   }
 
   .terms-banner {
-    padding: 14px;
+    align-items: start;
+    overflow: auto;
+    padding: 12px;
+  }
+
+  .terms-card {
+    width: 100%;
+    max-height: calc(100dvh - 24px);
+    overflow: auto;
+    padding: 20px;
+  }
+
+  .terms-card h2 {
+    font-size: 26px;
+  }
+
+  .terms-actions,
+  .terms-actions a,
+  .terms-banner button {
+    width: 100%;
   }
 
   .site-footer,
@@ -1612,8 +1787,10 @@ pre {
   }
 
   .schedule-week,
-  .schedule-opponent {
+  .schedule-opponent,
+  .schedule-actions {
     grid-column: 1;
+    justify-content: flex-start;
   }
 
   .topbar {
@@ -1627,5 +1804,17 @@ pre {
 
   .workspace-tab {
     flex: 0 0 auto;
+  }
+}
+
+@media (max-width: 1100px) {
+  .bracket-tree {
+    grid-template-columns: repeat(2, minmax(260px, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .bracket-tree {
+    grid-template-columns: 1fr;
   }
 }

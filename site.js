@@ -1,4 +1,4 @@
-const CONFIG = window.CFP_ADV_CONFIG || {};
+﻿const CONFIG = window.CFP_ADV_CONFIG || {};
 const API_BASE = (CONFIG.API_BASE_URL || "https://cfp-advantage-model-1.onrender.com").replace(/\/$/, "");
 const CACHE_PREFIX = "cfp_adv_api_cache:";
 const CACHE_TTL_MS = 1000 * 60 * 20;
@@ -6,22 +6,36 @@ const apiMemoryCache = new Map();
 const TERMS_ACCEPTED_KEY = "cfp_adv_terms_accepted";
 const TERMS_VERSION_KEY = "cfp_adv_terms_version";
 const TERMS_ACCEPTED_AT_KEY = "cfp_adv_terms_accepted_at";
-const DEFAULT_TERMS_VERSION = "2026-05-29-product-a-v4";
-const TERMS_GATE_MESSAGE = "Before entering CFP Advantage, please review and accept the Terms of Use. CFP Advantage provides football intelligence and model-derived context for informational and entertainment purposes. It does not guarantee outcomes, and access is only allowed if you agree to the Terms, Privacy Policy, Refund Policy, and Disclaimer.";
+const DEFAULT_TERMS_VERSION = "2026-06-01-access-terms-v5";
+const TERMS_GATE_MESSAGE = "CFP Advantage provides football intelligence and model-derived context for informational and educational purposes only. CFP Advantage does not guarantee outcomes and is not betting, financial, or professional advice. To access this free site, you must be at least 13 years old. Purchases of premium content or subscriptions are restricted to individuals 18 years of age or older, or the age of majority in their jurisdiction. This site uses browser localStorage to remember your terms acknowledgement and display preferences on this device. By selecting Accept And Enter, you agree to the Terms of Use, Privacy Policy, Refund Policy, and Disclaimer.";
 
 const METRIC_DISPLAY = {
-  "ADV SRS": ["ADV Strength Rating (ADV SRS)", "Measures a team's overall football-control strength after accounting for schedule context. Higher values indicate stronger season-level team quality."],
-  "OFF ADV SRS": ["Offensive ADV Strength Rating (OFF ADV SRS)", "Measures how much value a team's offense creates through sustained, useful football control."],
-  "DEF ADV SRS": ["Defensive ADV Strength Rating (DEF ADV SRS)", "Measures how much a team's defense suppresses opponent control and scoring opportunity."],
-  "SP ADV": ["Special Teams Advantage (SP ADV)", "Captures meaningful special teams events that change field position, scoring, or possession value."],
-  "ADV SOS": ["ADV Strength of Schedule (ADV SOS)", "Measures the quality of opponents a team faced through the ADV lens."],
-  "Control Rate": ["Control Rate (CR)", "Measures how often a team creates useful control opportunities across its games. It is a consistency signal, not a final score measure."],
-  "DCE": ["Drive Conversion Efficiency (DCE)", "Measures how efficiently a team's scoreboard output lines up with its underlying drive control."],
-  "Weak-Side Profile": ["Weak-Side Profile", "Shows the weaker side of a team's offense/defense profile so users can spot balance or fragility."],
-  "ADV Expected Margin": ["ADV Expected Margin", "A matchup margin estimate created from the difference between two teams' ADV strength profiles."],
-  "ADV Deserved Margin": ["ADV Deserved Margin", "A postgame control recap that compares how the game was played to the final scoreboard result."],
-  "Scoreboard vs ADV Gap": ["Scoreboard vs ADV Gap", "Shows when the final score looked stronger or weaker than the underlying football-control profile."],
-  "Talent Yield Index": ["Talent Yield Index (TYI)", "Compares roster talent context with ADV performance to show overachievement, underachievement, or development signal."],
+  "ADV SRS": ["ADV Strength Rating (ADV SRS)", "CFP Advantage's primary team-strength rating. It measures how strong a team has been throughout the season after adjusting for opponent quality."],
+  "OFF ADV SRS": ["Offensive ADV Strength Rating (OFF ADV SRS)", "Measures offensive strength through drive control, scoring opportunity creation, and sustained execution."],
+  "DEF ADV SRS": ["Defensive ADV Strength Rating (DEF ADV SRS)", "Measures defensive strength by limiting opponent control, drive success, and scoring opportunities."],
+  "SP ADV SRS": ["Special Teams ADV", "Special-teams context that captures field-position swings and discrete special-teams events."],
+  "SP ADV": ["Special Teams ADV", "Special-teams context that captures field-position swings and discrete special-teams events."],
+
+  "ADV Expected Margin": ["ADV Expected Margin", "The model's projected scoring margin between two teams based on their ADV profiles."],
+  "ADV Deserved Margin": ["ADV Deserved Margin", "A postgame measure of how the game was controlled on the field."],
+  "Scoreboard vs ADV Gap": ["Scoreboard vs ADV Gap", "Compares the final score to the ADV Deserved Margin."],
+
+  "ADV SOS": ["Schedule Strength", "Measures schedule difficulty using CFP Advantage team-strength ratings. Higher values indicate stronger competition."],
+  "Control Rate": ["Control Rate (CR)", "Measures how consistently a team creates meaningful football control from game to game."],
+  "CR": ["Control Rate (CR)", "Measures how consistently a team creates meaningful football control from game to game."],
+  "DCE": ["Drive Conversion Efficiency (DCE)", "Shows whether scoring results are running above or below the team's underlying control profile."],
+  "Drive Conversion Efficiency (DCE)": ["Drive Conversion Efficiency (DCE)", "Shows whether scoring results are running above or below the team's underlying control profile."],
+  "ADV Drive Conversion": ["ADV Drive Conversion", "Measures how often meaningful control drives are converted into points."],
+  "Velocity / Trend Pressure": ["Trend Pressure", "Shows whether a team is improving, declining, or staying stable compared with earlier-season form."],
+  "Trend Pressure": ["Trend Pressure", "Shows whether a team is improving, declining, or staying stable compared with earlier-season form."],
+  "Talent Yield Index": ["Talent Yield Index (TYI)", "Compares a team's on-field performance to its roster expectations."],
+  "Talent Yield / TYI": ["Talent Yield Index (TYI)", "Compares a team's on-field performance to its roster expectations."],
+  "Rolling Talent Yield (TYI)": ["Rolling Talent Yield (TYI)", "Compares current on-field performance to roster expectation as the season develops."],
+  "Weak-Side Profile": ["Weak-Side Profile", "Shows whether a team has enough strength on its weaker side of the ball to avoid being one-dimensional."],
+
+  "Bracket Path Probability": ["Title Probability", "The probability of reaching or winning through the playoff path based on CFP Advantage simulations."],
+  "Projected Path": ["Projected Path", "Shows whether a team's playoff route appears easier, balanced, or tougher compared with other contenders."],
+  "Close Matchup Risk": ["Close Matchup Risk", "Highlights games where the model sees a narrow win-probability gap between teams."],
 };
 
 const COMPARISON_DISPLAY = {
@@ -31,7 +45,6 @@ const COMPARISON_DISPLAY = {
   "Rushing Yards": "Yards gained through the running game.",
   "Explosive Plays": "High-impact plays that create large chunks of field position or scoring opportunity.",
   "Points Per Drive": "Average points produced per offensive drive.",
-  "ADV Drive Conversion": "How often meaningful ADV control drives turn into points, with touchdown and field goal quality separated where available.",
   "First Downs": "How often an offense extends possessions by earning a new set of downs.",
   "Third/Fourth Down Conversions": "How often an offense converts critical downs to keep drives alive.",
   "Red Zone Efficiency": "How often a team turns red zone trips into points and touchdowns.",
@@ -79,6 +92,18 @@ async function api(path) {
 function formatNumber(value, digits = 1) {
   const number = Number(value);
   return Number.isFinite(number) ? number.toFixed(digits) : "-";
+}
+
+
+function formatPercent(value, digits = 1) {
+  const number = Number(value);
+  if (!Number.isFinite(number)) return "-";
+  const pct = Math.abs(number) <= 1 ? number * 100 : number;
+  return `${pct.toFixed(digits)}%`;
+}
+
+function metricHelpButton() {
+  return `<button class="metric-help-toggle" type="button" aria-expanded="false">What do these mean?</button>`;
 }
 
 function escapeHtml(value) {
@@ -226,7 +251,7 @@ function ensureTermsGate(message, version) {
   gate.innerHTML = `
     <div class="terms-card">
       <p class="eyebrow">CFP Advantage Terms</p>
-      <h2>Accept Terms To Continue</h2>
+      <h2>Age & Terms Acknowledgement</h2>
       <p id="termsBannerText">${escapeHtml(message || TERMS_GATE_MESSAGE)}</p>
       <div class="terms-actions">
         <button id="termsAcceptButton" type="button">Accept And Enter</button>
@@ -276,11 +301,28 @@ function renderRows(target, rows, columns) {
 function renderMetricCards(target, rows) {
   const el = $(target);
   if (!el) return;
+
   el.innerHTML = rows.map((metric) => `
     <article class="guide-card">
       <span>${escapeHtml(metric.group || "Metric")}</span>
       <h4>${escapeHtml(publicMetricName(metric.name))}</h4>
       <p>${escapeHtml(publicMetricDescription(metric))}</p>
+    </article>
+  `).join("");
+}
+
+function renderComparisonStats(target, rows) {
+  const hiddenStats = new Set(["ADV Drive Conversion"]);
+  const visibleRows = rows.filter((stat) => !hiddenStats.has(stat.name));
+
+  const el = $(target);
+  if (!el) return;
+
+  el.innerHTML = visibleRows.map((stat) => `
+    <article class="guide-card compact">
+      <span>${escapeHtml(stat.group || "Stat")}</span>
+      <h4>${escapeHtml(publicMetricName(stat.name))}</h4>
+      <p>${escapeHtml(publicMetricDescription(stat))}</p>
     </article>
   `).join("");
 }
@@ -304,19 +346,20 @@ async function loadMetricPage() {
     api("/api/product-a/comparison-stats"),
   ]);
   renderMetricCards("metricCatalogGrid", metrics.metrics || []);
-  renderMetricCards("comparisonStatsGrid", stats.stats || []);
+  renderComparisonStats("comparisonStatsGrid", stats.stats || []);
   setStatus("Metric catalog loaded.", "ok");
 }
 
 async function loadHistoricalPage() {
   setStatus("Loading seasons...");
   const seasonsPayload = await api("/api/seasons");
-  const seasons = seasonsPayload.seasons || [];
+  const seasons = (seasonsPayload.seasons || []).filter((season) => Number(season) >= 2021 && Number(season) <= 2025);
   const seasonSelect = $("seasonSelect");
   seasonSelect.innerHTML = seasons.map((season) => `<option value="${season}">${season}</option>`).join("");
   seasonSelect.value = String(seasons[0] || "");
   await populateHistoricalTeams();
   seasonSelect.addEventListener("change", populateHistoricalTeams);
+  $("teamASelect").addEventListener("change", populateHistoricalGames);
   $("buildHistoricalButton").addEventListener("click", buildHistoricalMatchup);
   setStatus("Historical matchup builder ready.", "ok");
 }
@@ -331,28 +374,65 @@ async function populateHistoricalTeams() {
   window.__historicalTeams = teams;
   const options = teams.map((team) => `<option value="${team.team}">${team.team}</option>`).join("");
   $("teamASelect").innerHTML = options;
-  $("teamBSelect").innerHTML = options;
-  if (teams[1]) $("teamBSelect").value = teams[1].team;
+  await populateHistoricalGames();
+}
+
+function presentScore(value) {
+  if (value === 0 || value === "0") return "0";
+  if (value === null || value === undefined || value === "") return "-";
+  return String(value);
+}
+
+function historicalGameLabel(row) {
+  const week = row.display_week || row.week || "Game";
+  const opponent = row.opponent || "-";
+  const homeAway = row.is_neutral ? "vs" : row.is_home ? "vs" : "at";
+  const result = row.result_w_l ? `${row.result_w_l} ` : "";
+  const score = `${presentScore(row.team_score)}-${presentScore(row.opponent_score)}`;
+  const date = row.date ? ` | ${row.date}` : "";
+  return `${week} | ${homeAway} ${opponent} | ${result}${score}${date}`;
+}
+
+async function populateHistoricalGames() {
+  const season = $("seasonSelect").value;
+  const team = $("teamASelect").value;
+  const gameSelect = $("historicalGameSelect");
+  if (!season || !team || !gameSelect) return;
+  setStatus(`Loading ${team} ${season} schedule...`);
+  const payload = await api(`/api/team/${encodeURIComponent(season)}/${encodeURIComponent(team)}/schedule?view=full`);
+  const games = (payload.schedule || [])
+    .filter((row) => row.opponent && ["power", "g5", "independent"].includes(String(row.opponent_tier || "").toLowerCase()))
+    .sort((left, right) => Number(left.game_order || 999) - Number(right.game_order || 999));
+  window.__historicalGames = games;
+  gameSelect.innerHTML = games.length
+    ? games.map((row, index) => `<option value="${index}">${escapeHtml(historicalGameLabel(row))}</option>`).join("")
+    : '<option value="">No FBS-scope games available</option>';
+  setStatus(games.length ? "Choose an actual FBS-scope game to replay." : "No FBS-scope games available for this team.", games.length ? "ok" : "warn");
 }
 
 async function buildHistoricalMatchup() {
   const season = $("seasonSelect").value;
   const teamA = $("teamASelect").value;
-  const teamB = $("teamBSelect").value;
+  const selectedGame = (window.__historicalGames || [])[Number($("historicalGameSelect").value)];
+  const teamB = selectedGame?.opponent;
   if (!season || !teamA || !teamB || teamA === teamB) {
-    setStatus("Pick two different teams.", "warn");
+    setStatus("Choose a season, team, and actual FBS-scope game.", "warn");
     return;
   }
-  setStatus("Building matchup as-of view...");
+  setStatus("Building matchup view...");
   let payload;
   try {
     payload = await api(`/api/product-a/matchup-preview?season=${encodeURIComponent(season)}&team_a=${encodeURIComponent(teamA)}&team_b=${encodeURIComponent(teamB)}`);
   } catch (error) {
+    const recapButton = selectedGame?.game_id && truthyValue(selectedGame?.has_adv_recap)
+      ? `<button class="secondary-button compact-action" type="button" data-recap-game="${escapeHtml(String(selectedGame.game_id))}">View Recap</button>`
+      : "";
     $("historicalResult").innerHTML = `
       <div class="insight-panel">
-        <p class="eyebrow">${escapeHtml(season)} Historical Matchup</p>
+        <p class="eyebrow">${escapeHtml(season)} Historical Game</p>
         <h2>${escapeHtml(teamA)} vs ${escapeHtml(teamB)}</h2>
-        <p class="interpretation">No matchup preview is available for this pair in the selected season. One or both teams may be outside the qualified season board, or the backend does not have enough retained data for this matchup.</p>
+        <p class="interpretation">A matchup preview is not available because one or both teams are outside the qualified FBS model board for this season.</p>
+        ${recapButton}
       </div>
     `;
     setStatus(error.message, "warn");
@@ -365,15 +445,6 @@ async function buildHistoricalMatchup() {
   const marginText = Number.isFinite(marginTeamA)
     ? `${marginTeamA >= 0 ? teamA : teamB} by ${Math.abs(marginTeamA).toFixed(1)}`
     : "-";
-  const gamesPlayed = matchup.games_played || [];
-  const playedText = gamesPlayed.length
-    ? gamesPlayed.map((game) => {
-        const score = game.home_points != null && game.away_points != null
-          ? `${game.away_team} ${game.away_points}, ${game.home_team} ${game.home_points}`
-          : `${game.away_team} at ${game.home_team}`;
-        return `<li><strong>${escapeHtml(game.date || "Date unavailable")}</strong> - ${escapeHtml(score)}${game.has_adv_recap ? " · ADV recap available" : ""}</li>`;
-      }).join("")
-    : `<li>These teams did not play each other in ${escapeHtml(season)} in the retained schedule data.</li>`;
   const conferenceNote = teamARow.conference && teamBRow.conference
     ? teamARow.conference === teamBRow.conference
       ? `Both teams were listed in ${teamARow.conference} for ${season}.`
@@ -382,11 +453,15 @@ async function buildHistoricalMatchup() {
   const tierNote = teamARow.tier && teamBRow.tier
     ? `${teamA}: ${teamARow.tier} / ${teamB}: ${teamBRow.tier}.`
     : "Tier context is unavailable for one or both teams.";
+  const recapButton = selectedGame?.game_id && truthyValue(selectedGame?.has_adv_recap)
+    ? `<button class="secondary-button compact-action" type="button" data-recap-game="${escapeHtml(String(selectedGame.game_id))}">View Recap</button>`
+    : "";
   $("historicalResult").innerHTML = `
     <div class="insight-panel">
-      <p class="eyebrow">${season} Historical Matchup</p>
-      <h2>${teamA} vs ${teamB}</h2>
+      <p class="eyebrow">Model View Before Kickoff</p>
+      <h2>${escapeHtml(teamA)} vs ${escapeHtml(teamB)}</h2>
       <div class="summary-grid">
+        <div><span>Actual Game</span><strong>${escapeHtml(historicalGameLabel(selectedGame))}</strong></div>
         <div><span>Model Lean</span><strong>${escapeHtml(matchup.projected_winner || matchup.favorite || "-")}</strong></div>
         <div><span>Projected Margin</span><strong>${escapeHtml(marginText)}</strong></div>
         <div><span>Confidence Bucket</span><strong>${escapeHtml(matchup.confidence_bucket?.label || matchup.winner_confidence_bucket || matchup.confidence || "-")}</strong></div>
@@ -396,22 +471,18 @@ async function buildHistoricalMatchup() {
       </div>
       <p class="interpretation">${escapeHtml(matchup.context || matchup.interpretation || "This page displays football-intelligence context for the selected season.")}</p>
       <div class="context-callout">
-        <h3>Season Context</h3>
+        <h3>Team Context</h3>
         <p>${escapeHtml(conferenceNote)} ${escapeHtml(tierNote)}</p>
       </div>
       <div class="context-callout">
-        <h3>Did They Play?</h3>
-        <ul>${playedText}</ul>
-      </div>
-      <div class="context-callout">
-        <h3>Important Read</h3>
-        <p>This is a historical matchup view from the selected season board. If the teams did not play, it is a hypothetical team-strength comparison, not a game recap.</p>
+        <h3>Postgame Recap</h3>
+        <p>This view shows the season-board model read. Open the recap to compare it with what happened on the field.</p>
+        ${recapButton || "<p>No ADV recap is available for this game.</p>"}
       </div>
     </div>
   `;
   setStatus("Historical matchup loaded.", "ok");
 }
-
 async function loadBracketPage() {
   setStatus("Loading Bracket Room...");
   let seasonsPayload;
@@ -437,12 +508,25 @@ async function loadBracketPage() {
   await renderBracketSeason(season);
 }
 
+function pathContextLabel(value) {
+  const number = Number(value);
+  if (!Number.isFinite(number)) return "-";
+  if (number >= 0.10) return "Clear Path Edge";
+  if (number >= 0.03) return "Slight Path Edge";
+  if (number > -0.03) return "Balanced Path";
+  if (number > -0.07) return "Tough Path";
+  return "Very Tough Path";
+}
+
 async function renderBracketSeason(season) {
   setStatus(`Loading ${season} Bracket Room...`);
-  const [payload, treePayload] = await Promise.all([
-    api(`/api/product-a/bracket-room?season=${encodeURIComponent(season)}`),
-    api(`/api/product-a/bracket-room/tree?season=${encodeURIComponent(season)}`),
-  ]);
+  const payload = await api(`/api/product-a/bracket-room?season=${encodeURIComponent(season)}`);
+  let treePayload = { tree: [] };
+  try {
+    treePayload = await api(`/api/product-a/bracket-room/tree?season=${encodeURIComponent(season)}`);
+  } catch (error) {
+    console.warn("Bracket tree unavailable:", error.message);
+  }
   const summary = payload.summary || {};
   const titleRows = (payload.title_probabilities || []).slice(0, 12);
   const leverageRows = (payload.team_leverage || []).slice(0, 12);
@@ -455,7 +539,7 @@ async function renderBracketSeason(season) {
       <div><span>Favorite Probability</span><strong>${formatNumber((summary.title_favorite_probability ?? titleRows[0]?.title_probability) * 100, 1)}%</strong></div>
       <div><span>Actual Champion</span><strong>${escapeHtml(summary.actual_champion || "-")}</strong></div>
       <div><span>Champion Probability Rank</span><strong>${escapeHtml(summary.actual_champion_probability_rank || "-")}</strong></div>
-      <div><span>High Upset-Risk Matchups</span><strong>${escapeHtml(summary.high_upset_risk_matchups ?? "-")}</strong></div>
+      <div><span>Close Matchup Rows</span><strong>${escapeHtml(summary.high_upset_risk_matchups ?? "-")}</strong></div>
     </div>
   `;
   renderRows("bracketTable", rows, [
@@ -464,15 +548,14 @@ async function renderBracketSeason(season) {
     { label: "Seed", key: "seed" },
     { label: "ADV SRS", render: (row) => formatNumber(row.adv_srs, 2) },
     { label: "Title Probability", render: (row) => `${formatNumber(Number(row.title_probability) * 100, 1)}%` },
-    { label: "Path Leverage", render: (row) => formatNumber(row.path_leverage_index, 3) },
-    { label: "Context", render: (row) => escapeHtml(row.risk_notes || row.title_signal_tags || "-") },
+    { label: "Projected Path", render: (row) => pathContextLabel(row.path_leverage_index) },
   ]);
   renderRows("bracketUpsetTable", upsetRows, [
     { label: "Favorite", key: "favorite" },
     { label: "Opponent", key: "underdog" },
-    { label: "Favorite Win %", render: (row) => `${formatNumber(Number(row.favorite_win_probability) * 100, 1)}%` },
-    { label: "Upset Risk", render: (row) => `${formatNumber(Number(row.upset_risk) * 100, 1)}%` },
-    { label: "Risk Label", key: "upset_risk_label" },
+    { label: "Model Win %", render: (row) => `${formatNumber(Number(row.favorite_win_probability) * 100, 1)}%` },
+    { label: "Opponent Chance", render: (row) => `${formatNumber(Number(row.upset_risk) * 100, 1)}%` },
+    { label: "Game Type", render: () => "Tight Projection" },
   ]);
   renderBracketTree(treePayload.tree || []);
   setStatus(`${season} Bracket Room loaded.`, "ok");
@@ -545,15 +628,22 @@ function openBracketDiagnostic(game) {
       <div><span>Model Lean</span><strong>${escapeHtml(prob.favorite || "-")}</strong></div>
       <div><span>Projected Margin</span><strong>${formatNumber(prob.projected_margin_team_a, 1)}</strong></div>
       <div><span>Favorite Win Probability</span><strong>${prob.favorite_win_probability ? `${formatNumber(Number(prob.favorite_win_probability) * 100, 1)}%` : "-"}</strong></div>
-      <div><span>Upset Risk</span><strong>${prob.upset_risk ? `${formatNumber(Number(prob.upset_risk) * 100, 1)}%` : "-"}</strong></div>
+      <div><span>Opponent Chance</span><strong>${prob.upset_risk ? `${formatNumber(Number(prob.upset_risk) * 100, 1)}%` : "-"}</strong></div>
     </div>
     <div class="diagnostic-grid">
       ${diagnosticProfile(teamA)}
       ${diagnosticProfile(teamB)}
     </div>
-    <p class="interpretation">This is football-intelligence context only. It compares team strength, control consistency, and drive-conversion profile without market or ATS language.</p>
+    <p class="interpretation">This matchup view highlights team strength, schedule path, control consistency, and finishing profile through the CFP Advantage model lens.</p>
   `;
   modal.classList.remove("is-hidden");
+  content.querySelectorAll(".metric-help-toggle").forEach((button) => {
+  button.addEventListener("click", () => {
+    const panel = button.nextElementSibling;
+    const isHidden = panel.classList.toggle("is-hidden");
+    button.setAttribute("aria-expanded", String(!isHidden));
+  });
+});
   const close = $("bracketModalClose");
   if (close && !close.dataset.bound) {
     close.addEventListener("click", closeBracketDiagnostic);
@@ -566,17 +656,30 @@ function openBracketDiagnostic(game) {
 
 function diagnosticProfile(team) {
   return `
-    <article class="insight-panel compact">
+    <article class="insight-panel compact bracket-diagnostic-card">
       <h3>${escapeHtml(team.seed ? `${team.seed} ${team.team}` : team.team || "-")}</h3>
       <div class="summary-grid mini">
         <div><span>ADV SRS</span><strong>${formatNumber(team.adv_srs, 1)}</strong></div>
         <div><span>ADV Rank</span><strong>${escapeHtml(team.adv_srs_rank ?? "-")}</strong></div>
-        <div><span>Control Rate (CR)</span><strong>${formatNumber(team.cr, 3)}</strong></div>
-        <div><span>SOS Percentile</span><strong>${formatNumber(Number(team.adv_sos_percentile) * 100, 1)}%</strong></div>
-        <div><span>ADV Drive Conversion</span><strong>${team.scoring_conversion_rate ? `${formatNumber(Number(team.scoring_conversion_rate) * 100, 1)}%` : "-"}</strong></div>
+        <div><span>Control Rate (CR)</span><strong>${formatPercent(team.cr)}</strong></div>
+        <div><span>Schedule Strength</span><strong>${formatPercent(team.adv_sos_percentile)}</strong></div>
+        <div><span>ADV Drive Conversion</span><strong>${team.scoring_conversion_rate ? formatPercent(team.scoring_conversion_rate) : "-"}</strong></div>
         <div><span>Points / Control Drive</span><strong>${formatNumber(team.points_per_control_drive, 2)}</strong></div>
-        <div><span>Red Zone Score</span><strong>${team.red_zone_score_rate ? `${formatNumber(Number(team.red_zone_score_rate) * 100, 1)}%` : "-"}</strong></div>
+        <div><span>Red Zone Score</span><strong>${team.red_zone_score_rate ? formatPercent(team.red_zone_score_rate) : "-"}</strong></div>
         <div><span>Turnover Margin</span><strong>${escapeHtml(team.turnover_margin ?? "-")}</strong></div>
+      </div>
+
+      <button class="metric-help-toggle" type="button" aria-expanded="false">What do these mean?</button>
+
+      <div class="metric-help-panel is-hidden">
+        <p><strong>ADV SRS:</strong> Overall team strength from the CFP Advantage football-control model.</p>
+        <p><strong>ADV Rank:</strong> National rank by ADV SRS.</p>
+        <p><strong>Control Rate:</strong> How consistently the team creates useful control opportunities.</p>
+        <p><strong>Schedule Strength:</strong> Schedule-strength percentile. Higher means a tougher schedule.</p>
+        <p><strong>ADV Drive Conversion:</strong> How often meaningful control drives turn into points.</p>
+        <p><strong>Points / Control Drive:</strong> Average points produced on meaningful control drives.</p>
+        <p><strong>Red Zone Score:</strong> How often red-zone trips produced points.</p>
+        <p><strong>Turnover Margin:</strong> Takeaways minus giveaways.</p>
       </div>
     </article>
   `;
@@ -684,6 +787,7 @@ async function renderTeamPage() {
 
     const scheduleHtml = renderTeamScheduleView(season, team, intel, record, games);
     const statsHtml = renderTeamStatsView(intel, stats, games);
+    const advProfileHtml = renderTeamAdvProfileView(intel, profile.drive_conversion || profile.drive_conversion_context || {});
 
     $("teamPageResult").innerHTML = `
       <div id="teamScheduleView" class="team-view-panel is-active">
@@ -692,11 +796,15 @@ async function renderTeamPage() {
       <div id="teamStatsView" class="team-view-panel">
         ${statsHtml}
       </div>
+      <div id="teamAdvProfileView" class="team-view-panel">
+        ${advProfileHtml}
+      </div>
     `;
 
     // Setup tab switching
     $("teamScheduleTab").addEventListener("click", () => switchTeamTab("schedule"));
     $("teamStatsTab").addEventListener("click", () => switchTeamTab("stats"));
+    $("teamAdvProfileTab").addEventListener("click", () => switchTeamTab("adv"));
 
     setStatus("Team profile loaded.", "ok");
   } catch (error) {
@@ -709,19 +817,32 @@ async function renderTeamPage() {
 function switchTeamTab(tabName) {
   const scheduleView = $("teamScheduleView");
   const statsView = $("teamStatsView");
+  const advProfileView = $("teamAdvProfileView");
   const scheduleTab = $("teamScheduleTab");
   const statsTab = $("teamStatsTab");
+  const advProfileTab = $("teamAdvProfileTab");
 
   if (tabName === "schedule") {
     scheduleView.classList.add("is-active");
     statsView.classList.remove("is-active");
+    advProfileView.classList.remove("is-active");
     scheduleTab.classList.add("is-active");
     statsTab.classList.remove("is-active");
-  } else {
+    advProfileTab.classList.remove("is-active");
+  } else if (tabName === "stats") {
     statsView.classList.add("is-active");
     scheduleView.classList.remove("is-active");
+    advProfileView.classList.remove("is-active");
     statsTab.classList.add("is-active");
     scheduleTab.classList.remove("is-active");
+    advProfileTab.classList.remove("is-active");
+  } else {
+    advProfileView.classList.add("is-active");
+    scheduleView.classList.remove("is-active");
+    statsView.classList.remove("is-active");
+    advProfileTab.classList.add("is-active");
+    scheduleTab.classList.remove("is-active");
+    statsTab.classList.remove("is-active");
   }
 }
 
@@ -747,7 +868,7 @@ function renderTeamScheduleView(season, team, intel, record, games) {
     const gamesList = items.map((row) => {
       const weekField = row.display_week ?? row.week ?? row.week_number ?? row.week_num ?? "-";
       const resultClass = row.result_w_l === "W" ? "result-win" : row.result_w_l === "L" ? "result-loss" : "";
-      const score = `${String(row.team_score || "-")}-${String(row.opponent_score || "-")}`;
+      const score = `${presentScore(row.team_score)}-${presentScore(row.opponent_score)}`;
       const opponent = String(row.opponent || row.opponent_name || "-");
       const homeAway = row.is_home ? "vs" : "at";
       const dateStr = row.date ? String(row.date) : "";
@@ -756,6 +877,9 @@ function renderTeamScheduleView(season, team, intel, record, games) {
         ? ` | Yards ${String(row.team_total_yards)}-${String(row.opponent_total_yards)}`
         : "";
       const resultStr = row.result_w_l ? String(row.result_w_l) : "-";
+      const recapButton = row.game_id && truthyValue(row.has_adv_recap)
+        ? `<button class="secondary-button compact-action" type="button" data-recap-game="${escapeHtml(String(row.game_id))}">View Recap</button>`
+        : "";
       
       return `
         <article class="schedule-game">
@@ -765,6 +889,7 @@ function renderTeamScheduleView(season, team, intel, record, games) {
             <span>${escapeHtml(dateStr)}${escapeHtml(neutralStr)}${escapeHtml(yardsStr)}</span>
           </div>
           <div class="schedule-score ${resultClass}">${escapeHtml(resultStr)} ${escapeHtml(score)}</div>
+          <div class="schedule-actions">${recapButton}</div>
         </article>
       `;
     }).join("");
@@ -786,6 +911,176 @@ function renderTeamScheduleView(season, team, intel, record, games) {
       </div>
     </div>
   `;
+}
+
+document.addEventListener("click", async (event) => {
+  const button = event.target.closest("[data-recap-game]");
+  if (!button) return;
+  event.preventDefault();
+  await openRecapModal(button.dataset.recapGame);
+});
+
+async function openRecapModal(gameId) {
+  const modal = $("recapModal");
+  const content = $("recapModalContent");
+  if (!modal || !content || !gameId) return;
+  content.innerHTML = '<div class="empty-state compact">Loading recap...</div>';
+  modal.classList.remove("is-hidden");
+  try {
+    const recap = await api(`/api/game/${encodeURIComponent(gameId)}/recap`);
+    content.innerHTML = renderGameRecap(recap, true);
+  } catch (error) {
+    content.innerHTML = `<div class="empty-state compact">${escapeHtml(error.message)}</div>`;
+  }
+  const close = $("recapModalClose");
+  if (close && !close.dataset.bound) {
+    close.addEventListener("click", closeRecapModal);
+    close.dataset.bound = "true";
+  }
+  modal.addEventListener("click", (clickEvent) => {
+    if (clickEvent.target === modal) closeRecapModal();
+  }, { once: true });
+}
+
+function closeRecapModal() {
+  const modal = $("recapModal");
+  if (modal) modal.classList.add("is-hidden");
+}
+
+async function loadStandaloneRecapPage() {
+  const params = new URLSearchParams(window.location.search);
+  const gameId = params.get("game_id");
+  const target = $("standaloneRecap");
+  if (!gameId) {
+    setStatus("No game selected.", "warn");
+    return;
+  }
+  setStatus("Loading game recap...");
+  try {
+    const recap = await api(`/api/game/${encodeURIComponent(gameId)}/recap`);
+    target.innerHTML = renderGameRecap(recap, false);
+    setStatus("Game recap loaded.", "ok");
+  } catch (error) {
+    target.innerHTML = `<div class="empty-state">${escapeHtml(error.message)}</div>`;
+    setStatus(error.message, "error");
+  }
+}
+
+function renderGameRecap(payload, compact = false) {
+  const game = payload.game || {};
+  const control = payload.postgame_control || {};
+  const yards = payload.yards_context || {};
+  const boxScore = payload.box_score || {};
+  const conversion = payload.adv_drive_conversion || {};
+  const title = `${game.away_team || "Away"} at ${game.home_team || "Home"}`;
+  const score = `${presentScore(game.away_points)}-${presentScore(game.home_points)}`;
+  return `
+    <article class="recap-detail ${compact ? "compact-recap" : ""}">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">${escapeHtml(game.season || "-")} Week ${escapeHtml(game.week || "-")}</p>
+          <h2>${escapeHtml(title)}</h2>
+        </div>
+        <span class="panel-note">${escapeHtml(game.date || "")}</span>
+      </div>
+      <div class="summary-grid recap-summary-grid">
+        <div><span>Final Score</span><strong>${escapeHtml(score)}</strong></div>
+        <div><span>Actual Winner</span><strong>${escapeHtml(control.actual_winner || "-")}</strong></div>
+        <div><span>ADV Control Winner</span><strong>${escapeHtml(control.adv_control_winner || "-")}</strong></div>
+        <div><span>ADV Deserved Margin</span><strong>${decimal(control.adv_deserved_margin_home, 1)}</strong></div>
+        <div><span>Actual Margin</span><strong>${decimal(control.actual_margin_home, 1)}</strong></div>
+        <div><span>Scoreboard vs ADV Gap</span><strong>${decimal(control.scoreboard_gap_home, 1)}</strong></div>
+      </div>
+      <p class="interpretation">${escapeHtml(control.summary || "Postgame control recap unavailable.")}</p>
+      ${renderModelMetricRecap(control, conversion)}
+      ${renderRecapBoxScore(game, yards, boxScore)}
+    </article>
+  `;
+}
+
+function renderModelMetricRecap(control, conversion = {}) {
+  const homeConversion = conversion.home || {};
+  const awayConversion = conversion.away || {};
+  const rows = [
+    ["Net ADV", signedDecimal(control.net_adv_home, 1), "Home perspective"],
+    ["ADV Deserved Margin", decimal(control.adv_deserved_margin_home, 1), "Home perspective"],
+    ["Scoreboard vs ADV Gap", signedDecimal(control.scoreboard_gap_home, 1), "Home perspective"],
+    ["Home Control Rate (CR)", rate(homeConversion.game_control_rate), "Game-level control"],
+    ["Away Control Rate (CR)", rate(awayConversion.game_control_rate), "Game-level control"],
+    ["Home ADV Drive Conversion", rate(homeConversion.scoring_conversion_rate), "Control drives to points"],
+    ["Away ADV Drive Conversion", rate(awayConversion.scoring_conversion_rate), "Control drives to points"],
+  ];
+  return `
+    <section class="box-score-panel">
+      <h3>Model Control Metrics</h3>
+      <div class="recap-metric-grid">
+        ${rows.map(([label, value, note]) => `
+          <div>
+            <span>${escapeHtml(label)}</span>
+            <strong>${escapeHtml(value)}</strong>
+            <small>${escapeHtml(note)}</small>
+          </div>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderRecapBoxScore(game, yards, boxScore = {}) {
+  const away = boxScore.away || {};
+  const home = boxScore.home || {};
+  const rows = [
+    ["Points", game.away_points, game.home_points],
+    ["Total Yards", valueOrFallback(away.total_yards, yards.away_total_yards), valueOrFallback(home.total_yards, yards.home_total_yards)],
+    ["Yards / Play", decimal(valueOrFallback(away.yards_per_play, yards.away_yards_per_play), 2), decimal(valueOrFallback(home.yards_per_play, yards.home_yards_per_play), 2)],
+    ["Passing", `${whole(away.pass_completions)} / ${whole(away.pass_attempts)}, ${whole(away.pass_yards)} yds`, `${whole(home.pass_completions)} / ${whole(home.pass_attempts)}, ${whole(home.pass_yards)} yds`],
+    ["Rushing", `${whole(away.rush_attempts)} att, ${whole(away.rush_yards)} yds`, `${whole(home.rush_attempts)} att, ${whole(home.rush_yards)} yds`],
+    ["First Downs", away.first_downs, home.first_downs],
+    ["3rd Down", conversion(away.third_down_conversions, away.third_down_attempts, away.third_down_rate), conversion(home.third_down_conversions, home.third_down_attempts, home.third_down_rate)],
+    ["4th Down", conversion(away.fourth_down_conversions, away.fourth_down_attempts, away.fourth_down_rate), conversion(home.fourth_down_conversions, home.fourth_down_attempts, home.fourth_down_rate)],
+    ["Red Zone", redZoneLine(away), redZoneLine(home)],
+    ["Turnovers", away.turnovers, home.turnovers],
+    ["Penalties", `${whole(away.penalties)} / ${whole(away.penalty_yards)} yds`, `${whole(home.penalties)} / ${whole(home.penalty_yards)} yds`],
+    ["Sacks / TFL", `${whole(away.sacks_made)} / ${whole(away.tfl_made)}`, `${whole(home.sacks_made)} / ${whole(home.tfl_made)}`],
+    ["Field Goals", fieldGoalLine(away), fieldGoalLine(home)],
+    ["Punts", `${whole(away.punts)} for ${whole(away.punt_yards)} yds`, `${whole(home.punts)} for ${whole(home.punt_yards)} yds`],
+    ["Returns", `Kick ${whole(away.kick_return_yards)} | Punt ${whole(away.punt_return_yards)}`, `Kick ${whole(home.kick_return_yards)} | Punt ${whole(home.punt_return_yards)}`],
+  ];
+  return `
+    <section class="box-score-panel">
+      <h3>Box Score</h3>
+      <table class="data-table compact-table box-score-table">
+        <thead>
+          <tr><th>Stat</th><th>${escapeHtml(game.away_team || "Away")}</th><th>${escapeHtml(game.home_team || "Home")}</th></tr>
+        </thead>
+        <tbody>
+          ${rows.map(([label, awayValue, homeValue]) => `<tr><td>${escapeHtml(label)}</td><td>${escapeHtml(cleanDash(awayValue))}</td><td>${escapeHtml(cleanDash(homeValue))}</td></tr>`).join("")}
+        </tbody>
+      </table>
+    </section>
+  `;
+}
+
+function valueOrFallback(value, fallback) {
+  return value === null || value === undefined || value === "" ? fallback : value;
+}
+
+function cleanDash(value) {
+  return value === null || value === undefined || value === "" || value === "null / null" ? "-" : value;
+}
+
+function signedDecimal(value, digits = 1) {
+  const number = numberOrNull(value);
+  if (number === null) return "-";
+  return `${number >= 0 ? "+" : ""}${number.toFixed(digits)}`;
+}
+
+function redZoneLine(stats) {
+  const trips = whole(stats.red_zone_trips);
+  const scores = whole(stats.red_zone_scores);
+  const tds = whole(stats.red_zone_tds);
+  const fgs = whole(stats.red_zone_fgs);
+  return `${scores}/${trips} score | TD ${tds} | FG ${fgs}`;
 }
 
 function renderTeamStatsView(intel, stats, games = []) {
@@ -882,8 +1177,46 @@ function renderTeamStatsView(intel, stats, games = []) {
   `).join("");
 }
 
+function renderTeamAdvProfileView(intel = {}, driveConversion = {}) {
+  const specialTeamsAdv = intel.sp_adv_srs ?? intel.sp_adv ?? intel.special_teams_adv ?? intel.raw_sp_adv_margin_avg;
+  const dce = intel.team_season_dce ?? intel.dce ?? intel.drive_conversion_efficiency;
+  const rows = [
+    ["ADV Strength Rating (ADV SRS)", decimal(intel.adv_srs, 1)],
+    ["ADV Rank", intel.adv_srs_rank ? `#${intel.adv_srs_rank}` : "-"],
+    ["Offensive ADV Strength", decimal(intel.off_adv_srs, 1)],
+    ["Defensive ADV Strength", decimal(intel.def_adv_srs, 1)],
+    ["Special Teams ADV", decimal(specialTeamsAdv, 1)],
+    ["Weak-Side Profile", decimal(intel.weaker_side_srs ?? intel.weak_side_srs, 1)],
+    ["Schedule Strength", `${decimal(intel.adv_sos_percentile, 1)} percentile`],
+    ["Control Rate (CR)", rate(intel.cr ?? intel.control_rate ?? (numberOrNull(intel.control_rate_pct) !== null ? Number(intel.control_rate_pct) / 100 : null))],
+    ["Drive Conversion Efficiency (DCE)", decimal(dce, 2)],
+    ["ADV Drive Conversion", rate(driveConversion.scoring_conversion_rate)],
+    ["TD Control Conversion", rate(driveConversion.td_conversion_rate)],
+    ["Points Per Control Drive", decimal(driveConversion.points_per_control_drive, 2)],
+  ];
+  return `
+    <div class="insight-panel">
+      <p class="eyebrow">ADV Profile</p>
+      <h3>Season Identity</h3>
+      <div class="summary-grid">
+        ${rows.map(([label, value]) => `
+          <div>
+            <span>${escapeHtml(label)}</span>
+            <strong>${escapeHtml(value)}</strong>
+          </div>
+        `).join("")}
+      </div>
+      <p class="interpretation">This profile explains how CFP Advantage views the team's season-level football identity. It is context for team comparison, not a guarantee of future outcomes.</p>
+    </div>
+  `;
+}
+
 function isFiniteNumber(value) {
   return value !== null && value !== undefined && value !== "" && Number.isFinite(Number(value));
+}
+
+function truthyValue(value) {
+  return value === true || String(value).toLowerCase() === "true" || String(value) === "1";
 }
 
 function numberOrNull(value) {
@@ -943,6 +1276,86 @@ function perGame(total, gamesPlayed) {
   return totalNumber === null || !gamesNumber ? "-" : (totalNumber / gamesNumber).toFixed(1);
 }
 
+async function loadRankingsPage() {
+  setStatus("Loading ranking seasons...");
+  const seasonsPayload = await api("/api/seasons");
+  const seasons = seasonsPayload.seasons || [];
+  const seasonSelect = $("rankSeasonSelect");
+  seasonSelect.innerHTML = seasons.map((season) => `<option value="${season}">${season}</option>`).join("");
+  seasonSelect.value = String(seasons[0] || "");
+  seasonSelect.addEventListener("change", populateRankWeeks);
+  $("loadRankingsButton").addEventListener("click", renderRankingsCompare);
+  await populateRankWeeks();
+  setStatus("Rankings comparison ready.", "ok");
+}
+
+async function populateRankWeeks() {
+  const season = $("rankSeasonSelect").value;
+  if (!season) return;
+  const weekSelect = $("rankWeekSelect");
+  weekSelect.innerHTML = '<option value="">Latest available</option>';
+  try {
+    const payload = await api(`/api/product-a/rankings-compare?season=${encodeURIComponent(season)}`);
+    const weeks = payload.available_weeks || [];
+    weekSelect.innerHTML = weeks.map((week) => `<option value="${week}">Week ${week}</option>`).join("");
+    weekSelect.value = String(payload.week || weeks[weeks.length - 1] || "");
+    renderRankingsPayload(payload);
+  } catch (error) {
+    $("rankingsSummary").innerHTML = `<div class="empty-state">AP poll comparison is not available for this season yet.</div>`;
+    $("advTop25Table").innerHTML = "";
+    $("apTop25Table").innerHTML = "";
+    $("rankCompareTable").innerHTML = "";
+  }
+}
+
+async function renderRankingsCompare() {
+  const season = $("rankSeasonSelect").value;
+  const week = $("rankWeekSelect").value;
+  if (!season) return;
+  setStatus("Loading rankings comparison...");
+  const path = `/api/product-a/rankings-compare?season=${encodeURIComponent(season)}${week ? `&week=${encodeURIComponent(week)}` : ""}`;
+  try {
+    renderRankingsPayload(await api(path));
+    setStatus("Rankings comparison loaded.", "ok");
+  } catch (error) {
+    setStatus(error.message, "error");
+  }
+}
+
+function renderRankingsPayload(payload) {
+  const summary = payload.summary || {};
+  $("rankingsSummary").innerHTML = `
+    <div class="summary-grid">
+      <div><span>Season</span><strong>${escapeHtml(payload.season || "-")}</strong></div>
+      <div><span>Poll Week</span><strong>${escapeHtml(payload.week || "-")}</strong></div>
+      <div><span>Model-Only Strength Board</span><strong>${escapeHtml(summary.adv_only_top_25 ?? "-")}</strong></div>
+      <div><span>AP-Only Poll Board</span><strong>${escapeHtml(summary.ap_only_top_25 ?? "-")}</strong></div>
+      <div><span>Model Higher</span><strong>${escapeHtml(summary.model_higher ?? "-")}</strong></div>
+      <div><span>Poll Higher</span><strong>${escapeHtml(summary.poll_higher ?? "-")}</strong></div>
+    </div>
+    <p class="interpretation">${escapeHtml(payload.poll_timing_note || "Poll comparison is perception context.")}</p>
+  `;
+  renderRows("advTop25Table", payload.adv_top_25 || [], [
+    { label: "Strength Rank", key: "adv_rank" },
+    { label: "Team", key: "team" },
+    { label: "Conference", key: "conference" },
+    { label: "Strength Rating", render: (row) => formatNumber(row.adv_srs, 2) },
+  ]);
+  renderRows("apTop25Table", payload.ap_top_25 || [], [
+    { label: "AP Rank", key: "ap_rank" },
+    { label: "Team", key: "team" },
+    { label: "Conference", key: "conference" },
+    { label: "Points", key: "points" },
+  ]);
+  renderRows("rankCompareTable", payload.comparison || [], [
+    { label: "Team", key: "team" },
+    { label: "Model Strength", render: (row) => row.adv_rank ?? "-" },
+    { label: "AP", render: (row) => row.ap_rank ?? "-" },
+    { label: "Rank Gap", render: (row) => row.rank_gap ?? "-" },
+    { label: "Read", key: "label" },
+  ]);
+}
+
 async function boot() {
   const page = document.body.dataset.page;
   try {
@@ -954,6 +1367,8 @@ async function boot() {
     if (page === "news") await loadNewsPage("newsList", 20, false);
     if (page === "home") await loadNewsPage("homeNewsList", 3, true);
     if (page === "team") await loadTeamPage();
+    if (page === "recap") await loadStandaloneRecapPage();
+    if (page === "rankings") await loadRankingsPage();
   } catch (error) {
     console.error(error);
     setStatus(error.message, "error");
