@@ -1,8 +1,11 @@
 ﻿const CONFIG = window.CFP_ADV_CONFIG || {};
 const API_BASE = (CONFIG.API_BASE_URL || "https://cfp-advantage-model-1.onrender.com").replace(/\/$/, "");
-const CACHE_PREFIX = "cfp_adv_api_cache:";
+const IS_LOCAL_HOST = ["127.0.0.1", "localhost"].includes(window.location.hostname);
+const SHOW_DEV_TOOLS = IS_LOCAL_HOST || CONFIG.ENABLE_DEV_TOOLS === true;
+const CACHE_PREFIX = `cfp_adv_api_cache:${CONFIG.APP_VERSION || "dev"}:`;
 const CACHE_TTL_MS = 1000 * 60 * 20;
 const apiMemoryCache = new Map();
+const FORCE_REFRESH_KEY = "cfp_adv_force_refresh_until";
 const TERMS_ACCEPTED_KEY = "cfp_adv_terms_accepted";
 const TERMS_VERSION_KEY = "cfp_adv_terms_version";
 const TERMS_ACCEPTED_AT_KEY = "cfp_adv_terms_accepted_at";
@@ -51,6 +54,19 @@ function setupSiteChrome() {
     </nav>
     <p class="footer-copyright">Copyright 2026 CFP Advantage. All rights reserved.</p>
   `;
+  installDeveloperRefreshControl();
+}
+
+function installDeveloperRefreshControl() {
+  if (!SHOW_DEV_TOOLS || document.querySelector("[data-dev-refresh-data]")) return;
+  const control = document.createElement("button");
+  control.className = "dev-refresh-control";
+  control.type = "button";
+  control.dataset.devRefreshData = "true";
+  control.title = "Clear the local API cache and request fresh data";
+  control.textContent = "Refresh API Cache";
+  control.addEventListener("click", refreshPageData);
+  document.body.appendChild(control);
 }
 
 const METRIC_DISPLAY = {
@@ -105,22 +121,56 @@ function $(id) {
   return document.getElementById(id);
 }
 
-async function api(path) {
-  const key = `${CACHE_PREFIX}${path}`;
-  const memory = apiMemoryCache.get(key);
-  if (memory && Date.now() - memory.stored_at < CACHE_TTL_MS) {
-    return memory.data;
-  }
+function forceRefreshActive() {
   try {
-    const cached = JSON.parse(window.sessionStorage.getItem(key) || "null");
-    if (cached && Date.now() - cached.stored_at < CACHE_TTL_MS) {
-      apiMemoryCache.set(key, cached);
-      return cached.data;
-    }
-  } catch (error) {
-    console.warn("CFP Advantage cache read unavailable:", error.message);
+    return Number(window.sessionStorage.getItem(FORCE_REFRESH_KEY) || 0) > Date.now();
+  } catch {
+    return false;
   }
-  const response = await fetch(`${API_BASE}${path}`);
+}
+
+function clearApiCache() {
+  apiMemoryCache.clear();
+  try {
+    Object.keys(window.sessionStorage)
+      .filter((key) => key.startsWith("cfp_adv_api_cache:"))
+      .forEach((key) => window.sessionStorage.removeItem(key));
+  } catch (error) {
+    console.warn("CFP Advantage cache clear unavailable:", error.message);
+  }
+}
+
+function refreshPageData() {
+  clearApiCache();
+  try {
+    window.sessionStorage.setItem(FORCE_REFRESH_KEY, String(Date.now() + 30000));
+  } catch (error) {
+    console.warn("CFP Advantage refresh flag unavailable:", error.message);
+  }
+  window.location.reload();
+}
+
+async function api(path) {
+  const forceRefresh = forceRefreshActive();
+  const key = `${CACHE_PREFIX}${path}`;
+  if (!forceRefresh) {
+    const memory = apiMemoryCache.get(key);
+    if (memory && Date.now() - memory.stored_at < CACHE_TTL_MS) {
+      return memory.data;
+    }
+    try {
+      const cached = JSON.parse(window.sessionStorage.getItem(key) || "null");
+      if (cached && Date.now() - cached.stored_at < CACHE_TTL_MS) {
+        apiMemoryCache.set(key, cached);
+        return cached.data;
+      }
+    } catch (error) {
+      console.warn("CFP Advantage cache read unavailable:", error.message);
+    }
+  }
+  const separator = path.includes("?") ? "&" : "?";
+  const requestPath = forceRefresh ? `${path}${separator}_refresh=${Date.now()}` : path;
+  const response = await fetch(`${API_BASE}${requestPath}`, { cache: forceRefresh ? "reload" : "default" });
   if (!response.ok) {
     throw new Error(`${path} failed with ${response.status}`);
   }
@@ -495,24 +545,40 @@ function historicalContextCard(title, context) {
     `;
   }
   const hasPriorGames = Number(context.games_before_target) > 0;
-  const rollingValue = (value, digits = 2) => hasPriorGames ? formatNumber(value, digits) : "No prior games";
-  const rollingRate = (value, digits = 2) => hasPriorGames ? formatPercent(value, digits) : "No prior games";
+  if (!hasPriorGames) {
+    return `
+      <div class="context-callout">
+        <h3>${escapeHtml(title)}</h3>
+        <p class="interpretation">This was the team's first game. The pregame rating uses the frozen Week 0 anchor built from reliable prior-season ADV strength and talent-implied ADV. Current-season Control Framework, TYI, and Recent Form metrics are intentionally unavailable before a team has played.</p>
+        <div class="summary-grid">
+          <div><span>Week 0 ADV Rating</span><strong>${formatNumber(context.pregame_adv_rating, 2)}</strong><small>Frozen preseason anchor</small></div>
+          <div><span>Anchor Inputs</span><strong>Prior ADV + Roster Talent</strong></div>
+          <div><span>Current-Season Context</span><strong>Not Yet Available</strong></div>
+          <div><span>Current-Season Games Before Target</span><strong>0</strong></div>
+        </div>
+      </div>
+    `;
+  }
   return `
     <div class="context-callout">
       <h3>${escapeHtml(title)}</h3>
       <div class="summary-grid">
         <div><span>Pregame ADV Rating</span><strong>${formatNumber(context.pregame_adv_rating, 2)}</strong><small>${escapeHtml(pregameRatingSourceLabel(context))}</small></div>
-        <div><span>Rolling ADV Margin</span><strong>${escapeHtml(rollingValue(context.rolling_adv_margin, 2))}</strong></div>
-        <div><span>Control Rate (CR)</span><strong>${escapeHtml(rollingRate(context.rolling_cr, 2))}</strong></div>
-        <div><span>Scoreboard Control Gap</span><strong>${escapeHtml(rollingValue(context.rolling_dce, 2))}</strong></div>
-        <div><span>Offensive ADV Level</span><strong>${escapeHtml(rollingValue(context.rolling_off_adv_level, 2))}</strong></div>
-        <div><span>Defensive ADV Level</span><strong>${escapeHtml(rollingValue(context.rolling_def_adv_level, 2))}</strong></div>
-        <div><span>Weak-Side Profile</span><strong>${escapeHtml(rollingValue(context.rolling_weak_side_level, 2))}</strong></div>
-        <div><span>Schedule Context</span><strong>${formatNumber(context.prior_adv_sos, 2)}</strong></div>
+        <div><span>Weekly ADV SRS</span><strong>${formatNumber(context.rolling_adv_srs, 2)}</strong></div>
+        <div><span>Control Rate (CR)</span><strong>${formatPercent(context.rolling_cr, 2)}</strong></div>
+        <div><span>Control Creation</span><strong>${formatPercent(context.rolling_control_creation_rate, 2)}</strong></div>
+        <div><span>Control Denial</span><strong>${formatPercent(context.rolling_control_denial_rate, 2)}</strong></div>
+        <div><span>Control Finish Rate</span><strong>${formatPercent(context.rolling_control_finish_rate, 2)}</strong></div>
+        <div><span>Finishing Resistance</span><strong>${formatPercent(context.rolling_finishing_resistance, 2)}</strong></div>
+        <div><span>Control Production / Drive</span><strong>${formatNumber(context.rolling_control_production_rate, 2)}</strong></div>
+        <div><span>Defensive Control Production Allowed / Drive</span><strong>${formatNumber(context.rolling_defensive_control_production_allowed, 2)}</strong><small>Lower is better</small></div>
+        <div><span>Creation Waste</span><strong>${formatPercent(context.rolling_creation_waste_rate, 2)}</strong></div>
+        <div><span>Finish Waste</span><strong>${formatPercent(context.rolling_finish_waste_rate, 2)}</strong></div>
+        <div><span>Scoreboard Control Gap</span><strong>${formatNumber(context.rolling_dce, 2)}</strong></div>
+        <div><span>ADV Schedule Rating</span><strong>${formatNumber(context.rolling_adv_sos, 2)}</strong></div>
         <div><span>Recent Form</span><strong>${escapeHtml(trajectoryPublicLabel(context.isolated_block_velocity_label || context.trajectory_bucket))}</strong></div>
-        <div><span>Talent Yield Index (TYI)</span><strong>${escapeHtml(hasPriorGames ? formatNumber(context.talent_yield_index, 2) : "No prior games")}</strong></div>
+        <div><span>Talent Yield Index (TYI)</span><strong>${formatNumber(context.talent_yield_index, 2)}</strong></div>
         <div><span>Games Before Target</span><strong>${escapeHtml(context.games_before_target ?? "-")}</strong></div>
-        <div><span>Snapshot Timing</span><strong>${truthyValue(context.available_before_kickoff) ? "Before Kickoff" : "Limited"}</strong></div>
       </div>
     </div>
   `;
@@ -528,6 +594,10 @@ function renderHistoricalSnapshot(payload, selectedGame) {
   const marginText = Number.isFinite(marginTeamA)
     ? `${marginTeamA >= 0 ? teamA : teamB} by ${Math.abs(marginTeamA).toFixed(1)}`
     : "-";
+  const homeFieldContext = Number(teamContext?.home_field_adjustment_team);
+  const marginContextNote = Number.isFinite(homeFieldContext) && Math.abs(homeFieldContext) > 0
+    ? ` The expected margin includes ${Math.abs(homeFieldContext).toFixed(1)} points of home-field context.`
+    : "";
   const recapButton = selectedGame?.game_id && truthyValue(selectedGame?.has_adv_recap)
     ? `<button class="secondary-button compact-action" type="button" data-recap-game="${escapeHtml(String(selectedGame.game_id))}">View Recap</button>`
     : "";
@@ -542,7 +612,7 @@ function renderHistoricalSnapshot(payload, selectedGame) {
         <div><span>Confidence Bucket</span><strong>${escapeHtml(payload.confidence_bucket || "-")}</strong></div>
         <div><span>Context Coverage</span><strong>${payload.qualified_context_available ? "Both Teams" : payload.partial_context_available ? "Partial" : "Limited"}</strong></div>
       </div>
-      <p class="interpretation">${escapeHtml(payload.context_note || "This snapshot uses rolling pregame context where available.")}</p>
+      <p class="interpretation">${escapeHtml(payload.context_note || "This snapshot uses rolling pregame context where available.")}${escapeHtml(marginContextNote)}</p>
       ${historicalContextCard(`${teamA} Pregame Context`, teamContext)}
       ${historicalContextCard(`${teamB} Pregame Context`, opponentContext)}
       <div class="context-callout">
@@ -1278,12 +1348,22 @@ function renderTeamAdvProfileView(intel = {}, driveConversion = {}) {
       [percentileLabel(view.control_finish_percentile), conversionSampleLabel(driveConversion)].filter(Boolean).join(" · "),
     ],
     ["Control Drive Shutout Rate", view.finishing_resistance_tier || "-", percentileLabel(view.finishing_resistance_percentile)],
+    ["Control Production", view.control_production_tier || "-", percentileLabel(view.control_production_percentile)],
+    [
+      "Defensive Control Production Allowed",
+      view.defensive_control_production_allowed_tier || "-",
+      percentileLabel(view.defensive_control_production_allowed_percentile),
+    ],
   ];
   const conversionRows = [
     ["Control Foundation", view.control_foundation_tier || "-", percentileLabel(view.control_foundation_percentile)],
     ["Conversion Profile", view.control_conversion_tier || "-", percentileLabel(view.control_conversion_percentile)],
     ["TD Control Conversion", rate(driveConversion.td_conversion_rate), ""],
     ["Points Per Control Drive", decimal(driveConversion.points_per_control_drive, 2), ""],
+    ["Control Production / Drive", decimal(view.control_production_rate, 2), "Meaningful-control points across all offensive drives"],
+    ["Defensive Control Production Allowed / Drive", decimal(view.defensive_control_production_allowed, 2), "Lower is better"],
+    ["Creation Waste", rate(view.creation_waste_rate), "Possessions that do not become meaningful control"],
+    ["Finish Waste", rate(view.finish_waste_rate), "Control drives that produce no points"],
   ];
   const summary = view.contextual_profile_summary
     || "This profile explains how the team creates control, finishes control, denies control, and produces complete stops after control forms.";

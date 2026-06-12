@@ -3,4 +3,5 @@ window.CFP_ADV_CONFIG = {
   APP_VERSION: "v4.0",
   USE_STATIC_FALLBACK: false,
   ENVIRONMENT: "production",
+  ENABLE_DEV_TOOLS: false,
 };

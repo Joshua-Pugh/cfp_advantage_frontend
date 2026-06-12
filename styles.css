@@ -766,6 +766,28 @@ select {
   color: var(--green);
 }
 
+.dev-refresh-control {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  z-index: 900;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 7px 10px;
+  background: var(--panel);
+  color: var(--muted);
+  box-shadow: var(--shadow);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.dev-refresh-control:hover {
+  border-color: var(--green);
+  color: var(--green);
+}
+
 .footer-copyright {
   grid-column: 1 / -1;
 }

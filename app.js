@@ -9,9 +9,11 @@ const API_BASE = (
 const APP_CONFIG = window.CFP_ADV_CONFIG || {};
 const USE_STATIC_FALLBACK = APP_CONFIG.USE_STATIC_FALLBACK === true;
 const APP_ENVIRONMENT = APP_CONFIG.ENVIRONMENT || "local";
-const CACHE_PREFIX = "cfp_adv_api_cache:";
+const SHOW_DEV_TOOLS = IS_LOCAL_HOST || APP_CONFIG.ENABLE_DEV_TOOLS === true;
+const CACHE_PREFIX = `cfp_adv_api_cache:${APP_CONFIG.APP_VERSION || "dev"}:`;
 const CACHE_TTL_MS = 1000 * 60 * 20;
 const apiMemoryCache = new Map();
+const FORCE_REFRESH_KEY = "cfp_adv_force_refresh_until";
 const TERMS_ACCEPTED_KEY = "cfp_adv_terms_accepted";
 const TERMS_VERSION_KEY = "cfp_adv_terms_version";
 const TERMS_ACCEPTED_AT_KEY = "cfp_adv_terms_accepted_at";
@@ -52,6 +54,19 @@ function setupSiteChrome() {
     <p class="footer-copyright">Copyright 2026 CFP Advantage. All rights reserved.</p>
   `;
   shell.appendChild(footer);
+  installDeveloperRefreshControl();
+}
+
+function installDeveloperRefreshControl() {
+  if (!SHOW_DEV_TOOLS || document.querySelector("[data-dev-refresh-data]")) return;
+  const control = document.createElement("button");
+  control.className = "dev-refresh-control";
+  control.type = "button";
+  control.dataset.devRefreshData = "true";
+  control.title = "Clear the local API cache and request fresh data";
+  control.textContent = "Refresh API Cache";
+  control.addEventListener("click", refreshPageData);
+  document.body.appendChild(control);
 }
 const METRIC_DISPLAY = {
   "ADV SRS": ["ADV Strength Rating (ADV SRS)", "Measures a team's overall football-control strength after accounting for schedule context. Higher values indicate stronger season-level team quality."],
@@ -361,9 +376,13 @@ function fullMatchupPreview(matchup) {
     ["Control Rate (CR)", "rolling_cr", (value) => formatPercent(value, 1)],
     ["Control Finish Rate", "rolling_control_finish_rate", (value) => formatPercent(value, 1)],
     ["Points Per Control Drive", "rolling_points_per_control_drive", (value) => weeklyNumber(value, 2)],
+    ["Control Production / Drive", "rolling_control_production_rate", (value) => weeklyNumber(value, 2)],
+    ["Creation Waste", "rolling_creation_waste_rate", (value) => formatPercent(value, 1)],
+    ["Finish Waste", "rolling_finish_waste_rate", (value) => formatPercent(value, 1)],
     ["Control Denial", "rolling_control_denial_rate", (value) => formatPercent(value, 1)],
     ["Finishing Resistance", "rolling_finishing_resistance", (value) => formatPercent(value, 1)],
     ["Opponent Points Per Control Drive", "rolling_opp_points_per_control_allowed", (value) => weeklyNumber(value, 2)],
+    ["Defensive Control Production Allowed / Drive", "rolling_defensive_control_production_allowed", (value) => weeklyNumber(value, 2)],
     ["Control-Drive Sample", "rolling_control_drives", driveSample],
     ["Defensive-Drive Sample", "rolling_defensive_drives", driveSample],
   ];
@@ -402,6 +421,8 @@ function fullMatchupPreview(matchup) {
     ["Control Denial", "control_denial"],
     ["Control Finish", "control_finish"],
     ["Finishing Resistance", "finishing_resistance"],
+    ["Control Production", "control_production"],
+    ["Defensive Control Production Allowed", "defensive_control_production_allowed"],
   ].map(([label, key]) => `
     <div class="weekly-profile-row profile-label-row">
       <span>${escapeHtml(label)}</span>
@@ -626,19 +647,30 @@ function validSeason(value) {
 
 async function api(path) {
   try {
-    const cacheKey = `${CACHE_PREFIX}${path}`;
-    const memory = apiMemoryCache.get(cacheKey);
-    if (memory && Date.now() - memory.stored_at < CACHE_TTL_MS) return memory.data;
-    try {
-      const cached = JSON.parse(window.sessionStorage.getItem(cacheKey) || "null");
-      if (cached && Date.now() - cached.stored_at < CACHE_TTL_MS) {
-        apiMemoryCache.set(cacheKey, cached);
-        return cached.data;
+    const forceRefresh = (() => {
+      try {
+        return Number(window.sessionStorage.getItem(FORCE_REFRESH_KEY) || 0) > Date.now();
+      } catch {
+        return false;
       }
-    } catch (error) {
-      console.warn("CFP Advantage cache read unavailable:", error.message);
+    })();
+    const cacheKey = `${CACHE_PREFIX}${path}`;
+    if (!forceRefresh) {
+      const memory = apiMemoryCache.get(cacheKey);
+      if (memory && Date.now() - memory.stored_at < CACHE_TTL_MS) return memory.data;
+      try {
+        const cached = JSON.parse(window.sessionStorage.getItem(cacheKey) || "null");
+        if (cached && Date.now() - cached.stored_at < CACHE_TTL_MS) {
+          apiMemoryCache.set(cacheKey, cached);
+          return cached.data;
+        }
+      } catch (error) {
+        console.warn("CFP Advantage cache read unavailable:", error.message);
+      }
     }
-    const response = await fetch(`${API_BASE}${path}`);
+    const separator = path.includes("?") ? "&" : "?";
+    const requestPath = forceRefresh ? `${path}${separator}_refresh=${Date.now()}` : path;
+    const response = await fetch(`${API_BASE}${requestPath}`, { cache: forceRefresh ? "reload" : "default" });
     if (!response.ok) {
       const detail = await response.json().catch(() => ({}));
       const message = detail.detail && typeof detail.detail === "object"
@@ -662,6 +694,19 @@ async function api(path) {
     }
     throw error;
   }
+}
+
+function refreshPageData() {
+  apiMemoryCache.clear();
+  try {
+    Object.keys(window.sessionStorage)
+      .filter((key) => key.startsWith("cfp_adv_api_cache:"))
+      .forEach((key) => window.sessionStorage.removeItem(key));
+    window.sessionStorage.setItem(FORCE_REFRESH_KEY, String(Date.now() + 30000));
+  } catch (error) {
+    console.warn("CFP Advantage cache clear unavailable:", error.message);
+  }
+  window.location.reload();
 }
 
 function setOptions(select, rows, getValue, getLabel, placeholder = "") {
