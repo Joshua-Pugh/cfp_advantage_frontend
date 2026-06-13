@@ -321,14 +321,99 @@ function signedInteger(value) {
   return `${number > 0 ? "+" : ""}${Math.round(number)}`;
 }
 
-function footballProfileCell(context, key) {
+function completeControlContext(context = {}) {
+  const view = { ...context };
+  const finite = (value) => value === null || value === undefined || value === "" ? null : Number(value);
+  const creation = finite(view.rolling_control_creation_rate);
+  const finish = finite(view.rolling_control_finish_rate);
+  const denial = finite(view.rolling_control_denial_rate);
+  const pointsPerControl = finite(view.rolling_points_per_control_drive);
+  const opponentPointsPerControl = finite(view.rolling_opp_points_per_control_allowed);
+  if (!Number.isFinite(finite(view.rolling_control_production_rate))
+      && Number.isFinite(creation) && Number.isFinite(pointsPerControl)) {
+    view.rolling_control_production_rate = creation * pointsPerControl;
+  }
+  if (!Number.isFinite(finite(view.rolling_defensive_control_production_allowed))
+      && Number.isFinite(denial) && Number.isFinite(opponentPointsPerControl)) {
+    view.rolling_defensive_control_production_allowed = (1 - denial) * opponentPointsPerControl;
+  }
+  if (!Number.isFinite(finite(view.rolling_creation_waste_rate)) && Number.isFinite(creation)) {
+    view.rolling_creation_waste_rate = 1 - creation;
+  }
+  if (!Number.isFinite(finite(view.rolling_finish_waste_rate)) && Number.isFinite(finish)) {
+    view.rolling_finish_waste_rate = 1 - finish;
+  }
+  return view;
+}
+
+function productionComparisonLabel(context, opponent, key) {
+  const fields = {
+    control_production: "rolling_control_production_rate",
+    defensive_control_production_allowed: "rolling_defensive_control_production_allowed",
+  };
+  const rawValue = context?.[fields[key]];
+  const rawOpponentValue = opponent?.[fields[key]];
+  const value = rawValue === null || rawValue === undefined || rawValue === "" ? null : Number(rawValue);
+  const opponentValue = rawOpponentValue === null || rawOpponentValue === undefined || rawOpponentValue === ""
+    ? null
+    : Number(rawOpponentValue);
+  if (!Number.isFinite(value) || !Number.isFinite(opponentValue)) return "Profile Available";
+  const gap = value - opponentValue;
+  if (Math.abs(gap) < 0.15) return "Similar Matchup Profile";
+  const favorable = key === "defensive_control_production_allowed" ? gap < 0 : gap > 0;
+  return favorable ? "Matchup Edge" : "Matchup Disadvantage";
+}
+
+function footballProfileCell(context, key, opponent = {}) {
   const profile = context?.football_profile?.[key] || {};
   const percentile = Number(profile.percentile);
+  const fallbackFields = {
+    control_production: "rolling_control_production_rate",
+    defensive_control_production_allowed: "rolling_defensive_control_production_allowed",
+  };
+  const rawFallbackValue = context?.[fallbackFields[key]];
+  const fallbackValue = rawFallbackValue === null || rawFallbackValue === undefined || rawFallbackValue === ""
+    ? null
+    : Number(rawFallbackValue);
+  const productionSampleFields = {
+    control_production: "rolling_offensive_drives",
+    defensive_control_production_allowed: "rolling_defensive_drives",
+  };
+  const sample = Number(context?.[productionSampleFields[key]]);
+  const isProductionMetric = Object.hasOwn(productionSampleFields, key);
+  const productionDetail = isProductionMetric && Number.isFinite(Number(profile.rate))
+    ? [
+        `${weeklyNumber(profile.rate, 2)} per drive`,
+        Number.isFinite(sample) ? `${sample.toFixed(0)} drives` : "",
+      ].filter(Boolean).join(" · ")
+    : "";
+  if (!profile.label && Number.isFinite(fallbackValue)) {
+    const comparisonLabel = productionComparisonLabel(context, opponent, key);
+    return `
+      <strong>${escapeHtml(comparisonLabel)}</strong>
+      <small>${escapeHtml([
+        `${weeklyNumber(fallbackValue, 2)} per drive`,
+        key === "defensive_control_production_allowed" ? "Lower is better" : "Higher is better",
+        Number.isFinite(sample) ? `${sample.toFixed(0)} drives` : "",
+      ].filter(Boolean).join(" · "))}</small>
+    `;
+  }
   const detail = Number.isFinite(percentile) ? `${ordinal(percentile)} percentile` : "Sample developing";
   return `
     <strong>${escapeHtml(profile.label || "-")}</strong>
-    <small>${escapeHtml(detail)}</small>
+    <small>${escapeHtml([detail, productionDetail].filter(Boolean).join(" · "))}</small>
   `;
+}
+
+function recentFormCell(context) {
+  const label = recentFormLabel(context);
+  const normalized = label.toLowerCase();
+  const tone = normalized.includes("declin") || normalized.includes("falling")
+    ? "is-declining"
+    : normalized.includes("improv") || normalized.includes("surg")
+      ? "is-improving"
+      : "is-stable";
+  return `<span class="recent-form-badge ${tone}">${escapeHtml(label)}</span>`;
 }
 
 function advantageList(matchup, team) {
@@ -364,8 +449,8 @@ function renderCurrentMatchupCard(matchup) {
 }
 
 function fullMatchupPreview(matchup) {
-  const home = matchup.home_context || {};
-  const away = matchup.away_context || {};
+  const home = completeControlContext(matchup.home_context || {});
+  const away = completeControlContext(matchup.away_context || {});
   const identityRows = [
     ["Pregame ADV Rating", "pregame_adv_rating", (value) => weeklyNumber(value, 1)],
     ["ADV Schedule Rating", "rolling_adv_sos", (value) => weeklyNumber(value, 1)],
@@ -373,16 +458,16 @@ function fullMatchupPreview(matchup) {
   ];
   const controlRows = [
     ["Control Creation", "rolling_control_creation_rate", (value) => formatPercent(value, 1)],
-    ["Control Rate (CR)", "rolling_cr", (value) => formatPercent(value, 1)],
+    ["Control Denial", "rolling_control_denial_rate", (value) => formatPercent(value, 1)],
     ["Control Finish Rate", "rolling_control_finish_rate", (value) => formatPercent(value, 1)],
+    ["Control Drive Shutout Rate", "rolling_finishing_resistance", (value) => formatPercent(value, 1)],
     ["Points Per Control Drive", "rolling_points_per_control_drive", (value) => weeklyNumber(value, 2)],
-    ["Control Production / Drive", "rolling_control_production_rate", (value) => weeklyNumber(value, 2)],
+    ["Opponent Points Per Control Drive Allowed", "rolling_opp_points_per_control_allowed", (value) => weeklyNumber(value, 2)],
+    ["Control Production Per Offensive Drive", "rolling_control_production_rate", (value, stats) => `${weeklyNumber(value, 2)} across ${driveSample(stats.rolling_offensive_drives)}`],
+    ["Defensive Control Production Allowed Per Defensive Drive", "rolling_defensive_control_production_allowed", (value, stats) => `${weeklyNumber(value, 2)} across ${driveSample(stats.rolling_defensive_drives)}`],
+    ["Control Rate (CR)", "rolling_cr", (value) => formatPercent(value, 1)],
     ["Creation Waste", "rolling_creation_waste_rate", (value) => formatPercent(value, 1)],
     ["Finish Waste", "rolling_finish_waste_rate", (value) => formatPercent(value, 1)],
-    ["Control Denial", "rolling_control_denial_rate", (value) => formatPercent(value, 1)],
-    ["Finishing Resistance", "rolling_finishing_resistance", (value) => formatPercent(value, 1)],
-    ["Opponent Points Per Control Drive", "rolling_opp_points_per_control_allowed", (value) => weeklyNumber(value, 2)],
-    ["Defensive Control Production Allowed / Drive", "rolling_defensive_control_production_allowed", (value) => weeklyNumber(value, 2)],
     ["Control-Drive Sample", "rolling_control_drives", driveSample],
     ["Defensive-Drive Sample", "rolling_defensive_drives", driveSample],
   ];
@@ -400,7 +485,7 @@ function fullMatchupPreview(matchup) {
     ["Red Zone TD Rate", "red_zone_td_rate", (value) => formatPercent(value, 1)],
     ["Turnover Margin", "turnover_margin", signedInteger],
     ["Sacks / TFL", "sacks_made", (value, stats) => `${weeklyNumber(value, 0)} / ${weeklyNumber(stats.tfl_made, 0)}`],
-    ["Penalties / Game", "penalties_per_game", (value, stats) => `${weeklyNumber(value, 1)} / ${weeklyNumber(stats.penalty_yards_per_game, 1)} yds`],
+    ["Penalties / Penalty Yards Per Game", "penalties_per_game", (value, stats) => `${weeklyNumber(value, 1)} penalties / ${weeklyNumber(stats.penalty_yards_per_game, 1)} yards`],
     ["Possession / Game", "possession_minutes_per_game", (value) => `${weeklyNumber(value, 1)} min`],
   ];
   const profileRows = (rows, awayContext, homeContext, nested = false) => rows.map(([label, key, formatter]) => {
@@ -420,14 +505,14 @@ function fullMatchupPreview(matchup) {
     ["Control Creation", "control_creation"],
     ["Control Denial", "control_denial"],
     ["Control Finish", "control_finish"],
-    ["Finishing Resistance", "finishing_resistance"],
+    ["Control Drive Shutout Rate", "finishing_resistance"],
     ["Control Production", "control_production"],
     ["Defensive Control Production Allowed", "defensive_control_production_allowed"],
   ].map(([label, key]) => `
     <div class="weekly-profile-row profile-label-row">
       <span>${escapeHtml(label)}</span>
-      <div>${footballProfileCell(away, key)}</div>
-      <div>${footballProfileCell(home, key)}</div>
+      <div>${footballProfileCell(away, key, home)}</div>
+      <div>${footballProfileCell(home, key, away)}</div>
     </div>
   `).join("");
   return `
@@ -467,8 +552,8 @@ function fullMatchupPreview(matchup) {
           </div>
           <div class="weekly-profile-row profile-label-row">
             <span>Recent Form</span>
-            <div><strong>${escapeHtml(recentFormLabel(away))}</strong><small>Compared with own season baseline</small></div>
-            <div><strong>${escapeHtml(recentFormLabel(home))}</strong><small>Compared with own season baseline</small></div>
+            <div>${recentFormCell(away)}<small>Compared with own season baseline</small></div>
+            <div>${recentFormCell(home)}<small>Compared with own season baseline</small></div>
           </div>
         </div>
         <p class="weekly-context-note">${escapeHtml(matchup.profile_comparison_scope || "Profile labels compare teams within the selected weekly matchup slate.")}</p>
@@ -496,8 +581,8 @@ function fullMatchupPreview(matchup) {
         ${profileRows(identityRows, away, home)}
         <div class="weekly-profile-row">
           <span>Recent Form</span>
-          <strong>${escapeHtml(recentFormLabel(away))}</strong>
-          <strong>${escapeHtml(recentFormLabel(home))}</strong>
+          <strong>${recentFormCell(away)}</strong>
+          <strong>${recentFormCell(home)}</strong>
         </div>
       </div>
       <div class="advanced-reading-guide">
@@ -508,7 +593,7 @@ function fullMatchupPreview(matchup) {
         <p><b>Recent Form</b> describes the direction of recent ADV performance compared with the team's own season baseline.</p>
       </div>
       <h3>Control Framework Evidence</h3>
-      <p class="weekly-context-note">Creation and denial describe the foundation. Finish and resistance show how efficiently each team converts or prevents meaningful control.</p>
+      <p class="weekly-context-note">Creation and denial describe the foundation. Finish and Control Drive Shutout show conversion. Control Production combines creation and scoring across all offensive drives; Defensive Control Production Allowed is its lower-is-better defensive mirror.</p>
       <div class="weekly-profile-table matchup-preview-table">
         <div class="weekly-profile-row is-header">
           <span>Pregame Control Profile</span>

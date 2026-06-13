@@ -197,6 +197,31 @@ function formatPercent(value, digits = 1) {
   return `${pct.toFixed(digits)}%`;
 }
 
+function completeControlContext(context = {}) {
+  const view = { ...context };
+  const finite = (value) => value === null || value === undefined || value === "" ? null : Number(value);
+  const creation = finite(view.rolling_control_creation_rate);
+  const finish = finite(view.rolling_control_finish_rate);
+  const denial = finite(view.rolling_control_denial_rate);
+  const pointsPerControl = finite(view.rolling_points_per_control_drive);
+  const opponentPointsPerControl = finite(view.rolling_opp_points_per_control_allowed);
+  if (!Number.isFinite(finite(view.rolling_control_production_rate))
+      && Number.isFinite(creation) && Number.isFinite(pointsPerControl)) {
+    view.rolling_control_production_rate = creation * pointsPerControl;
+  }
+  if (!Number.isFinite(finite(view.rolling_defensive_control_production_allowed))
+      && Number.isFinite(denial) && Number.isFinite(opponentPointsPerControl)) {
+    view.rolling_defensive_control_production_allowed = (1 - denial) * opponentPointsPerControl;
+  }
+  if (!Number.isFinite(finite(view.rolling_creation_waste_rate)) && Number.isFinite(creation)) {
+    view.rolling_creation_waste_rate = 1 - creation;
+  }
+  if (!Number.isFinite(finite(view.rolling_finish_waste_rate)) && Number.isFinite(finish)) {
+    view.rolling_finish_waste_rate = 1 - finish;
+  }
+  return view;
+}
+
 function metricHelpButton() {
   return `<button class="metric-help-toggle" type="button" aria-expanded="false">What do these mean?</button>`;
 }
@@ -544,6 +569,7 @@ function historicalContextCard(title, context) {
       </div>
     `;
   }
+  context = completeControlContext(context);
   const hasPriorGames = Number(context.games_before_target) > 0;
   if (!hasPriorGames) {
     return `
@@ -569,9 +595,9 @@ function historicalContextCard(title, context) {
         <div><span>Control Creation</span><strong>${formatPercent(context.rolling_control_creation_rate, 2)}</strong></div>
         <div><span>Control Denial</span><strong>${formatPercent(context.rolling_control_denial_rate, 2)}</strong></div>
         <div><span>Control Finish Rate</span><strong>${formatPercent(context.rolling_control_finish_rate, 2)}</strong></div>
-        <div><span>Finishing Resistance</span><strong>${formatPercent(context.rolling_finishing_resistance, 2)}</strong></div>
-        <div><span>Control Production / Drive</span><strong>${formatNumber(context.rolling_control_production_rate, 2)}</strong></div>
-        <div><span>Defensive Control Production Allowed / Drive</span><strong>${formatNumber(context.rolling_defensive_control_production_allowed, 2)}</strong><small>Lower is better</small></div>
+        <div><span>Control Drive Shutout Rate</span><strong>${formatPercent(context.rolling_finishing_resistance, 2)}</strong><small>Share of opponent control drives held scoreless</small></div>
+        <div><span>Control Production Per Offensive Drive</span><strong>${formatNumber(context.rolling_control_production_rate, 2)}</strong><small>${formatNumber(context.rolling_offensive_drives, 0)} offensive drives</small></div>
+        <div><span>Defensive Control Production Allowed Per Defensive Drive</span><strong>${formatNumber(context.rolling_defensive_control_production_allowed, 2)}</strong><small>${formatNumber(context.rolling_defensive_drives, 0)} defensive drives · Lower is better</small></div>
         <div><span>Creation Waste</span><strong>${formatPercent(context.rolling_creation_waste_rate, 2)}</strong></div>
         <div><span>Finish Waste</span><strong>${formatPercent(context.rolling_finish_waste_rate, 2)}</strong></div>
         <div><span>Scoreboard Control Gap</span><strong>${formatNumber(context.rolling_dce, 2)}</strong></div>
@@ -1326,6 +1352,19 @@ function renderTeamStatsView(intel, stats, games = []) {
 function renderTeamAdvProfileView(intel = {}, driveConversion = {}) {
   const profile = contextualProfileValues(intel);
   const view = { ...intel, ...profile };
+  if (numberOrNull(view.points_per_control_drive) === null) {
+    view.points_per_control_drive = driveConversion.points_per_control_drive;
+  }
+  if (numberOrNull(view.offensive_drives) === null) {
+    view.offensive_drives = driveConversion.drives;
+  }
+  if (
+    numberOrNull(view.control_production_rate) === null
+    && numberOrNull(view.control_creation_rate) !== null
+    && numberOrNull(view.points_per_control_drive) !== null
+  ) {
+    view.control_production_rate = Number(view.control_creation_rate) * Number(view.points_per_control_drive);
+  }
   const specialTeamsAdv = view.sp_adv_srs ?? view.sp_adv ?? view.special_teams_adv ?? view.raw_sp_adv_margin_avg;
   const dce = view.team_season_dce ?? view.dce ?? view.drive_conversion_efficiency;
   const outcomeRows = [
@@ -1348,11 +1387,22 @@ function renderTeamAdvProfileView(intel = {}, driveConversion = {}) {
       [percentileLabel(view.control_finish_percentile), conversionSampleLabel(driveConversion)].filter(Boolean).join(" · "),
     ],
     ["Control Drive Shutout Rate", view.finishing_resistance_tier || "-", percentileLabel(view.finishing_resistance_percentile)],
-    ["Control Production", view.control_production_tier || "-", percentileLabel(view.control_production_percentile)],
     [
-      "Defensive Control Production Allowed",
-      view.defensive_control_production_allowed_tier || "-",
-      percentileLabel(view.defensive_control_production_allowed_percentile),
+      "Control Production Per Offensive Drive",
+      view.control_production_tier || decimal(view.control_production_rate, 2),
+      [
+        percentileLabel(view.control_production_percentile),
+        productionSampleLabel(view.control_production_rate, view.offensive_drives, "offensive drives"),
+      ].filter(Boolean).join(" · "),
+    ],
+    [
+      "Defensive Control Production Allowed Per Defensive Drive",
+      view.defensive_control_production_allowed_tier || decimal(view.defensive_control_production_allowed, 2),
+      [
+        percentileLabel(view.defensive_control_production_allowed_percentile),
+        productionSampleLabel(view.defensive_control_production_allowed, view.defensive_drives, "defensive drives"),
+        "Lower is better",
+      ].filter(Boolean).join(" · "),
     ],
   ];
   const conversionRows = [
@@ -1360,12 +1410,10 @@ function renderTeamAdvProfileView(intel = {}, driveConversion = {}) {
     ["Conversion Profile", view.control_conversion_tier || "-", percentileLabel(view.control_conversion_percentile)],
     ["TD Control Conversion", rate(driveConversion.td_conversion_rate), ""],
     ["Points Per Control Drive", decimal(driveConversion.points_per_control_drive, 2), ""],
-    ["Control Production / Drive", decimal(view.control_production_rate, 2), "Meaningful-control points across all offensive drives"],
-    ["Defensive Control Production Allowed / Drive", decimal(view.defensive_control_production_allowed, 2), "Lower is better"],
     ["Creation Waste", rate(view.creation_waste_rate), "Possessions that do not become meaningful control"],
     ["Finish Waste", rate(view.finish_waste_rate), "Control drives that produce no points"],
   ];
-  const summary = view.contextual_profile_summary
+  const summary = publicProfileSummary(view.contextual_profile_summary)
     || "This profile explains how the team creates control, finishes control, denies control, and produces complete stops after control forms.";
   return `
     <div class="insight-panel">
@@ -1418,16 +1466,64 @@ function renderTeamAdvProfileView(intel = {}, driveConversion = {}) {
 
 function contextualProfileValues(intel = {}) {
   const nested = intel.contextual_profile_json;
-  if (nested && typeof nested === "object" && !Array.isArray(nested)) return nested;
+  let parsed = {};
+  if (nested && typeof nested === "object" && !Array.isArray(nested)) parsed = nested;
   if (typeof nested === "string" && nested.trim()) {
     try {
-      const parsed = JSON.parse(nested);
-      return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
+      const value = JSON.parse(nested);
+      parsed = value && typeof value === "object" && !Array.isArray(value) ? value : {};
     } catch (error) {
       console.warn("Contextual Football Profile payload could not be parsed:", error.message);
     }
   }
-  return {};
+  const view = { ...parsed };
+  const copyFields = [
+    "control_production_rate",
+    "control_production_percentile",
+    "control_production_tier",
+    "defensive_control_production_allowed",
+    "defensive_control_production_allowed_percentile",
+    "defensive_control_production_allowed_tier",
+    "creation_waste_rate",
+    "finish_waste_rate",
+    "offensive_drives",
+    "defensive_drives",
+  ];
+  copyFields.forEach((field) => {
+    if ((view[field] === null || view[field] === undefined || view[field] === "") && intel[field] !== undefined) {
+      view[field] = intel[field];
+    }
+  });
+  const creation = numberOrNull(view.control_creation_rate);
+  const finish = numberOrNull(view.control_finish_rate);
+  const denial = numberOrNull(view.control_denial_rate);
+  const pointsPerControl = numberOrNull(view.points_per_control_drive);
+  const opponentPointsPerControl = numberOrNull(view.opp_points_per_control_allowed);
+  if (numberOrNull(view.control_production_rate) === null && creation !== null && pointsPerControl !== null) {
+    view.control_production_rate = creation * pointsPerControl;
+  }
+  if (
+    numberOrNull(view.defensive_control_production_allowed) === null
+    && denial !== null
+    && opponentPointsPerControl !== null
+  ) {
+    view.defensive_control_production_allowed = (1 - denial) * opponentPointsPerControl;
+  }
+  if (numberOrNull(view.creation_waste_rate) === null && creation !== null) view.creation_waste_rate = 1 - creation;
+  if (numberOrNull(view.finish_waste_rate) === null && finish !== null) view.finish_waste_rate = 1 - finish;
+  return view;
+}
+
+function productionSampleLabel(value, drives, denominator) {
+  const production = numberOrNull(value);
+  const sample = numberOrNull(drives);
+  if (production === null) return "";
+  const valueLabel = `${production.toFixed(2)} per drive`;
+  return sample === null ? valueLabel : `${valueLabel} across ${Math.round(sample)} ${denominator}`;
+}
+
+function publicProfileSummary(value) {
+  return String(value || "").replaceAll("Finishing Resistance", "Control Drive Shutout Rate");
 }
 
 function scoreboardControlGapRead(value) {
