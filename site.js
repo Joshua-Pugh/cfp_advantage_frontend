@@ -3,7 +3,7 @@ const API_BASE = (CONFIG.API_BASE_URL || "https://cfp-advantage-model-1.onrender
 const IS_LOCAL_HOST = ["127.0.0.1", "localhost"].includes(window.location.hostname);
 const SHOW_DEV_TOOLS = IS_LOCAL_HOST || CONFIG.ENABLE_DEV_TOOLS === true;
 const CACHE_PREFIX = `cfp_adv_api_cache:${CONFIG.APP_VERSION || "dev"}:`;
-const CACHE_TTL_MS = 1000 * 60 * 20;
+const CACHE_TTL_MS = IS_LOCAL_HOST ? 0 : 1000 * 60 * 20;
 const apiMemoryCache = new Map();
 const FORCE_REFRESH_KEY = "cfp_adv_force_refresh_until";
 const TERMS_ACCEPTED_KEY = "cfp_adv_terms_accepted";
@@ -18,7 +18,6 @@ function setupSiteChrome() {
     ["home", "index.html", "Home"],
     ["team", "team.html", "Teams"],
     ["matchups", "matchups.html", "Matchups"],
-    ["historical", "historical.html", "Historical"],
     ["bracket", "bracket-room.html", "Bracket Room"],
   ];
   const nav = document.querySelector(".page-nav");
@@ -185,16 +184,31 @@ async function api(path) {
 }
 
 function formatNumber(value, digits = 1) {
+  if (value === null || value === undefined || value === "") return "-";
   const number = Number(value);
   return Number.isFinite(number) ? number.toFixed(digits) : "-";
 }
 
 
 function formatPercent(value, digits = 1) {
+  if (value === null || value === undefined || value === "") return "-";
   const number = Number(value);
   if (!Number.isFinite(number)) return "-";
   const pct = Math.abs(number) <= 1 ? number * 100 : number;
   return `${pct.toFixed(digits)}%`;
+}
+
+function formatOptionalNumber(value, digits = 1) {
+  return value === null || value === undefined || value === "" ? "" : formatNumber(value, digits);
+}
+
+function talentYieldDisplay(talentYield = {}) {
+  const label = String(talentYield.label || "-");
+  const unavailable = label.toLowerCase() === "not available";
+  return {
+    label,
+    value: unavailable ? "" : formatOptionalNumber(talentYield.value, 2),
+  };
 }
 
 function completeControlContext(context = {}) {
@@ -696,7 +710,8 @@ async function renderBracketSeason(season) {
   const summary = payload.summary || {};
   const titleRows = (payload.title_probabilities || []).slice(0, 12);
   const leverageRows = (payload.team_leverage || []).slice(0, 12);
-  const upsetRows = (payload.matchup_probabilities || []).slice(0, 8);
+  const treeRows = treePayload.tree || [];
+  const frameworkRows = treeRows.filter((row) => row.diagnostic?.framework_read?.label && row.diagnostic.framework_read.label !== "Framework Unavailable").length;
   const rows = leverageRows.length ? leverageRows : titleRows;
   $("bracketSummary").innerHTML = `
     <div class="summary-grid">
@@ -705,7 +720,7 @@ async function renderBracketSeason(season) {
       <div><span>Favorite Probability</span><strong>${formatNumber((summary.title_favorite_probability ?? titleRows[0]?.title_probability) * 100, 1)}%</strong></div>
       <div><span>Actual Champion</span><strong>${escapeHtml(summary.actual_champion || "-")}</strong></div>
       <div><span>Champion Probability Rank</span><strong>${escapeHtml(summary.actual_champion_probability_rank || "-")}</strong></div>
-      <div><span>Close Matchup Rows</span><strong>${escapeHtml(summary.high_upset_risk_matchups ?? "-")}</strong></div>
+      <div><span>Bracket Diagnostics</span><strong>${escapeHtml(`${frameworkRows}/${treeRows.length}`)}</strong><small>Official-path matchups with framework reads</small></div>
     </div>
   `;
   renderRows("bracketTable", rows, [
@@ -715,15 +730,9 @@ async function renderBracketSeason(season) {
     { label: "ADV SRS", render: (row) => formatNumber(row.adv_srs, 2) },
     { label: "Title Probability", render: (row) => `${formatNumber(Number(row.title_probability) * 100, 1)}%` },
     { label: "Projected Path", render: (row) => pathContextLabel(row.path_leverage_index) },
+    { label: "Control Profile", render: (row) => bracketControlProfileLabel(row.control_profile) },
   ]);
-  renderRows("bracketUpsetTable", upsetRows, [
-    { label: "Favorite", key: "favorite" },
-    { label: "Opponent", key: "underdog" },
-    { label: "Model Win %", render: (row) => `${formatNumber(Number(row.favorite_win_probability) * 100, 1)}%` },
-    { label: "Opponent Chance", render: (row) => `${formatNumber(Number(row.upset_risk) * 100, 1)}%` },
-    { label: "Game Type", render: () => "Tight Projection" },
-  ]);
-  renderBracketTree(treePayload.tree || []);
+  renderBracketTree(treeRows);
   setStatus(`${season} Bracket Room loaded.`, "ok");
 }
 
@@ -764,18 +773,23 @@ function renderBracketTree(rows) {
 
 function bracketTeamLabel(side) {
   const seed = side.seed ? `${side.seed} ` : "";
-  return `${seed}${side.display || side.team || "-"}`;
+  const display = String(side.display || "");
+  const team = String(side.team || "");
+  const name = team && display.startsWith("Winner of ") ? team : display || team || "-";
+  return `${seed}${name}`;
 }
 
 function bracketGameCard(game) {
   const prob = game.probability || {};
   const favorite = prob.favorite || "-";
   const winPct = prob.favorite_win_probability ? `${formatNumber(Number(prob.favorite_win_probability) * 100, 1)}%` : "-";
+  const frameworkRead = game.diagnostic?.framework_read?.label || "Framework Unavailable";
   return `
     <button class="bracket-game-card" type="button" data-bracket-game="${escapeHtml(game.game_key)}">
       <span>${escapeHtml(bracketTeamLabel(game.team_a || {}))}</span>
       <span>${escapeHtml(bracketTeamLabel(game.team_b || {}))}</span>
       <small>Model lean: ${escapeHtml(favorite)} (${escapeHtml(winPct)})</small>
+      <em>${escapeHtml(frameworkRead)}</em>
     </button>
   `;
 }
@@ -787,6 +801,7 @@ function openBracketDiagnostic(game) {
   const prob = game.probability || {};
   const teamA = game.diagnostic?.team_a || {};
   const teamB = game.diagnostic?.team_b || {};
+  const frameworkRead = game.diagnostic?.framework_read || {};
   content.innerHTML = `
     <p class="eyebrow">Matchup Diagnostic</p>
     <h2>${escapeHtml(bracketTeamLabel(game.team_a || {}))} vs ${escapeHtml(bracketTeamLabel(game.team_b || {}))}</h2>
@@ -795,6 +810,13 @@ function openBracketDiagnostic(game) {
       <div><span>Projected Margin</span><strong>${formatNumber(prob.projected_margin_team_a, 1)}</strong></div>
       <div><span>Favorite Win Probability</span><strong>${prob.favorite_win_probability ? `${formatNumber(Number(prob.favorite_win_probability) * 100, 1)}%` : "-"}</strong></div>
       <div><span>Opponent Chance</span><strong>${prob.upset_risk ? `${formatNumber(Number(prob.upset_risk) * 100, 1)}%` : "-"}</strong></div>
+    </div>
+    <div class="insight-panel bracket-framework-read">
+      <p class="eyebrow">Full Control Framework</p>
+      <h3>${escapeHtml(frameworkRead.label || "Framework Unavailable")}</h3>
+      <p class="interpretation">${escapeHtml(frameworkRead.note || "The full Control Framework is not available for both teams in this matchup.")}</p>
+      ${bracketFrameworkAdvantages(frameworkRead, teamA.team, teamB.team)}
+      <p class="guide-note">This read explains matchup mechanics. It does not change the displayed title or game probabilities.</p>
     </div>
     <div class="diagnostic-grid">
       ${diagnosticProfile(teamA)}
@@ -821,33 +843,108 @@ function openBracketDiagnostic(game) {
 }
 
 function diagnosticProfile(team) {
+  const profile = team.control_profile || {};
+  const metrics = profile.metrics || {};
+  const talentYield = talentYieldDisplay(profile.talent_yield);
   return `
     <article class="insight-panel compact bracket-diagnostic-card">
       <h3>${escapeHtml(team.seed ? `${team.seed} ${team.team}` : team.team || "-")}</h3>
-      <div class="summary-grid mini">
-        <div><span>ADV SRS</span><strong>${formatNumber(team.adv_srs, 1)}</strong></div>
+      <div class="bracket-profile-identity">
+        <strong>${escapeHtml(profile.identity || "Framework Unavailable")}</strong>
+        <small>${escapeHtml(profile.summary || profile.note || "")}</small>
+      </div>
+      ${bracketFrameworkGrid(profile)}
+      <div class="summary-grid mini bracket-context-grid">
+        <div><span>Frozen Pregame ADV</span><strong>${formatNumber(team.adv_srs, 1)}</strong><small>Opponent-adjusted strength before the CFP</small></div>
         <div><span>ADV Rank</span><strong>${escapeHtml(team.adv_srs_rank ?? "-")}</strong></div>
-        <div><span>Control Rate (CR)</span><strong>${formatPercent(team.cr)}</strong></div>
-        <div><span>Schedule Strength</span><strong>${formatPercent(team.adv_sos_percentile)}</strong></div>
-        <div><span>Control Finish Rate</span><strong>${conversionRateWithSample(team)}</strong></div>
-        <div><span>Points / Control Drive</span><strong>${formatNumber(team.points_per_control_drive, 2)}</strong></div>
-        <div><span>Red Zone Score</span><strong>${team.red_zone_score_rate ? formatPercent(team.red_zone_score_rate) : "-"}</strong></div>
-        <div><span>Turnover Margin</span><strong>${escapeHtml(team.turnover_margin ?? "-")}</strong></div>
+        <div><span>Control Rate (CR)</span><strong>${formatPercent(profile.control_rate ?? team.cr)}</strong></div>
+        <div><span>ADV Schedule Rating</span><strong>${formatNumber(team.adv_schedule_rating, 1)}</strong></div>
+        <div><span>Control Foundation</span><strong>${escapeHtml(profile.foundation?.label || "-")}</strong><small>${escapeHtml(percentileLabel(profile.foundation?.percentile) || "")}</small></div>
+        <div><span>Conversion Profile</span><strong>${escapeHtml(profile.conversion?.label || "-")}</strong><small>${escapeHtml(percentileLabel(profile.conversion?.percentile) || "")}</small></div>
+        <div><span>Control Points Per Offensive Drive</span><strong>${formatNumber(metrics.control_production?.value, 2)}</strong><small>Control scoring value across ${formatNumber(profile.offensive_drives, 0)} offensive drives</small></div>
+        <div><span>Control Points Allowed Per Defensive Drive</span><strong>${formatNumber(metrics.defensive_control_production_allowed?.value, 2)}</strong><small>Allowed control scoring value across ${formatNumber(profile.defensive_drives, 0)} defensive drives · Lower is better</small></div>
+        <div><span>Creation Waste</span><strong>${formatPercent(profile.creation_waste)}</strong></div>
+        <div><span>Finish Waste</span><strong>${formatPercent(profile.finish_waste)}</strong></div>
+        <div><span>Talent Yield</span><strong>${escapeHtml(talentYield.label)}</strong><small>${escapeHtml(talentYield.value)}</small></div>
+        <div><span>Recent Form</span><strong>${escapeHtml(profile.recent_form?.label || "Not Enough Games")}</strong><small>${escapeHtml(profile.recent_form?.note || "")}</small></div>
       </div>
 
       <button class="metric-help-toggle" type="button" aria-expanded="false">What do these mean?</button>
 
       <div class="metric-help-panel is-hidden">
-        <p><strong>ADV SRS:</strong> Overall team strength from the CFP Advantage football-control model.</p>
+        <p><strong>Frozen Pregame ADV:</strong> Opponent-adjusted team strength available before the first CFP game.</p>
         <p><strong>ADV Rank:</strong> National rank by ADV SRS.</p>
         <p><strong>Control Rate:</strong> How consistently the team creates useful control opportunities.</p>
-        <p><strong>Schedule Strength:</strong> Schedule-strength percentile. Higher means a tougher schedule.</p>
-        <p><strong>Control Finish Rate:</strong> How often meaningful control drives turn into points.</p>
-        <p><strong>Points / Control Drive:</strong> Average points produced on meaningful control drives.</p>
-        <p><strong>Red Zone Score:</strong> How often red-zone trips produced points.</p>
-        <p><strong>Turnover Margin:</strong> Takeaways minus giveaways.</p>
+        <p><strong>ADV Schedule Rating:</strong> Raw opponent-strength context available at the frozen snapshot.</p>
+        <p><strong>Control Foundation:</strong> Combined view of Control Creation and Control Denial.</p>
+        <p><strong>Conversion Profile:</strong> Combined view of Control Finish and Control Drive Shutout Rate.</p>
+        <p><strong>Control Points Per Offensive Drive:</strong> A control-scoring estimate spread across every offensive drive. It combines how often a team creates meaningful control with how many points those control drives produce.</p>
+        <p><strong>Control Points Allowed Per Defensive Drive:</strong> The defensive mirror of Control Points Per Offensive Drive. It estimates opponent control-scoring value allowed across every defensive drive. Lower is better.</p>
+        <p><strong>Creation Waste:</strong> Offensive drives that never become meaningful control.</p>
+        <p><strong>Finish Waste:</strong> Meaningful control drives that do not produce points.</p>
+        <p><strong>Talent Yield:</strong> Performance compared with roster expectation.</p>
+        <p><strong>Recent Form:</strong> Recent direction compared with the team's own season baseline.</p>
       </div>
     </article>
+  `;
+}
+
+function bracketControlProfileLabel(profile) {
+  if (!profile?.available) return "Framework Unavailable";
+  const foundation = profile.foundation?.label ? `${profile.foundation.label} Foundation` : "";
+  return escapeHtml(profile.identity || foundation || "Contextual Football Profile");
+}
+
+function bracketFrameworkAdvantages(read, teamA, teamB) {
+  const advantages = read?.advantages || {};
+  const list = (team) => {
+    const rows = advantages[team] || [];
+    return rows.length ? rows.map((item) => `<li>${escapeHtml(item)}</li>`).join("") : "<li>No material framework edge</li>";
+  };
+  if (!teamA || !teamB || !read?.advantages) return "";
+  return `
+    <div class="matchup-advantages-grid">
+      <article>
+        <span>${escapeHtml(teamA)} Advantages</span>
+        <ul>${list(teamA)}</ul>
+      </article>
+      <article>
+        <span>${escapeHtml(teamB)} Advantages</span>
+        <ul>${list(teamB)}</ul>
+      </article>
+    </div>
+  `;
+}
+
+function bracketFrameworkGrid(profile) {
+  if (!profile?.available) {
+    return `<div class="empty-state compact">${escapeHtml(profile?.note || "Full Control Framework unavailable for this season.")}</div>`;
+  }
+  const order = [
+    "control_creation",
+    "control_denial",
+    "control_finish",
+    "control_drive_shutout",
+    "control_production",
+    "defensive_control_production_allowed",
+  ];
+  return `
+    <div class="bracket-framework-grid">
+      ${order.map((key) => {
+        const metric = profile.metrics?.[key] || {};
+        const percentile = percentileLabel(metric.percentile);
+        const sample = key === "control_creation" || key === "control_finish" || key === "control_production"
+          ? profile.offensive_drives
+          : profile.defensive_drives;
+        return `
+          <div>
+            <span>${escapeHtml(metric.name || key)}</span>
+            <strong>${escapeHtml(metric.label || "-")}</strong>
+            <small>${escapeHtml([percentile || "Sample developing", sample ? `${Math.round(sample)} drives` : ""].filter(Boolean).join(" · "))}</small>
+          </div>
+        `;
+      }).join("")}
+    </div>
   `;
 }
 

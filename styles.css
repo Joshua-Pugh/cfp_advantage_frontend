@@ -2023,17 +2023,17 @@ body.terms-locked .app-shell {
 .bracket-tree {
   display: grid;
   grid-template-columns: repeat(4, minmax(260px, 1fr));
-  gap: 18px;
-  margin: 18px 0 26px;
-  padding: 20px;
+  gap: 22px;
+  margin: 22px 0 30px;
+  padding: 24px;
   overflow-x: visible;
   align-items: start;
 }
 
 .bracket-round {
   display: grid;
-  gap: 14px;
-  padding: 14px;
+  gap: 18px;
+  padding: 18px;
   border: 1px solid var(--line);
   border-radius: 10px;
   background: #f8faf8;
@@ -2049,10 +2049,10 @@ body.terms-locked .app-shell {
 
 .bracket-game-card {
   display: grid;
-  gap: 6px;
+  gap: 8px;
   width: 100%;
-  min-height: 92px;
-  padding: 14px;
+  min-height: 124px;
+  padding: 18px;
   border: 1px solid var(--line);
   border-radius: 10px;
   background: #ffffff;
@@ -2074,9 +2074,20 @@ body.terms-locked .app-shell {
 
 .bracket-game-card small {
   display: block;
-  margin-top: 8px;
+  margin-top: 6px;
   font-size: 12px;
   font-weight: 800;
+  line-height: 1.35;
+}
+
+.bracket-game-card em {
+  display: block;
+  color: var(--green);
+  font-size: 11px;
+  line-height: 1.35;
+  font-style: normal;
+  font-weight: 900;
+  text-transform: uppercase;
 }
 
 .bracket-modal {
@@ -2171,6 +2182,49 @@ body.terms-locked .app-shell {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
   margin-top: 16px;
+}
+
+.bracket-framework-read {
+  margin-top: 16px;
+}
+
+.bracket-profile-identity {
+  display: grid;
+  gap: 4px;
+  margin: 10px 0 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.bracket-profile-identity small {
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.bracket-framework-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.bracket-framework-grid div {
+  display: grid;
+  gap: 3px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #f8faf8;
+}
+
+.bracket-framework-grid span,
+.bracket-framework-grid small {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.bracket-framework-grid strong {
+  font-size: 14px;
 }
 
 .summary-grid.mini {

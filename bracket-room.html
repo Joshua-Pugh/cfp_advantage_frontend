@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bracket Room | CFP Advantage</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=4.0.12">
   </head>
   <body data-page="bracket">
     <main class="app-shell">
@@ -17,7 +17,6 @@
           <a href="index.html">Home</a>
           <a href="team.html">Teams</a>
           <a href="matchups.html">Matchups</a>
-          <a href="historical.html">Historical</a>
           <a class="is-active" href="bracket-room.html">Bracket Room</a>
         </nav>
       </header>
@@ -28,13 +27,17 @@
             <p class="eyebrow">Title Path Intelligence</p>
             <h2>ADV Contender Board</h2>
           </div>
-          <p class="panel-note">Title probability, projected path difficulty, and close-matchup risk.</p>
+          <p class="panel-note">Title probability, projected path difficulty, and full Control Framework context.</p>
         </div>
         <div class="page-controls compact-controls">
           <label>
             <span>Season</span>
             <select id="bracketSeasonSelect"></select>
           </label>
+        </div>
+        <div class="context-callout bracket-scope-note">
+          <h3>Modern Bracket Room: 2021-2025</h3>
+          <p>Bracket Room begins with 2021 so every displayed season has a complete official playoff path and frozen pre-playoff Control Framework context. The tree shows official-path matchups only; broader what-if pairings stay out of the public view for now.</p>
         </div>
         <div id="bracketSummary" class="page-result"></div>
         <div class="panel-heading">
@@ -46,13 +49,6 @@
         </div>
         <div id="bracketTree" class="bracket-tree"></div>
         <div id="bracketTable"></div>
-        <div class="panel-heading">
-          <div>
-            <p class="eyebrow">Close Matchups</p>
-            <h2>Closest Projected Matchups</h2>
-          </div>
-        </div>
-        <div id="bracketUpsetTable"></div>
       </section>
     </main>
     <section id="bracketModal" class="bracket-modal is-hidden" aria-label="Matchup diagnostic" role="dialog" aria-modal="true">
@@ -61,7 +57,7 @@
         <div id="bracketModalContent"></div>
       </div>
     </section>
-    <script src="config.js"></script>
-    <script src="site.js"></script>
+    <script src="config.js?v=4.0.12"></script>
+    <script src="site.js?v=4.0.12"></script>
   </body>
 </html>

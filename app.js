@@ -28,7 +28,6 @@ function setupSiteChrome() {
       ["index.html", "Home"],
       ["team.html", "Teams"],
       ["matchups.html", "Matchups"],
-      ["historical.html", "Historical"],
       ["bracket-room.html", "Bracket Room"],
     ].map(([href, label]) => `<a${href === "matchups.html" ? ' class="is-active"' : ""} href="${href}">${label}</a>`).join("");
   }
@@ -244,12 +243,13 @@ const els = {
 };
 
 function formatNumber(value) {
-  return value === null || value === undefined || Number.isNaN(Number(value))
+  return value === null || value === undefined || value === "" || Number.isNaN(Number(value))
     ? "-"
     : Number(value).toFixed(2);
 }
 
 function formatPercent(value, digits = 1) {
+  if (value === null || value === undefined || value === "") return "-";
   const number = Number(value);
   if (!Number.isFinite(number)) return "-";
   const pct = Math.abs(number) <= 1 ? number * 100 : number;
