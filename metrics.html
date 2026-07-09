@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Metrics Guide | CFP Advantage</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=4.0.16">
   </head>
   <body data-page="metrics">
     <main class="app-shell">
@@ -32,10 +32,44 @@
         <div class="metrics-intro">
           <p>CFP Advantage measures team strength, matchup outlooks, and football performance through a drive-level analytical model built from play-by-play data.</p>
         </div>
+        <section class="guide-section validation-overview">
+          <h3>Model Validation</h3>
+          <p class="guide-note">Every public Product A layer is either historically validated, context-only, or marked as research/watchlist. The goal is to show how the model was tested without exposing proprietary formulas or code.</p>
+          <div class="validation-grid">
+            <article>
+              <span>Projection Stack</span>
+              <strong>71.37%</strong>
+              <small>Winner accuracy across 7,436 historical games</small>
+            </article>
+            <article>
+              <span>Margin Error</span>
+              <strong>13.37</strong>
+              <small>Mean absolute error in final Product A audit</small>
+            </article>
+            <article>
+              <span>Control Framework</span>
+              <strong>Promoted</strong>
+              <small>Explains support, pushback, mixed reads, and conflicts</small>
+            </article>
+            <article>
+              <span>Pressure Metrics</span>
+              <strong>Predictive</strong>
+              <small>Pressure buckets stair-step with future scoring</small>
+            </article>
+          </div>
+        </section>
         <div id="metricCatalogState" class="board-state" role="status" aria-live="polite"></div>
         <section class="guide-section">
           <h3>Model Metrics</h3>
           <div id="metricCatalogGrid" class="guide-grid"></div>
+        </section>
+        <section class="guide-section">
+          <h3>Reading Pressure vs Scoreboard</h3>
+          <div class="metrics-intro pressure-guide-copy">
+            <p><strong>Pressure is the underlying scoring identity. Points are the scoreboard output.</strong></p>
+            <p>Control Points Per Offensive Drive measures sustainable scoring pressure created per possession. Control Points Allowed Per Defensive Drive is the lower-is-better defensive mirror. These are not literal points per drive, but they help explain whether a team is creating or allowing repeatable scoring pressure.</p>
+            <p>Use pressure beside traditional stats like points per game, points allowed per game, red zone touchdown rate, and points per drive. When pressure and scoreboard output move in the same direction, the profile is closer to its underlying identity. When they differ, the scoreboard may be running hotter or colder than the true control profile.</p>
+          </div>
         </section>
         <section class="guide-section">
           <h3>Traditional Stats For Comparison</h3>
@@ -44,7 +78,7 @@
         </section>
       </section>
     </main>
-    <script src="config.js?v=4.0.13"></script>
-    <script src="site.js?v=4.0.13"></script>
+    <script src="config.js?v=4.0.16"></script>
+    <script src="site.js?v=4.0.16"></script>
   </body>
 </html>

@@ -1,4 +1,4 @@
-# Product A Frontend Deployment Notes
+# CFP Advantage Frontend Deployment Notes
 
 ## GitHub Pages
 
@@ -12,7 +12,7 @@ The public frontend is static and calls the Render API. It must never contain `D
 ```js
 window.CFP_ADV_CONFIG = {
   API_BASE_URL: "https://YOUR-RENDER-SERVICE.onrender.com",
-  APP_VERSION: "v3.6",
+  APP_VERSION: "v4.0.16",
   USE_STATIC_FALLBACK: false,
   ENVIRONMENT: "production",
 };
@@ -23,8 +23,8 @@ window.CFP_ADV_CONFIG = {
 
 ## Data Boundary
 
-- Matchup Preview and Team Board read Product A API responses.
-- Football Intelligence Explorer reads schedule, record and recap API responses.
+- Matchups, Teams, Bracket Room, Recaps, Metrics, and News read CFP Advantage API responses.
+- Team schedules, records, comparison stats, contextual profiles, and recaps are loaded through the API.
 - Postseason is separated from regular-season display through `display_week` and `schedule_section`.
 - No frontend file connects directly to Neon.
 
@@ -35,7 +35,7 @@ For local development only, use:
 ```js
 window.CFP_ADV_CONFIG = {
   API_BASE_URL: "http://127.0.0.1:8000",
-  APP_VERSION: "v3.6",
+  APP_VERSION: "v4.0.16",
   USE_STATIC_FALLBACK: true,
   ENVIRONMENT: "local",
 };

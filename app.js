@@ -7,6 +7,8 @@ const API_BASE = (
   "http://127.0.0.1:8000"
 ).replace(/\/$/, "");
 const APP_CONFIG = window.CFP_ADV_CONFIG || {};
+const SUPPORT_EMAIL = APP_CONFIG.SUPPORT_EMAIL || "support@cfpadvantage.com";
+const DONATE_URL = APP_CONFIG.DONATE_URL || "";
 const USE_STATIC_FALLBACK = APP_CONFIG.USE_STATIC_FALLBACK === true;
 const APP_ENVIRONMENT = APP_CONFIG.ENVIRONMENT || "local";
 const SHOW_DEV_TOOLS = IS_LOCAL_HOST || APP_CONFIG.ENABLE_DEV_TOOLS === true;
@@ -43,6 +45,9 @@ function setupSiteChrome() {
     </div>
     <nav class="footer-links" aria-label="Reference and legal pages">
       <a href="about.html">About</a>
+      <a href="live-2026.html">2026 Live</a>
+      <button type="button" data-open-contact>Contact</button>
+      <a class="support-link" data-support-link href="${DONATE_URL || `mailto:${SUPPORT_EMAIL}?subject=Support%20CFP%20Advantage`}">Donate</a>
       <a href="metrics.html">Metrics Guide</a>
       <a href="news.html">News</a>
       <a href="legal.html#terms">Terms</a>
@@ -53,7 +58,137 @@ function setupSiteChrome() {
     <p class="footer-copyright">Copyright 2026 CFP Advantage. All rights reserved.</p>
   `;
   shell.appendChild(footer);
+  installContactModal();
+  configureSupportLinks();
   installDeveloperRefreshControl();
+}
+
+function configureSupportLinks() {
+  document.querySelectorAll("[data-support-link]").forEach((link) => {
+    if (!DONATE_URL) return;
+    link.setAttribute("href", DONATE_URL);
+    link.setAttribute("target", "_blank");
+    link.setAttribute("rel", "noopener noreferrer");
+  });
+}
+
+function installContactModal() {
+  if (!document.querySelector("[data-contact-modal]")) {
+    const modal = document.createElement("section");
+    modal.className = "contact-modal is-hidden";
+    modal.dataset.contactModal = "true";
+    modal.setAttribute("role", "dialog");
+    modal.setAttribute("aria-modal", "true");
+    modal.setAttribute("aria-label", "Contact CFP Advantage");
+    modal.innerHTML = `
+      <div class="contact-modal-card">
+        <button class="modal-close" type="button" data-close-contact aria-label="Close contact form">Close</button>
+        <span class="eyebrow">Contact</span>
+        <h2>Send CFP Advantage a Message</h2>
+        <p>Have a question, found a bug, or want to share feedback? We'd love to hear from you.</p>
+        <p class="contact-direct-email">Prefer email? <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>
+        <form class="contact-form" data-contact-form>
+          <label>
+            <span>Name</span>
+            <input name="name" autocomplete="name" maxlength="120" required>
+          </label>
+          <label>
+            <span>Email</span>
+            <input name="email" type="email" autocomplete="email" maxlength="254" required>
+          </label>
+          <label class="contact-honeypot" aria-hidden="true">
+            <span>Website</span>
+            <input name="website" tabindex="-1" autocomplete="off">
+          </label>
+          <label>
+            <span>Message</span>
+            <textarea name="message" rows="5" maxlength="4000" required></textarea>
+          </label>
+          <p class="contact-status" data-contact-status></p>
+          <button class="primary-action" type="submit">Send Message</button>
+        </form>
+      </div>
+    `;
+    document.body.appendChild(modal);
+  }
+  document.querySelectorAll("[data-open-contact]").forEach((trigger) => {
+    trigger.addEventListener("click", openContactModal);
+  });
+  document.querySelectorAll("[data-close-contact]").forEach((trigger) => {
+    trigger.addEventListener("click", closeContactModal);
+  });
+  const modal = document.querySelector("[data-contact-modal]");
+  modal?.addEventListener("click", (event) => {
+    if (event.target === modal) closeContactModal();
+  });
+  document.querySelector("[data-contact-form]")?.addEventListener("submit", submitContactForm);
+}
+
+function openContactModal() {
+  const modal = document.querySelector("[data-contact-modal]");
+  if (!modal) return;
+  modal.classList.remove("is-hidden");
+  document.body.classList.add("modal-open");
+  modal.querySelector("input[name='name']")?.focus();
+}
+
+function closeContactModal() {
+  const modal = document.querySelector("[data-contact-modal]");
+  if (!modal) return;
+  modal.classList.add("is-hidden");
+  document.body.classList.remove("modal-open");
+}
+
+async function submitContactForm(event) {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const status = form.querySelector("[data-contact-status]");
+  const button = form.querySelector("button[type='submit']");
+  const payload = Object.fromEntries(new FormData(form).entries());
+  status.textContent = "Sending...";
+  status.className = "contact-status";
+  button.disabled = true;
+  try {
+    const response = await fetch(`${API_BASE}/api/contact`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const detail = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      const error = detail.detail?.error || detail.error || "contact_failed";
+      throw new Error(error);
+    }
+    if (detail.status === "fallback_required") {
+      openContactMailFallback(payload, status);
+      return;
+    }
+    form.reset();
+    status.textContent = "Message sent. Thanks for reaching out.";
+    status.className = "contact-status ok";
+  } catch (error) {
+    openContactMailFallback(payload, status);
+  } finally {
+    button.disabled = false;
+  }
+}
+
+function openContactMailFallback(payload, status) {
+  const mailto = buildContactMailto(payload);
+  status.textContent = `Opening your email app with this message filled in. If it does not open, email ${SUPPORT_EMAIL} directly.`;
+  status.className = "contact-status ok";
+  window.location.href = mailto;
+}
+
+function buildContactMailto(payload) {
+  const subject = `CFP Advantage contact from ${payload.name || "site visitor"}`;
+  const body = [
+    `Name: ${payload.name || ""}`,
+    `Email: ${payload.email || ""}`,
+    "",
+    payload.message || "",
+  ].join("\n");
+  return `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
 function installDeveloperRefreshControl() {
@@ -78,6 +213,39 @@ const METRIC_DISPLAY = {
   "ADV Expected Margin": ["ADV Expected Margin", "A matchup margin estimate created from the difference between two teams' ADV strength profiles."],
   "ADV Deserved Margin": ["ADV Deserved Margin", "A postgame control recap that compares how the game was played to the final scoreboard result."],
   "Scoreboard vs ADV Gap": ["Scoreboard vs ADV Gap", "Shows when the final score looked stronger or weaker than the underlying football-control profile."],
+};
+
+const METRIC_SCALE_GUIDES = {
+  "Control Production Per Offensive Drive": {
+    title: "How to read it",
+    text: "ADV-derived sustainable scoring pressure per offensive drive. It is not literal scoreboard points per drive.",
+    scale: "Under 1.5 limited | 1.5-2.3 average | 2.4-3.0 strong | 3.1+ elite",
+  },
+  "Defensive Control Production Allowed Per Defensive Drive": {
+    title: "How to read it",
+    text: "ADV-derived sustained scoring pressure allowed per defensive drive. Lower is better.",
+    scale: "Under 1.2 elite | 1.2-1.8 strong | 1.9-2.5 average | 2.6+ vulnerable",
+  },
+  "Control Points Per Offensive Drive": {
+    title: "How to read it",
+    text: "ADV-derived sustainable scoring pressure per offensive drive. It blends how often control forms with how well those drives score.",
+    scale: "Under 1.5 limited | 1.5-2.3 average | 2.4-3.0 strong | 3.1+ elite",
+  },
+  "Control Points Allowed Per Defensive Drive": {
+    title: "How to read it",
+    text: "ADV-derived sustained scoring pressure allowed each time the defense takes the field. Lower is better.",
+    scale: "Under 1.2 elite | 1.2-1.8 strong | 1.9-2.5 average | 2.6+ vulnerable",
+  },
+  "Control Finish Rate": {
+    title: "How to read it",
+    text: "Share of meaningful control drives that become points. It is related to red zone efficiency, but it starts with drive control rather than field location.",
+    scale: "Read with control-drive sample size; high finish on tiny samples can be noisy.",
+  },
+  "Control Drive Shutout Rate": {
+    title: "How to read it",
+    text: "Share of opponent control drives held scoreless. It shows how often a defense survives after the opponent has already created danger.",
+    scale: "Read beside Control Denial; denial prevents danger, shutout rate survives danger.",
+  },
 };
 const COMPARISON_DISPLAY = {
   "Total Yards": "Total offensive yardage gained.",
@@ -495,7 +663,7 @@ function fullMatchupPreview(matchup) {
     const homeValue = formatter(homeValues[key], homeValues);
     return `
       <div class="weekly-profile-row">
-        <span>${escapeHtml(label)}</span>
+        <span>${metricLabelWithScale(label)}</span>
         <strong>${escapeHtml(awayValue)}</strong>
         <strong>${escapeHtml(homeValue)}</strong>
       </div>
@@ -593,7 +761,7 @@ function fullMatchupPreview(matchup) {
         <p><b>Recent Form</b> describes the direction of recent ADV performance compared with the team's own season baseline.</p>
       </div>
       <h3>Control Framework Evidence</h3>
-      <p class="weekly-context-note">Creation and denial describe the foundation. Finish and Control Drive Shutout show conversion. Control Production combines creation and scoring across all offensive drives; Defensive Control Production Allowed is its lower-is-better defensive mirror.</p>
+      <p class="weekly-context-note">Creation and denial describe the foundation. Finish and Control Drive Shutout show conversion. Control Points Per Offensive Drive estimates sustainable scoring pressure created across every possession; Control Points Allowed Per Defensive Drive is the lower-is-better defensive mirror.</p>
       <div class="weekly-profile-table matchup-preview-table">
         <div class="weekly-profile-row is-header">
           <span>Pregame Control Profile</span>
@@ -884,6 +1052,7 @@ function renderMetricCards(rows) {
       <span>${escapeHtml(metric.group || "Metric")}</span>
       <h4>${escapeHtml(publicMetricName(metric.name))}</h4>
       <p>${escapeHtml(publicMetricDescription(metric))}</p>
+      ${metricScaleGuide(metric.name)}
     </article>
   `).join("");
 }
@@ -909,6 +1078,28 @@ function publicMetricDescription(metric) {
     || metric.plain_english
     || metric.note
     || "Football context metric used to compare teams and games.";
+}
+
+function metricScaleGuide(name) {
+  const guide = METRIC_SCALE_GUIDES[name] || METRIC_SCALE_GUIDES[publicMetricName(name)];
+  if (!guide) return "";
+  return `
+    <div class="metric-scale-guide">
+      <strong>${escapeHtml(guide.title)}</strong>
+      <p>${escapeHtml(guide.text)}</p>
+      <small>${escapeHtml(guide.scale)}</small>
+    </div>
+  `;
+}
+
+function metricLabelWithScale(label) {
+  const guide = METRIC_SCALE_GUIDES[label];
+  if (!guide) return escapeHtml(label);
+  return `
+    <b>${escapeHtml(label)}</b>
+    <small class="metric-row-note">${escapeHtml(guide.text)}</small>
+    <small class="metric-row-scale">${escapeHtml(guide.scale)}</small>
+  `;
 }
 
 async function loadProductGuides() {

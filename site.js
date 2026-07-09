@@ -1,5 +1,7 @@
 ﻿const CONFIG = window.CFP_ADV_CONFIG || {};
 const API_BASE = (CONFIG.API_BASE_URL || "https://cfp-advantage-model-1.onrender.com").replace(/\/$/, "");
+const SUPPORT_EMAIL = CONFIG.SUPPORT_EMAIL || "support@cfpadvantage.com";
+const DONATE_URL = CONFIG.DONATE_URL || "";
 const IS_LOCAL_HOST = ["127.0.0.1", "localhost"].includes(window.location.hostname);
 const SHOW_DEV_TOOLS = IS_LOCAL_HOST || CONFIG.ENABLE_DEV_TOOLS === true;
 const CACHE_PREFIX = `cfp_adv_api_cache:${CONFIG.APP_VERSION || "dev"}:`;
@@ -44,6 +46,9 @@ function setupSiteChrome() {
     </div>
     <nav class="footer-links" aria-label="Reference and legal pages">
       <a href="about.html">About</a>
+      <a href="live-2026.html">2026 Live</a>
+      <button type="button" data-open-contact>Contact</button>
+      <a class="support-link" data-support-link href="${DONATE_URL || `mailto:${SUPPORT_EMAIL}?subject=Support%20CFP%20Advantage`}">Donate</a>
       <a href="metrics.html">Metrics Guide</a>
       <a href="news.html">News</a>
       <a href="legal.html#terms">Terms</a>
@@ -53,7 +58,137 @@ function setupSiteChrome() {
     </nav>
     <p class="footer-copyright">Copyright 2026 CFP Advantage. All rights reserved.</p>
   `;
+  installContactModal();
+  configureSupportLinks();
   installDeveloperRefreshControl();
+}
+
+function configureSupportLinks() {
+  document.querySelectorAll("[data-support-link]").forEach((link) => {
+    if (!DONATE_URL) return;
+    link.setAttribute("href", DONATE_URL);
+    link.setAttribute("target", "_blank");
+    link.setAttribute("rel", "noopener noreferrer");
+  });
+}
+
+function installContactModal() {
+  if (!document.querySelector("[data-contact-modal]")) {
+    const modal = document.createElement("section");
+    modal.className = "contact-modal is-hidden";
+    modal.dataset.contactModal = "true";
+    modal.setAttribute("role", "dialog");
+    modal.setAttribute("aria-modal", "true");
+    modal.setAttribute("aria-label", "Contact CFP Advantage");
+    modal.innerHTML = `
+      <div class="contact-modal-card">
+        <button class="modal-close" type="button" data-close-contact aria-label="Close contact form">Close</button>
+        <span class="eyebrow">Contact</span>
+        <h2>Send CFP Advantage a Message</h2>
+        <p>Have a question, found a bug, or want to share feedback? We'd love to hear from you.</p>
+        <p class="contact-direct-email">Prefer email? <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>
+        <form class="contact-form" data-contact-form>
+          <label>
+            <span>Name</span>
+            <input name="name" autocomplete="name" maxlength="120" required>
+          </label>
+          <label>
+            <span>Email</span>
+            <input name="email" type="email" autocomplete="email" maxlength="254" required>
+          </label>
+          <label class="contact-honeypot" aria-hidden="true">
+            <span>Website</span>
+            <input name="website" tabindex="-1" autocomplete="off">
+          </label>
+          <label>
+            <span>Message</span>
+            <textarea name="message" rows="5" maxlength="4000" required></textarea>
+          </label>
+          <p class="contact-status" data-contact-status></p>
+          <button class="primary-action" type="submit">Send Message</button>
+        </form>
+      </div>
+    `;
+    document.body.appendChild(modal);
+  }
+  document.querySelectorAll("[data-open-contact]").forEach((trigger) => {
+    trigger.addEventListener("click", openContactModal);
+  });
+  document.querySelectorAll("[data-close-contact]").forEach((trigger) => {
+    trigger.addEventListener("click", closeContactModal);
+  });
+  const modal = document.querySelector("[data-contact-modal]");
+  modal?.addEventListener("click", (event) => {
+    if (event.target === modal) closeContactModal();
+  });
+  document.querySelector("[data-contact-form]")?.addEventListener("submit", submitContactForm);
+}
+
+function openContactModal() {
+  const modal = document.querySelector("[data-contact-modal]");
+  if (!modal) return;
+  modal.classList.remove("is-hidden");
+  document.body.classList.add("modal-open");
+  modal.querySelector("input[name='name']")?.focus();
+}
+
+function closeContactModal() {
+  const modal = document.querySelector("[data-contact-modal]");
+  if (!modal) return;
+  modal.classList.add("is-hidden");
+  document.body.classList.remove("modal-open");
+}
+
+async function submitContactForm(event) {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const status = form.querySelector("[data-contact-status]");
+  const button = form.querySelector("button[type='submit']");
+  const payload = Object.fromEntries(new FormData(form).entries());
+  status.textContent = "Sending...";
+  status.className = "contact-status";
+  button.disabled = true;
+  try {
+    const response = await fetch(`${API_BASE}/api/contact`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const detail = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      const error = detail.detail?.error || detail.error || "contact_failed";
+      throw new Error(error);
+    }
+    if (detail.status === "fallback_required") {
+      openContactMailFallback(payload, status);
+      return;
+    }
+    form.reset();
+    status.textContent = "Message sent. Thanks for reaching out.";
+    status.className = "contact-status ok";
+  } catch (error) {
+    openContactMailFallback(payload, status);
+  } finally {
+    button.disabled = false;
+  }
+}
+
+function openContactMailFallback(payload, status) {
+  const mailto = buildContactMailto(payload);
+  status.textContent = `Opening your email app with this message filled in. If it does not open, email ${SUPPORT_EMAIL} directly.`;
+  status.className = "contact-status ok";
+  window.location.href = mailto;
+}
+
+function buildContactMailto(payload) {
+  const subject = `CFP Advantage contact from ${payload.name || "site visitor"}`;
+  const body = [
+    `Name: ${payload.name || ""}`,
+    `Email: ${payload.email || ""}`,
+    "",
+    payload.message || "",
+  ].join("\n");
+  return `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
 function installDeveloperRefreshControl() {
@@ -114,6 +249,15 @@ const COMPARISON_DISPLAY = {
   "Kick/Punt Returns": "Return-yard context for special teams field position.",
   "Time of Possession": "How long a team controlled the football.",
   "Garbage-Time / Leverage Tags": "Game-state context that separates meaningful competitive possessions from lower-leverage possessions.",
+};
+
+const BRACKET_FRAMEWORK_LABELS = {
+  control_creation: "Control Creation",
+  control_denial: "Control Denial",
+  control_finish: "Control Finish Rate",
+  control_drive_shutout: "Control Drive Shutout Rate",
+  control_production: "Control Production",
+  defensive_control_production_allowed: "Defensive Control Production Allowed",
 };
 
 function $(id) {
@@ -198,6 +342,14 @@ function formatPercent(value, digits = 1) {
   return `${pct.toFixed(digits)}%`;
 }
 
+function formatSignedPercentPoints(value, digits = 1) {
+  if (value === null || value === undefined || value === "") return "-";
+  const number = Number(value);
+  if (!Number.isFinite(number)) return "-";
+  const pct = Math.abs(number) <= 1 ? number * 100 : number;
+  return `${pct >= 0 ? "+" : ""}${pct.toFixed(digits)} pts`;
+}
+
 function formatOptionalNumber(value, digits = 1) {
   return value === null || value === undefined || value === "" ? "" : formatNumber(value, digits);
 }
@@ -209,6 +361,16 @@ function talentYieldDisplay(talentYield = {}) {
     label,
     value: unavailable ? "" : formatOptionalNumber(talentYield.value, 2),
   };
+}
+
+function talentYieldLabelFromValue(value) {
+  const parsed = numberOrNull(value);
+  if (parsed === null) return "-";
+  if (parsed >= 1.0) return "Well Above Expectation";
+  if (parsed >= 0.25) return "Above Expectation";
+  if (parsed > -0.25) return "Near Expectation";
+  if (parsed > -1.0) return "Below Expectation";
+  return "Well Below Expectation";
 }
 
 function completeControlContext(context = {}) {
@@ -438,11 +600,25 @@ function renderMetricCards(target, rows) {
 
   el.innerHTML = rows.map((metric) => `
     <article class="guide-card">
-      <span>${escapeHtml(metric.group || "Metric")}</span>
+      <div class="guide-card-topline">
+        <span>${escapeHtml(metric.group || "Metric")}</span>
+        ${metric.validation?.status ? `<em>${escapeHtml(metric.validation.status)}</em>` : ""}
+      </div>
       <h4>${escapeHtml(publicMetricName(metric.name))}</h4>
       <p>${escapeHtml(publicMetricDescription(metric))}</p>
+      ${renderMetricValidation(metric.validation)}
     </article>
   `).join("");
+}
+
+function renderMetricValidation(validation) {
+  if (!validation) return "";
+  return `
+    <div class="metric-validation">
+      <strong>${escapeHtml(validation.label || "Tested")}</strong>
+      <p>${escapeHtml(validation.summary || "Historical testing available.")}</p>
+    </div>
+  `;
 }
 
 function renderComparisonStats(target, rows) {
@@ -610,8 +786,8 @@ function historicalContextCard(title, context) {
         <div><span>Control Denial</span><strong>${formatPercent(context.rolling_control_denial_rate, 2)}</strong></div>
         <div><span>Control Finish Rate</span><strong>${formatPercent(context.rolling_control_finish_rate, 2)}</strong></div>
         <div><span>Control Drive Shutout Rate</span><strong>${formatPercent(context.rolling_finishing_resistance, 2)}</strong><small>Share of opponent control drives held scoreless</small></div>
-        <div><span>Control Production Per Offensive Drive</span><strong>${formatNumber(context.rolling_control_production_rate, 2)}</strong><small>${formatNumber(context.rolling_offensive_drives, 0)} offensive drives</small></div>
-        <div><span>Defensive Control Production Allowed Per Defensive Drive</span><strong>${formatNumber(context.rolling_defensive_control_production_allowed, 2)}</strong><small>${formatNumber(context.rolling_defensive_drives, 0)} defensive drives · Lower is better</small></div>
+        <div><span>Control Points Per Offensive Drive</span><strong>${formatNumber(context.rolling_control_production_rate, 2)}</strong><small>ADV-derived pressure across ${formatNumber(context.rolling_offensive_drives, 0)} offensive drives</small></div>
+        <div><span>Control Points Allowed Per Defensive Drive</span><strong>${formatNumber(context.rolling_defensive_control_production_allowed, 2)}</strong><small>Pressure allowed across ${formatNumber(context.rolling_defensive_drives, 0)} defensive drives · Lower is better</small></div>
         <div><span>Creation Waste</span><strong>${formatPercent(context.rolling_creation_waste_rate, 2)}</strong></div>
         <div><span>Finish Waste</span><strong>${formatPercent(context.rolling_finish_waste_rate, 2)}</strong></div>
         <div><span>Scoreboard Control Gap</span><strong>${formatNumber(context.rolling_dce, 2)}</strong></div>
@@ -861,8 +1037,8 @@ function diagnosticProfile(team) {
         <div><span>ADV Schedule Rating</span><strong>${formatNumber(team.adv_schedule_rating, 1)}</strong></div>
         <div><span>Control Foundation</span><strong>${escapeHtml(profile.foundation?.label || "-")}</strong><small>${escapeHtml(percentileLabel(profile.foundation?.percentile) || "")}</small></div>
         <div><span>Conversion Profile</span><strong>${escapeHtml(profile.conversion?.label || "-")}</strong><small>${escapeHtml(percentileLabel(profile.conversion?.percentile) || "")}</small></div>
-        <div><span>Control Points Per Offensive Drive</span><strong>${formatNumber(metrics.control_production?.value, 2)}</strong><small>Control scoring value across ${formatNumber(profile.offensive_drives, 0)} offensive drives</small></div>
-        <div><span>Control Points Allowed Per Defensive Drive</span><strong>${formatNumber(metrics.defensive_control_production_allowed?.value, 2)}</strong><small>Allowed control scoring value across ${formatNumber(profile.defensive_drives, 0)} defensive drives · Lower is better</small></div>
+        <div><span>Control Points Per Offensive Drive</span><strong>${formatNumber(metrics.control_production?.value, 2)}</strong><small>Sustainable scoring pressure across ${formatNumber(profile.offensive_drives, 0)} offensive drives</small></div>
+        <div><span>Control Points Allowed Per Defensive Drive</span><strong>${formatNumber(metrics.defensive_control_production_allowed?.value, 2)}</strong><small>Sustained pressure allowed across ${formatNumber(profile.defensive_drives, 0)} defensive drives · Lower is better</small></div>
         <div><span>Creation Waste</span><strong>${formatPercent(profile.creation_waste)}</strong></div>
         <div><span>Finish Waste</span><strong>${formatPercent(profile.finish_waste)}</strong></div>
         <div><span>Talent Yield</span><strong>${escapeHtml(talentYield.label)}</strong><small>${escapeHtml(talentYield.value)}</small></div>
@@ -878,8 +1054,8 @@ function diagnosticProfile(team) {
         <p><strong>ADV Schedule Rating:</strong> Raw opponent-strength context available at the frozen snapshot.</p>
         <p><strong>Control Foundation:</strong> Combined view of Control Creation and Control Denial.</p>
         <p><strong>Conversion Profile:</strong> Combined view of Control Finish and Control Drive Shutout Rate.</p>
-        <p><strong>Control Points Per Offensive Drive:</strong> A control-scoring estimate spread across every offensive drive. It combines how often a team creates meaningful control with how many points those control drives produce.</p>
-        <p><strong>Control Points Allowed Per Defensive Drive:</strong> The defensive mirror of Control Points Per Offensive Drive. It estimates opponent control-scoring value allowed across every defensive drive. Lower is better.</p>
+        <p><strong>Control Points Per Offensive Drive:</strong> ADV-derived sustainable scoring pressure spread across every offensive drive. It is not literal scoreboard points per drive. Rough guide: 3.1+ is elite, 2.4-3.0 strong, 1.5-2.3 average, under 1.5 limited.</p>
+        <p><strong>Control Points Allowed Per Defensive Drive:</strong> The lower-is-better defensive mirror. It estimates sustained opponent scoring pressure allowed across every defensive drive. Rough guide: under 1.2 is elite, 1.2-1.8 strong, 1.9-2.5 average, 2.6+ vulnerable.</p>
         <p><strong>Creation Waste:</strong> Offensive drives that never become meaningful control.</p>
         <p><strong>Finish Waste:</strong> Meaningful control drives that do not produce points.</p>
         <p><strong>Talent Yield:</strong> Performance compared with roster expectation.</p>
@@ -936,9 +1112,10 @@ function bracketFrameworkGrid(profile) {
         const sample = key === "control_creation" || key === "control_finish" || key === "control_production"
           ? profile.offensive_drives
           : profile.defensive_drives;
+        const label = BRACKET_FRAMEWORK_LABELS[key] || metric.name || key;
         return `
           <div>
-            <span>${escapeHtml(metric.name || key)}</span>
+            <span>${escapeHtml(label)}</span>
             <strong>${escapeHtml(metric.label || "-")}</strong>
             <small>${escapeHtml([percentile || "Sample developing", sample ? `${Math.round(sample)} drives` : ""].filter(Boolean).join(" · "))}</small>
           </div>
@@ -1050,7 +1227,12 @@ async function renderTeamPage() {
 
     const scheduleHtml = renderTeamScheduleView(season, team, intel, record, games);
     const statsHtml = renderTeamStatsView(intel, stats, games);
-    const advProfileHtml = renderTeamAdvProfileView(intel, profile.drive_conversion || profile.drive_conversion_context || {});
+    const advProfileHtml = renderTeamAdvProfileView(
+      intel,
+      profile.drive_conversion || profile.drive_conversion_context || {},
+      stats,
+      games,
+    );
 
     $("teamPageResult").innerHTML = `
       <div id="teamScheduleView" class="team-view-panel is-active">
@@ -1446,7 +1628,7 @@ function renderTeamStatsView(intel, stats, games = []) {
   `).join("");
 }
 
-function renderTeamAdvProfileView(intel = {}, driveConversion = {}) {
+function renderTeamAdvProfileView(intel = {}, driveConversion = {}, stats = {}, games = []) {
   const profile = contextualProfileValues(intel);
   const view = { ...intel, ...profile };
   if (numberOrNull(view.points_per_control_drive) === null) {
@@ -1464,52 +1646,58 @@ function renderTeamAdvProfileView(intel = {}, driveConversion = {}) {
   }
   const specialTeamsAdv = view.sp_adv_srs ?? view.sp_adv ?? view.special_teams_adv ?? view.raw_sp_adv_margin_avg;
   const dce = view.team_season_dce ?? view.dce ?? view.drive_conversion_efficiency;
+  const talentYieldLabel = view.tyi_label || talentYieldLabelFromValue(view.talent_yield_index);
+  const recentFormLabel = view.recent_form_label || trajectoryPublicLabel(view.trajectory_bucket);
   const outcomeRows = [
     ["ADV Strength Rating (ADV SRS)", decimal(view.adv_srs, 1)],
     ["ADV Rank", view.adv_srs_rank ? `#${view.adv_srs_rank}` : "-"],
-    ["Offensive ADV Strength", decimal(view.off_adv_srs, 1)],
-    ["Defensive ADV Strength", decimal(view.def_adv_srs, 1)],
-    ["Special Teams ADV", decimal(specialTeamsAdv, 1)],
-    ["Weak-Side Profile", decimal(view.weaker_side_srs ?? view.weak_side_srs, 1)],
     ["Schedule Strength", `${decimal(view.adv_sos_percentile, 1)} percentile`],
-    ["Control Rate (CR)", rate(view.cr ?? view.control_rate ?? (numberOrNull(view.control_rate_pct) !== null ? Number(view.control_rate_pct) / 100 : null))],
     ["Scoreboard Control Gap", decimal(dce, 2)],
+    ["Recent Form", recentFormLabel],
+    ["Talent Yield", talentYieldLabel, decimal(view.talent_yield_index, 2)],
   ];
-  const frameworkRows = [
+  const controlFoundationRows = [
     ["Control Creation", view.control_creation_tier || "-", percentileLabel(view.control_creation_percentile)],
     ["Control Denial", view.control_denial_tier || "-", percentileLabel(view.control_denial_percentile)],
+    ["Control Rate (CR)", rate(view.cr ?? view.control_rate ?? (numberOrNull(view.control_rate_pct) !== null ? Number(view.control_rate_pct) / 100 : null)), "Share of possessions that become useful control opportunities"],
+    ["Control Foundation", view.control_foundation_tier || "-", percentileLabel(view.control_foundation_percentile)],
+  ];
+  const scoringPressureRows = [
+    [
+      "Control Points Per Offensive Drive",
+      decimal(view.control_production_rate, 2),
+      [
+        view.control_production_tier,
+        percentileLabel(view.control_production_percentile),
+        productionSampleLabel(view.control_production_rate, view.offensive_drives, "offensive drives"),
+        "Sustainable scoring pressure per possession",
+      ].filter(Boolean).join(" · "),
+    ],
+    [
+      "Control Points Allowed Per Defensive Drive",
+      decimal(view.defensive_control_production_allowed, 2),
+      [
+        view.defensive_control_production_allowed_tier,
+        percentileLabel(view.defensive_control_production_allowed_percentile),
+        productionSampleLabel(view.defensive_control_production_allowed, view.defensive_drives, "defensive drives"),
+        "Lower is better",
+      ].filter(Boolean).join(" · "),
+    ],
+    ["Control Production", view.control_production_tier || "-", percentileLabel(view.control_production_percentile)],
+    ["Defensive Control Production Allowed", view.defensive_control_production_allowed_tier || "-", [percentileLabel(view.defensive_control_production_allowed_percentile), "Lower is better"].filter(Boolean).join(" · ")],
+  ];
+  const conversionRows = [
     [
       "Control Finish Rate",
       view.control_finish_tier || rate(driveConversion.scoring_conversion_rate),
       [percentileLabel(view.control_finish_percentile), conversionSampleLabel(driveConversion)].filter(Boolean).join(" · "),
     ],
     ["Control Drive Shutout Rate", view.finishing_resistance_tier || "-", percentileLabel(view.finishing_resistance_percentile)],
-    [
-      "Control Production Per Offensive Drive",
-      view.control_production_tier || decimal(view.control_production_rate, 2),
-      [
-        percentileLabel(view.control_production_percentile),
-        productionSampleLabel(view.control_production_rate, view.offensive_drives, "offensive drives"),
-      ].filter(Boolean).join(" · "),
-    ],
-    [
-      "Defensive Control Production Allowed Per Defensive Drive",
-      view.defensive_control_production_allowed_tier || decimal(view.defensive_control_production_allowed, 2),
-      [
-        percentileLabel(view.defensive_control_production_allowed_percentile),
-        productionSampleLabel(view.defensive_control_production_allowed, view.defensive_drives, "defensive drives"),
-        "Lower is better",
-      ].filter(Boolean).join(" · "),
-    ],
-  ];
-  const conversionRows = [
-    ["Control Foundation", view.control_foundation_tier || "-", percentileLabel(view.control_foundation_percentile)],
-    ["Conversion Profile", view.control_conversion_tier || "-", percentileLabel(view.control_conversion_percentile)],
+    ["Points Per Control Drive", decimal(driveConversion.points_per_control_drive, 2), "Scoring output once meaningful control exists"],
     ["TD Control Conversion", rate(driveConversion.td_conversion_rate), ""],
-    ["Points Per Control Drive", decimal(driveConversion.points_per_control_drive, 2), ""],
-    ["Creation Waste", rate(view.creation_waste_rate), "Possessions that do not become meaningful control"],
     ["Finish Waste", rate(view.finish_waste_rate), "Control drives that produce no points"],
   ];
+  const pressureCompareHtml = renderPressureCompareWindow(view, stats, games);
   const summary = publicProfileSummary(view.contextual_profile_summary)
     || "This profile explains how the team creates control, finishes control, denies control, and produces complete stops after control forms.";
   return `
@@ -1520,10 +1708,11 @@ function renderTeamAdvProfileView(intel = {}, driveConversion = {}) {
       <a class="text-link" href="metrics.html">How CFP Advantage metrics work</a>
     </div>
     <div class="insight-panel">
-      <p class="eyebrow">Football Mechanics</p>
-      <h3>Control Framework</h3>
+      <p class="eyebrow">Team Identity</p>
+      <h3>Control Foundation</h3>
+      <p class="guide-note">Can this team create control and deny control?</p>
       <div class="summary-grid">
-        ${frameworkRows.map(([label, value, note]) => `
+        ${controlFoundationRows.map(([label, value, note]) => `
           <div>
             <span>${escapeHtml(label)}</span>
             <strong>${escapeHtml(value)}</strong>
@@ -1533,8 +1722,23 @@ function renderTeamAdvProfileView(intel = {}, driveConversion = {}) {
       </div>
     </div>
     <div class="insight-panel">
-      <p class="eyebrow">Profile Shape</p>
-      <h3>Foundation & Conversion</h3>
+      <p class="eyebrow">Team Identity</p>
+      <h3>Scoring Pressure</h3>
+      <p class="guide-note">How much sustainable scoring pressure does this team create or allow?</p>
+      <div class="summary-grid">
+        ${scoringPressureRows.map(([label, value, note]) => `
+          <div>
+            <span>${escapeHtml(label)}</span>
+            <strong>${escapeHtml(value)}</strong>
+            ${note ? `<small>${escapeHtml(note)}</small>` : ""}
+          </div>
+        `).join("")}
+      </div>
+    </div>
+    <div class="insight-panel">
+      <p class="eyebrow">Team Identity</p>
+      <h3>Conversion Profile</h3>
+      <p class="guide-note">What happens once control exists?</p>
       <div class="summary-grid">
         ${conversionRows.map(([label, value, note]) => `
           <div>
@@ -1545,20 +1749,118 @@ function renderTeamAdvProfileView(intel = {}, driveConversion = {}) {
         `).join("")}
       </div>
     </div>
+    ${pressureCompareHtml}
     <div class="insight-panel">
       <p class="eyebrow">Outcome & Context</p>
-      <h3>ADV Season View</h3>
+      <h3>Results Context</h3>
+      <p class="guide-note">How do the underlying football traits show up in results?</p>
       <div class="summary-grid">
-        ${outcomeRows.map(([label, value]) => `
+        ${outcomeRows.map(([label, value, note]) => `
           <div>
             <span>${escapeHtml(label)}</span>
             <strong>${escapeHtml(value)}</strong>
+            ${note ? `<small>${escapeHtml(note)}</small>` : ""}
           </div>
         `).join("")}
       </div>
       <p class="interpretation">${escapeHtml(scoreboardControlGapRead(dce))}</p>
     </div>
   `;
+}
+
+function renderPressureCompareWindow(view = {}, stats = {}, games = []) {
+  const scoredGames = (Array.isArray(games) ? games : [])
+    .filter((game) => isFiniteNumber(game.team_score) && isFiniteNumber(game.opponent_score));
+  const gamesPlayed = numberOrNull(stats.games) || numberOrNull(view.games) || scoredGames.length || null;
+  const pointsFor = scoredGames.length
+    ? scoredGames.reduce((sum, game) => sum + Number(game.team_score), 0)
+    : numberOrNull(stats.drive_points);
+  const pointsAgainst = scoredGames.length
+    ? scoredGames.reduce((sum, game) => sum + Number(game.opponent_score), 0)
+    : numberOrNull(stats.points_allowed);
+  const cpo = numberOrNull(view.control_production_rate);
+  const cpa = numberOrNull(view.defensive_control_production_allowed);
+  const controlFinish = numberOrNull(view.control_finish_rate);
+  const redZoneTd = numberOrNull(stats.red_zone_td_rate);
+  const creationWaste = numberOrNull(view.creation_waste_rate);
+  const pointsPerDrive = numberOrNull(stats.points_per_drive);
+  const cpoTier = view.control_production_tier || pressureTier(cpo, false);
+  const cpaTier = view.defensive_control_production_allowed_tier || pressureTier(cpa, true);
+  const cpoMeta = [cpoTier, percentileLabel(view.control_production_percentile)].filter(Boolean).join(" · ");
+  const cpaMeta = [cpaTier, percentileLabel(view.defensive_control_production_allowed_percentile), "Lower is better"].filter(Boolean).join(" · ");
+
+  return `
+    <div class="insight-panel pressure-compare-window">
+      <p class="eyebrow">Pressure vs Scoreboard</p>
+      <h3>Scoring Pressure Read</h3>
+      <div class="pressure-compare-grid">
+        <div class="pressure-compare-column">
+          <span>CFP Identity</span>
+          <div>
+            <strong>Control Points Per Offensive Drive</strong>
+            <b>${decimal(cpo, 2)}</b>
+            <small>${escapeHtml(cpoMeta || "Sustainable scoring pressure per possession")}</small>
+          </div>
+          <div>
+            <strong>Control Points Allowed Per Defensive Drive</strong>
+            <b>${decimal(cpa, 2)}</b>
+            <small>${escapeHtml(cpaMeta || "Sustainable pressure allowed per defensive possession")}</small>
+          </div>
+          <div>
+            <strong>Control Finish Rate</strong>
+            <b>${rate(controlFinish)}</b>
+            <small>How often control drives become points</small>
+          </div>
+          <div>
+            <strong>Creation Waste</strong>
+            <b>${rate(creationWaste)}</b>
+            <small>Possessions that do not become meaningful control</small>
+          </div>
+        </div>
+        <div class="pressure-compare-column scoreboard-output">
+          <span>Scoreboard Output</span>
+          <div>
+            <strong>Points Per Game</strong>
+            <b>${pointsPerGame(pointsFor, gamesPlayed)}</b>
+            <small>Actual scoring output</small>
+          </div>
+          <div>
+            <strong>Points Allowed Per Game</strong>
+            <b>${pointsPerGame(pointsAgainst, gamesPlayed)}</b>
+            <small>Actual scoring allowed</small>
+          </div>
+          <div>
+            <strong>Red Zone TD Rate</strong>
+            <b>${rate(redZoneTd)}</b>
+            <small>Traditional close-range finishing output</small>
+          </div>
+          <div>
+            <strong>Points Per Drive</strong>
+            <b>${decimal(pointsPerDrive, 2)}</b>
+            <small>Actual scoring efficiency per possession</small>
+          </div>
+        </div>
+      </div>
+      <p class="interpretation pressure-model-read">
+        Pressure reflects underlying scoring strength; points reflect actual scoring output. CPOd and CPA are not point projections; they show how much repeatable scoring pressure a team creates or allows per possession. When pressure and points move in the same direction, the team is performing close to its underlying identity; when they differ, the scoreboard may be running hotter or colder than the true control profile.
+      </p>
+    </div>
+  `;
+}
+
+function pressureTier(value, lowerIsBetter = false) {
+  const parsed = numberOrNull(value);
+  if (parsed === null) return "";
+  if (lowerIsBetter) {
+    if (parsed < 1.2) return "Elite";
+    if (parsed < 1.9) return "Strong";
+    if (parsed < 2.6) return "Average";
+    return "Vulnerable";
+  }
+  if (parsed >= 3.1) return "Elite";
+  if (parsed >= 2.4) return "Strong";
+  if (parsed >= 1.5) return "Average";
+  return "Limited";
 }
 
 function contextualProfileValues(intel = {}) {
@@ -1831,6 +2133,256 @@ function renderRankingsPayload(payload) {
   ]);
 }
 
+let recordPathPayload = null;
+
+async function loadLive2026Page() {
+  installValidationModal();
+  const status = $("recordPathStatus");
+  if (!status) return;
+  try {
+    status.textContent = "Loading 2026 record paths...";
+    recordPathPayload = await api("/api/product-a/record-probabilities?season=2026&limit=136");
+    populateRecordTeamSelect(recordPathPayload);
+    renderRecordPathBoard();
+    status.textContent = recordPathPayload.method_note || "Record paths loaded.";
+    status.className = "status-line ok";
+  } catch (error) {
+    status.textContent = "Record paths are not available yet.";
+    status.className = "status-line warn";
+    $("recordPathSummary").innerHTML = `
+      <div><span>Display Status</span><strong>API Update Pending</strong></div>
+      <div><span>Method</span><strong>Exact Distribution</strong><small>Game probabilities drive record paths</small></div>
+      <div><span>Pac-12 Flex Teams</span><strong>Held Out</strong><small>Until final matchup is set</small></div>
+      <div><span>Next Update</span><strong>Backend Deploy</strong><small>The board will populate automatically</small></div>
+    `;
+    $("recordPathDetail").innerHTML = `
+      <div class="record-team-card">
+        <p class="eyebrow">Record Paths</p>
+        <h3>2026 Board Is Being Connected</h3>
+        <p>
+          Record probabilities are built and loaded, but this public API route is waiting on the next backend deploy.
+          Once the API update is live, this section will show team record distributions, average wins, and hinge games.
+        </p>
+      </div>
+    `;
+    $("recordPathLeaderboard").innerHTML = "";
+  }
+}
+
+function installValidationModal() {
+  const modal = document.querySelector("[data-validation-modal]");
+  if (!modal || modal.dataset.bound === "true") return;
+  document.querySelectorAll("[data-open-validation]").forEach((trigger) => {
+    trigger.addEventListener("click", openValidationModal);
+  });
+  document.querySelectorAll("[data-close-validation]").forEach((trigger) => {
+    trigger.addEventListener("click", closeValidationModal);
+  });
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) closeValidationModal();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !modal.classList.contains("is-hidden")) {
+      closeValidationModal();
+    }
+  });
+  modal.dataset.bound = "true";
+}
+
+function openValidationModal() {
+  const modal = document.querySelector("[data-validation-modal]");
+  if (!modal) return;
+  modal.classList.remove("is-hidden");
+  document.body.classList.add("modal-open");
+  modal.querySelector("[data-close-validation]")?.focus();
+}
+
+function closeValidationModal() {
+  const modal = document.querySelector("[data-validation-modal]");
+  if (!modal) return;
+  modal.classList.add("is-hidden");
+  document.body.classList.remove("modal-open");
+}
+
+function populateRecordTeamSelect(payload) {
+  const select = $("recordTeamSelect");
+  if (!select) return;
+  const options = (payload.team_options || [])
+    .filter((row) => row.status === "active")
+    .sort((a, b) => String(a.team || "").localeCompare(String(b.team || "")));
+  select.innerHTML = options.map((row) => (
+    `<option value="${escapeHtml(row.team)}">${escapeHtml(row.team)}</option>`
+  )).join("");
+  const firstTeam = (payload.teams || []).find((row) => row.status === "active")?.team || options[0]?.team || "";
+  select.value = firstTeam;
+  if (!select.dataset.bound) {
+    select.addEventListener("change", renderRecordPathBoard);
+    select.dataset.bound = "true";
+  }
+}
+
+function selectedRecordTeam() {
+  const selected = $("recordTeamSelect")?.value;
+  const teams = recordPathPayload?.teams || [];
+  return teams.find((row) => row.team === selected) || teams.find((row) => row.status === "active") || null;
+}
+
+function recordDistributionBars(distribution = {}) {
+  const entries = Object.entries(distribution)
+    .map(([record, probability]) => ({ record, probability: Number(probability) }))
+    .filter((row) => Number.isFinite(row.probability))
+    .sort((a, b) => {
+      const winsA = Number(String(a.record).split("-")[0]);
+      const winsB = Number(String(b.record).split("-")[0]);
+      return winsB - winsA;
+    });
+  if (!entries.length) return '<div class="empty-state compact">Record distribution unavailable.</div>';
+  const max = Math.max(...entries.map((row) => row.probability), 0.01);
+  return `
+    <div class="record-distribution-bars">
+      ${entries.map((row) => `
+        <div class="record-bar-row">
+          <span>${escapeHtml(row.record)}</span>
+          <div class="record-bar-track"><i style="width:${Math.max(2, (row.probability / max) * 100)}%"></i></div>
+          <strong>${formatPercent(row.probability, 1)}</strong>
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
+function renderHingeGame(team) {
+  const hinge = team?.hinge_game || {};
+  if (!hinge.opponent) {
+    return '<div class="empty-state compact">Hinge game unavailable for this team.</div>';
+  }
+  const location = hinge.side === "home" ? "vs" : hinge.side === "away" ? "at" : "vs";
+  const pathRows = [
+    ["10+ Wins", "baseline_prob_10_plus", "win_prob_10_plus", "loss_prob_10_plus"],
+    ["11+ Wins", "baseline_prob_11_plus", "win_prob_11_plus", "loss_prob_11_plus"],
+    ["Unbeaten", "baseline_prob_undefeated", "win_prob_undefeated", "loss_prob_undefeated"],
+  ];
+  const bars = pathRows.map(([label, baselineKey, winKey, lossKey]) => {
+    const baseline = Number(hinge[baselineKey]);
+    const win = Number(hinge[winKey]);
+    const loss = Number(hinge[lossKey]);
+    const max = Math.max(baseline || 0, win || 0, loss || 0, 0.01);
+    const boost = Number.isFinite(win) && Number.isFinite(baseline) ? win - baseline : null;
+    const damage = Number.isFinite(loss) && Number.isFinite(baseline) ? loss - baseline : null;
+    const bar = (value, className) => `
+      <div class="hinge-path-bar ${className}">
+        <span style="width:${Math.max(2, ((Number(value) || 0) / max) * 100)}%"></span>
+        <strong>${formatPercent(value, 1)}</strong>
+      </div>
+    `;
+    return `
+      <div class="hinge-path-row">
+        <div>
+          <strong>${escapeHtml(label)}</strong>
+          <small>Win ${formatSignedPercentPoints(boost)} · Loss ${formatSignedPercentPoints(damage)}</small>
+        </div>
+        <div class="hinge-path-bars">
+          <label>Base</label>${bar(baseline, "baseline")}
+          <label>Win</label>${bar(win, "win")}
+          <label>Loss</label>${bar(loss, "loss")}
+        </div>
+      </div>
+    `;
+  }).join("");
+  return `
+    <article class="hinge-card">
+      <p class="eyebrow">Path Swing Game</p>
+      <h3>${escapeHtml(location)} ${escapeHtml(hinge.opponent)}</h3>
+      <div class="hinge-grid">
+        <div>
+          <span>If They Win</span>
+          <strong>${escapeHtml(hinge.win_likely_record || "-")}</strong>
+          <small>Expected wins: ${formatNumber(hinge.win_expected_wins, 2)}</small>
+        </div>
+        <div>
+          <span>If They Lose</span>
+          <strong>${escapeHtml(hinge.loss_likely_record || "-")}</strong>
+          <small>Expected wins: ${formatNumber(hinge.loss_expected_wins, 2)}</small>
+        </div>
+        <div>
+          <span>Game Win Probability</span>
+          <strong>${formatPercent(hinge.win_probability, 1)}</strong>
+          <small>Week ${escapeHtml(hinge.week || "-")} · ${escapeHtml(hinge.date || "")}</small>
+        </div>
+      </div>
+      <div class="hinge-path-swing">
+        <h4>How This Game Moves The Path</h4>
+        ${bars}
+      </div>
+    </article>
+  `;
+}
+
+function renderRecordPathBoard() {
+  if (!recordPathPayload) return;
+  const summary = recordPathPayload.summary || {};
+  const teams = recordPathPayload.teams || [];
+  const active = teams.filter((row) => row.status === "active");
+  const team = selectedRecordTeam();
+  $("recordPathSummary").innerHTML = `
+    <div><span>Active Teams</span><strong>${escapeHtml(summary.teams_active ?? active.length)}</strong></div>
+    <div><span>Pac-12 Holdouts</span><strong>${escapeHtml(summary.teams_holdout_pac12_flex ?? recordPathPayload.holdouts?.length ?? "-")}</strong></div>
+    <div><span>Method</span><strong>Exact Distribution</strong><small>No random simulation noise</small></div>
+    <div><span>Display Status</span><strong>Preliminary</strong><small>Use with caution during buildout</small></div>
+  `;
+  if (!team) {
+    $("recordPathDetail").innerHTML = '<div class="empty-state">No active record paths are available.</div>';
+    return;
+  }
+  $("recordPathDetail").innerHTML = `
+    <div class="record-team-card">
+      <div>
+        <p class="eyebrow">${escapeHtml(team.conference || "2026")} Record Path</p>
+        <h3>${escapeHtml(team.team)}</h3>
+        <p>${escapeHtml(team.public_note || recordPathPayload.public_note || "")}</p>
+      </div>
+      <div class="summary-grid record-path-metrics">
+        <div><span>Most Likely Record</span><strong>${escapeHtml(team.likely_record || "-")}</strong><small>${formatPercent(team.likely_record_probability, 1)}</small></div>
+        <div><span>Average Wins</span><strong>${formatNumber(team.expected_wins, 2)}</strong></div>
+        <div><span>Expected Losses</span><strong>${formatNumber(team.expected_losses, 2)}</strong></div>
+        <div><span>10+ Wins</span><strong>${formatPercent(team.prob_10_plus_wins, 1)}</strong></div>
+        <div><span>11+ Wins</span><strong>${formatPercent(team.prob_11_plus_wins, 1)}</strong></div>
+        <div><span>Unbeaten</span><strong>${formatPercent(team.prob_undefeated, 1)}</strong></div>
+      </div>
+      <div class="record-path-columns">
+        <section>
+          <h4>Record Distribution</h4>
+          ${recordDistributionBars(team.record_distribution)}
+        </section>
+        <section>
+          ${renderHingeGame(team)}
+        </section>
+      </div>
+    </div>
+  `;
+  const leaders = active.slice(0, 12);
+  $("recordPathLeaderboard").innerHTML = `
+    <h3>Teams With Highest Average Wins</h3>
+    <div class="leaderboard-list">
+      ${leaders.map((row, index) => `
+        <button type="button" data-record-team="${escapeHtml(row.team)}">
+          <span>${index + 1}. ${escapeHtml(row.team)}</span>
+          <strong>${formatNumber(row.expected_wins, 2)}</strong>
+          <small>Avg Wins</small>
+          <em>Likely Record: ${escapeHtml(row.likely_record || "-")}</em>
+        </button>
+      `).join("")}
+    </div>
+  `;
+  document.querySelectorAll("[data-record-team]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const select = $("recordTeamSelect");
+      if (select) select.value = button.dataset.recordTeam || "";
+      renderRecordPathBoard();
+    });
+  });
+}
+
 async function boot() {
   const page = document.body.dataset.page;
   try {
@@ -1845,6 +2397,7 @@ async function boot() {
     if (page === "team") await loadTeamPage();
     if (page === "recap") await loadStandaloneRecapPage();
     if (page === "rankings") await loadRankingsPage();
+    if (page === "live-2026") await loadLive2026Page();
   } catch (error) {
     console.error(error);
     setStatus(error.message, "error");
