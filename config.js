@@ -5,5 +5,5 @@ window.CFP_ADV_CONFIG = {
   ENVIRONMENT: "production",
   ENABLE_DEV_TOOLS: false,
   SUPPORT_EMAIL: "support@cfpadvantage.com",
-  DONATE_URL: "",
+  DONATE_URL: "https://buy.stripe.com/4gM28r9skgpj5KQ7BL8N200",
 };

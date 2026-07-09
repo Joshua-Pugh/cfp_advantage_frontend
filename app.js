@@ -47,7 +47,7 @@ function setupSiteChrome() {
       <a href="about.html">About</a>
       <a href="live-2026.html">2026 Live</a>
       <button type="button" data-open-contact>Contact</button>
-      <a class="support-link" data-support-link href="${DONATE_URL || `mailto:${SUPPORT_EMAIL}?subject=Support%20CFP%20Advantage`}">Donate</a>
+      <a class="support-link" data-support-link href="${DONATE_URL || `mailto:${SUPPORT_EMAIL}?subject=Support%20CFP%20Advantage`}">Support</a>
       <a href="metrics.html">Metrics Guide</a>
       <a href="news.html">News</a>
       <a href="legal.html#terms">Terms</a>
@@ -60,6 +60,7 @@ function setupSiteChrome() {
   shell.appendChild(footer);
   installContactModal();
   configureSupportLinks();
+  installSupportButton();
   installDeveloperRefreshControl();
 }
 
@@ -70,6 +71,19 @@ function configureSupportLinks() {
     link.setAttribute("target", "_blank");
     link.setAttribute("rel", "noopener noreferrer");
   });
+}
+
+function installSupportButton() {
+  if (!DONATE_URL || document.querySelector("[data-floating-support]")) return;
+  const link = document.createElement("a");
+  link.className = "floating-support-link";
+  link.dataset.floatingSupport = "true";
+  link.dataset.supportLink = "true";
+  link.href = DONATE_URL;
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  link.textContent = "Support CFP Advantage";
+  document.body.appendChild(link);
 }
 
 function installContactModal() {
