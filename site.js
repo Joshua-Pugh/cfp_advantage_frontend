@@ -2285,6 +2285,7 @@ function recordPathCard(team = {}) {
     recent_3yr_regular_wins_avg: team.recent_3yr_regular_wins_avg,
     expected_vs_recent_3yr_regular_wins_gap: team.expected_vs_recent_3yr_regular_wins_gap,
     expected_losses: team.expected_loss_games || [],
+    loss_risk_games: [],
     upside_flip_path: team.upside_flip_path || [],
     why_distribution_is_cautious: [],
     public_read: "This is a schedule-path view from today's frozen assumptions.",
@@ -2292,27 +2293,63 @@ function recordPathCard(team = {}) {
   return { ...fallback, ...(team.record_path_card || {}) };
 }
 
-function renderExpectedLosses(card = {}) {
+function renderPathRiskGames(card = {}) {
   const losses = Array.isArray(card.expected_losses) ? card.expected_losses : [];
-  if (!losses.length) {
-    return '<div class="empty-state compact">No games currently sit below 50% win probability.</div>';
+  const riskGames = Array.isArray(card.loss_risk_games) ? card.loss_risk_games : [];
+  const games = losses.length ? losses : riskGames;
+  if (!games.length) {
+    return '<div class="empty-state compact">No path-risk games are available for this team.</div>';
   }
+  const helpText = losses.length
+    ? "Games where the model currently gives this team below a 50% win probability."
+    : "The team is favored in every game, but these games carry the highest individual loss risk and can still make one loss more likely than an unbeaten season.";
   return `
+    <p class="interpretation compact">${escapeHtml(helpText)}</p>
     <div class="expected-loss-list">
-      ${losses.slice(0, 8).map((game) => `
+      ${games.slice(0, 8).map((game) => {
+        const winProbability = Number(game.win_probability);
+        const lossProbability = Number.isFinite(Number(game.loss_probability))
+          ? Number(game.loss_probability)
+          : Number.isFinite(winProbability) ? 1 - winProbability : null;
+        return `
         <div class="expected-loss-row">
           <div>
             <strong>${escapeHtml(locationLabel(game.side))} ${escapeHtml(game.opponent || "-")}</strong>
             <small>Week ${escapeHtml(game.week || "-")} · ${escapeHtml(game.date || "")}</small>
           </div>
           <div>
-            <span>${formatPercent(game.win_probability, 1)}</span>
-            <small>${formatNumber(game.expected_margin_team, 1)} pts</small>
+            <span>${formatPercent(game.win_probability, 1)} win</span>
+            <small>${formatPercent(lossProbability, 1)} loss risk · ${formatNumber(game.expected_margin_team, 1)} pts</small>
           </div>
         </div>
-      `).join("")}
+      `;
+      }).join("")}
     </div>
   `;
+}
+
+function pathRiskTitle(card = {}) {
+  const losses = Array.isArray(card.expected_losses) ? card.expected_losses : [];
+  if (losses.length) return "Current Expected Losses";
+  const riskGames = Array.isArray(card.loss_risk_games) ? card.loss_risk_games : [];
+  if (riskGames.length) return "Top Loss-Risk Games";
+  return "Schedule Risk";
+}
+
+function upsideStepLabel(step = {}, fallbackCount = 0) {
+  const count = Number(step.flipped_expected_losses || fallbackCount);
+  const pathType = step.path_type || "expected_loss_flip";
+  if (pathType === "loss_risk_hold") {
+    return `Protect ${count} loss-risk game${count === 1 ? "" : "s"}`;
+  }
+  return `Flip ${count} expected loss${count === 1 ? "" : "es"}`;
+}
+
+function upsideMetricLine(step = {}) {
+  if (step.path_type === "loss_risk_hold") {
+    return `11+ ${formatPercent(step.prob_11_plus, 1)} · 12-0 ${formatPercent(step.prob_12_plus, 1)}`;
+  }
+  return `10+ ${formatPercent(step.prob_10_plus, 1)} · 11+ ${formatPercent(step.prob_11_plus, 1)}`;
 }
 
 function renderCautiousReasons(card = {}) {
@@ -2340,12 +2377,12 @@ function renderUpsidePath(card = {}) {
         return `
           <div class="upside-path-row">
             <div>
-              <strong>Flip ${escapeHtml(step.flipped_expected_losses || flipped.length)} expected loss${Number(step.flipped_expected_losses || flipped.length) === 1 ? "" : "es"}</strong>
+              <strong>${escapeHtml(upsideStepLabel(step, flipped.length))}</strong>
               <small>${escapeHtml(games || "Expected-loss path")}</small>
             </div>
             <div>
               <span>${escapeHtml(step.likely_record || "-")}</span>
-              <small>10+ ${formatPercent(step.prob_10_plus, 1)} · 11+ ${formatPercent(step.prob_11_plus, 1)}</small>
+              <small>${escapeHtml(upsideMetricLine(step))}</small>
             </div>
           </div>
         `;
@@ -2458,8 +2495,8 @@ function renderRecordPathBoard() {
       </div>
       <div class="record-public-read">
         <section>
-          <h4>Current Expected Losses</h4>
-          ${renderExpectedLosses(card)}
+          <h4>${escapeHtml(pathRiskTitle(card))}</h4>
+          ${renderPathRiskGames(card)}
         </section>
         <section>
           <h4>Upside Path</h4>
