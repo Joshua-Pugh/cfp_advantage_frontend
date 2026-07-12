@@ -47,6 +47,7 @@ function setupSiteChrome() {
     <nav class="footer-links" aria-label="Reference and legal pages">
       <a href="about.html">About</a>
       <a href="live-2026.html">2026 Live</a>
+      <a href="learn.html">Learn</a>
       <button type="button" data-open-contact>Contact</button>
       <a class="support-link" data-support-link href="${DONATE_URL || `mailto:${SUPPORT_EMAIL}?subject=Support%20CFP%20Advantage`}">Support</a>
       <a href="metrics.html">Metrics Guide</a>
