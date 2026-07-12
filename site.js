@@ -2265,6 +2265,96 @@ function recordDistributionBars(distribution = {}) {
   `;
 }
 
+function locationLabel(side) {
+  if (side === "home") return "vs";
+  if (side === "away") return "at";
+  return "vs";
+}
+
+function recordPathCard(team = {}) {
+  const fallback = {
+    team: team.team,
+    expected_wins: team.expected_wins,
+    most_likely_record: team.likely_record,
+    most_likely_record_probability: team.likely_record_probability,
+    median_record: team.median_record,
+    prob_10_plus_wins: team.prob_10_plus_wins,
+    prob_11_plus_wins: team.prob_11_plus_wins,
+    prob_12_plus_wins: team.prob_12_plus_wins ?? team.prob_undefeated,
+    playoff_range_probability: team.prob_10_plus_wins,
+    recent_3yr_regular_wins_avg: team.recent_3yr_regular_wins_avg,
+    expected_vs_recent_3yr_regular_wins_gap: team.expected_vs_recent_3yr_regular_wins_gap,
+    expected_losses: team.expected_loss_games || [],
+    upside_flip_path: team.upside_flip_path || [],
+    why_distribution_is_cautious: [],
+    public_read: "This is a schedule-path view from today's frozen assumptions.",
+  };
+  return { ...fallback, ...(team.record_path_card || {}) };
+}
+
+function renderExpectedLosses(card = {}) {
+  const losses = Array.isArray(card.expected_losses) ? card.expected_losses : [];
+  if (!losses.length) {
+    return '<div class="empty-state compact">No games currently sit below 50% win probability.</div>';
+  }
+  return `
+    <div class="expected-loss-list">
+      ${losses.slice(0, 8).map((game) => `
+        <div class="expected-loss-row">
+          <div>
+            <strong>${escapeHtml(locationLabel(game.side))} ${escapeHtml(game.opponent || "-")}</strong>
+            <small>Week ${escapeHtml(game.week || "-")} · ${escapeHtml(game.date || "")}</small>
+          </div>
+          <div>
+            <span>${formatPercent(game.win_probability, 1)}</span>
+            <small>${formatNumber(game.expected_margin_team, 1)} pts</small>
+          </div>
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
+function renderCautiousReasons(card = {}) {
+  const reasons = Array.isArray(card.why_distribution_is_cautious) ? card.why_distribution_is_cautious : [];
+  if (!reasons.length) {
+    return '<div class="empty-state compact">No major caution flags are attached to this path.</div>';
+  }
+  return `
+    <ul class="record-reason-list">
+      ${reasons.map((reason) => `<li>${escapeHtml(reason)}</li>`).join("")}
+    </ul>
+  `;
+}
+
+function renderUpsidePath(card = {}) {
+  const path = Array.isArray(card.upside_flip_path) ? card.upside_flip_path : [];
+  if (!path.length) {
+    return '<div class="empty-state compact">No expected-loss flip path is available for this team.</div>';
+  }
+  return `
+    <div class="upside-path-list">
+      ${path.map((step) => {
+        const flipped = Array.isArray(step.flipped_games) ? step.flipped_games : [];
+        const games = flipped.map((game) => `${locationLabel(game.side)} ${game.opponent}`).join(", ");
+        return `
+          <div class="upside-path-row">
+            <div>
+              <strong>Flip ${escapeHtml(step.flipped_expected_losses || flipped.length)} expected loss${Number(step.flipped_expected_losses || flipped.length) === 1 ? "" : "es"}</strong>
+              <small>${escapeHtml(games || "Expected-loss path")}</small>
+            </div>
+            <div>
+              <span>${escapeHtml(step.likely_record || "-")}</span>
+              <small>10+ ${formatPercent(step.prob_10_plus, 1)} · 11+ ${formatPercent(step.prob_11_plus, 1)}</small>
+            </div>
+          </div>
+        `;
+      }).join("")}
+    </div>
+    ${card.upside_path_read ? `<p class="interpretation compact">${escapeHtml(card.upside_path_read)}</p>` : ""}
+  `;
+}
+
 function renderHingeGame(team) {
   const hinge = team?.hinge_game || {};
   if (!hinge.opponent) {
@@ -2348,20 +2438,37 @@ function renderRecordPathBoard() {
     $("recordPathDetail").innerHTML = '<div class="empty-state">No active record paths are available.</div>';
     return;
   }
+  const card = recordPathCard(team);
+  const gap = numberOrNull(card.expected_vs_recent_3yr_regular_wins_gap);
+  const gapLabel = gap === null ? "" : `${gap > 0 ? "+" : ""}${formatNumber(gap, 2)} vs recent baseline`;
   $("recordPathDetail").innerHTML = `
     <div class="record-team-card">
       <div>
         <p class="eyebrow">${escapeHtml(team.conference || "2026")} Record Path</p>
         <h3>${escapeHtml(team.team)}</h3>
-        <p>${escapeHtml(team.public_note || recordPathPayload.public_note || "")}</p>
+        <p>${escapeHtml(card.public_read || team.public_note || recordPathPayload.public_note || "")}</p>
       </div>
       <div class="summary-grid record-path-metrics">
-        <div><span>Most Likely Record</span><strong>${escapeHtml(team.likely_record || "-")}</strong><small>${formatPercent(team.likely_record_probability, 1)}</small></div>
-        <div><span>Average Wins</span><strong>${formatNumber(team.expected_wins, 2)}</strong></div>
-        <div><span>Expected Losses</span><strong>${formatNumber(team.expected_losses, 2)}</strong></div>
-        <div><span>10+ Wins</span><strong>${formatPercent(team.prob_10_plus_wins, 1)}</strong></div>
-        <div><span>11+ Wins</span><strong>${formatPercent(team.prob_11_plus_wins, 1)}</strong></div>
-        <div><span>Unbeaten</span><strong>${formatPercent(team.prob_undefeated, 1)}</strong></div>
+        <div><span>Expected Wins</span><strong>${formatNumber(card.expected_wins, 2)}</strong><small>Average schedule outcome</small></div>
+        <div><span>Most Likely Record</span><strong>${escapeHtml(card.most_likely_record || team.likely_record || "-")}</strong><small>${formatPercent(card.most_likely_record_probability, 1)}</small></div>
+        <div><span>Median Record</span><strong>${escapeHtml(card.median_record || "-")}</strong><small>Middle of distribution</small></div>
+        <div><span>10+ Wins</span><strong>${formatPercent(card.prob_10_plus_wins, 1)}</strong><small>Playoff-range path proxy</small></div>
+        <div><span>11+ Wins</span><strong>${formatPercent(card.prob_11_plus_wins, 1)}</strong></div>
+        <div><span>Recent Program Baseline</span><strong>${formatNumber(card.recent_3yr_regular_wins_avg, 1)}</strong><small>${escapeHtml(gapLabel || "Regular-season wins avg")}</small></div>
+      </div>
+      <div class="record-public-read">
+        <section>
+          <h4>Current Expected Losses</h4>
+          ${renderExpectedLosses(card)}
+        </section>
+        <section>
+          <h4>Upside Path</h4>
+          ${renderUpsidePath(card)}
+        </section>
+        <section>
+          <h4>Why The Distribution Is Cautious</h4>
+          ${renderCautiousReasons(card)}
+        </section>
       </div>
       <div class="record-path-columns">
         <section>

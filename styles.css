@@ -1478,6 +1478,89 @@ select {
   margin: 0;
 }
 
+.record-public-read {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.record-public-read section {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  min-height: 100%;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #f7f8f5;
+}
+
+.record-public-read h4 {
+  margin: 0;
+  font-size: 14px;
+}
+
+.expected-loss-list,
+.upside-path-list {
+  display: grid;
+  gap: 8px;
+}
+
+.expected-loss-row,
+.upside-path-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+}
+
+.expected-loss-row > div,
+.upside-path-row > div {
+  display: grid;
+  gap: 3px;
+}
+
+.expected-loss-row > div:last-child,
+.upside-path-row > div:last-child {
+  text-align: right;
+}
+
+.expected-loss-row span,
+.upside-path-row span {
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--ink);
+}
+
+.expected-loss-row small,
+.upside-path-row small {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.record-reason-list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.record-reason-list li {
+  padding: 10px 10px 10px 14px;
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 800;
+}
+
 .record-path-columns {
   display: grid;
   grid-template-columns: minmax(260px, 1fr) minmax(260px, 1fr);
@@ -3202,6 +3285,7 @@ pre {
   .bracket-tree,
   .diagnostic-grid,
   .featured-matchup-grid,
+  .record-public-read,
   .record-path-columns,
   .leaderboard-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -3249,6 +3333,7 @@ pre {
     .featured-matchup-grid,
     .pressure-compare-grid,
     .weekly-projection-strip,
+    .record-public-read,
     .record-path-columns,
     .hinge-grid,
   .leaderboard-list {
