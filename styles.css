@@ -2773,6 +2773,11 @@ tbody tr.is-clickable {
   background: #f3f7fb;
 }
 
+.lesson-block.finding {
+  border-color: rgba(23, 79, 61, 0.26);
+  background: #f2f7f4;
+}
+
 .learn-data-strip {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
