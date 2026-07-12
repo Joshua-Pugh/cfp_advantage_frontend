@@ -1723,6 +1723,16 @@ select {
   background: #f7f8f5;
 }
 
+.schedule-impact-card.compact {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+}
+
+.schedule-impact-card .secondary-action {
+  border: 1px solid var(--line);
+  cursor: pointer;
+}
+
 .schedule-impact-card h4 {
   margin: 0;
 }
@@ -1758,6 +1768,37 @@ select {
   color: var(--muted);
   font-size: 12px;
   font-weight: 800;
+}
+
+.record-path-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1450;
+  display: grid;
+  place-items: center;
+  padding: 22px;
+  background: rgba(20, 28, 24, 0.52);
+}
+
+.record-path-modal.is-hidden {
+  display: none;
+}
+
+.record-path-modal-card {
+  position: relative;
+  width: min(1120px, 100%);
+  max-height: min(860px, 92vh);
+  overflow: auto;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: 0 22px 70px rgba(21, 32, 27, 0.26);
+}
+
+.record-path-modal-card h2 {
+  margin: 6px 0 16px;
+  font-size: clamp(24px, 4vw, 36px);
 }
 
 .leaderboard-list {
@@ -3334,6 +3375,7 @@ pre {
   .record-public-read,
   .record-path-columns,
   .leaderboard-list,
+  .schedule-impact-card.compact,
   .schedule-impact-row {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -3384,6 +3426,7 @@ pre {
     .record-path-columns,
     .hinge-grid,
     .leaderboard-list,
+    .schedule-impact-card.compact,
     .schedule-impact-row {
     grid-template-columns: 1fr;
   }

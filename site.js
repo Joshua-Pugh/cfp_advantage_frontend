@@ -2288,6 +2288,7 @@ function recordPathCard(team = {}) {
     expected_losses: team.expected_loss_games || [],
     loss_risk_games: [],
     upside_flip_path: team.upside_flip_path || [],
+    locked_path_scenarios: [],
     why_distribution_is_cautious: [],
     public_read: "This is a schedule-path view from today's frozen assumptions.",
   };
@@ -2380,9 +2381,33 @@ function renderCautiousReasons(card = {}) {
 }
 
 function renderUpsidePath(card = {}) {
+  const scenarios = Array.isArray(card.locked_path_scenarios) ? card.locked_path_scenarios : [];
+  if (scenarios.length) {
+    return `
+      <div class="upside-path-list">
+        ${scenarios.map((scenario) => {
+          const locked = Array.isArray(scenario.locked_games) ? scenario.locked_games : [];
+          const games = locked.map((game) => `${locationLabel(game.side)} ${game.opponent}`).join(", ");
+          return `
+            <div class="upside-path-row">
+              <div>
+                <strong>Lock ${escapeHtml(scenario.locked_game_count || locked.length)} key win${Number(scenario.locked_game_count || locked.length) === 1 ? "" : "s"}</strong>
+                <small>${escapeHtml(games || "Key path games")}</small>
+              </div>
+              <div>
+                <span>${escapeHtml(scenario.likely_record || "-")}</span>
+                <small>10+ ${formatPercent(scenario.prob_10_plus, 1)} · 11+ ${formatPercent(scenario.prob_11_plus, 1)}</small>
+              </div>
+            </div>
+          `;
+        }).join("")}
+      </div>
+      <p class="interpretation compact">Locked scenarios hold all other game probabilities constant. They show how the record path changes if the highest-impact games are fixed as wins; they do not update team strength after the result.</p>
+    `;
+  }
   const path = Array.isArray(card.upside_flip_path) ? card.upside_flip_path : [];
   if (!path.length) {
-    return '<div class="empty-state compact">No expected-loss flip path is available for this team.</div>';
+    return '<div class="empty-state compact">No locked path scenario is available for this team.</div>';
   }
   return `
     <div class="upside-path-list">
@@ -2446,16 +2471,16 @@ function renderHingeGame(team) {
   }).join("");
   return `
     <article class="hinge-card">
-      <p class="eyebrow">Path Swing Game</p>
+      <p class="eyebrow">Single-Game Locked Result</p>
       <h3>${escapeHtml(location)} ${escapeHtml(hinge.opponent)}</h3>
       <div class="hinge-grid">
         <div>
-          <span>If They Win</span>
+          <span>Locked As Win</span>
           <strong>${escapeHtml(hinge.win_likely_record || "-")}</strong>
           <small>Expected wins: ${formatNumber(hinge.win_expected_wins, 2)}</small>
         </div>
         <div>
-          <span>If They Lose</span>
+          <span>Locked As Loss</span>
           <strong>${escapeHtml(hinge.loss_likely_record || "-")}</strong>
           <small>Expected wins: ${formatNumber(hinge.loss_expected_wins, 2)}</small>
         </div>
@@ -2469,6 +2494,7 @@ function renderHingeGame(team) {
         <h4>How This Game Moves The Path</h4>
         ${bars}
       </div>
+      <p class="interpretation compact">This holds all other game probabilities constant. It is not a team-strength update after the result.</p>
     </article>
   `;
 }
@@ -2507,6 +2533,53 @@ function renderFullSchedulePathImpact(team = {}) {
     </div>
     <p class="interpretation compact">Path impact shows how winning or losing each game changes the team's 10+ and 11+ win chances compared with the current baseline.</p>
   `;
+}
+
+function ensureRecordPathModal() {
+  let modal = document.querySelector("[data-record-path-modal]");
+  if (modal) return modal;
+  modal = document.createElement("section");
+  modal.className = "record-path-modal is-hidden";
+  modal.dataset.recordPathModal = "true";
+  modal.setAttribute("role", "dialog");
+  modal.setAttribute("aria-modal", "true");
+  modal.setAttribute("aria-label", "Record path detail");
+  modal.innerHTML = `
+    <div class="record-path-modal-card">
+      <button class="modal-close" type="button" data-close-record-path aria-label="Close record path detail">Close</button>
+      <div data-record-path-modal-content></div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) closeRecordPathModal();
+  });
+  modal.querySelector("[data-close-record-path]")?.addEventListener("click", closeRecordPathModal);
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !modal.classList.contains("is-hidden")) closeRecordPathModal();
+  });
+  return modal;
+}
+
+function openRecordPathModal(title, html) {
+  const modal = ensureRecordPathModal();
+  const content = modal.querySelector("[data-record-path-modal-content]");
+  if (!content) return;
+  content.innerHTML = `
+    <p class="eyebrow">Record Path Detail</p>
+    <h2>${escapeHtml(title)}</h2>
+    ${html}
+  `;
+  modal.classList.remove("is-hidden");
+  document.body.classList.add("modal-open");
+  modal.querySelector("[data-close-record-path]")?.focus();
+}
+
+function closeRecordPathModal() {
+  const modal = document.querySelector("[data-record-path-modal]");
+  if (!modal) return;
+  modal.classList.add("is-hidden");
+  document.body.classList.remove("modal-open");
 }
 
 function renderRecordPathBoard() {
@@ -2561,17 +2634,24 @@ function renderRecordPathBoard() {
         <section>
           <h4>Record Distribution</h4>
           ${recordDistributionBars(team.record_distribution)}
+          <p class="interpretation compact">Being favored in most games does not mean the team is expected to win all of them. Moderate loss risk across several games accumulates over the full schedule.</p>
         </section>
         <section>
           ${renderHingeGame(team)}
         </section>
       </div>
-      <section class="schedule-impact-card">
-        <h4>Every Game Path Impact</h4>
-        ${renderFullSchedulePathImpact(team)}
+      <section class="schedule-impact-card compact">
+        <div>
+          <h4>Full Schedule Path</h4>
+          <p class="interpretation compact">Open the full game-by-game path view to see how each locked win or loss changes the 10+ and 11+ win thresholds.</p>
+        </div>
+        <button type="button" class="secondary-action" data-open-record-path="full-schedule">View Full Schedule Path</button>
       </section>
     </div>
   `;
+  $("recordPathDetail").querySelector("[data-open-record-path='full-schedule']")?.addEventListener("click", () => {
+    openRecordPathModal(`${team.team} Full Schedule Path`, renderFullSchedulePathImpact(team));
+  });
   const leaders = active.slice(0, 12);
   $("recordPathLeaderboard").innerHTML = `
     <h3>Teams With Highest Average Wins</h3>
