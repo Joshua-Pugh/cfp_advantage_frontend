@@ -325,9 +325,10 @@ async function api(path) {
       console.warn("CFP Advantage cache read unavailable:", error.message);
     }
   }
-  const separator = path.includes("?") ? "&" : "?";
-  const requestPath = forceRefresh ? `${path}${separator}_refresh=${Date.now()}` : path;
-  const response = await fetch(`${API_BASE}${requestPath}`, { cache: forceRefresh ? "reload" : "default" });
+  const fetchOptions = forceRefresh
+    ? { cache: "no-store", headers: { "Cache-Control": "no-cache", Pragma: "no-cache" } }
+    : { cache: "default" };
+  const response = await fetch(`${API_BASE}${path}`, fetchOptions);
   if (!response.ok) {
     throw new Error(`${path} failed with ${response.status}`);
   }
@@ -2155,7 +2156,8 @@ async function loadLive2026Page() {
   if (!status) return;
   try {
     status.textContent = "Loading 2026 record paths...";
-    recordPathPayload = await api("/api/product-a/record-probabilities?season=2026&limit=136");
+    const refreshQuery = forceRefreshActive() ? "&refresh=true" : "";
+    recordPathPayload = await api(`/api/product-a/record-probabilities?season=2026&limit=136${refreshQuery}`);
     populateRecordTeamSelect(recordPathPayload);
     renderRecordPathBoard();
     status.textContent = recordPathPayload.method_note || "Record paths loaded.";
@@ -2251,13 +2253,12 @@ function recordDistributionBars(distribution = {}) {
       return winsB - winsA;
     });
   if (!entries.length) return '<div class="empty-state compact">Record distribution unavailable.</div>';
-  const max = Math.max(...entries.map((row) => row.probability), 0.01);
   return `
     <div class="record-distribution-bars">
       ${entries.map((row) => `
         <div class="record-bar-row">
           <span>${escapeHtml(row.record)}</span>
-          <div class="record-bar-track"><i style="width:${Math.max(2, (row.probability / max) * 100)}%"></i></div>
+          <div class="record-bar-track"><i style="width:${Math.max(2, Math.min(100, row.probability * 100))}%"></i></div>
           <strong>${formatPercent(row.probability, 1)}</strong>
         </div>
       `).join("")}
@@ -2296,26 +2297,39 @@ function recordPathCard(team = {}) {
 function renderPathRiskGames(card = {}) {
   const losses = Array.isArray(card.expected_losses) ? card.expected_losses : [];
   const riskGames = Array.isArray(card.loss_risk_games) ? card.loss_risk_games : [];
-  const games = losses.length ? losses : riskGames;
+  const seen = new Set();
+  const games = [...losses, ...riskGames].filter((game) => {
+    const key = game.game_id || `${game.week}:${game.side}:${game.opponent}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
   if (!games.length) {
     return '<div class="empty-state compact">No path-risk games are available for this team.</div>';
   }
   const helpText = losses.length
-    ? "Games where the model currently gives this team below a 50% win probability."
+    ? "Expected losses are listed first. The remaining rows are favored games with the highest individual loss risk and path impact."
     : "The team is favored in every game, but these games carry the highest individual loss risk and can still make one loss more likely than an unbeaten season.";
   return `
     <p class="interpretation compact">${escapeHtml(helpText)}</p>
     <div class="expected-loss-list">
-      ${games.slice(0, 8).map((game) => {
+      ${games.slice(0, 10).map((game) => {
         const winProbability = Number(game.win_probability);
         const lossProbability = Number.isFinite(Number(game.loss_probability))
           ? Number(game.loss_probability)
           : Number.isFinite(winProbability) ? 1 - winProbability : null;
+        const pathClass = game.path_class === "expected_loss" ? "Expected loss" : "Loss-risk game";
+        const tenWin = formatSignedPercentPoints(game.win_prob_10_plus_delta);
+        const tenLoss = formatSignedPercentPoints(game.loss_prob_10_plus_delta);
+        const elevenWin = formatSignedPercentPoints(game.win_prob_11_plus_delta);
+        const elevenLoss = formatSignedPercentPoints(game.loss_prob_11_plus_delta);
         return `
         <div class="expected-loss-row">
           <div>
             <strong>${escapeHtml(locationLabel(game.side))} ${escapeHtml(game.opponent || "-")}</strong>
-            <small>Week ${escapeHtml(game.week || "-")} · ${escapeHtml(game.date || "")}</small>
+            <small>${escapeHtml(pathClass)} · Week ${escapeHtml(game.week || "-")} · ${escapeHtml(game.date || "")}</small>
+            <small>10+ path: win ${tenWin} · loss ${tenLoss}</small>
+            <small>11+ path: win ${elevenWin} · loss ${elevenLoss}</small>
           </div>
           <div>
             <span>${formatPercent(game.win_probability, 1)} win</span>
@@ -2330,8 +2344,9 @@ function renderPathRiskGames(card = {}) {
 
 function pathRiskTitle(card = {}) {
   const losses = Array.isArray(card.expected_losses) ? card.expected_losses : [];
-  if (losses.length) return "Current Expected Losses";
   const riskGames = Array.isArray(card.loss_risk_games) ? card.loss_risk_games : [];
+  if (losses.length && riskGames.length) return "Expected Losses & Top Loss-Risk Games";
+  if (losses.length) return "Current Expected Losses";
   if (riskGames.length) return "Top Loss-Risk Games";
   return "Schedule Risk";
 }
@@ -2407,12 +2422,11 @@ function renderHingeGame(team) {
     const baseline = Number(hinge[baselineKey]);
     const win = Number(hinge[winKey]);
     const loss = Number(hinge[lossKey]);
-    const max = Math.max(baseline || 0, win || 0, loss || 0, 0.01);
     const boost = Number.isFinite(win) && Number.isFinite(baseline) ? win - baseline : null;
     const damage = Number.isFinite(loss) && Number.isFinite(baseline) ? loss - baseline : null;
     const bar = (value, className) => `
       <div class="hinge-path-bar ${className}">
-        <span style="width:${Math.max(2, ((Number(value) || 0) / max) * 100)}%"></span>
+        <span style="width:${Math.max(2, Math.min(100, (Number(value) || 0) * 100))}%"></span>
         <strong>${formatPercent(value, 1)}</strong>
       </div>
     `;
@@ -2456,6 +2470,42 @@ function renderHingeGame(team) {
         ${bars}
       </div>
     </article>
+  `;
+}
+
+function renderFullSchedulePathImpact(team = {}) {
+  const games = Array.isArray(team.hinge_games) ? [...team.hinge_games] : [];
+  if (!games.length) {
+    return '<div class="empty-state compact">Full schedule path impact is unavailable for this team.</div>';
+  }
+  games.sort((a, b) => Number(a.week || 99) - Number(b.week || 99) || String(a.date || "").localeCompare(String(b.date || "")));
+  return `
+    <div class="schedule-impact-list">
+      ${games.map((game) => {
+        const location = locationLabel(game.side);
+        return `
+          <div class="schedule-impact-row">
+            <div>
+              <strong>${escapeHtml(location)} ${escapeHtml(game.opponent || "-")}</strong>
+              <small>Week ${escapeHtml(game.week || "-")} · ${escapeHtml(game.date || "")}</small>
+            </div>
+            <div>
+              <span>${formatPercent(game.win_probability, 1)} win</span>
+              <small>If win: ${escapeHtml(game.win_likely_record || "-")} · If loss: ${escapeHtml(game.loss_likely_record || "-")}</small>
+            </div>
+            <div>
+              <small>10+ path</small>
+              <strong>${formatSignedPercentPoints(game.win_prob_10_plus_delta)} / ${formatSignedPercentPoints(game.loss_prob_10_plus_delta)}</strong>
+            </div>
+            <div>
+              <small>11+ path</small>
+              <strong>${formatSignedPercentPoints(game.win_prob_11_plus_delta)} / ${formatSignedPercentPoints(game.loss_prob_11_plus_delta)}</strong>
+            </div>
+          </div>
+        `;
+      }).join("")}
+    </div>
+    <p class="interpretation compact">Path impact shows how winning or losing each game changes the team's 10+ and 11+ win chances compared with the current baseline.</p>
   `;
 }
 
@@ -2516,6 +2566,10 @@ function renderRecordPathBoard() {
           ${renderHingeGame(team)}
         </section>
       </div>
+      <section class="schedule-impact-card">
+        <h4>Every Game Path Impact</h4>
+        ${renderFullSchedulePathImpact(team)}
+      </section>
     </div>
   `;
   const leaders = active.slice(0, 12);

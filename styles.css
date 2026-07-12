@@ -1714,6 +1714,52 @@ select {
   background: #a65f46;
 }
 
+.schedule-impact-card {
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #f7f8f5;
+}
+
+.schedule-impact-card h4 {
+  margin: 0;
+}
+
+.schedule-impact-list {
+  display: grid;
+  gap: 8px;
+}
+
+.schedule-impact-row {
+  display: grid;
+  grid-template-columns: minmax(160px, 1.2fr) minmax(130px, 0.8fr) minmax(88px, auto) minmax(88px, auto);
+  gap: 10px;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+}
+
+.schedule-impact-row > div {
+  display: grid;
+  gap: 3px;
+}
+
+.schedule-impact-row span,
+.schedule-impact-row strong {
+  font-weight: 900;
+  color: var(--ink);
+}
+
+.schedule-impact-row small {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
 .leaderboard-list {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -3287,7 +3333,8 @@ pre {
   .featured-matchup-grid,
   .record-public-read,
   .record-path-columns,
-  .leaderboard-list {
+  .leaderboard-list,
+  .schedule-impact-row {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -3336,7 +3383,8 @@ pre {
     .record-public-read,
     .record-path-columns,
     .hinge-grid,
-  .leaderboard-list {
+    .leaderboard-list,
+    .schedule-impact-row {
     grid-template-columns: 1fr;
   }
 
