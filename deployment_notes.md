@@ -12,7 +12,7 @@ The public frontend is static and calls the Render API. It must never contain `D
 ```js
 window.CFP_ADV_CONFIG = {
   API_BASE_URL: "https://YOUR-RENDER-SERVICE.onrender.com",
-  APP_VERSION: "v4.0.22",
+  APP_VERSION: "v4.0.24",
   USE_STATIC_FALLBACK: false,
   ENVIRONMENT: "production",
 };
@@ -35,7 +35,7 @@ For local development only, use:
 ```js
 window.CFP_ADV_CONFIG = {
   API_BASE_URL: "http://127.0.0.1:8000",
-  APP_VERSION: "v4.0.22",
+  APP_VERSION: "v4.0.24",
   USE_STATIC_FALLBACK: true,
   ENVIRONMENT: "local",
 };

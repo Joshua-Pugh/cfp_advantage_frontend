@@ -327,6 +327,8 @@ const state = {
   currentMatchups: [],
   matchupLayoutPreviewActive: false,
   preliminaryWeekOneActive: false,
+  currentMatchupQuery: "",
+  fullSlateMatchups: [],
   hasRecap: false,
   activeView: "pregame",
   explorerLoaded: false,
@@ -419,6 +421,13 @@ const els = {
   currentMatchupsEmptyNote: $("currentMatchupsEmptyNote"),
   preliminaryWeekOneButton: $("preliminaryWeekOneButton"),
   layoutPreviewButton: $("layoutPreviewButton"),
+  fullSlateButton: $("fullSlateButton"),
+  fullSlateModal: $("fullSlateModal"),
+  fullSlateModalClose: $("fullSlateModalClose"),
+  fullSlateTitle: $("fullSlateTitle"),
+  fullSlateNote: $("fullSlateNote"),
+  fullSlateSearch: $("fullSlateSearch"),
+  fullSlateContent: $("fullSlateContent"),
   matchupRailPrevious: $("matchupRailPrevious"),
   matchupRailNext: $("matchupRailNext"),
   matchupPreviewModal: $("matchupPreviewModal"),
@@ -487,6 +496,39 @@ function weeklyContextValue(context, key, formatter = (value) => weeklyNumber(va
 function driveSample(value) {
   const number = Number(value);
   return Number.isFinite(number) ? `${number.toFixed(0)} drives` : "-";
+}
+
+function hasExpectedFootballProfile(context = {}) {
+  return ["expected", "expected_observed_blend"].includes(String(context.football_profile_status || ""));
+}
+
+function hasControlSample(context = {}) {
+  if (hasExpectedFootballProfile(context)) return true;
+  return [
+    context.rolling_offensive_drives,
+    context.rolling_defensive_drives,
+    context.rolling_control_drives,
+    context.games_before_target,
+  ].some((value) => Number(value) > 0);
+}
+
+function profileStatusNote(context = {}) {
+  const expected = Number(context.football_profile_expected_weight);
+  const observed = Number(context.football_profile_observed_weight);
+  if (hasExpectedFootballProfile(context) && Number.isFinite(expected) && Number.isFinite(observed)) {
+    return `Expected ${Math.round(expected * 100)}% / Observed ${Math.round(observed * 100)}%`;
+  }
+  return "Compared with selected weekly slate";
+}
+
+function hasTraditionalStats(context = {}) {
+  const stats = context.comparison_stats || {};
+  return [
+    stats.yards_per_game,
+    stats.points_per_drive,
+    stats.first_downs_per_game,
+    stats.red_zone_td_rate,
+  ].some((value) => Number.isFinite(Number(value)) && Number(value) > 0);
 }
 
 function ordinal(value) {
@@ -564,6 +606,12 @@ function footballProfileCell(context, key, opponent = {}) {
     defensive_control_production_allowed: "rolling_defensive_drives",
   };
   const sample = Number(context?.[productionSampleFields[key]]);
+  if (!hasControlSample(context)) {
+    return `
+      <strong>Preseason Pending</strong>
+      <small>No current-season control sample yet</small>
+    `;
+  }
   const isProductionMetric = Object.hasOwn(productionSampleFields, key);
   const productionDetail = isProductionMetric && Number.isFinite(Number(profile.rate))
     ? [
@@ -583,9 +631,10 @@ function footballProfileCell(context, key, opponent = {}) {
     `;
   }
   const detail = Number.isFinite(percentile) ? `${ordinal(percentile)} percentile` : "Sample developing";
+  const statusNote = hasExpectedFootballProfile(context) ? profileStatusNote(context) : "";
   return `
     <strong>${escapeHtml(profile.label || "-")}</strong>
-    <small>${escapeHtml([detail, productionDetail].filter(Boolean).join(" · "))}</small>
+    <small>${escapeHtml([detail, productionDetail, statusNote].filter(Boolean).join(" · "))}</small>
   `;
 }
 
@@ -635,6 +684,8 @@ function renderCurrentMatchupCard(matchup) {
 function fullMatchupPreview(matchup) {
   const home = completeControlContext(matchup.home_context || {});
   const away = completeControlContext(matchup.away_context || {});
+  const hasFrameworkSample = hasControlSample(home) || hasControlSample(away);
+  const hasStatsSample = hasTraditionalStats(home) || hasTraditionalStats(away);
   const identityRows = [
     ["Pregame ADV Rating", "pregame_adv_rating", (value) => weeklyNumber(value, 1)],
     ["ADV Schedule Rating", "rolling_adv_sos", (value) => weeklyNumber(value, 1)],
@@ -675,8 +726,13 @@ function fullMatchupPreview(matchup) {
   const profileRows = (rows, awayContext, homeContext, nested = false) => rows.map(([label, key, formatter]) => {
     const awayValues = nested ? (awayContext.comparison_stats || {}) : awayContext;
     const homeValues = nested ? (homeContext.comparison_stats || {}) : homeContext;
-    const awayValue = formatter(awayValues[key], awayValues);
-    const homeValue = formatter(homeValues[key], homeValues);
+    const contextPendingKey = !nested && ["rolling_adv_sos", "talent_yield_index"].includes(key);
+    const awayValue = contextPendingKey && !hasControlSample(awayContext)
+      ? "Not yet available"
+      : formatter(awayValues[key], awayValues);
+    const homeValue = contextPendingKey && !hasControlSample(homeContext)
+      ? "Not yet available"
+      : formatter(homeValues[key], homeValues);
     return `
       <div class="weekly-profile-row">
         <span>${metricLabelWithScale(label)}</span>
@@ -722,35 +778,48 @@ function fullMatchupPreview(matchup) {
           <h3>${escapeHtml(matchup.context_label || "Mixed Framework Read")}</h3>
           <p>${escapeHtml(matchup.context_note || "")}</p>
         </div>
-        <div class="weekly-profile-table matchup-preview-table">
-          <div class="weekly-profile-row is-header">
-            <span>Football Mechanics</span>
-            <strong>${escapeHtml(matchup.away_team)}</strong>
-            <strong>${escapeHtml(matchup.home_team)}</strong>
+        ${hasFrameworkSample ? `
+          ${hasExpectedFootballProfile(away) || hasExpectedFootballProfile(home) ? `
+            <div class="context-callout compact">
+              <strong>Expected Football Profile</strong>
+              <p>This is a preseason control expectation based on weighted recent team history. It fades as current-season evidence arrives.</p>
+            </div>
+          ` : ""}
+          <div class="weekly-profile-table matchup-preview-table">
+            <div class="weekly-profile-row is-header">
+              <span>Football Mechanics</span>
+              <strong>${escapeHtml(matchup.away_team)}</strong>
+              <strong>${escapeHtml(matchup.home_team)}</strong>
+            </div>
+            ${mechanicsRows}
+            <div class="weekly-profile-row profile-label-row">
+              <span>Talent Yield</span>
+              <div><strong>${escapeHtml(away.football_profile?.talent_yield?.label || "-")}</strong><small>Roster expectation context</small></div>
+              <div><strong>${escapeHtml(home.football_profile?.talent_yield?.label || "-")}</strong><small>Roster expectation context</small></div>
+            </div>
+            <div class="weekly-profile-row profile-label-row">
+              <span>Recent Form</span>
+              <div>${recentFormCell(away)}<small>Compared with own season baseline</small></div>
+              <div>${recentFormCell(home)}<small>Compared with own season baseline</small></div>
+            </div>
           </div>
-          ${mechanicsRows}
-          <div class="weekly-profile-row profile-label-row">
-            <span>Talent Yield</span>
-            <div><strong>${escapeHtml(away.football_profile?.talent_yield?.label || "-")}</strong><small>Roster expectation context</small></div>
-            <div><strong>${escapeHtml(home.football_profile?.talent_yield?.label || "-")}</strong><small>Roster expectation context</small></div>
+          <p class="weekly-context-note">${escapeHtml(matchup.profile_comparison_scope || "Profile labels compare teams within the selected weekly matchup slate.")}</p>
+          <div class="matchup-advantages-grid">
+            <article>
+              <span>${escapeHtml(matchup.away_team)} Advantages</span>
+              <ul>${advantageList(matchup, matchup.away_team)}</ul>
+            </article>
+            <article>
+              <span>${escapeHtml(matchup.home_team)} Advantages</span>
+              <ul>${advantageList(matchup, matchup.home_team)}</ul>
+            </article>
           </div>
-          <div class="weekly-profile-row profile-label-row">
-            <span>Recent Form</span>
-            <div>${recentFormCell(away)}<small>Compared with own season baseline</small></div>
-            <div>${recentFormCell(home)}<small>Compared with own season baseline</small></div>
+        ` : `
+          <div class="empty-state compact">
+            <strong>Control Framework Pending</strong>
+            <p>No prior current-season games have been played, so rolling Control Framework, Recent Form, TYI, and traditional stat comparisons are intentionally held back. This preview is using the frozen preseason ADV baseline until live samples exist.</p>
           </div>
-        </div>
-        <p class="weekly-context-note">${escapeHtml(matchup.profile_comparison_scope || "Profile labels compare teams within the selected weekly matchup slate.")}</p>
-        <div class="matchup-advantages-grid">
-          <article>
-            <span>${escapeHtml(matchup.away_team)} Advantages</span>
-            <ul>${advantageList(matchup, matchup.away_team)}</ul>
-          </article>
-          <article>
-            <span>${escapeHtml(matchup.home_team)} Advantages</span>
-            <ul>${advantageList(matchup, matchup.home_team)}</ul>
-          </article>
-        </div>
+        `}
       </section>
       <details class="advanced-matchup-details">
         <summary>View Advanced Metrics</summary>
@@ -778,28 +847,85 @@ function fullMatchupPreview(matchup) {
       </div>
       <h3>Control Framework Evidence</h3>
       <p class="weekly-context-note">Creation and denial describe the foundation. Finish and Control Drive Shutout show conversion. Control Points Per Offensive Drive estimates sustainable scoring pressure created across every possession; Control Points Allowed Per Defensive Drive is the lower-is-better defensive mirror.</p>
-      <div class="weekly-profile-table matchup-preview-table">
-        <div class="weekly-profile-row is-header">
-          <span>Pregame Control Profile</span>
-          <strong>${escapeHtml(matchup.away_team)}</strong>
-          <strong>${escapeHtml(matchup.home_team)}</strong>
+      ${hasFrameworkSample ? `
+        <div class="weekly-profile-table matchup-preview-table">
+          <div class="weekly-profile-row is-header">
+            <span>Pregame Control Profile</span>
+            <strong>${escapeHtml(matchup.away_team)}</strong>
+            <strong>${escapeHtml(matchup.home_team)}</strong>
+          </div>
+          ${profileRows(controlRows, away, home)}
         </div>
-        ${profileRows(controlRows, away, home)}
-      </div>
+      ` : `
+        <div class="empty-state compact">No prior games have been played, so observed rolling Control Framework evidence is not displayed yet.</div>
+      `}
       <h3>Stats Through This Week</h3>
-      <p class="weekly-context-note">Traditional comparison stats include completed games available before kickoff.</p>
-      <div class="weekly-profile-table matchup-preview-table">
-        <div class="weekly-profile-row is-header">
-          <span>Traditional Comparison</span>
-          <strong>${escapeHtml(matchup.away_team)}</strong>
-          <strong>${escapeHtml(matchup.home_team)}</strong>
+      ${hasStatsSample ? `
+        <p class="weekly-context-note">Traditional comparison stats include completed games available before kickoff.</p>
+        <div class="weekly-profile-table matchup-preview-table">
+          <div class="weekly-profile-row is-header">
+            <span>Traditional Comparison</span>
+            <strong>${escapeHtml(matchup.away_team)}</strong>
+            <strong>${escapeHtml(matchup.home_team)}</strong>
+          </div>
+          ${profileRows(statRows, away, home, true)}
         </div>
-        ${profileRows(statRows, away, home, true)}
-      </div>
+      ` : `
+        <div class="empty-state compact">No prior games have been played, so traditional through-week stats are not displayed yet.</div>
+      `}
         </div>
       </details>
     </section>
   `;
+}
+
+
+async function openFullSlateModal() {
+  if (!els.fullSlateModal || !els.fullSlateContent) return;
+  els.fullSlateTitle.textContent = els.currentMatchupsLabel?.textContent || "Full Slate";
+  els.fullSlateNote.textContent = "Loading the full weekly slate...";
+  els.fullSlateContent.innerHTML = '<div class="empty-state compact">Loading full slate...</div>';
+  els.fullSlateModal.classList.remove("is-hidden");
+  document.body.classList.add("modal-open");
+  try {
+    const query = state.currentMatchupQuery ? `?${state.currentMatchupQuery}&limit=100` : "?limit=100";
+    const payload = await api(`/api/product-a/current-week${query}`);
+    state.fullSlateMatchups = payload.matchups || [];
+    els.fullSlateNote.textContent = payload.status?.message || "Search or select any matchup from the selected week.";
+    if (els.fullSlateSearch) els.fullSlateSearch.value = "";
+    renderFullSlateList();
+    els.fullSlateSearch?.focus();
+  } catch (error) {
+    els.fullSlateNote.textContent = "Full slate unavailable.";
+    els.fullSlateContent.innerHTML = `<div class="empty-state compact">${escapeHtml(error.message)}</div>`;
+  }
+}
+
+function renderFullSlateList() {
+  if (!els.fullSlateContent) return;
+  const search = String(els.fullSlateSearch?.value || "").trim().toLowerCase();
+  const rows = (state.fullSlateMatchups || []).filter((matchup) => {
+    if (!search) return true;
+    return [matchup.away_team, matchup.home_team, matchup.projected_winner]
+      .some((value) => String(value || "").toLowerCase().includes(search));
+  });
+  if (!rows.length) {
+    els.fullSlateContent.innerHTML = '<div class="empty-state compact">No matchups match that search.</div>';
+    return;
+  }
+  els.fullSlateContent.innerHTML = rows.map((matchup) => `
+    <button type="button" class="full-slate-row" data-full-slate-game="${escapeHtml(matchup.game_id)}">
+      <span>Week ${escapeHtml(matchup.week || "-")} · ${escapeHtml(matchup.date || "")}</span>
+      <strong>${escapeHtml(matchup.away_team)} at ${escapeHtml(matchup.home_team)}</strong>
+      <em>${escapeHtml(matchup.projected_winner || "-")} by ${weeklyNumber(matchup.projected_margin_abs, 1)} · ${escapeHtml(matchup.context_label || "Pregame Context")}</em>
+    </button>
+  `).join("");
+}
+
+function closeFullSlateModal() {
+  if (!els.fullSlateModal) return;
+  els.fullSlateModal.classList.add("is-hidden");
+  document.body.classList.remove("modal-open");
 }
 
 function openMatchupPreview(gameId) {
@@ -844,6 +970,9 @@ async function loadCurrentMatchups(previewOverride = null) {
 
   const status = payload.status || {};
   state.currentMatchups = payload.matchups || [];
+  state.currentMatchupQuery = previewMatch
+    ? `season=${encodeURIComponent(previewMatch[1])}&week=${encodeURIComponent(previewMatch[2])}`
+    : "";
   state.matchupLayoutPreviewActive = Boolean(status.is_fixture) && !preliminaryWeekOne;
   state.preliminaryWeekOneActive = preliminaryWeekOne;
   els.currentMatchupsLabel.textContent = status.label || "Current Matchups";
@@ -1687,6 +1816,7 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
     closeHelp();
     closeMatchupPreview();
+    closeFullSlateModal();
   }
 });
 
@@ -1717,6 +1847,21 @@ if (els.matchupRailPrevious) {
 }
 if (els.matchupRailNext) {
   els.matchupRailNext.addEventListener("click", () => els.featuredMatchupGrid?.scrollBy({ left: 420, behavior: "smooth" }));
+}
+if (els.fullSlateButton) els.fullSlateButton.addEventListener("click", openFullSlateModal);
+if (els.fullSlateModalClose) els.fullSlateModalClose.addEventListener("click", closeFullSlateModal);
+if (els.fullSlateSearch) els.fullSlateSearch.addEventListener("input", renderFullSlateList);
+if (els.fullSlateContent) {
+  els.fullSlateContent.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-full-slate-game]");
+    if (!button) return;
+    const matchup = state.fullSlateMatchups.find((row) => String(row.game_id) === String(button.dataset.fullSlateGame));
+    if (matchup) {
+      closeFullSlateModal();
+      state.currentMatchups = [...state.currentMatchups.filter((row) => String(row.game_id) !== String(matchup.game_id)), matchup];
+      openMatchupPreview(matchup.game_id);
+    }
+  });
 }
 if (els.featuredMatchupGrid) {
   els.featuredMatchupGrid.addEventListener("click", (event) => {

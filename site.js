@@ -1263,9 +1263,10 @@ async function renderTeamPage() {
     `;
 
     // Setup tab switching
-    $("teamScheduleTab").addEventListener("click", () => switchTeamTab("schedule"));
-    $("teamStatsTab").addEventListener("click", () => switchTeamTab("stats"));
-    $("teamAdvProfileTab").addEventListener("click", () => switchTeamTab("adv"));
+    $("teamScheduleTab").onclick = () => switchTeamTab("schedule");
+    $("teamStatsTab").onclick = () => switchTeamTab("stats");
+    $("teamAdvProfileTab").onclick = () => switchTeamTab("adv");
+    switchTeamTab("schedule");
 
     setStatus("Team profile loaded.", "ok");
   } catch (error) {
@@ -2233,7 +2234,7 @@ function populateRecordTeamSelect(payload) {
   const firstTeam = (payload.teams || []).find((row) => row.status === "active")?.team || options[0]?.team || "";
   select.value = firstTeam;
   if (!select.dataset.bound) {
-    select.addEventListener("change", renderRecordPathBoard);
+    select.addEventListener("change", () => renderRecordPathBoard({ scroll: true }));
     select.dataset.bound = "true";
   }
 }
@@ -2583,7 +2584,12 @@ function closeRecordPathModal() {
   document.body.classList.remove("modal-open");
 }
 
-function renderRecordPathBoard() {
+function scrollRecordPathToTop() {
+  const panel = document.querySelector(".record-path-panel") || $("recordPathDetail");
+  panel?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function renderRecordPathBoard(options = {}) {
   if (!recordPathPayload) return;
   const summary = recordPathPayload.summary || {};
   const teams = recordPathPayload.teams || [];
@@ -2600,6 +2606,9 @@ function renderRecordPathBoard() {
     return;
   }
   const card = recordPathCard(team);
+  if (options.scroll) {
+    window.requestAnimationFrame(scrollRecordPathToTop);
+  }
   const gap = numberOrNull(card.expected_vs_recent_3yr_regular_wins_gap);
   const gapLabel = gap === null ? "" : `${gap > 0 ? "+" : ""}${formatNumber(gap, 2)} vs recent baseline`;
   $("recordPathDetail").innerHTML = `
@@ -2671,7 +2680,7 @@ function renderRecordPathBoard() {
     button.addEventListener("click", () => {
       const select = $("recordTeamSelect");
       if (select) select.value = button.dataset.recordTeam || "";
-      renderRecordPathBoard();
+      renderRecordPathBoard({ scroll: true });
     });
   });
 }
