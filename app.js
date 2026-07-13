@@ -326,6 +326,7 @@ const state = {
   selectedActualGame: null,
   currentMatchups: [],
   matchupLayoutPreviewActive: false,
+  preliminaryWeekOneActive: false,
   hasRecap: false,
   activeView: "pregame",
   explorerLoaded: false,
@@ -416,6 +417,7 @@ const els = {
   currentMatchupsEmpty: $("currentMatchupsEmpty"),
   currentMatchupsEmptyTitle: $("currentMatchupsEmptyTitle"),
   currentMatchupsEmptyNote: $("currentMatchupsEmptyNote"),
+  preliminaryWeekOneButton: $("preliminaryWeekOneButton"),
   layoutPreviewButton: $("layoutPreviewButton"),
   matchupRailPrevious: $("matchupRailPrevious"),
   matchupRailNext: $("matchupRailNext"),
@@ -819,6 +821,7 @@ async function loadCurrentMatchups(previewOverride = null) {
     ? previewOverride
     : new URLSearchParams(window.location.search).get("preview");
   const previewMatch = /^(\d{4})-(\d{1,2})$/.exec(preview || "");
+  const preliminaryWeekOne = preview === "2026-1";
   const query = previewMatch
     ? `?season=${encodeURIComponent(previewMatch[1])}&week=${encodeURIComponent(previewMatch[2])}&limit=6`
     : "?limit=6";
@@ -841,9 +844,15 @@ async function loadCurrentMatchups(previewOverride = null) {
 
   const status = payload.status || {};
   state.currentMatchups = payload.matchups || [];
-  state.matchupLayoutPreviewActive = Boolean(status.is_fixture);
+  state.matchupLayoutPreviewActive = Boolean(status.is_fixture) && !preliminaryWeekOne;
+  state.preliminaryWeekOneActive = preliminaryWeekOne;
   els.currentMatchupsLabel.textContent = status.label || "Current Matchups";
-  els.currentMatchupsMessage.textContent = status.message || payload.weekly_snapshot_note || "";
+  els.currentMatchupsMessage.textContent = preliminaryWeekOne
+    ? "Preliminary 2026 Week 1 slate. This view uses the current frozen schedule and provisional preseason/fallback-anchor context until final 2026 anchors are certified."
+    : status.message || payload.weekly_snapshot_note || "";
+  if (els.preliminaryWeekOneButton) {
+    els.preliminaryWeekOneButton.textContent = preliminaryWeekOne ? "Return To Current Season" : "Preview 2026 Week 1";
+  }
   if (els.layoutPreviewButton) {
     els.layoutPreviewButton.textContent = status.is_fixture ? "Return To Current Season" : "Preview 2025 Week 11";
   }
@@ -1691,6 +1700,14 @@ if (els.layoutPreviewButton) {
   els.layoutPreviewButton.addEventListener("click", () => {
     showStatus("Loading Matchups...", state.matchupLayoutPreviewActive ? "Returning to the current season." : "Loading the 2025 Week 11 layout preview.", true);
     loadCurrentMatchups(state.matchupLayoutPreviewActive ? "" : "2025-11")
+      .then(hideStatus)
+      .catch((error) => showStatus("Matchups Unavailable", error.message, false));
+  });
+}
+if (els.preliminaryWeekOneButton) {
+  els.preliminaryWeekOneButton.addEventListener("click", () => {
+    showStatus("Loading Matchups...", state.preliminaryWeekOneActive ? "Returning to the current season." : "Loading the preliminary 2026 Week 1 slate.", true);
+    loadCurrentMatchups(state.preliminaryWeekOneActive ? "" : "2026-1")
       .then(hideStatus)
       .catch((error) => showStatus("Matchups Unavailable", error.message, false));
   });
