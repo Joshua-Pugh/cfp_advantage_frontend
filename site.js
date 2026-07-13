@@ -84,7 +84,7 @@ function installSupportButton() {
   link.href = DONATE_URL;
   link.target = "_blank";
   link.rel = "noopener noreferrer";
-  link.textContent = "Support";
+  link.innerHTML = '<span class="support-full">Support</span><span class="support-icon" aria-hidden="true">$</span>';
   document.body.appendChild(link);
 }
 

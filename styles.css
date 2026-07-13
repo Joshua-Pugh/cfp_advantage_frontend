@@ -976,6 +976,10 @@ select {
   color: #fff;
 }
 
+.floating-support-link .support-icon {
+  display: none;
+}
+
 .contact-modal {
   position: fixed;
   inset: 0;
@@ -3820,15 +3824,17 @@ pre {
     bottom: 12px;
     width: 46px;
     min-width: 46px;
+    height: 46px;
     min-height: 40px;
     padding: 0;
-    overflow: hidden;
-    white-space: nowrap;
-    color: transparent;
   }
 
-  .floating-support-link::before {
-    content: "$";
+  .floating-support-link .support-full {
+    display: none;
+  }
+
+  .floating-support-link .support-icon {
+    display: inline-flex;
     color: #fff;
     font-size: 18px;
     line-height: 1;
