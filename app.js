@@ -887,8 +887,8 @@ async function openFullSlateModal() {
   document.body.classList.add("modal-open");
   try {
     const query = state.currentMatchupQuery
-      ? `?${state.currentMatchupQuery}&limit=150&include_schedule_only=true`
-      : "?limit=150&include_schedule_only=true";
+      ? `?${state.currentMatchupQuery}&limit=150&include_schedule_only=true&refresh=true`
+      : "?limit=150&include_schedule_only=true&refresh=true";
     const payload = await api(`/api/product-a/current-week${query}`);
     state.fullSlateMatchups = payload.matchups || [];
     els.fullSlateNote.textContent = payload.status?.message || "Search or select any matchup from the selected week.";
