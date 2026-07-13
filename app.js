@@ -904,15 +904,59 @@ async function openFullSlateModal() {
 function renderFullSlateList() {
   if (!els.fullSlateContent) return;
   const search = String(els.fullSlateSearch?.value || "").trim().toLowerCase();
+  const aliasMap = {
+    uga: ["georgia", "bulldogs", "dawgs"],
+    dawgs: ["georgia"],
+    bulldogs: ["georgia"],
+  };
+  const searchTerms = [search, ...(aliasMap[search] || [])].filter(Boolean);
   const rows = (state.fullSlateMatchups || []).filter((matchup) => {
     if (!search) return true;
-    return [matchup.away_team, matchup.home_team, matchup.projected_winner]
-      .some((value) => String(value || "").toLowerCase().includes(search));
+    const haystack = [
+      matchup.away_team,
+      matchup.home_team,
+      matchup.projected_winner,
+      matchup.away_conference,
+      matchup.home_conference,
+      matchup.away_team_tier,
+      matchup.home_team_tier,
+      matchup.game_type,
+    ].map((value) => String(value || "").toLowerCase()).join(" ");
+    return searchTerms.some((term) => haystack.includes(term));
   });
   if (!rows.length) {
     els.fullSlateContent.innerHTML = '<div class="empty-state compact">No matchups match that search.</div>';
     return;
   }
+  const teamMeta = (tier, conference) => [tier, conference]
+    .filter(Boolean)
+    .map((value) => String(value).toUpperCase())
+    .join(" - ");
+  const rowClass = (matchup) => [
+    "full-slate-row",
+    matchup.projection_unavailable ? "is-schedule-only" : "",
+    matchup.projection_limited ? "is-limited-projection" : "",
+  ].filter(Boolean).join(" ");
+  const projectionLine = (matchup) => {
+    if (matchup.projection_unavailable) {
+      return escapeHtml(matchup.context_note || "Schedule-only row. No ADV projection is published for this matchup.");
+    }
+    const prefix = matchup.projection_limited ? "Limited projection: " : "";
+    return `${prefix}${escapeHtml(matchup.projected_winner || "-")} by ${weeklyNumber(matchup.projected_margin_abs, 1)} - ${escapeHtml(matchup.context_label || "Pregame Context")}`;
+  };
+  els.fullSlateContent.innerHTML = rows.map((matchup) => `
+    <button type="button" class="${rowClass(matchup)}" data-full-slate-game="${escapeHtml(matchup.game_id)}">
+      <span class="full-slate-row-date">Week ${escapeHtml(matchup.week || "-")} - ${escapeHtml(matchup.date || "")}</span>
+      <strong>${escapeHtml(matchup.away_team)} at ${escapeHtml(matchup.home_team)}</strong>
+      <span class="full-slate-team-meta">
+        <span>${escapeHtml(matchup.away_team || "-")}: ${escapeHtml(teamMeta(matchup.away_team_tier, matchup.away_conference) || "Team profile")}</span>
+        <span>${escapeHtml(matchup.home_team || "-")}: ${escapeHtml(teamMeta(matchup.home_team_tier, matchup.home_conference) || "Team profile")}</span>
+        ${matchup.game_type ? `<span>${escapeHtml(matchup.game_type)}</span>` : ""}
+      </span>
+      <em>${projectionLine(matchup)}</em>
+    </button>
+  `).join("");
+  return;
   els.fullSlateContent.innerHTML = rows.map((matchup) => `
     <button type="button" class="full-slate-row${matchup.projection_unavailable ? " is-schedule-only" : ""}" data-full-slate-game="${escapeHtml(matchup.game_id)}">
       <span>Week ${escapeHtml(matchup.week || "-")} · ${escapeHtml(matchup.date || "")}</span>
@@ -1859,7 +1903,7 @@ if (els.fullSlateContent) {
     const button = event.target.closest("[data-full-slate-game]");
     if (!button) return;
     const matchup = state.fullSlateMatchups.find((row) => String(row.game_id) === String(button.dataset.fullSlateGame));
-    if (matchup?.projection_unavailable) return;
+    if (matchup?.projection_unavailable || matchup?.projection_limited) return;
     if (matchup) {
       closeFullSlateModal();
       state.currentMatchups = [...state.currentMatchups.filter((row) => String(row.game_id) !== String(matchup.game_id)), matchup];

@@ -418,20 +418,22 @@ select {
 
 .full-slate-list {
   display: grid;
-  gap: 9px;
+  gap: 12px;
 }
 
 .full-slate-row {
   display: grid;
-  gap: 8px;
+  gap: 9px;
   width: 100%;
-  padding: 14px;
+  min-height: 92px;
+  padding: 16px 18px;
   border: 1px solid var(--line);
   border-radius: 7px;
   background: #fff;
   color: var(--ink);
   text-align: left;
   cursor: pointer;
+  line-height: 1.25;
 }
 
 .full-slate-row:hover {
@@ -444,12 +446,28 @@ select {
   font-size: 12px;
   font-style: normal;
   font-weight: 800;
+  line-height: 1.35;
 }
 
 .full-slate-row strong {
   display: block;
   font-size: 15px;
-  line-height: 1.2;
+  line-height: 1.25;
+}
+
+.full-slate-team-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+}
+
+.full-slate-team-meta span {
+  display: inline-flex;
+}
+
+.full-slate-row.is-limited-projection {
+  background: #fbfcf8;
+  cursor: default;
 }
 
 .full-slate-row.is-schedule-only {
@@ -3755,6 +3773,20 @@ pre {
     grid-template-columns: minmax(110px, 1.2fr) repeat(2, minmax(64px, 1fr));
     padding: 7px 8px;
     font-size: 11px;
+  }
+
+  .full-slate-row {
+    min-height: 108px;
+    padding: 14px;
+  }
+
+  .full-slate-row strong {
+    font-size: 17px;
+  }
+
+  .full-slate-team-meta {
+    display: grid;
+    gap: 4px;
   }
 
   .terms-banner {
