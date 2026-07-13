@@ -925,7 +925,7 @@ select {
 
 .floating-support-link {
   position: fixed;
-  left: 18px;
+  right: 18px;
   bottom: 18px;
   z-index: 900;
   display: inline-flex;
@@ -3788,10 +3788,22 @@ pre {
   }
 
   .floating-support-link {
-    left: 12px;
     right: 12px;
     bottom: 12px;
+    width: 46px;
+    min-width: 46px;
     min-height: 40px;
+    padding: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    color: transparent;
+  }
+
+  .floating-support-link::before {
+    content: "$";
+    color: #fff;
+    font-size: 18px;
+    line-height: 1;
   }
 
   .record-summary {

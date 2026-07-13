@@ -79,10 +79,11 @@ function installSupportButton() {
   link.className = "floating-support-link";
   link.dataset.floatingSupport = "true";
   link.dataset.supportLink = "true";
+  link.setAttribute("aria-label", "Support CFP Advantage");
   link.href = DONATE_URL;
   link.target = "_blank";
   link.rel = "noopener noreferrer";
-  link.textContent = "Support CFP Advantage";
+  link.textContent = "Support";
   document.body.appendChild(link);
 }
 
@@ -780,10 +781,7 @@ function fullMatchupPreview(matchup) {
         </div>
         ${hasFrameworkSample ? `
           ${hasExpectedFootballProfile(away) || hasExpectedFootballProfile(home) ? `
-            <div class="context-callout compact">
-              <strong>Expected Football Profile</strong>
-              <p>This is a preseason control expectation based on weighted recent team history. It fades as current-season evidence arrives.</p>
-            </div>
+            <p class="weekly-context-note">Expected profile weights fade as current-season evidence arrives.</p>
           ` : ""}
           <div class="weekly-profile-table matchup-preview-table">
             <div class="weekly-profile-row is-header">

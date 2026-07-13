@@ -80,10 +80,11 @@ function installSupportButton() {
   link.className = "floating-support-link";
   link.dataset.floatingSupport = "true";
   link.dataset.supportLink = "true";
+  link.setAttribute("aria-label", "Support CFP Advantage");
   link.href = DONATE_URL;
   link.target = "_blank";
   link.rel = "noopener noreferrer";
-  link.textContent = "Support CFP Advantage";
+  link.textContent = "Support";
   document.body.appendChild(link);
 }
 
