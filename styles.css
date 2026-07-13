@@ -190,6 +190,18 @@ select {
   text-decoration: none;
 }
 
+.primary-action,
+.primary-action:visited {
+  border: 1px solid var(--green);
+  background: var(--green);
+  color: #fff;
+}
+
+.primary-action:hover {
+  background: #0f3e2f;
+  color: #fff;
+}
+
 .secondary-action {
   border: 1px solid var(--line);
   color: var(--green);
@@ -411,9 +423,9 @@ select {
 
 .full-slate-row {
   display: grid;
-  gap: 4px;
+  gap: 8px;
   width: 100%;
-  padding: 12px;
+  padding: 14px;
   border: 1px solid var(--line);
   border-radius: 7px;
   background: #fff;
@@ -435,7 +447,18 @@ select {
 }
 
 .full-slate-row strong {
+  display: block;
   font-size: 15px;
+  line-height: 1.2;
+}
+
+.full-slate-row.is-schedule-only {
+  cursor: default;
+  background: #f8faf7;
+}
+
+.full-slate-row.is-schedule-only:hover {
+  border-color: var(--line);
 }
 
 .matchup-preview-detail {
@@ -733,7 +756,8 @@ select {
 }
 
 .weekly-profile-table {
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
   border: 1px solid var(--line);
   border-radius: 6px;
 }
@@ -745,6 +769,10 @@ select {
   padding: 7px 10px;
   border-bottom: 1px solid var(--line);
   font-size: 12px;
+}
+
+.matchup-preview-table .weekly-profile-row {
+  min-width: 620px;
 }
 
 .weekly-profile-row:last-child {

@@ -886,7 +886,9 @@ async function openFullSlateModal() {
   els.fullSlateModal.classList.remove("is-hidden");
   document.body.classList.add("modal-open");
   try {
-    const query = state.currentMatchupQuery ? `?${state.currentMatchupQuery}&limit=100` : "?limit=100";
+    const query = state.currentMatchupQuery
+      ? `?${state.currentMatchupQuery}&limit=150&include_schedule_only=true`
+      : "?limit=150&include_schedule_only=true";
     const payload = await api(`/api/product-a/current-week${query}`);
     state.fullSlateMatchups = payload.matchups || [];
     els.fullSlateNote.textContent = payload.status?.message || "Search or select any matchup from the selected week.";
@@ -912,10 +914,13 @@ function renderFullSlateList() {
     return;
   }
   els.fullSlateContent.innerHTML = rows.map((matchup) => `
-    <button type="button" class="full-slate-row" data-full-slate-game="${escapeHtml(matchup.game_id)}">
+    <button type="button" class="full-slate-row${matchup.projection_unavailable ? " is-schedule-only" : ""}" data-full-slate-game="${escapeHtml(matchup.game_id)}">
       <span>Week ${escapeHtml(matchup.week || "-")} · ${escapeHtml(matchup.date || "")}</span>
       <strong>${escapeHtml(matchup.away_team)} at ${escapeHtml(matchup.home_team)}</strong>
-      <em>${escapeHtml(matchup.projected_winner || "-")} by ${weeklyNumber(matchup.projected_margin_abs, 1)} · ${escapeHtml(matchup.context_label || "Pregame Context")}</em>
+      <em>${matchup.projection_unavailable
+        ? escapeHtml(matchup.context_note || "Schedule-only row. No ADV projection is published for this matchup.")
+        : `${escapeHtml(matchup.projected_winner || "-")} by ${weeklyNumber(matchup.projected_margin_abs, 1)} · ${escapeHtml(matchup.context_label || "Pregame Context")}`
+      }</em>
     </button>
   `).join("");
 }
@@ -981,7 +986,7 @@ async function loadCurrentMatchups(previewOverride = null) {
     els.preliminaryWeekOneButton.textContent = preliminaryWeekOne ? "Return To Current Season" : "Preview 2026 Week 1";
   }
   if (els.layoutPreviewButton) {
-    els.layoutPreviewButton.textContent = status.is_fixture ? "Return To Current Season" : "Preview 2025 Week 11";
+    els.layoutPreviewButton.textContent = state.matchupLayoutPreviewActive ? "Return To Current Season" : "Preview 2025 Week 11";
   }
 
   if (payload.weekly_snapshot_available) {
@@ -1854,6 +1859,7 @@ if (els.fullSlateContent) {
     const button = event.target.closest("[data-full-slate-game]");
     if (!button) return;
     const matchup = state.fullSlateMatchups.find((row) => String(row.game_id) === String(button.dataset.fullSlateGame));
+    if (matchup?.projection_unavailable) return;
     if (matchup) {
       closeFullSlateModal();
       state.currentMatchups = [...state.currentMatchups.filter((row) => String(row.game_id) !== String(matchup.game_id)), matchup];
