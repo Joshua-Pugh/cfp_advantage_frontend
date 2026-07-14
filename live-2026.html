@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>2026 Season Hub | CFP Advantage</title>
-    <link rel="stylesheet" href="styles.css?v=4.0.32">
+    <link rel="stylesheet" href="styles.css?v=4.0.33">
   </head>
   <body data-page="live-2026">
     <main class="app-shell">
@@ -280,9 +280,8 @@
           <h3>A Necessary Data Guardrail</h3>
           <p>
             Before comparing the teams, the scope of the data must be clear. The CFP
-            Advantage <code>team_intelligence_board</code> figures used in this study are
-            classified as <code>srs_scope = pre_playoff_exact</code> and
-            <code>includes_postseason = False</code>.
+            Advantage team-strength figures used in this study come from the rebuilt
+            Product A pre-playoff team board and exclude postseason play.
           </p>
           <p>
             That means the ADV rankings and team-strength figures represent each team's
@@ -652,17 +651,15 @@
         <div class="validation-modal-section">
           <h3>Methodology</h3>
           <p>
-            This case study uses rebuilt CFP Advantage Product A outputs from
-            <code>team_intelligence_board.csv</code>,
-            <code>team_season_comparison_stats.csv</code>,
-            <code>adv_drive_conversion_team_season.csv</code>, and
-            <code>team_records.csv</code>.
+            This case study uses rebuilt CFP Advantage Product A outputs covering
+            pre-playoff team strength, traditional team production, drive-conversion
+            context, Control Framework indicators, and season record splits.
           </p>
           <p>
-            The ADV board rows use the <code>pre_playoff_exact</code> scope and exclude
-            postseason play. Traditional statistics and full-season records may cover a
-            different season endpoint, so the results should be interpreted as a team-profile
-            comparison rather than a controlled quarterback evaluation.
+            The ADV board uses a pre-playoff scope and excludes postseason play.
+            Traditional statistics and full-season records may cover a different season
+            endpoint, so the results should be interpreted as a team-profile comparison
+            rather than a controlled quarterback evaluation.
           </p>
         </div>
       </div>
@@ -789,7 +786,7 @@
       </div>
     </section>
 
-    <script src="config.js?v=4.0.32"></script>
-    <script src="site.js?v=4.0.32"></script>
+    <script src="config.js?v=4.0.33"></script>
+    <script src="site.js?v=4.0.33"></script>
   </body>
 </html>
