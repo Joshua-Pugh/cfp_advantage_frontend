@@ -2155,6 +2155,7 @@ let recordPathPayload = null;
 
 async function loadLive2026Page() {
   installValidationModal();
+  installGridironReportModal();
   const status = $("recordPathStatus");
   if (!status) return;
   try {
@@ -2186,6 +2187,41 @@ async function loadLive2026Page() {
     `;
     $("recordPathLeaderboard").innerHTML = "";
   }
+}
+
+function installGridironReportModal() {
+  const modal = document.querySelector("[data-gridiron-modal]");
+  if (!modal || modal.dataset.bound === "true") return;
+  document.querySelectorAll("[data-open-gridiron-report]").forEach((trigger) => {
+    trigger.addEventListener("click", openGridironReportModal);
+  });
+  document.querySelectorAll("[data-close-gridiron-report]").forEach((trigger) => {
+    trigger.addEventListener("click", closeGridironReportModal);
+  });
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) closeGridironReportModal();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !modal.classList.contains("is-hidden")) {
+      closeGridironReportModal();
+    }
+  });
+  modal.dataset.bound = "true";
+}
+
+function openGridironReportModal() {
+  const modal = document.querySelector("[data-gridiron-modal]");
+  if (!modal) return;
+  modal.classList.remove("is-hidden");
+  document.body.classList.add("modal-open");
+  modal.querySelector("[data-close-gridiron-report]")?.focus();
+}
+
+function closeGridironReportModal() {
+  const modal = document.querySelector("[data-gridiron-modal]");
+  if (!modal) return;
+  modal.classList.add("is-hidden");
+  document.body.classList.remove("modal-open");
 }
 
 function installValidationModal() {
