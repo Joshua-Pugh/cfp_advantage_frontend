@@ -422,10 +422,13 @@ select {
 }
 
 .full-slate-row {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
   gap: 9px;
   width: 100%;
-  min-height: 92px;
+  min-height: 0;
+  height: auto;
   padding: 16px 18px;
   border: 1px solid var(--line);
   border-radius: 7px;
@@ -434,6 +437,8 @@ select {
   text-align: left;
   cursor: pointer;
   line-height: 1.25;
+  white-space: normal;
+  overflow: visible;
 }
 
 .full-slate-row:hover {
@@ -442,27 +447,32 @@ select {
 
 .full-slate-row span,
 .full-slate-row em {
+  display: block;
   color: var(--muted);
   font-size: 12px;
   font-style: normal;
   font-weight: 800;
   line-height: 1.35;
+  overflow-wrap: anywhere;
 }
 
 .full-slate-row strong {
   display: block;
   font-size: 15px;
   line-height: 1.25;
+  overflow-wrap: anywhere;
 }
 
 .full-slate-team-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 6px 12px;
+  min-width: 0;
 }
 
 .full-slate-team-meta span {
   display: inline-flex;
+  min-width: 0;
 }
 
 .full-slate-row.is-limited-projection {
@@ -1201,10 +1211,12 @@ select {
 }
 
 .summary-grid > div {
+  min-width: 0;
   padding: 14px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: #fff;
+  overflow: hidden;
 }
 
 .summary-grid span {
@@ -1212,12 +1224,23 @@ select {
   color: var(--muted);
   font-size: 12px;
   font-weight: 800;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
 }
 
 .summary-grid strong {
   display: block;
   margin-top: 6px;
   font-size: 20px;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.summary-grid small {
+  display: block;
+  margin-top: 6px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
 }
 
 .compact-table {
@@ -3767,6 +3790,7 @@ pre {
     .diagnostic-grid,
     .featured-matchup-grid,
     .pressure-compare-grid,
+    .summary-grid,
     .weekly-projection-strip,
     .record-public-read,
     .record-path-columns,
@@ -3788,12 +3812,14 @@ pre {
   }
 
   .full-slate-row {
-    min-height: 108px;
+    min-height: 0;
+    height: auto;
     padding: 14px;
   }
 
   .full-slate-row strong {
     font-size: 17px;
+    line-height: 1.22;
   }
 
   .full-slate-team-meta {
@@ -3849,10 +3875,22 @@ pre {
 
   .site-footer {
     grid-template-columns: 1fr;
+    padding-bottom: 86px;
   }
 
   .footer-links {
-    justify-content: flex-start;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    justify-content: stretch;
+    gap: 12px 16px;
+  }
+
+  .footer-links a,
+  .footer-links button {
+    align-items: flex-start;
+    min-width: 0;
+    font-size: 14px;
+    overflow-wrap: anywhere;
   }
 
   .footer-copyright {
