@@ -2156,6 +2156,7 @@ let recordPathPayload = null;
 async function loadLive2026Page() {
   installValidationModal();
   installGridironReportModal();
+  installOffenseReportModal();
   const status = $("recordPathStatus");
   if (!status) return;
   try {
@@ -2219,6 +2220,41 @@ function openGridironReportModal() {
 
 function closeGridironReportModal() {
   const modal = document.querySelector("[data-gridiron-modal]");
+  if (!modal) return;
+  modal.classList.add("is-hidden");
+  document.body.classList.remove("modal-open");
+}
+
+function installOffenseReportModal() {
+  const modal = document.querySelector("[data-offense-report-modal]");
+  if (!modal || modal.dataset.bound === "true") return;
+  document.querySelectorAll("[data-open-offense-report]").forEach((trigger) => {
+    trigger.addEventListener("click", openOffenseReportModal);
+  });
+  document.querySelectorAll("[data-close-offense-report]").forEach((trigger) => {
+    trigger.addEventListener("click", closeOffenseReportModal);
+  });
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) closeOffenseReportModal();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !modal.classList.contains("is-hidden")) {
+      closeOffenseReportModal();
+    }
+  });
+  modal.dataset.bound = "true";
+}
+
+function openOffenseReportModal() {
+  const modal = document.querySelector("[data-offense-report-modal]");
+  if (!modal) return;
+  modal.classList.remove("is-hidden");
+  document.body.classList.add("modal-open");
+  modal.querySelector("[data-close-offense-report]")?.focus();
+}
+
+function closeOffenseReportModal() {
+  const modal = document.querySelector("[data-offense-report-modal]");
   if (!modal) return;
   modal.classList.add("is-hidden");
   document.body.classList.remove("modal-open");
