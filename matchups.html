@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Matchups | CFP Advantage</title>
-    <link rel="stylesheet" href="styles.css?v=4.0.33">
+    <link rel="stylesheet" href="styles.css?v=4.0.34">
   </head>
   <body>
     <main class="app-shell matchup-page-shell">
@@ -41,8 +41,6 @@
             <p id="currentMatchupsMessage" class="panel-note">Checking for current-week matchup intelligence.</p>
           </div>
           <div class="matchup-rail-actions">
-            <button id="preliminaryWeekOneButton" class="secondary-button" type="button">Preview 2026 Week 1</button>
-            <button id="layoutPreviewButton" class="secondary-button" type="button">Preview 2025 Week 11</button>
             <button id="fullSlateButton" class="secondary-button" type="button">Full Slate</button>
             <button id="matchupRailPrevious" class="icon-button" type="button" aria-label="Previous matchups" title="Previous matchups">&larr;</button>
             <button id="matchupRailNext" class="icon-button" type="button" aria-label="Next matchups" title="Next matchups">&rarr;</button>
@@ -56,9 +54,9 @@
       </section>
     </main>
 
-    <section id="matchupPreviewModal" class="bracket-modal is-hidden" aria-label="Full game preview" role="dialog" aria-modal="true">
+    <section id="matchupPreviewModal" class="bracket-modal is-hidden" aria-label="Full matchup analysis" role="dialog" aria-modal="true">
       <div class="bracket-modal-card matchup-preview-modal-card">
-        <button id="matchupPreviewModalClose" class="help-close" type="button" aria-label="Close game preview">x</button>
+        <button id="matchupPreviewModalClose" class="help-close" type="button" aria-label="Close matchup analysis">x</button>
         <div id="matchupPreviewModalContent"></div>
       </div>
     </section>
@@ -93,7 +91,7 @@
       </div>
     </section>
 
-    <script src="config.js?v=4.0.33"></script>
-    <script src="app.js?v=4.0.33"></script>
+    <script src="config.js?v=4.0.34"></script>
+    <script src="app.js?v=4.0.34"></script>
   </body>
 </html>
