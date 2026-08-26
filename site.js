@@ -2175,15 +2175,15 @@ async function loadLive2026Page() {
       <div><span>Display Status</span><strong>API Update Pending</strong></div>
       <div><span>Method</span><strong>Exact Distribution</strong><small>Game probabilities drive record paths</small></div>
       <div><span>Pac-12 Flex Teams</span><strong>Held Out</strong><small>Until final matchup is set</small></div>
-      <div><span>Next Update</span><strong>Backend Deploy</strong><small>The board will populate automatically</small></div>
+      <div><span>Update Policy</span><strong>Certified Runs</strong><small>Paths update through the documented weekly process</small></div>
     `;
     $("recordPathDetail").innerHTML = `
       <div class="record-team-card">
         <p class="eyebrow">Record Paths</p>
-        <h3>2026 Board Is Being Connected</h3>
+        <h3>Record Paths Are Temporarily Unavailable</h3>
         <p>
-          Record probabilities are built and loaded, but this public API route is waiting on the next backend deploy.
-          Once the API update is live, this section will show team record distributions, average wins, and hinge games.
+          The certified record-path data could not be loaded. Team matchup projections remain available,
+          and this board will return automatically when the data service is available.
         </p>
       </div>
     `;

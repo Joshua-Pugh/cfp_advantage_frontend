@@ -2818,6 +2818,12 @@ tbody tr.is-clickable {
   margin-top: 14px;
 }
 
+.tracker-summary:empty,
+.tracker-weeks:empty,
+.guide-note:empty {
+  display: none;
+}
+
 .tracker-weeks article {
   display: grid;
   grid-template-columns: minmax(170px, 1.5fr) repeat(2, minmax(120px, 1fr)) auto;
@@ -2829,6 +2835,46 @@ tbody tr.is-clickable {
 .tracker-weeks strong {
   display: block;
   margin-top: 3px;
+}
+
+.accountability-proof {
+  display: grid;
+  gap: 16px;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.accountability-proof h3 {
+  margin: 4px 0 8px;
+  font-size: 22px;
+}
+
+.accountability-proof > div > p:last-child {
+  max-width: 860px;
+  margin-bottom: 0;
+}
+
+.accountability-explainer {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.accountability-explainer article {
+  padding: 14px;
+  border-left: 4px solid var(--brand);
+  background: #f7faf8;
+}
+
+.accountability-explainer h4,
+.accountability-explainer p {
+  margin: 0;
+}
+
+.accountability-explainer p {
+  margin-top: 6px;
+  color: var(--muted);
 }
 
 .learn-page {
@@ -3927,6 +3973,7 @@ pre {
     .leaderboard-list,
     .schedule-impact-card.compact,
     .schedule-impact-row,
+    .accountability-explainer,
     .tracker-summary,
     .tracker-weeks article {
     grid-template-columns: 1fr;
