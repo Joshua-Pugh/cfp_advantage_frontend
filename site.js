@@ -2136,12 +2136,122 @@ function renderRankingsPayload(payload) {
 }
 
 let recordPathPayload = null;
+let teamLogoCatalogPromise = null;
+
+function teamInitials(team) {
+  return String(team || "-")
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase();
+}
+
+async function loadTeamLogoCatalog() {
+  if (!teamLogoCatalogPromise) {
+    teamLogoCatalogPromise = fetch("team-logos.json?v=4.0.37", { cache: "force-cache" })
+      .then((response) => response.ok ? response.json() : { teams: {} })
+      .then((payload) => payload.teams || {})
+      .catch(() => ({}));
+  }
+  return teamLogoCatalogPromise;
+}
+
+function teamLogoMarkup(team, logos) {
+  const key = String(team || "").trim().toLowerCase();
+  const url = logos[key];
+  return `
+    <span class="hub-team-logo" aria-hidden="true">
+      <span>${escapeHtml(teamInitials(team))}</span>
+      ${url ? `<img src="${escapeHtml(url)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ""}
+    </span>
+  `;
+}
+
+function renderHubPick(matchup, logos) {
+  const date = matchup.date
+    ? new Date(`${matchup.date}T12:00:00`).toLocaleDateString(undefined, { month: "short", day: "numeric" })
+    : `Week ${matchup.week || 1}`;
+  const projection = matchup.projection_unavailable
+    ? "Projection unavailable"
+    : `${matchup.projected_winner || "Model lean pending"} by ${formatNumber(matchup.projected_margin_abs, 1)}`;
+  return `
+    <article class="hub-pick-row">
+      <div class="hub-pick-teams">
+        <div>${teamLogoMarkup(matchup.away_team, logos)}<strong>${escapeHtml(matchup.away_team)}</strong></div>
+        <span>at</span>
+        <div>${teamLogoMarkup(matchup.home_team, logos)}<strong>${escapeHtml(matchup.home_team)}</strong></div>
+      </div>
+      <div class="hub-pick-read">
+        <span>${escapeHtml(date)}</span>
+        <strong>${escapeHtml(projection)}</strong>
+        <small>${escapeHtml(matchup.context_label || "Pregame Context")}</small>
+      </div>
+    </article>
+  `;
+}
+
+async function loadHubGameDayCenter() {
+  const status = $("hubPicksStatus");
+  const list = $("hubPicksList");
+  if (!status || !list) return;
+  installHubLiveScoreboard();
+  try {
+    const refreshQuery = forceRefreshActive() ? "&refresh=true" : "";
+    const [payload, logos] = await Promise.all([
+      api(`/api/product-a/current-week?season=2026&week=1&limit=20${refreshQuery}`),
+      loadTeamLogoCatalog(),
+    ]);
+    const matchups = payload.matchups || [];
+    list.innerHTML = matchups.length
+      ? matchups.map((matchup) => renderHubPick(matchup, logos)).join("")
+      : '<div class="empty-state compact">Published Week 1 picks are temporarily unavailable.</div>';
+    status.textContent = matchups.length
+      ? `${matchups.length} certified picks shown. Open Matchups for the complete weekly slate and full analysis.`
+      : "The public receipt is preserved while the matchup feed reconnects.";
+    status.className = `status-line ${matchups.length ? "ok" : "warn"}`;
+  } catch (error) {
+    console.error("CFP Advantage Hub picks failed:", error);
+    status.textContent = "Published picks are temporarily unavailable here. The public receipt remains preserved.";
+    status.className = "status-line warn";
+    list.innerHTML = '<div class="empty-state compact">Open Matchups or the public pick receipts to view the frozen Week 1 board.</div>';
+  }
+}
+
+function installHubLiveScoreboard() {
+  const button = $("loadHubLiveScoreboard");
+  if (!button || button.dataset.bound === "true") return;
+  button.addEventListener("click", () => {
+    const embed = $("hubLiveScoreboardEmbed");
+    const host = $("hubLiveScoreboardFrame");
+    if (!embed || !host) return;
+    if (!host.querySelector("iframe")) {
+      const frame = document.createElement("iframe");
+      const source = new URL("https://www.sportbusy.com/embed/season");
+      source.searchParams.set("league", "cfb");
+      source.searchParams.set("filter", "all");
+      source.searchParams.set("tz", "America/New_York");
+      source.searchParams.set("h", "620");
+      source.searchParams.set("sb_parent", window.location.href);
+      frame.src = source.toString();
+      frame.title = "SportBusy college football schedule and live score widget";
+      frame.loading = "lazy";
+      frame.referrerPolicy = "strict-origin-when-cross-origin";
+      host.appendChild(frame);
+    }
+    const hidden = embed.classList.toggle("is-hidden");
+    button.setAttribute("aria-expanded", String(!hidden));
+    button.textContent = hidden ? "Show Scores" : "Hide Scores";
+  });
+  button.dataset.bound = "true";
+}
 
 async function loadLive2026Page() {
   installValidationModal();
   installGridironReportModal();
   installOffenseReportModal();
-  await loadSeasonTracker();
+  await Promise.all([loadSeasonTracker(), loadHubGameDayCenter()]);
   const status = $("recordPathStatus");
   if (!status) return;
   try {
