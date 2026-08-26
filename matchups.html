@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Matchups | CFP Advantage</title>
-    <link rel="stylesheet" href="styles.css?v=4.0.34">
+    <link rel="stylesheet" href="styles.css?v=4.0.35">
   </head>
   <body>
     <main class="app-shell matchup-page-shell">
@@ -52,6 +52,27 @@
           <p id="currentMatchupsEmptyNote">Games of the week will appear here when current-season snapshots are available.</p>
         </div>
       </section>
+
+      <section class="live-scoreboard-panel" aria-labelledby="liveScoreboardTitle">
+        <div class="live-scoreboard-copy">
+          <p class="eyebrow">Unofficial Live Results</p>
+          <h2 id="liveScoreboardTitle">Saturday Scoreboard</h2>
+          <p>
+            Third-party scores are shown for convenience and may update independently of CFP Advantage.
+            Pregame projections stay frozen; official grading occurs only after the certified weekly refresh.
+          </p>
+          <button id="loadLiveScoreboard" class="secondary-button" type="button" aria-controls="liveScoreboardEmbed" aria-expanded="false">
+            Load Live Scoreboard
+          </button>
+        </div>
+        <div id="liveScoreboardEmbed" class="live-scoreboard-embed is-hidden">
+          <div class="live-scoreboard-frame" id="liveScoreboardFrame"></div>
+          <p class="live-scoreboard-credit">
+            Schedule and score presentation provided by
+            <a href="https://www.sportbusy.com/college-football-widget/" target="_blank" rel="noopener noreferrer">SportBusy</a>.
+          </p>
+        </div>
+      </section>
     </main>
 
     <section id="matchupPreviewModal" class="bracket-modal is-hidden" aria-label="Full matchup analysis" role="dialog" aria-modal="true">
@@ -92,6 +113,6 @@
     </section>
 
     <script src="config.js?v=4.0.34"></script>
-    <script src="app.js?v=4.0.34"></script>
+    <script src="app.js?v=4.0.35"></script>
   </body>
 </html>

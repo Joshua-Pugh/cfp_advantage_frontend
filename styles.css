@@ -464,15 +464,65 @@ select {
 }
 
 .full-slate-team-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px 12px;
+  display: grid;
+  gap: 4px;
   min-width: 0;
 }
 
 .full-slate-team-meta span {
-  display: inline-flex;
+  display: block;
   min-width: 0;
+}
+
+.live-scoreboard-panel {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.55fr) minmax(0, 1.45fr);
+  gap: 28px;
+  margin-top: 24px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+.live-scoreboard-copy h2 {
+  margin: 6px 0 10px;
+}
+
+.live-scoreboard-copy > p:not(.eyebrow) {
+  margin: 0 0 18px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.live-scoreboard-embed.is-hidden {
+  display: none;
+}
+
+.live-scoreboard-frame {
+  width: 100%;
+  min-height: 620px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #0e1720;
+}
+
+.live-scoreboard-frame iframe {
+  display: block;
+  width: 100%;
+  height: 620px;
+  border: 0;
+}
+
+.live-scoreboard-credit {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.live-scoreboard-credit a {
+  color: var(--green);
+  font-weight: 800;
 }
 
 .full-slate-row.is-limited-projection {
@@ -4012,6 +4062,22 @@ pre {
   .full-slate-team-meta {
     display: grid;
     gap: 4px;
+  }
+
+  .live-scoreboard-panel {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 20px;
+  }
+
+  .live-scoreboard-copy .secondary-button {
+    width: 100%;
+  }
+
+  .live-scoreboard-frame,
+  .live-scoreboard-frame iframe {
+    min-height: 560px;
+    height: 560px;
   }
 
   .terms-banner {

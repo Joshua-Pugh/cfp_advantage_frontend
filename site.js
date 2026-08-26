@@ -102,7 +102,7 @@ function installContactModal() {
         <span class="eyebrow">Contact</span>
         <h2>Send CFP Advantage a Message</h2>
         <p>Have a question, found a bug, or want to share feedback? We'd love to hear from you.</p>
-        <p class="contact-direct-email">Prefer email? <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>
+        <p class="contact-direct-email">Messages are delivered securely to ${SUPPORT_EMAIL}.</p>
         <form class="contact-form" data-contact-form>
           <label>
             <span>Name</span>
@@ -120,7 +120,7 @@ function installContactModal() {
             <span>Message</span>
             <textarea name="message" rows="5" maxlength="4000" required></textarea>
           </label>
-          <p class="contact-status" data-contact-status></p>
+          <p class="contact-status" data-contact-status aria-live="polite"></p>
           <button class="primary-action" type="submit">Send Message</button>
         </form>
       </div>
@@ -175,36 +175,20 @@ async function submitContactForm(event) {
       const error = detail.detail?.error || detail.error || "contact_failed";
       throw new Error(error);
     }
-    if (detail.status === "fallback_required") {
-      openContactMailFallback(payload, status);
-      return;
-    }
     form.reset();
     status.textContent = "Message sent. Thanks for reaching out.";
     status.className = "contact-status ok";
   } catch (error) {
-    openContactMailFallback(payload, status);
+    const messages = {
+      contact_rate_limited: "Too many messages were sent from this connection. Please try again in about 15 minutes.",
+      contact_delivery_not_configured: "Contact delivery is temporarily unavailable. Please try again shortly.",
+      contact_email_send_failed: "The message could not be delivered. Please try again in a moment.",
+    };
+    status.textContent = messages[error.message] || "The message could not be sent. Please check your connection and try again.";
+    status.className = "contact-status error";
   } finally {
     button.disabled = false;
   }
-}
-
-function openContactMailFallback(payload, status) {
-  const mailto = buildContactMailto(payload);
-  status.textContent = `Opening your email app with this message filled in. If it does not open, email ${SUPPORT_EMAIL} directly.`;
-  status.className = "contact-status ok";
-  window.location.href = mailto;
-}
-
-function buildContactMailto(payload) {
-  const subject = `CFP Advantage contact from ${payload.name || "site visitor"}`;
-  const body = [
-    `Name: ${payload.name || ""}`,
-    `Email: ${payload.email || ""}`,
-    "",
-    payload.message || "",
-  ].join("\n");
-  return `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
 function installDeveloperRefreshControl() {
