@@ -2157,6 +2157,7 @@ async function loadLive2026Page() {
   installValidationModal();
   installGridironReportModal();
   installOffenseReportModal();
+  await loadSeasonTracker();
   const status = $("recordPathStatus");
   if (!status) return;
   try {
@@ -2187,6 +2188,61 @@ async function loadLive2026Page() {
       </div>
     `;
     $("recordPathLeaderboard").innerHTML = "";
+  }
+}
+
+async function loadSeasonTracker() {
+  const status = $("seasonTrackerStatus");
+  if (!status) return;
+  try {
+    const refreshQuery = forceRefreshActive() ? "&refresh=true" : "";
+    const payload = await api(`/api/product-a/live-tracker?season=2026${refreshQuery}`);
+    const summary = payload.summary || {};
+    const graded = Number(summary.games_graded || 0);
+    const accuracy = summary.winner_accuracy === null || summary.winner_accuracy === undefined
+      ? "-"
+      : formatPercent(summary.winner_accuracy, 1);
+    const marginMae = summary.margin_mae === null || summary.margin_mae === undefined
+      ? "-"
+      : formatNumber(summary.margin_mae, 2);
+    $("seasonTrackerSummary").innerHTML = `
+      <div><span>Published Picks</span><strong>${escapeHtml(summary.games_published ?? 0)}</strong></div>
+      <div><span>Graded</span><strong>${escapeHtml(graded)}</strong></div>
+      <div><span>Pending</span><strong>${escapeHtml(summary.games_pending ?? 0)}</strong></div>
+      <div><span>Winner Accuracy</span><strong>${accuracy}</strong><small>${graded ? "Completed picks only" : "Begins after final scores"}</small></div>
+      <div><span>Margin MAE</span><strong>${marginMae}</strong><small>${graded ? "Average absolute error" : "Begins after final scores"}</small></div>
+    `;
+    const weeks = payload.weeks || [];
+    $("seasonTrackerWeeks").innerHTML = weeks.length ? weeks.map((row) => {
+      const weekGraded = Number(row.games_graded || 0);
+      const state = weekGraded
+        ? `${weekGraded} graded`
+        : `${Number(row.games_pending || 0)} awaiting finals`;
+      const weekAccuracy = row.winner_accuracy === null || row.winner_accuracy === undefined
+        ? "-"
+        : formatPercent(row.winner_accuracy, 1);
+      return `
+        <article>
+          <div><span>Week ${escapeHtml(row.week)}</span><strong>${escapeHtml(state)}</strong></div>
+          <div><span>Winner Accuracy</span><strong>${weekAccuracy}</strong></div>
+          <div><span>Margin MAE</span><strong>${row.margin_mae === null || row.margin_mae === undefined ? "-" : formatNumber(row.margin_mae, 2)}</strong></div>
+          <small>Receipt v${escapeHtml(row.receipt_version || 1)} · ${escapeHtml(String(row.publication_status || "preliminary").replaceAll("-", " "))}</small>
+        </article>
+      `;
+    }).join("") : '<div class="empty-state compact">No certified weekly receipts are available yet.</div>';
+    const updated = payload.updated_at_utc ? new Date(payload.updated_at_utc) : null;
+    $("seasonTrackerUpdated").textContent = updated && !Number.isNaN(updated.getTime())
+      ? `Last certified update: ${updated.toLocaleString()}. ${payload.update_policy || ""}`
+      : (payload.update_policy || "Updated after each certified weekly run.");
+    status.textContent = graded ? "Certified season results are current." : "Week 1 picks are published and awaiting final scores.";
+    status.className = "status-line ok";
+  } catch (error) {
+    console.error("CFP Advantage season tracker failed:", error);
+    status.textContent = "The certified season tracker is temporarily unavailable.";
+    status.className = "status-line warn";
+    $("seasonTrackerSummary").innerHTML = "";
+    $("seasonTrackerWeeks").innerHTML = "";
+    $("seasonTrackerUpdated").textContent = "Public timestamped receipts remain available in the validation repository.";
   }
 }
 

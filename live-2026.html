@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>2026 Season Hub | CFP Advantage</title>
-    <link rel="stylesheet" href="styles.css?v=4.0.34">
+    <link rel="stylesheet" href="styles.css?v=4.0.35">
   </head>
   <body data-page="live-2026">
     <main class="app-shell">
@@ -26,16 +26,16 @@
       <section class="home-hero">
         <div>
           <p class="eyebrow">Season Snapshot</p>
-          <h2>2026 Is Taking Shape</h2>
+          <h2>Week 1 Is Published</h2>
           <p>
-            CFP Advantage is preparing preseason team profiles, matchup previews,
-            live tracking, and playoff-path context for the upcoming season.
+            The certified 2026 preseason anchor is frozen, Week 1 picks are published,
+            and the public tracker is ready to grade results after games finish.
           </p>
         </div>
         <div class="season-card">
-          <span>Build Status</span>
-          <strong>Preseason Setup</strong>
-          <small>Core pages are being prepared while 2026 inputs are reviewed and certified.</small>
+          <span>Season Status</span>
+          <strong>Week 1 Ready</strong>
+          <small>Pregame receipts are preserved before kickoff. Results remain pending until final scores are certified.</small>
         </div>
       </section>
 
@@ -58,6 +58,24 @@
             <button class="text-button" type="button" data-open-gridiron-report>Open Archive Report</button>
           </article>
         </div>
+      </section>
+
+      <section class="insight-panel season-tracker" aria-labelledby="season-tracker-heading">
+        <div class="section-heading-row">
+          <div>
+            <p class="eyebrow">2026 Model Tracker</p>
+            <h2 id="season-tracker-heading">Published Before Kickoff. Graded After The Final.</h2>
+            <p>
+              This tracker follows certified CFP Advantage picks through the season. It updates after
+              each weekly grading run, not play by play, and pending games never count as misses.
+            </p>
+          </div>
+          <a class="secondary-button tracker-receipt-link" href="https://github.com/Joshua-Pugh/cfp-advantage-validation" target="_blank" rel="noopener noreferrer">View Public Pick Receipts</a>
+        </div>
+        <div id="seasonTrackerStatus" class="status-line">Loading the certified Week 1 receipt...</div>
+        <div id="seasonTrackerSummary" class="tracker-summary" aria-live="polite"></div>
+        <div id="seasonTrackerWeeks" class="tracker-weeks"></div>
+        <p id="seasonTrackerUpdated" class="guide-note"></p>
       </section>
 
       <section class="home-grid" aria-label="2026 featured tools">
@@ -102,7 +120,7 @@
         <div id="recordPathLeaderboard" class="record-path-leaderboard"></div>
         <p class="guide-note">
           Record probabilities are derived from CFP Advantage game-level win probabilities across the full schedule.
-          Preseason paths are subject to final anchor availability and will update as the model freezes its 2026 baseline.
+          Preseason paths use the immutable certified 2026 anchor and will update only through the documented weekly process.
           Pac-12 flex-week teams are held out until the final matchup is set.
         </p>
       </section>
@@ -122,15 +140,14 @@
 
       <section class="insight-panel">
         <p class="eyebrow">Model Status</p>
-        <h2>Preseason Outputs Are Preliminary</h2>
+        <h2>The Preseason Baseline Is Certified</h2>
         <p>
-          CFP Advantage is still reviewing and certifying the full 2026 preseason build.
-          Until that process is complete, any displayed 2026 outputs should be viewed with caution
-          and treated as preliminary while the site is being built out for the season.
+          CFP Advantage has frozen its 2026 preseason strength baseline and published the opening-week
+          matchup receipt. Published picks are preserved before kickoff and cannot be rewritten after results arrive.
         </p>
         <p>
-          Final public preseason views will be labeled clearly once the inputs, team profiles,
-          matchup pages, and tracking workflow are ready for launch.
+          Team profiles will replace preseason expectations with observed 2026 evidence as games are completed.
+          Record paths and matchup context will follow the documented weekly refresh process.
         </p>
       </section>
 
@@ -1126,6 +1143,6 @@
     </section>
 
     <script src="config.js?v=4.0.30"></script>
-    <script src="site.js?v=4.0.34"></script>
+    <script src="site.js?v=4.0.35"></script>
   </body>
 </html>

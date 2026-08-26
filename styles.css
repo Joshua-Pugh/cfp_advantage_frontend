@@ -2763,6 +2763,74 @@ tbody tr.is-clickable {
   font-size: 24px;
 }
 
+.season-tracker .section-heading-row {
+  align-items: end;
+}
+
+.tracker-receipt-link {
+  flex: 0 0 auto;
+  text-decoration: none;
+}
+
+.tracker-summary {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.tracker-summary > div,
+.tracker-weeks article {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fbfcfa;
+}
+
+.tracker-summary > div {
+  min-width: 0;
+  padding: 14px;
+}
+
+.tracker-summary span,
+.tracker-summary small,
+.tracker-weeks span,
+.tracker-weeks small {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.tracker-summary span,
+.tracker-weeks span {
+  text-transform: uppercase;
+}
+
+.tracker-summary strong {
+  display: block;
+  margin: 7px 0 4px;
+  font-size: 24px;
+}
+
+.tracker-weeks {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.tracker-weeks article {
+  display: grid;
+  grid-template-columns: minmax(170px, 1.5fr) repeat(2, minmax(120px, 1fr)) auto;
+  gap: 14px;
+  align-items: center;
+  padding: 14px;
+}
+
+.tracker-weeks strong {
+  display: block;
+  margin-top: 3px;
+}
+
 .learn-page {
   display: grid;
   gap: 18px;
@@ -3804,6 +3872,18 @@ pre {
   .matchup-preview-summary {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .tracker-summary {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .tracker-weeks article {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .tracker-weeks article > small {
+    grid-column: 1 / -1;
+  }
 }
 
 @media (max-width: 640px) {
@@ -3846,8 +3926,19 @@ pre {
     .hinge-grid,
     .leaderboard-list,
     .schedule-impact-card.compact,
-    .schedule-impact-row {
+    .schedule-impact-row,
+    .tracker-summary,
+    .tracker-weeks article {
     grid-template-columns: 1fr;
+  }
+
+  .tracker-receipt-link {
+    width: 100%;
+    text-align: center;
+  }
+
+  .tracker-weeks article > small {
+    grid-column: auto;
   }
 
   .hinge-path-row {
