@@ -339,6 +339,13 @@ function formatNumber(value, digits = 1) {
   return Number.isFinite(number) ? number.toFixed(digits) : "-";
 }
 
+function formatProjectionMargin(value) {
+  const number = Number(value);
+  if (!Number.isFinite(number)) return "-";
+  const rounded = Math.sign(number) * (Math.round((Math.abs(number) + Number.EPSILON) * 2) / 2);
+  return rounded.toFixed(1);
+}
+
 
 function formatPercent(value, digits = 1) {
   if (value === null || value === undefined || value === "") return "-";
@@ -814,7 +821,7 @@ function renderHistoricalSnapshot(payload, selectedGame) {
   const opponentContext = payload.opponent_context;
   const marginTeamA = Number(payload.projected_margin_team);
   const marginText = Number.isFinite(marginTeamA)
-    ? `${marginTeamA >= 0 ? teamA : teamB} by ${Math.abs(marginTeamA).toFixed(1)}`
+    ? `${marginTeamA >= 0 ? teamA : teamB} by ${formatProjectionMargin(Math.abs(marginTeamA))}`
     : "-";
   const homeFieldContext = Number(teamContext?.home_field_adjustment_team);
   const marginContextNote = Number.isFinite(homeFieldContext) && Math.abs(homeFieldContext) > 0
@@ -993,7 +1000,7 @@ function openBracketDiagnostic(game) {
     <h2>${escapeHtml(bracketTeamLabel(game.team_a || {}))} vs ${escapeHtml(bracketTeamLabel(game.team_b || {}))}</h2>
     <div class="summary-grid">
       <div><span>Model Lean</span><strong>${escapeHtml(prob.favorite || "-")}</strong></div>
-      <div><span>Projected Margin</span><strong>${formatNumber(prob.projected_margin_team_a, 1)}</strong></div>
+      <div><span>Projected Margin</span><strong>${formatProjectionMargin(prob.projected_margin_team_a)}</strong></div>
       <div><span>Favorite Win Probability</span><strong>${prob.favorite_win_probability ? `${formatNumber(Number(prob.favorite_win_probability) * 100, 1)}%` : "-"}</strong></div>
       <div><span>Opponent Chance</span><strong>${prob.upset_risk ? `${formatNumber(Number(prob.upset_risk) * 100, 1)}%` : "-"}</strong></div>
     </div>
@@ -2189,7 +2196,7 @@ function renderHubPick(matchup, logos) {
   const date = hubKickoffLabel(matchup);
   const projection = matchup.projection_unavailable
     ? "Schedule only"
-    : `${matchup.projection_limited ? "Limited projection: " : ""}${matchup.projected_winner || "Model lean pending"} by ${formatNumber(matchup.projected_margin_abs, 1)}`;
+    : `${matchup.projection_limited ? "Limited projection: " : ""}${matchup.projected_winner || "Model lean pending"} by ${formatProjectionMargin(matchup.projected_margin_abs)}`;
   return `
     <article class="hub-pick-row">
       <div class="hub-pick-teams">

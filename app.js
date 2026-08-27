@@ -478,6 +478,19 @@ function weeklyNumber(value, digits = 1) {
   return Number.isFinite(number) ? number.toFixed(digits) : "-";
 }
 
+function formatProjectionMargin(value) {
+  const number = Number(value);
+  if (!Number.isFinite(number)) return "-";
+  const rounded = Math.sign(number) * (Math.round((Math.abs(number) + Number.EPSILON) * 2) / 2);
+  return rounded.toFixed(1);
+}
+
+function formatSignedProjectionMargin(value) {
+  const number = Number(value);
+  const formatted = formatProjectionMargin(number);
+  return Number.isFinite(number) && number > 0 ? `+${formatted}` : formatted;
+}
+
 function publicTrajectory(value) {
   const labels = {
     upward_trend_micro_surging: "Improving",
@@ -682,7 +695,7 @@ function renderCurrentMatchupCard(matchup) {
       </div>
       <div class="weekly-projection-strip">
         <div><span>Model Lean</span><strong>${escapeHtml(matchup.projected_winner)}</strong></div>
-        <div><span>Projected Margin</span><strong>By ${weeklyNumber(matchup.projected_margin_abs, 1)}</strong></div>
+        <div><span>Projected Margin</span><strong>By ${formatProjectionMargin(matchup.projected_margin_abs)}</strong></div>
         <div><span>Projection Closeness</span><strong>${formatPercent(matchup.projection_closeness ?? matchup.close_matchup_risk, 0)}</strong></div>
       </div>
       <p class="weekly-context-note">${escapeHtml(matchup.context_note)}</p>
@@ -777,7 +790,7 @@ function fullMatchupPreview(matchup) {
       </div>
       <div class="matchup-preview-summary">
         <div><span>Model Lean</span><strong>${escapeHtml(matchup.projected_winner)}</strong></div>
-        <div><span>ADV Expected Margin</span><strong>${escapeHtml(matchup.projected_winner)} by ${weeklyNumber(matchup.projected_margin_abs, 1)}</strong></div>
+        <div><span>ADV Expected Margin</span><strong>${escapeHtml(matchup.projected_winner)} by ${formatProjectionMargin(matchup.projected_margin_abs)}</strong></div>
         <div><span>Expected Margin Band</span><strong>${escapeHtml(matchup.confidence_bucket || "-")}</strong></div>
         <div><span>Projection Closeness</span><strong>${formatPercent(matchup.projection_closeness ?? matchup.close_matchup_risk, 0)}</strong></div>
       </div>
@@ -955,7 +968,7 @@ function renderFullSlateList() {
       return escapeHtml(matchup.context_note || "Schedule-only row. No ADV projection is published for this matchup.");
     }
     const prefix = matchup.projection_limited ? "Limited projection: " : "";
-    return `${prefix}${escapeHtml(matchup.projected_winner || "-")} by ${weeklyNumber(matchup.projected_margin_abs, 1)} - ${escapeHtml(matchup.context_label || "Pregame Context")}`;
+    return `${prefix}${escapeHtml(matchup.projected_winner || "-")} by ${formatProjectionMargin(matchup.projected_margin_abs)} - ${escapeHtml(matchup.context_label || "Pregame Context")}`;
   };
   els.fullSlateContent.innerHTML = rows.map((matchup) => `
     <button type="button" class="${rowClass(matchup)}" data-full-slate-game="${escapeHtml(matchup.game_id)}">
@@ -1522,7 +1535,7 @@ async function renderMatchupPreview() {
   els.matchupEmpty.classList.add("is-hidden");
   els.matchupCard.classList.remove("is-hidden");
   els.previewWinner.textContent = `${row.projected_winner} projected winner`;
-  els.previewMargin.textContent = `${row.projected_winner} +${formatNumber(row.projected_margin_abs)}`;
+  els.previewMargin.textContent = `${row.projected_winner} +${formatProjectionMargin(row.projected_margin_abs)}`;
   els.previewConfidence.textContent = `${row.confidence_bucket.label} margin range | ${accuracy.toFixed(1)}% historical winner rate`;
   els.previewInterpretation.textContent = `${row.projected_winner} leads the model outlook. ${row.context}`;
   els.previewComparison.innerHTML = [
@@ -1539,7 +1552,7 @@ async function renderMatchupPreview() {
     const actualHomeMargin = Number(playedGame.home_points) - Number(playedGame.away_points);
     const teamAMargin = playedGame.home_team === teamA ? actualHomeMargin : -actualHomeMargin;
     els.actualGameLine.textContent = `${playedGame.away_team} ${playedGame.away_points} at ${playedGame.home_team} ${playedGame.home_points}`;
-    els.actualGameComparison.textContent = `${teamA} actual margin: ${signed(teamAMargin)}. Model outlook margin: ${signed(row.projected_margin_team_a)}. Open the recap to see postgame control margin.`;
+    els.actualGameComparison.textContent = `${teamA} actual margin: ${signed(teamAMargin)}. Model outlook margin: ${formatSignedProjectionMargin(row.projected_margin_team_a)}. Open the recap to see postgame control margin.`;
     els.actualMatchupPanel.classList.remove("is-hidden");
   } else {
     els.actualMatchupPanel.classList.add("is-hidden");
