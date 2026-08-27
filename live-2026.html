@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>2026 Season Hub | CFP Advantage</title>
-    <link rel="stylesheet" href="styles.css?v=4.0.37">
+    <link rel="stylesheet" href="styles.css?v=4.0.38">
   </head>
   <body data-page="live-2026">
     <main class="app-shell">
@@ -76,41 +76,6 @@
         <div id="seasonTrackerSummary" class="tracker-summary" aria-live="polite"></div>
         <div id="seasonTrackerWeeks" class="tracker-weeks"></div>
         <p id="seasonTrackerUpdated" class="guide-note"></p>
-        <section class="game-day-center" aria-labelledby="game-day-center-heading">
-          <div class="published-picks-panel">
-            <div class="game-day-heading">
-              <div>
-                <p class="eyebrow">Published Picks Snapshot</p>
-                <h3 id="game-day-center-heading">Week 1 Model Board</h3>
-              </div>
-              <a class="text-link" href="matchups.html">Open Matchups</a>
-            </div>
-            <p id="hubPicksStatus" class="status-line">Loading certified Week 1 picks...</p>
-            <div id="hubPicksList" class="hub-picks-list" aria-live="polite"></div>
-          </div>
-          <aside class="hub-live-scoreboard" aria-labelledby="hubLiveScoreboardTitle">
-            <div class="game-day-heading">
-              <div>
-                <p class="eyebrow">Unofficial Live Results</p>
-                <h3 id="hubLiveScoreboardTitle">Saturday Scoreboard</h3>
-              </div>
-              <button id="loadHubLiveScoreboard" class="secondary-button" type="button" aria-controls="hubLiveScoreboardEmbed" aria-expanded="false">
-                Load Scores
-              </button>
-            </div>
-            <p class="game-day-note">
-              Third-party scores are shown for convenience. They never alter frozen CFP Advantage picks,
-              and official grading waits for the certified weekly refresh.
-            </p>
-            <div id="hubLiveScoreboardEmbed" class="hub-scoreboard-embed is-hidden">
-              <div id="hubLiveScoreboardFrame" class="live-scoreboard-frame"></div>
-              <p class="live-scoreboard-credit">
-                Schedule and score presentation provided by
-                <a href="https://www.sportbusy.com/college-football-widget/" target="_blank" rel="noopener noreferrer">SportBusy</a>.
-              </p>
-            </div>
-          </aside>
-        </section>
         <div class="accountability-proof">
           <div>
             <p class="eyebrow">Historical Validation</p>
@@ -157,6 +122,48 @@
             <button class="secondary-button" type="button" data-open-validation>View Model Validation Details</button>
             <a class="text-link" href="metrics.html">Open the Metrics Guide</a>
           </div>
+        </div>
+      </section>
+
+      <section class="insight-panel game-day-center-section" aria-labelledby="game-day-center-heading">
+        <div class="section-heading-row game-day-section-heading">
+          <div>
+            <p class="eyebrow">Game Day Center</p>
+            <h2 id="game-day-center-heading">Frozen Picks Beside The Live Scoreboard</h2>
+            <p>Pregame projections remain frozen while the unofficial scoreboard follows games in progress.</p>
+          </div>
+          <a class="secondary-button" href="matchups.html">Open Full Matchup Analysis</a>
+        </div>
+        <div class="game-day-center">
+          <div class="published-picks-panel">
+            <div class="game-day-heading">
+              <div>
+                <p class="eyebrow">Complete Weekly Slate</p>
+                <h3 id="hubPicksHeading">Week 1 Model Board</h3>
+              </div>
+            </div>
+            <p id="hubPicksStatus" class="status-line">Loading the complete Week 1 slate...</p>
+            <div id="hubPicksList" class="hub-picks-list" aria-live="polite"></div>
+          </div>
+          <aside class="hub-live-scoreboard" aria-labelledby="hubLiveScoreboardTitle">
+            <div class="game-day-heading">
+              <div>
+                <p class="eyebrow">Unofficial Live Results</p>
+                <h3 id="hubLiveScoreboardTitle">Saturday Scoreboard</h3>
+              </div>
+              <button id="loadHubLiveScoreboard" class="secondary-button" type="button" aria-controls="hubLiveScoreboardEmbed" aria-expanded="false">Load Scores</button>
+            </div>
+            <p class="game-day-note">
+              Third-party scores are shown for convenience and may order games by live status. They never alter frozen CFP Advantage picks. Final margins, projection error, and winner grades appear only after the certified weekly grading run.
+            </p>
+            <div id="hubLiveScoreboardEmbed" class="hub-scoreboard-embed is-hidden">
+              <div id="hubLiveScoreboardFrame" class="live-scoreboard-frame"></div>
+              <p class="live-scoreboard-credit">
+                Schedule and score presentation provided by
+                <a href="https://www.sportbusy.com/college-football-widget/" target="_blank" rel="noopener noreferrer">SportBusy</a>.
+              </p>
+            </div>
+          </aside>
         </div>
       </section>
 
@@ -1142,6 +1149,6 @@
     </section>
 
     <script src="config.js?v=4.0.36"></script>
-    <script src="site.js?v=4.0.37"></script>
+    <script src="site.js?v=4.0.38"></script>
   </body>
 </html>

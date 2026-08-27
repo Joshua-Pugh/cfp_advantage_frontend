@@ -877,7 +877,11 @@ function pathContextLabel(value) {
 
 async function renderBracketSeason(season) {
   setStatus(`Loading ${season} Bracket Room...`);
-  const payload = await api(`/api/product-a/bracket-room?season=${encodeURIComponent(season)}`);
+  const [payload, logos] = await Promise.all([
+    api(`/api/product-a/bracket-room?season=${encodeURIComponent(season)}`),
+    loadTeamLogoCatalog(),
+  ]);
+  activeTeamLogos = logos;
   let treePayload = { tree: [] };
   try {
     treePayload = await api(`/api/product-a/bracket-room/tree?season=${encodeURIComponent(season)}`);
@@ -902,7 +906,7 @@ async function renderBracketSeason(season) {
   `;
   renderRows("bracketTable", rows, [
     { label: "Title Rank", render: (row) => row.title_probability_rank ?? row.adv_srs_rank ?? "-" },
-    { label: "Team", key: "team" },
+    { label: "Team", render: (row) => `<span class="team-name-with-logo">${teamLogoMarkup(row.team, activeTeamLogos)}${escapeHtml(row.team)}</span>` },
     { label: "Seed", key: "seed" },
     { label: "ADV SRS", render: (row) => formatNumber(row.adv_srs, 2) },
     { label: "Title Probability", render: (row) => `${formatNumber(Number(row.title_probability) * 100, 1)}%` },
@@ -963,8 +967,8 @@ function bracketGameCard(game) {
   const frameworkRead = game.diagnostic?.framework_read?.label || "Framework Unavailable";
   return `
     <button class="bracket-game-card" type="button" data-bracket-game="${escapeHtml(game.game_key)}">
-      <span>${escapeHtml(bracketTeamLabel(game.team_a || {}))}</span>
-      <span>${escapeHtml(bracketTeamLabel(game.team_b || {}))}</span>
+      <span class="team-name-with-logo">${teamLogoMarkup(game.team_a?.team || game.team_a?.display, activeTeamLogos)}${escapeHtml(bracketTeamLabel(game.team_a || {}))}</span>
+      <span class="team-name-with-logo">${teamLogoMarkup(game.team_b?.team || game.team_b?.display, activeTeamLogos)}${escapeHtml(bracketTeamLabel(game.team_b || {}))}</span>
       <small>Model lean: ${escapeHtml(favorite)} (${escapeHtml(winPct)})</small>
       <em>${escapeHtml(frameworkRead)}</em>
     </button>
@@ -1025,7 +1029,7 @@ function diagnosticProfile(team) {
   const talentYield = talentYieldDisplay(profile.talent_yield);
   return `
     <article class="insight-panel compact bracket-diagnostic-card">
-      <h3>${escapeHtml(team.seed ? `${team.seed} ${team.team}` : team.team || "-")}</h3>
+      <h3 class="team-name-with-logo">${teamLogoMarkup(team.team, activeTeamLogos)}${escapeHtml(team.seed ? `${team.seed} ${team.team}` : team.team || "-")}</h3>
       <div class="bracket-profile-identity">
         <strong>${escapeHtml(profile.identity || "Framework Unavailable")}</strong>
         <small>${escapeHtml(profile.summary || profile.note || "")}</small>
@@ -1206,10 +1210,12 @@ async function renderTeamPage() {
   }
   setStatus("Loading team profile...");
   try {
-    const [profile, schedule] = await Promise.all([
+    const [profile, schedule, logos] = await Promise.all([
       api(`/api/team/${encodeURIComponent(season)}/${encodeURIComponent(team)}`),
       api(`/api/team/${encodeURIComponent(season)}/${encodeURIComponent(team)}/schedule?view=full`),
+      loadTeamLogoCatalog(),
     ]);
+    activeTeamLogos = logos;
     
     const intel = profile.intelligence || {};
     const stats = profile.comparison_stats || {};
@@ -1236,6 +1242,10 @@ async function renderTeamPage() {
     );
 
     $("teamPageResult").innerHTML = `
+      <div class="team-profile-brand">
+        ${teamLogoMarkup(team, activeTeamLogos)}
+        <div><span>${escapeHtml(season)} Team Profile</span><strong>${escapeHtml(team)}</strong></div>
+      </div>
       <div id="teamScheduleView" class="team-view-panel is-active">
         ${scheduleHtml}
       </div>
@@ -1338,7 +1348,7 @@ function renderTeamScheduleView(season, team, intel, record, games) {
         <article class="schedule-game">
           <div class="schedule-week">${escapeHtml(String(weekField))}</div>
           <div class="schedule-opponent">
-            <strong>${homeAway} ${escapeHtml(opponent)}</strong>
+            <strong class="team-name-with-logo">${teamLogoMarkup(opponent, activeTeamLogos)}${homeAway} ${escapeHtml(opponent)}</strong>
             <span>${escapeHtml(dateStr)}${escapeHtml(neutralStr)}${escapeHtml(yardsStr)}</span>
           </div>
           <div class="schedule-score ${resultClass}">${escapeHtml(resultStr)} ${escapeHtml(score)}</div>
@@ -2137,6 +2147,7 @@ function renderRankingsPayload(payload) {
 
 let recordPathPayload = null;
 let teamLogoCatalogPromise = null;
+let activeTeamLogos = {};
 
 function teamInitials(team) {
   return String(team || "-")
@@ -2174,8 +2185,8 @@ function renderHubPick(matchup, logos) {
     ? new Date(`${matchup.date}T12:00:00`).toLocaleDateString(undefined, { month: "short", day: "numeric" })
     : `Week ${matchup.week || 1}`;
   const projection = matchup.projection_unavailable
-    ? "Projection unavailable"
-    : `${matchup.projected_winner || "Model lean pending"} by ${formatNumber(matchup.projected_margin_abs, 1)}`;
+    ? "Schedule only"
+    : `${matchup.projection_limited ? "Limited projection: " : ""}${matchup.projected_winner || "Model lean pending"} by ${formatNumber(matchup.projected_margin_abs, 1)}`;
   return `
     <article class="hub-pick-row">
       <div class="hub-pick-teams">
@@ -2200,15 +2211,21 @@ async function loadHubGameDayCenter() {
   try {
     const refreshQuery = forceRefreshActive() ? "&refresh=true" : "";
     const [payload, logos] = await Promise.all([
-      api(`/api/product-a/current-week?season=2026&week=1&limit=20${refreshQuery}`),
+      api(`/api/product-a/current-week?limit=150&include_schedule_only=true${refreshQuery}`),
       loadTeamLogoCatalog(),
     ]);
-    const matchups = payload.matchups || [];
+    const matchups = [...(payload.matchups || [])].sort((left, right) => {
+      const dateCompare = String(left.date || "").localeCompare(String(right.date || ""));
+      if (dateCompare) return dateCompare;
+      return String(left.away_team || "").localeCompare(String(right.away_team || ""));
+    });
+    const heading = $("hubPicksHeading");
+    if (heading) heading.textContent = payload.status?.label || `2026 Week ${payload.week || 1} Model Board`;
     list.innerHTML = matchups.length
       ? matchups.map((matchup) => renderHubPick(matchup, logos)).join("")
       : '<div class="empty-state compact">Published Week 1 picks are temporarily unavailable.</div>';
     status.textContent = matchups.length
-      ? `${matchups.length} certified picks shown. Open Matchups for the complete weekly slate and full analysis.`
+      ? `${matchups.length} games shown, including schedule-only FBS-FCS and G5 matchups. Certified projections remain frozen before kickoff.`
       : "The public receipt is preserved while the matchup feed reconnects.";
     status.className = `status-line ${matchups.length ? "ok" : "warn"}`;
   } catch (error) {

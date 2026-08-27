@@ -15,6 +15,26 @@ const SHOW_DEV_TOOLS = IS_LOCAL_HOST || APP_CONFIG.ENABLE_DEV_TOOLS === true;
 const CACHE_PREFIX = `cfp_adv_api_cache:${APP_CONFIG.APP_VERSION || "dev"}:`;
 const CACHE_TTL_MS = 1000 * 60 * 20;
 const apiMemoryCache = new Map();
+let matchupTeamLogoCatalogPromise = null;
+
+function matchupTeamInitials(team) {
+  return String(team || "-").split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join("").toUpperCase();
+}
+
+function loadMatchupTeamLogos() {
+  if (!matchupTeamLogoCatalogPromise) {
+    matchupTeamLogoCatalogPromise = fetch("team-logos.json?v=4.0.38", { cache: "force-cache" })
+      .then((response) => response.ok ? response.json() : { teams: {} })
+      .then((payload) => payload.teams || {})
+      .catch(() => ({}));
+  }
+  return matchupTeamLogoCatalogPromise;
+}
+
+function matchupTeamLogoMarkup(team) {
+  const url = state.teamLogos?.[String(team || "").trim().toLowerCase()];
+  return `<span class="team-logo" aria-hidden="true"><span>${escapeHtml(matchupTeamInitials(team))}</span>${url ? `<img src="${escapeHtml(url)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ""}</span>`;
+}
 const FORCE_REFRESH_KEY = "cfp_adv_force_refresh_until";
 const TERMS_ACCEPTED_KEY = "cfp_adv_terms_accepted";
 const TERMS_VERSION_KEY = "cfp_adv_terms_version";
@@ -312,6 +332,7 @@ const state = {
   currentMatchups: [],
   currentMatchupQuery: "",
   fullSlateMatchups: [],
+  teamLogos: {},
   hasRecap: false,
   activeView: "pregame",
   explorerLoaded: false,
@@ -650,9 +671,9 @@ function renderCurrentMatchupCard(matchup) {
         <strong>${escapeHtml(matchup.context_label || "Pregame Context")}</strong>
       </div>
       <div class="featured-matchup-title">
-        <div><span>Away</span><strong>${escapeHtml(matchup.away_team)}</strong></div>
+        <div><span>Away</span><strong class="team-name-with-logo">${matchupTeamLogoMarkup(matchup.away_team)}${escapeHtml(matchup.away_team)}</strong></div>
         <b>at</b>
-        <div><span>Home</span><strong>${escapeHtml(matchup.home_team)}</strong></div>
+        <div><span>Home</span><strong class="team-name-with-logo">${matchupTeamLogoMarkup(matchup.home_team)}${escapeHtml(matchup.home_team)}</strong></div>
       </div>
       <div class="weekly-projection-strip">
         <div><span>Model Lean</span><strong>${escapeHtml(matchup.projected_winner)}</strong></div>
@@ -744,7 +765,7 @@ function fullMatchupPreview(matchup) {
       <div class="panel-heading">
         <div>
           <p class="eyebrow">${escapeHtml(matchup.date || `Week ${matchup.week}`)}</p>
-          <h2>${escapeHtml(matchup.away_team)} at ${escapeHtml(matchup.home_team)}</h2>
+          <h2 class="matchup-title-with-logos">${matchupTeamLogoMarkup(matchup.away_team)}${escapeHtml(matchup.away_team)} <small>at</small> ${matchupTeamLogoMarkup(matchup.home_team)}${escapeHtml(matchup.home_team)}</h2>
           <p class="panel-note">${escapeHtml(matchup.context_note || "")}</p>
         </div>
         <span class="framework-read-label">${escapeHtml(matchup.context_label || "Mixed Context")}</span>
@@ -872,7 +893,11 @@ async function openFullSlateModal() {
     const query = state.currentMatchupQuery
       ? `?${state.currentMatchupQuery}&limit=150&include_schedule_only=true&refresh=true`
       : "?limit=150&include_schedule_only=true&refresh=true";
-    const payload = await api(`/api/product-a/current-week${query}`);
+    const [payload, logos] = await Promise.all([
+      api(`/api/product-a/current-week${query}`),
+      loadMatchupTeamLogos(),
+    ]);
+    state.teamLogos = logos;
     state.fullSlateMatchups = payload.matchups || [];
     els.fullSlateNote.textContent = payload.status?.message || "Search or select any matchup from the selected week.";
     if (els.fullSlateSearch) els.fullSlateSearch.value = "";
@@ -930,7 +955,7 @@ function renderFullSlateList() {
   els.fullSlateContent.innerHTML = rows.map((matchup) => `
     <button type="button" class="${rowClass(matchup)}" data-full-slate-game="${escapeHtml(matchup.game_id)}">
       <span class="full-slate-row-date">Week ${escapeHtml(matchup.week || "-")} - ${escapeHtml(matchup.date || "")}</span>
-      <strong>${escapeHtml(matchup.away_team)} at ${escapeHtml(matchup.home_team)}</strong>
+      <strong class="full-slate-matchup-title">${matchupTeamLogoMarkup(matchup.away_team)}${escapeHtml(matchup.away_team)} <small>at</small> ${matchupTeamLogoMarkup(matchup.home_team)}${escapeHtml(matchup.home_team)}</strong>
       <span class="full-slate-team-meta">
         <span>${escapeHtml(matchup.away_team || "-")}: ${escapeHtml(teamMeta(matchup.away_team_tier, matchup.away_conference) || "Team profile")}</span>
         <span>${escapeHtml(matchup.home_team || "-")}: ${escapeHtml(teamMeta(matchup.home_team_tier, matchup.home_conference) || "Team profile")}</span>
@@ -986,7 +1011,12 @@ async function loadCurrentMatchups() {
   const query = "?limit=6";
   let payload;
   try {
-    payload = await api(`/api/product-a/current-week${query}`);
+    const [matchupPayload, logos] = await Promise.all([
+      api(`/api/product-a/current-week${query}`),
+      loadMatchupTeamLogos(),
+    ]);
+    payload = matchupPayload;
+    state.teamLogos = logos;
   } catch (error) {
     const currentYear = new Date().getFullYear();
     payload = {
