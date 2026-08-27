@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Matchups | CFP Advantage</title>
-  <link rel="stylesheet" href="styles.css?v=4.0.40">
+    <link rel="stylesheet" href="styles.css?v=4.0.17">
   </head>
   <body>
     <main class="app-shell matchup-page-shell">
@@ -38,10 +38,9 @@
           <div>
             <p class="eyebrow">Games Of The Week</p>
             <h2 id="currentMatchupsLabel">Loading season status...</h2>
-            <p id="currentMatchupsMessage" class="panel-note">Deep matchup analysis for the current weekly slate.</p>
+            <p id="currentMatchupsMessage" class="panel-note">Checking for current-week matchup intelligence.</p>
           </div>
           <div class="matchup-rail-actions">
-            <button id="fullSlateButton" class="secondary-button" type="button">Full Slate</button>
             <button id="matchupRailPrevious" class="icon-button" type="button" aria-label="Previous matchups" title="Previous matchups">&larr;</button>
             <button id="matchupRailNext" class="icon-button" type="button" aria-label="Next matchups" title="Next matchups">&rarr;</button>
           </div>
@@ -52,51 +51,12 @@
           <p id="currentMatchupsEmptyNote">Games of the week will appear here when current-season snapshots are available.</p>
         </div>
       </section>
-
-      <section class="live-scoreboard-panel" aria-labelledby="liveScoreboardTitle">
-        <div class="live-scoreboard-copy">
-          <p class="eyebrow">Unofficial Live Results</p>
-          <h2 id="liveScoreboardTitle">Saturday Scoreboard</h2>
-          <p>
-            Third-party scores are shown for convenience and may update independently of CFP Advantage.
-            Pregame projections stay frozen; official grading occurs only after the certified weekly refresh.
-          </p>
-          <button id="loadLiveScoreboard" class="secondary-button" type="button" aria-controls="liveScoreboardEmbed" aria-expanded="false">
-            Load Live Scoreboard
-          </button>
-        </div>
-        <div id="liveScoreboardEmbed" class="live-scoreboard-embed is-hidden">
-          <div class="live-scoreboard-frame" id="liveScoreboardFrame"></div>
-          <p class="live-scoreboard-credit">
-            Schedule and score presentation provided by
-            <a href="https://www.sportbusy.com/college-football-widget/" target="_blank" rel="noopener noreferrer">SportBusy</a>.
-          </p>
-        </div>
-      </section>
     </main>
 
-    <section id="matchupPreviewModal" class="bracket-modal is-hidden" aria-label="Full matchup analysis" role="dialog" aria-modal="true">
+    <section id="matchupPreviewModal" class="bracket-modal is-hidden" aria-label="Full game preview" role="dialog" aria-modal="true">
       <div class="bracket-modal-card matchup-preview-modal-card">
-        <button id="matchupPreviewModalClose" class="help-close" type="button" aria-label="Close matchup analysis">x</button>
+        <button id="matchupPreviewModalClose" class="help-close" type="button" aria-label="Close game preview">x</button>
         <div id="matchupPreviewModalContent"></div>
-      </div>
-    </section>
-
-    <section id="fullSlateModal" class="bracket-modal is-hidden" aria-label="Full weekly slate" role="dialog" aria-modal="true">
-      <div class="bracket-modal-card matchup-preview-modal-card">
-        <button id="fullSlateModalClose" class="help-close" type="button" aria-label="Close full slate">x</button>
-        <div class="panel-heading compact-heading">
-          <div>
-            <p class="eyebrow">Weekly Slate</p>
-            <h2 id="fullSlateTitle">Full Slate</h2>
-            <p id="fullSlateNote" class="panel-note">Search or select any matchup from the selected week.</p>
-          </div>
-        </div>
-        <label class="full-slate-search">
-          <span>Search Team</span>
-          <input id="fullSlateSearch" type="search" placeholder="Georgia, Clemson, LSU...">
-        </label>
-        <div id="fullSlateContent" class="full-slate-list"></div>
       </div>
     </section>
 
@@ -112,7 +72,7 @@
       </div>
     </section>
 
-    <script src="config.js?v=4.0.34"></script>
-  <script src="app.js?v=4.0.41"></script>
+    <script src="config.js?v=4.0.17"></script>
+    <script src="app.js?v=4.0.17"></script>
   </body>
 </html>

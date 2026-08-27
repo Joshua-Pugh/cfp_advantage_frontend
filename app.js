@@ -15,26 +15,6 @@ const SHOW_DEV_TOOLS = IS_LOCAL_HOST || APP_CONFIG.ENABLE_DEV_TOOLS === true;
 const CACHE_PREFIX = `cfp_adv_api_cache:${APP_CONFIG.APP_VERSION || "dev"}:`;
 const CACHE_TTL_MS = 1000 * 60 * 20;
 const apiMemoryCache = new Map();
-let matchupTeamLogoCatalogPromise = null;
-
-function matchupTeamInitials(team) {
-  return String(team || "-").split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join("").toUpperCase();
-}
-
-function loadMatchupTeamLogos() {
-  if (!matchupTeamLogoCatalogPromise) {
-    matchupTeamLogoCatalogPromise = fetch("team-logos.json?v=4.0.38", { cache: "force-cache" })
-      .then((response) => response.ok ? response.json() : { teams: {} })
-      .then((payload) => payload.teams || {})
-      .catch(() => ({}));
-  }
-  return matchupTeamLogoCatalogPromise;
-}
-
-function matchupTeamLogoMarkup(team) {
-  const url = state.teamLogos?.[String(team || "").trim().toLowerCase()];
-  return `<span class="team-logo" aria-hidden="true"><span>${escapeHtml(matchupTeamInitials(team))}</span>${url ? `<img src="${escapeHtml(url)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ""}</span>`;
-}
 const FORCE_REFRESH_KEY = "cfp_adv_force_refresh_until";
 const TERMS_ACCEPTED_KEY = "cfp_adv_terms_accepted";
 const TERMS_VERSION_KEY = "cfp_adv_terms_version";
@@ -99,11 +79,10 @@ function installSupportButton() {
   link.className = "floating-support-link";
   link.dataset.floatingSupport = "true";
   link.dataset.supportLink = "true";
-  link.setAttribute("aria-label", "Support CFP Advantage");
   link.href = DONATE_URL;
   link.target = "_blank";
   link.rel = "noopener noreferrer";
-  link.innerHTML = '<span class="support-full">Support</span><span class="support-icon" aria-hidden="true">$</span>';
+  link.textContent = "Support CFP Advantage";
   document.body.appendChild(link);
 }
 
@@ -121,7 +100,7 @@ function installContactModal() {
         <span class="eyebrow">Contact</span>
         <h2>Send CFP Advantage a Message</h2>
         <p>Have a question, found a bug, or want to share feedback? We'd love to hear from you.</p>
-        <p class="contact-direct-email">Messages are delivered securely to ${SUPPORT_EMAIL}.</p>
+        <p class="contact-direct-email">Prefer email? <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>
         <form class="contact-form" data-contact-form>
           <label>
             <span>Name</span>
@@ -137,9 +116,9 @@ function installContactModal() {
           </label>
           <label>
             <span>Message</span>
-            <textarea name="message" rows="5" minlength="10" maxlength="4000" required></textarea>
+            <textarea name="message" rows="5" maxlength="4000" required></textarea>
           </label>
-          <p class="contact-status" data-contact-status aria-live="polite"></p>
+          <p class="contact-status" data-contact-status></p>
           <button class="primary-action" type="submit">Send Message</button>
         </form>
       </div>
@@ -191,28 +170,39 @@ async function submitContactForm(event) {
     });
     const detail = await response.json().catch(() => ({}));
     if (!response.ok) {
-      const validationError = Array.isArray(detail.detail)
-        ? detail.detail.find((item) => item?.loc?.includes("message"))?.type
-        : null;
-      const error = validationError || detail.detail?.error || detail.error || "contact_failed";
+      const error = detail.detail?.error || detail.error || "contact_failed";
       throw new Error(error);
+    }
+    if (detail.status === "fallback_required") {
+      openContactMailFallback(payload, status);
+      return;
     }
     form.reset();
     status.textContent = "Message sent. Thanks for reaching out.";
     status.className = "contact-status ok";
   } catch (error) {
-    const messages = {
-      contact_rate_limited: "Too many messages were sent from this connection. Please try again in about 15 minutes.",
-      contact_delivery_not_configured: "Contact delivery is temporarily unavailable. Please try again shortly.",
-      contact_email_send_failed: "The message could not be delivered. Please try again in a moment.",
-      string_too_short: "Please enter a message with at least 10 characters.",
-      message_too_short: "Please enter a message with at least 10 characters.",
-    };
-    status.textContent = messages[error.message] || "The message could not be sent. Please check your connection and try again.";
-    status.className = "contact-status error";
+    openContactMailFallback(payload, status);
   } finally {
     button.disabled = false;
   }
+}
+
+function openContactMailFallback(payload, status) {
+  const mailto = buildContactMailto(payload);
+  status.textContent = `Opening your email app with this message filled in. If it does not open, email ${SUPPORT_EMAIL} directly.`;
+  status.className = "contact-status ok";
+  window.location.href = mailto;
+}
+
+function buildContactMailto(payload) {
+  const subject = `CFP Advantage contact from ${payload.name || "site visitor"}`;
+  const body = [
+    `Name: ${payload.name || ""}`,
+    `Email: ${payload.email || ""}`,
+    "",
+    payload.message || "",
+  ].join("\n");
+  return `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
 function installDeveloperRefreshControl() {
@@ -335,8 +325,6 @@ const state = {
   termsVersion: DEFAULT_TERMS_VERSION,
   selectedActualGame: null,
   currentMatchups: [],
-  currentMatchupQuery: "",
-  fullSlateMatchups: [],
   teamLogos: {},
   hasRecap: false,
   activeView: "pregame",
@@ -428,16 +416,6 @@ const els = {
   currentMatchupsEmpty: $("currentMatchupsEmpty"),
   currentMatchupsEmptyTitle: $("currentMatchupsEmptyTitle"),
   currentMatchupsEmptyNote: $("currentMatchupsEmptyNote"),
-  fullSlateButton: $("fullSlateButton"),
-  fullSlateModal: $("fullSlateModal"),
-  fullSlateModalClose: $("fullSlateModalClose"),
-  fullSlateTitle: $("fullSlateTitle"),
-  fullSlateNote: $("fullSlateNote"),
-  fullSlateSearch: $("fullSlateSearch"),
-  fullSlateContent: $("fullSlateContent"),
-  loadLiveScoreboard: $("loadLiveScoreboard"),
-  liveScoreboardEmbed: $("liveScoreboardEmbed"),
-  liveScoreboardFrame: $("liveScoreboardFrame"),
   matchupRailPrevious: $("matchupRailPrevious"),
   matchupRailNext: $("matchupRailNext"),
   matchupPreviewModal: $("matchupPreviewModal"),
@@ -478,19 +456,6 @@ function weeklyNumber(value, digits = 1) {
   return Number.isFinite(number) ? number.toFixed(digits) : "-";
 }
 
-function formatProjectionMargin(value) {
-  const number = Number(value);
-  if (!Number.isFinite(number)) return "-";
-  const rounded = Math.sign(number) * (Math.round((Math.abs(number) + Number.EPSILON) * 2) / 2);
-  return rounded.toFixed(1);
-}
-
-function formatSignedProjectionMargin(value) {
-  const number = Number(value);
-  const formatted = formatProjectionMargin(number);
-  return Number.isFinite(number) && number > 0 ? `+${formatted}` : formatted;
-}
-
 function publicTrajectory(value) {
   const labels = {
     upward_trend_micro_surging: "Improving",
@@ -519,39 +484,6 @@ function weeklyContextValue(context, key, formatter = (value) => weeklyNumber(va
 function driveSample(value) {
   const number = Number(value);
   return Number.isFinite(number) ? `${number.toFixed(0)} drives` : "-";
-}
-
-function hasExpectedFootballProfile(context = {}) {
-  return ["expected", "expected_observed_blend"].includes(String(context.football_profile_status || ""));
-}
-
-function hasControlSample(context = {}) {
-  if (hasExpectedFootballProfile(context)) return true;
-  return [
-    context.rolling_offensive_drives,
-    context.rolling_defensive_drives,
-    context.rolling_control_drives,
-    context.games_before_target,
-  ].some((value) => Number(value) > 0);
-}
-
-function profileStatusNote(context = {}) {
-  const expected = Number(context.football_profile_expected_weight);
-  const observed = Number(context.football_profile_observed_weight);
-  if (hasExpectedFootballProfile(context) && Number.isFinite(expected) && Number.isFinite(observed)) {
-    return `Expected ${Math.round(expected * 100)}% / Observed ${Math.round(observed * 100)}%`;
-  }
-  return "Compared with selected weekly slate";
-}
-
-function hasTraditionalStats(context = {}) {
-  const stats = context.comparison_stats || {};
-  return [
-    stats.yards_per_game,
-    stats.points_per_drive,
-    stats.first_downs_per_game,
-    stats.red_zone_td_rate,
-  ].some((value) => Number.isFinite(Number(value)) && Number(value) > 0);
 }
 
 function ordinal(value) {
@@ -629,12 +561,6 @@ function footballProfileCell(context, key, opponent = {}) {
     defensive_control_production_allowed: "rolling_defensive_drives",
   };
   const sample = Number(context?.[productionSampleFields[key]]);
-  if (!hasControlSample(context)) {
-    return `
-      <strong>Preseason Pending</strong>
-      <small>No current-season control sample yet</small>
-    `;
-  }
   const isProductionMetric = Object.hasOwn(productionSampleFields, key);
   const productionDetail = isProductionMetric && Number.isFinite(Number(profile.rate))
     ? [
@@ -654,10 +580,9 @@ function footballProfileCell(context, key, opponent = {}) {
     `;
   }
   const detail = Number.isFinite(percentile) ? `${ordinal(percentile)} percentile` : "Sample developing";
-  const statusNote = hasExpectedFootballProfile(context) ? profileStatusNote(context) : "";
   return `
     <strong>${escapeHtml(profile.label || "-")}</strong>
-    <small>${escapeHtml([detail, productionDetail, statusNote].filter(Boolean).join(" · "))}</small>
+    <small>${escapeHtml([detail, productionDetail].filter(Boolean).join(" · "))}</small>
   `;
 }
 
@@ -678,6 +603,30 @@ function advantageList(matchup, team) {
   return advantages.slice(0, 4).map((item) => `<li>${escapeHtml(item)}</li>`).join("");
 }
 
+function teamLogoUrl(team) {
+  const key = String(team || "").trim().toLowerCase();
+  return state.teamLogos[key] || "";
+}
+
+async function loadTeamLogos() {
+  try {
+    const response = await fetch("team-logos.json", { cache: "default" });
+    if (!response.ok) throw new Error(`Logo catalog request failed: ${response.status}`);
+    const catalog = await response.json();
+    state.teamLogos = catalog.teams || {};
+  } catch (error) {
+    console.warn("CFP Advantage logo catalog unavailable:", error.message);
+  }
+}
+
+function renderMatchupTeam(team, side) {
+  const logoUrl = teamLogoUrl(team);
+  const logo = logoUrl
+    ? `<img class="featured-matchup-logo" src="${escapeHtml(logoUrl)}" alt="${escapeHtml(team)}" title="${escapeHtml(team)}" loading="lazy" decoding="async">`
+    : `<strong>${escapeHtml(team)}</strong>`;
+  return `<div class="featured-matchup-team ${side}"><span>${side === "away" ? "Away" : "Home"}</span><div class="featured-matchup-team-line">${logo}</div></div>`;
+}
+
 function renderCurrentMatchupCard(matchup) {
   const matchupDate = matchup.date
     ? new Date(`${matchup.date}T12:00:00`).toLocaleDateString(undefined, { month: "short", day: "numeric" })
@@ -689,17 +638,17 @@ function renderCurrentMatchupCard(matchup) {
         <strong>${escapeHtml(matchup.context_label || "Pregame Context")}</strong>
       </div>
       <div class="featured-matchup-title">
-        <div><span>Away</span><strong class="team-name-with-logo">${matchupTeamLogoMarkup(matchup.away_team)}${escapeHtml(matchup.away_team)}</strong></div>
+        ${renderMatchupTeam(matchup.away_team, "away")}
         <b>at</b>
-        <div><span>Home</span><strong class="team-name-with-logo">${matchupTeamLogoMarkup(matchup.home_team)}${escapeHtml(matchup.home_team)}</strong></div>
+        ${renderMatchupTeam(matchup.home_team, "home")}
       </div>
       <div class="weekly-projection-strip">
         <div><span>Model Lean</span><strong>${escapeHtml(matchup.projected_winner)}</strong></div>
-        <div><span>Projected Margin</span><strong>By ${formatProjectionMargin(matchup.projected_margin_abs)}</strong></div>
+        <div><span>Projected Margin</span><strong>By ${weeklyNumber(matchup.projected_margin_abs, 1)}</strong></div>
         <div><span>Projection Closeness</span><strong>${formatPercent(matchup.projection_closeness ?? matchup.close_matchup_risk, 0)}</strong></div>
       </div>
       <p class="weekly-context-note">${escapeHtml(matchup.context_note)}</p>
-      <button class="matchup-preview-button" type="button" data-matchup-game="${escapeHtml(matchup.game_id)}">Full Matchup Analysis</button>
+      <button class="matchup-preview-button" type="button" data-matchup-game="${escapeHtml(matchup.game_id)}">Full Game Preview</button>
     </article>
   `;
 }
@@ -707,8 +656,6 @@ function renderCurrentMatchupCard(matchup) {
 function fullMatchupPreview(matchup) {
   const home = completeControlContext(matchup.home_context || {});
   const away = completeControlContext(matchup.away_context || {});
-  const hasFrameworkSample = hasControlSample(home) || hasControlSample(away);
-  const hasStatsSample = hasTraditionalStats(home) || hasTraditionalStats(away);
   const identityRows = [
     ["Pregame ADV Rating", "pregame_adv_rating", (value) => weeklyNumber(value, 1)],
     ["ADV Schedule Rating", "rolling_adv_sos", (value) => weeklyNumber(value, 1)],
@@ -749,13 +696,8 @@ function fullMatchupPreview(matchup) {
   const profileRows = (rows, awayContext, homeContext, nested = false) => rows.map(([label, key, formatter]) => {
     const awayValues = nested ? (awayContext.comparison_stats || {}) : awayContext;
     const homeValues = nested ? (homeContext.comparison_stats || {}) : homeContext;
-    const contextPendingKey = !nested && ["rolling_adv_sos", "talent_yield_index"].includes(key);
-    const awayValue = contextPendingKey && !hasControlSample(awayContext)
-      ? "Not yet available"
-      : formatter(awayValues[key], awayValues);
-    const homeValue = contextPendingKey && !hasControlSample(homeContext)
-      ? "Not yet available"
-      : formatter(homeValues[key], homeValues);
+    const awayValue = formatter(awayValues[key], awayValues);
+    const homeValue = formatter(homeValues[key], homeValues);
     return `
       <div class="weekly-profile-row">
         <span>${metricLabelWithScale(label)}</span>
@@ -783,14 +725,14 @@ function fullMatchupPreview(matchup) {
       <div class="panel-heading">
         <div>
           <p class="eyebrow">${escapeHtml(matchup.date || `Week ${matchup.week}`)}</p>
-          <h2 class="matchup-title-with-logos">${matchupTeamLogoMarkup(matchup.away_team)}${escapeHtml(matchup.away_team)} <small>at</small> ${matchupTeamLogoMarkup(matchup.home_team)}${escapeHtml(matchup.home_team)}</h2>
+          <h2>${escapeHtml(matchup.away_team)} at ${escapeHtml(matchup.home_team)}</h2>
           <p class="panel-note">${escapeHtml(matchup.context_note || "")}</p>
         </div>
         <span class="framework-read-label">${escapeHtml(matchup.context_label || "Mixed Context")}</span>
       </div>
       <div class="matchup-preview-summary">
         <div><span>Model Lean</span><strong>${escapeHtml(matchup.projected_winner)}</strong></div>
-        <div><span>ADV Expected Margin</span><strong>${escapeHtml(matchup.projected_winner)} by ${formatProjectionMargin(matchup.projected_margin_abs)}</strong></div>
+        <div><span>ADV Expected Margin</span><strong>${escapeHtml(matchup.projected_winner)} by ${weeklyNumber(matchup.projected_margin_abs, 1)}</strong></div>
         <div><span>Expected Margin Band</span><strong>${escapeHtml(matchup.confidence_bucket || "-")}</strong></div>
         <div><span>Projection Closeness</span><strong>${formatPercent(matchup.projection_closeness ?? matchup.close_matchup_risk, 0)}</strong></div>
       </div>
@@ -801,45 +743,35 @@ function fullMatchupPreview(matchup) {
           <h3>${escapeHtml(matchup.context_label || "Mixed Framework Read")}</h3>
           <p>${escapeHtml(matchup.context_note || "")}</p>
         </div>
-        ${hasFrameworkSample ? `
-          ${hasExpectedFootballProfile(away) || hasExpectedFootballProfile(home) ? `
-            <p class="weekly-context-note">Expected profile weights fade as current-season evidence arrives.</p>
-          ` : ""}
-          <div class="weekly-profile-table matchup-preview-table">
-            <div class="weekly-profile-row is-header">
-              <span>Football Mechanics</span>
-              <strong>${escapeHtml(matchup.away_team)}</strong>
-              <strong>${escapeHtml(matchup.home_team)}</strong>
-            </div>
-            ${mechanicsRows}
-            <div class="weekly-profile-row profile-label-row">
-              <span>Talent Yield</span>
-              <div><strong>${escapeHtml(away.football_profile?.talent_yield?.label || "-")}</strong><small>Roster expectation context</small></div>
-              <div><strong>${escapeHtml(home.football_profile?.talent_yield?.label || "-")}</strong><small>Roster expectation context</small></div>
-            </div>
-            <div class="weekly-profile-row profile-label-row">
-              <span>Recent Form</span>
-              <div>${recentFormCell(away)}<small>Compared with own season baseline</small></div>
-              <div>${recentFormCell(home)}<small>Compared with own season baseline</small></div>
-            </div>
+        <div class="weekly-profile-table matchup-preview-table">
+          <div class="weekly-profile-row is-header">
+            <span>Football Mechanics</span>
+            <strong>${escapeHtml(matchup.away_team)}</strong>
+            <strong>${escapeHtml(matchup.home_team)}</strong>
           </div>
-          <p class="weekly-context-note">${escapeHtml(matchup.profile_comparison_scope || "Profile labels compare teams within the selected weekly matchup slate.")}</p>
-          <div class="matchup-advantages-grid">
-            <article>
-              <span>${escapeHtml(matchup.away_team)} Advantages</span>
-              <ul>${advantageList(matchup, matchup.away_team)}</ul>
-            </article>
-            <article>
-              <span>${escapeHtml(matchup.home_team)} Advantages</span>
-              <ul>${advantageList(matchup, matchup.home_team)}</ul>
-            </article>
+          ${mechanicsRows}
+          <div class="weekly-profile-row profile-label-row">
+            <span>Talent Yield</span>
+            <div><strong>${escapeHtml(away.football_profile?.talent_yield?.label || "-")}</strong><small>Roster expectation context</small></div>
+            <div><strong>${escapeHtml(home.football_profile?.talent_yield?.label || "-")}</strong><small>Roster expectation context</small></div>
           </div>
-        ` : `
-          <div class="empty-state compact">
-            <strong>Control Framework Pending</strong>
-            <p>No prior current-season games have been played, so rolling Control Framework, Recent Form, TYI, and traditional stat comparisons are intentionally held back. This matchup analysis uses the frozen preseason ADV baseline until live samples exist.</p>
+          <div class="weekly-profile-row profile-label-row">
+            <span>Recent Form</span>
+            <div>${recentFormCell(away)}<small>Compared with own season baseline</small></div>
+            <div>${recentFormCell(home)}<small>Compared with own season baseline</small></div>
           </div>
-        `}
+        </div>
+        <p class="weekly-context-note">${escapeHtml(matchup.profile_comparison_scope || "Profile labels compare teams within the selected weekly matchup slate.")}</p>
+        <div class="matchup-advantages-grid">
+          <article>
+            <span>${escapeHtml(matchup.away_team)} Advantages</span>
+            <ul>${advantageList(matchup, matchup.away_team)}</ul>
+          </article>
+          <article>
+            <span>${escapeHtml(matchup.home_team)} Advantages</span>
+            <ul>${advantageList(matchup, matchup.home_team)}</ul>
+          </article>
+        </div>
       </section>
       <details class="advanced-matchup-details">
         <summary>View Advanced Metrics</summary>
@@ -867,148 +799,28 @@ function fullMatchupPreview(matchup) {
       </div>
       <h3>Control Framework Evidence</h3>
       <p class="weekly-context-note">Creation and denial describe the foundation. Finish and Control Drive Shutout show conversion. Control Points Per Offensive Drive estimates sustainable scoring pressure created across every possession; Control Points Allowed Per Defensive Drive is the lower-is-better defensive mirror.</p>
-      ${hasFrameworkSample ? `
-        <div class="weekly-profile-table matchup-preview-table">
-          <div class="weekly-profile-row is-header">
-            <span>Pregame Control Profile</span>
-            <strong>${escapeHtml(matchup.away_team)}</strong>
-            <strong>${escapeHtml(matchup.home_team)}</strong>
-          </div>
-          ${profileRows(controlRows, away, home)}
+      <div class="weekly-profile-table matchup-preview-table">
+        <div class="weekly-profile-row is-header">
+          <span>Pregame Control Profile</span>
+          <strong>${escapeHtml(matchup.away_team)}</strong>
+          <strong>${escapeHtml(matchup.home_team)}</strong>
         </div>
-      ` : `
-        <div class="empty-state compact">No prior games have been played, so observed rolling Control Framework evidence is not displayed yet.</div>
-      `}
+        ${profileRows(controlRows, away, home)}
+      </div>
       <h3>Stats Through This Week</h3>
-      ${hasStatsSample ? `
-        <p class="weekly-context-note">Traditional comparison stats include completed games available before kickoff.</p>
-        <div class="weekly-profile-table matchup-preview-table">
-          <div class="weekly-profile-row is-header">
-            <span>Traditional Comparison</span>
-            <strong>${escapeHtml(matchup.away_team)}</strong>
-            <strong>${escapeHtml(matchup.home_team)}</strong>
-          </div>
-          ${profileRows(statRows, away, home, true)}
+      <p class="weekly-context-note">Traditional comparison stats include completed games available before kickoff.</p>
+      <div class="weekly-profile-table matchup-preview-table">
+        <div class="weekly-profile-row is-header">
+          <span>Traditional Comparison</span>
+          <strong>${escapeHtml(matchup.away_team)}</strong>
+          <strong>${escapeHtml(matchup.home_team)}</strong>
         </div>
-      ` : `
-        <div class="empty-state compact">No prior games have been played, so traditional through-week stats are not displayed yet.</div>
-      `}
+        ${profileRows(statRows, away, home, true)}
+      </div>
         </div>
       </details>
     </section>
   `;
-}
-
-
-async function openFullSlateModal() {
-  if (!els.fullSlateModal || !els.fullSlateContent) return;
-  els.fullSlateTitle.textContent = els.currentMatchupsLabel?.textContent || "Full Slate";
-  els.fullSlateNote.textContent = "Loading the full weekly slate...";
-  els.fullSlateContent.innerHTML = '<div class="empty-state compact">Loading full slate...</div>';
-  els.fullSlateModal.classList.remove("is-hidden");
-  document.body.classList.add("modal-open");
-  try {
-    const query = state.currentMatchupQuery
-      ? `?${state.currentMatchupQuery}&limit=150&include_schedule_only=true&refresh=true`
-      : "?limit=150&include_schedule_only=true&refresh=true";
-    const [payload, logos] = await Promise.all([
-      api(`/api/product-a/current-week${query}`),
-      loadMatchupTeamLogos(),
-    ]);
-    state.teamLogos = logos;
-    state.fullSlateMatchups = payload.matchups || [];
-    els.fullSlateNote.textContent = payload.status?.message || "Search or select any matchup from the selected week.";
-    if (els.fullSlateSearch) els.fullSlateSearch.value = "";
-    renderFullSlateList();
-    els.fullSlateSearch?.focus();
-  } catch (error) {
-    els.fullSlateNote.textContent = "Full slate unavailable.";
-    els.fullSlateContent.innerHTML = `<div class="empty-state compact">${escapeHtml(error.message)}</div>`;
-  }
-}
-
-function renderFullSlateList() {
-  if (!els.fullSlateContent) return;
-  const search = String(els.fullSlateSearch?.value || "").trim().toLowerCase();
-  const aliasMap = {
-    uga: ["georgia", "bulldogs", "dawgs"],
-    dawgs: ["georgia"],
-    bulldogs: ["georgia"],
-  };
-  const searchTerms = [search, ...(aliasMap[search] || [])].filter(Boolean);
-  const rows = (state.fullSlateMatchups || []).filter((matchup) => {
-    if (!search) return true;
-    const haystack = [
-      matchup.away_team,
-      matchup.home_team,
-      matchup.projected_winner,
-      matchup.away_conference,
-      matchup.home_conference,
-      matchup.away_team_tier,
-      matchup.home_team_tier,
-      matchup.game_type,
-    ].map((value) => String(value || "").toLowerCase()).join(" ");
-    return searchTerms.some((term) => haystack.includes(term));
-  });
-  if (!rows.length) {
-    els.fullSlateContent.innerHTML = '<div class="empty-state compact">No matchups match that search.</div>';
-    return;
-  }
-  const teamMeta = (tier, conference) => [tier, conference]
-    .filter(Boolean)
-    .map((value) => String(value).toUpperCase())
-    .join(" - ");
-  const rowClass = (matchup) => [
-    "full-slate-row",
-    matchup.projection_unavailable ? "is-schedule-only" : "",
-    matchup.projection_limited ? "is-limited-projection" : "",
-  ].filter(Boolean).join(" ");
-  const projectionLine = (matchup) => {
-    if (matchup.projection_unavailable) {
-      return escapeHtml(matchup.context_note || "Schedule-only row. No ADV projection is published for this matchup.");
-    }
-    const prefix = matchup.projection_limited ? "Limited projection: " : "";
-    return `${prefix}${escapeHtml(matchup.projected_winner || "-")} by ${formatProjectionMargin(matchup.projected_margin_abs)} - ${escapeHtml(matchup.context_label || "Pregame Context")}`;
-  };
-  els.fullSlateContent.innerHTML = rows.map((matchup) => `
-    <button type="button" class="${rowClass(matchup)}" data-full-slate-game="${escapeHtml(matchup.game_id)}">
-      <span class="full-slate-row-date">Week ${escapeHtml(matchup.week || "-")} - ${escapeHtml(matchup.date || "")}</span>
-      <strong class="full-slate-matchup-title">${matchupTeamLogoMarkup(matchup.away_team)}${escapeHtml(matchup.away_team)} <small>at</small> ${matchupTeamLogoMarkup(matchup.home_team)}${escapeHtml(matchup.home_team)}</strong>
-      <span class="full-slate-team-meta">
-        <span>${escapeHtml(matchup.away_team || "-")}: ${escapeHtml(teamMeta(matchup.away_team_tier, matchup.away_conference) || "Team profile")}</span>
-        <span>${escapeHtml(matchup.home_team || "-")}: ${escapeHtml(teamMeta(matchup.home_team_tier, matchup.home_conference) || "Team profile")}</span>
-        ${matchup.game_type ? `<span>${escapeHtml(matchup.game_type)}</span>` : ""}
-      </span>
-      <em>${projectionLine(matchup)}</em>
-    </button>
-  `).join("");
-}
-
-function loadLiveScoreboard() {
-  if (!els.liveScoreboardEmbed || !els.liveScoreboardFrame || !els.loadLiveScoreboard) return;
-  if (!els.liveScoreboardFrame.querySelector("iframe")) {
-    const frame = document.createElement("iframe");
-    const source = new URL("https://www.sportbusy.com/embed/season");
-    source.searchParams.set("league", "cfb");
-    source.searchParams.set("filter", "all");
-    source.searchParams.set("tz", "America/New_York");
-    source.searchParams.set("h", "620");
-    source.searchParams.set("sb_parent", window.location.href);
-    frame.src = source.toString();
-    frame.title = "SportBusy college football schedule and live score widget";
-    frame.loading = "lazy";
-    frame.referrerPolicy = "strict-origin-when-cross-origin";
-    els.liveScoreboardFrame.appendChild(frame);
-  }
-  const isHidden = els.liveScoreboardEmbed.classList.toggle("is-hidden");
-  els.loadLiveScoreboard.setAttribute("aria-expanded", String(!isHidden));
-  els.loadLiveScoreboard.textContent = isHidden ? "Show Live Scoreboard" : "Hide Live Scoreboard";
-}
-
-function closeFullSlateModal() {
-  if (!els.fullSlateModal) return;
-  els.fullSlateModal.classList.add("is-hidden");
-  document.body.classList.remove("modal-open");
 }
 
 function openMatchupPreview(gameId) {
@@ -1025,16 +837,17 @@ function closeMatchupPreview() {
   document.body.classList.remove("modal-open");
 }
 
-async function loadCurrentMatchups() {
-  const query = "?limit=6";
+async function loadCurrentMatchups(previewOverride = null) {
+  const preview = previewOverride !== null
+    ? previewOverride
+    : new URLSearchParams(window.location.search).get("preview");
+  const previewMatch = /^(\d{4})-(\d{1,2})$/.exec(preview || "");
+  const query = previewMatch
+    ? `?season=${encodeURIComponent(previewMatch[1])}&week=${encodeURIComponent(previewMatch[2])}&limit=6`
+    : "?limit=6";
   let payload;
   try {
-    const [matchupPayload, logos] = await Promise.all([
-      api(`/api/product-a/current-week${query}`),
-      loadMatchupTeamLogos(),
-    ]);
-    payload = matchupPayload;
-    state.teamLogos = logos;
+    payload = await api(`/api/product-a/current-week${query}`);
   } catch (error) {
     const currentYear = new Date().getFullYear();
     payload = {
@@ -1051,16 +864,12 @@ async function loadCurrentMatchups() {
 
   const status = payload.status || {};
   state.currentMatchups = payload.matchups || [];
-  state.currentMatchupQuery = status.season && status.selected_week
-    ? `season=${encodeURIComponent(status.season)}&week=${encodeURIComponent(status.selected_week)}`
-    : "";
   els.currentMatchupsLabel.textContent = status.label || "Current Matchups";
   els.currentMatchupsMessage.textContent = status.message || payload.weekly_snapshot_note || "";
 
   if (payload.weekly_snapshot_available) {
     els.featuredMatchupGrid.innerHTML = state.currentMatchups.map(renderCurrentMatchupCard).join("");
     els.featuredMatchupGrid.classList.remove("is-hidden");
-    requestAnimationFrame(() => els.featuredMatchupGrid.scrollTo({ left: 0, behavior: "auto" }));
     els.currentMatchupsEmpty.classList.add("is-hidden");
     return;
   }
@@ -1070,15 +879,6 @@ async function loadCurrentMatchups() {
   els.currentMatchupsEmptyTitle.textContent = status.label || "No current-season data";
   els.currentMatchupsEmptyNote.textContent = payload.weekly_snapshot_note || status.message || "Current-week matchup intelligence is not available yet.";
   els.currentMatchupsEmpty.classList.remove("is-hidden");
-}
-
-function scrollMatchupRail(direction) {
-  if (!els.featuredMatchupGrid) return;
-  const card = els.featuredMatchupGrid.querySelector(".featured-matchup-card");
-  const styles = window.getComputedStyle(els.featuredMatchupGrid);
-  const gap = Number.parseFloat(styles.columnGap || styles.gap || "0") || 0;
-  const distance = (card?.getBoundingClientRect().width || 420) + gap;
-  els.featuredMatchupGrid.scrollBy({ left: direction * distance, behavior: "smooth" });
 }
 
 function numericOrNull(value) {
@@ -1535,7 +1335,7 @@ async function renderMatchupPreview() {
   els.matchupEmpty.classList.add("is-hidden");
   els.matchupCard.classList.remove("is-hidden");
   els.previewWinner.textContent = `${row.projected_winner} projected winner`;
-  els.previewMargin.textContent = `${row.projected_winner} +${formatProjectionMargin(row.projected_margin_abs)}`;
+  els.previewMargin.textContent = `${row.projected_winner} +${formatNumber(row.projected_margin_abs)}`;
   els.previewConfidence.textContent = `${row.confidence_bucket.label} margin range | ${accuracy.toFixed(1)}% historical winner rate`;
   els.previewInterpretation.textContent = `${row.projected_winner} leads the model outlook. ${row.context}`;
   els.previewComparison.innerHTML = [
@@ -1552,7 +1352,7 @@ async function renderMatchupPreview() {
     const actualHomeMargin = Number(playedGame.home_points) - Number(playedGame.away_points);
     const teamAMargin = playedGame.home_team === teamA ? actualHomeMargin : -actualHomeMargin;
     els.actualGameLine.textContent = `${playedGame.away_team} ${playedGame.away_points} at ${playedGame.home_team} ${playedGame.home_points}`;
-    els.actualGameComparison.textContent = `${teamA} actual margin: ${signed(teamAMargin)}. Model outlook margin: ${formatSignedProjectionMargin(row.projected_margin_team_a)}. Open the recap to see postgame control margin.`;
+    els.actualGameComparison.textContent = `${teamA} actual margin: ${signed(teamAMargin)}. Model outlook margin: ${signed(row.projected_margin_team_a)}. Open the recap to see postgame control margin.`;
     els.actualMatchupPanel.classList.remove("is-hidden");
   } else {
     els.actualMatchupPanel.classList.add("is-hidden");
@@ -1867,12 +1667,10 @@ async function boot() {
   console.info("CFP Advantage API base:", API_BASE);
   console.info("CFP Advantage environment:", APP_ENVIRONMENT, "| static fallback enabled:", USE_STATIC_FALLBACK);
   showStatus("Fetching Matchups...", "Preparing games of the week.", true);
+  await loadTeamLogos();
   await loadCurrentMatchups();
   await loadProductGuides();
   hideStatus();
-  if (window.location.hash === "#full-slate") {
-    await openFullSlateModal();
-  }
 }
 
 async function openExplorer() {
@@ -1900,7 +1698,6 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
     closeHelp();
     closeMatchupPreview();
-    closeFullSlateModal();
   }
 });
 
@@ -1911,27 +1708,10 @@ if (els.explorerViewTab) els.explorerViewTab.addEventListener("click", openExplo
 if (els.metricsViewTab) els.metricsViewTab.addEventListener("click", () => setWorkspaceView("metrics"));
 if (els.termsAcceptButton) els.termsAcceptButton.addEventListener("click", acceptTerms);
 if (els.matchupRailPrevious) {
-  els.matchupRailPrevious.addEventListener("click", () => scrollMatchupRail(-1));
+  els.matchupRailPrevious.addEventListener("click", () => els.featuredMatchupGrid?.scrollBy({ left: -420, behavior: "smooth" }));
 }
 if (els.matchupRailNext) {
-  els.matchupRailNext.addEventListener("click", () => scrollMatchupRail(1));
-}
-if (els.fullSlateButton) els.fullSlateButton.addEventListener("click", openFullSlateModal);
-if (els.fullSlateModalClose) els.fullSlateModalClose.addEventListener("click", closeFullSlateModal);
-if (els.fullSlateSearch) els.fullSlateSearch.addEventListener("input", renderFullSlateList);
-if (els.loadLiveScoreboard) els.loadLiveScoreboard.addEventListener("click", loadLiveScoreboard);
-if (els.fullSlateContent) {
-  els.fullSlateContent.addEventListener("click", (event) => {
-    const button = event.target.closest("[data-full-slate-game]");
-    if (!button) return;
-    const matchup = state.fullSlateMatchups.find((row) => String(row.game_id) === String(button.dataset.fullSlateGame));
-    if (matchup?.projection_unavailable || matchup?.projection_limited) return;
-    if (matchup) {
-      closeFullSlateModal();
-      state.currentMatchups = [...state.currentMatchups.filter((row) => String(row.game_id) !== String(matchup.game_id)), matchup];
-      openMatchupPreview(matchup.game_id);
-    }
-  });
+  els.matchupRailNext.addEventListener("click", () => els.featuredMatchupGrid?.scrollBy({ left: 420, behavior: "smooth" }));
 }
 if (els.featuredMatchupGrid) {
   els.featuredMatchupGrid.addEventListener("click", (event) => {
