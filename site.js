@@ -118,7 +118,7 @@ function installContactModal() {
           </label>
           <label>
             <span>Message</span>
-            <textarea name="message" rows="5" maxlength="4000" required></textarea>
+            <textarea name="message" rows="5" minlength="10" maxlength="4000" required></textarea>
           </label>
           <p class="contact-status" data-contact-status aria-live="polite"></p>
           <button class="primary-action" type="submit">Send Message</button>
@@ -172,7 +172,10 @@ async function submitContactForm(event) {
     });
     const detail = await response.json().catch(() => ({}));
     if (!response.ok) {
-      const error = detail.detail?.error || detail.error || "contact_failed";
+      const validationError = Array.isArray(detail.detail)
+        ? detail.detail.find((item) => item?.loc?.includes("message"))?.type
+        : null;
+      const error = validationError || detail.detail?.error || detail.error || "contact_failed";
       throw new Error(error);
     }
     form.reset();
@@ -183,6 +186,8 @@ async function submitContactForm(event) {
       contact_rate_limited: "Too many messages were sent from this connection. Please try again in about 15 minutes.",
       contact_delivery_not_configured: "Contact delivery is temporarily unavailable. Please try again shortly.",
       contact_email_send_failed: "The message could not be delivered. Please try again in a moment.",
+      string_too_short: "Please enter a message with at least 10 characters.",
+      message_too_short: "Please enter a message with at least 10 characters.",
     };
     status.textContent = messages[error.message] || "The message could not be sent. Please check your connection and try again.";
     status.className = "contact-status error";
