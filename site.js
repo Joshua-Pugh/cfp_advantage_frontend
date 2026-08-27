@@ -2186,9 +2186,7 @@ function teamLogoMarkup(team, logos) {
 }
 
 function renderHubPick(matchup, logos) {
-  const date = matchup.date
-    ? new Date(`${matchup.date}T12:00:00`).toLocaleDateString(undefined, { month: "short", day: "numeric" })
-    : `Week ${matchup.week || 1}`;
+  const date = hubKickoffLabel(matchup);
   const projection = matchup.projection_unavailable
     ? "Schedule only"
     : `${matchup.projection_limited ? "Limited projection: " : ""}${matchup.projected_winner || "Model lean pending"} by ${formatNumber(matchup.projected_margin_abs, 1)}`;
@@ -2208,8 +2206,38 @@ function renderHubPick(matchup, logos) {
   `;
 }
 
+function hubKickoffLabel(matchup) {
+  const fallback = matchup.date
+    ? new Date(`${matchup.date}T12:00:00`).toLocaleDateString(undefined, { month: "short", day: "numeric" })
+    : `Week ${matchup.week || 1}`;
+  if (matchup.kickoff_time_tbd) return `${fallback} · Time TBD`;
+  if (!matchup.kickoff_at) return fallback;
+  const kickoff = new Date(matchup.kickoff_at);
+  if (Number.isNaN(kickoff.getTime())) return fallback;
+  const kickoffDate = kickoff.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    timeZone: "America/New_York",
+  });
+  const kickoffTime = kickoff.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    timeZone: "America/New_York",
+  });
+  return `${kickoffDate} · ${kickoffTime} ET`;
+}
+
+function hubChronologicalValue(matchup) {
+  if (matchup.kickoff_at) {
+    const kickoff = new Date(matchup.kickoff_at).getTime();
+    if (Number.isFinite(kickoff)) return kickoff;
+  }
+  const fallback = new Date(`${matchup.date || "9999-12-31"}T23:59:59`).getTime();
+  return Number.isFinite(fallback) ? fallback : Number.MAX_SAFE_INTEGER;
+}
+
 function featuredGameDayMatchups(matchups, limit = 20) {
-  return [...matchups]
+  const selected = [...matchups]
     .sort((left, right) => {
       const leftSupported = left.projection_unavailable || left.projection_limited ? 0 : 1;
       const rightSupported = right.projection_unavailable || right.projection_limited ? 0 : 1;
@@ -2221,6 +2249,11 @@ function featuredGameDayMatchups(matchups, limit = 20) {
       return String(left.away_team || "").localeCompare(String(right.away_team || ""));
     })
     .slice(0, limit);
+  return selected.sort((left, right) => {
+    const kickoffDifference = hubChronologicalValue(left) - hubChronologicalValue(right);
+    if (kickoffDifference) return kickoffDifference;
+    return String(left.away_team || "").localeCompare(String(right.away_team || ""));
+  });
 }
 
 async function loadHubGameDayCenter() {
