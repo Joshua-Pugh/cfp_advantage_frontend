@@ -47,6 +47,7 @@ function setupSiteChrome() {
     <nav class="footer-links" aria-label="Reference and legal pages">
       <a href="about.html">About</a>
       <a href="live-2026.html">2026 Live</a>
+      <a href="learn.html">Learn</a>
       <button type="button" data-open-contact>Contact</button>
       <a class="support-link" data-support-link href="${DONATE_URL || `mailto:${SUPPORT_EMAIL}?subject=Support%20CFP%20Advantage`}">Support</a>
       <a href="metrics.html">Metrics Guide</a>
@@ -79,10 +80,11 @@ function installSupportButton() {
   link.className = "floating-support-link";
   link.dataset.floatingSupport = "true";
   link.dataset.supportLink = "true";
+  link.setAttribute("aria-label", "Support CFP Advantage");
   link.href = DONATE_URL;
   link.target = "_blank";
   link.rel = "noopener noreferrer";
-  link.textContent = "Support CFP Advantage";
+  link.innerHTML = '<span class="support-full">Support</span><span class="support-icon" aria-hidden="true">$</span>';
   document.body.appendChild(link);
 }
 
@@ -100,7 +102,7 @@ function installContactModal() {
         <span class="eyebrow">Contact</span>
         <h2>Send CFP Advantage a Message</h2>
         <p>Have a question, found a bug, or want to share feedback? We'd love to hear from you.</p>
-        <p class="contact-direct-email">Prefer email? <a href="mailto:${SUPPORT_EMAIL}">${SUPPORT_EMAIL}</a></p>
+        <p class="contact-direct-email">Messages are delivered securely to ${SUPPORT_EMAIL}.</p>
         <form class="contact-form" data-contact-form>
           <label>
             <span>Name</span>
@@ -116,9 +118,9 @@ function installContactModal() {
           </label>
           <label>
             <span>Message</span>
-            <textarea name="message" rows="5" maxlength="4000" required></textarea>
+            <textarea name="message" rows="5" minlength="10" maxlength="4000" required></textarea>
           </label>
-          <p class="contact-status" data-contact-status></p>
+          <p class="contact-status" data-contact-status aria-live="polite"></p>
           <button class="primary-action" type="submit">Send Message</button>
         </form>
       </div>
@@ -170,39 +172,28 @@ async function submitContactForm(event) {
     });
     const detail = await response.json().catch(() => ({}));
     if (!response.ok) {
-      const error = detail.detail?.error || detail.error || "contact_failed";
+      const validationError = Array.isArray(detail.detail)
+        ? detail.detail.find((item) => item?.loc?.includes("message"))?.type
+        : null;
+      const error = validationError || detail.detail?.error || detail.error || "contact_failed";
       throw new Error(error);
-    }
-    if (detail.status === "fallback_required") {
-      openContactMailFallback(payload, status);
-      return;
     }
     form.reset();
     status.textContent = "Message sent. Thanks for reaching out.";
     status.className = "contact-status ok";
   } catch (error) {
-    openContactMailFallback(payload, status);
+    const messages = {
+      contact_rate_limited: "Too many messages were sent from this connection. Please try again in about 15 minutes.",
+      contact_delivery_not_configured: "Contact delivery is temporarily unavailable. Please try again shortly.",
+      contact_email_send_failed: "The message could not be delivered. Please try again in a moment.",
+      string_too_short: "Please enter a message with at least 10 characters.",
+      message_too_short: "Please enter a message with at least 10 characters.",
+    };
+    status.textContent = messages[error.message] || "The message could not be sent. Please check your connection and try again.";
+    status.className = "contact-status error";
   } finally {
     button.disabled = false;
   }
-}
-
-function openContactMailFallback(payload, status) {
-  const mailto = buildContactMailto(payload);
-  status.textContent = `Opening your email app with this message filled in. If it does not open, email ${SUPPORT_EMAIL} directly.`;
-  status.className = "contact-status ok";
-  window.location.href = mailto;
-}
-
-function buildContactMailto(payload) {
-  const subject = `CFP Advantage contact from ${payload.name || "site visitor"}`;
-  const body = [
-    `Name: ${payload.name || ""}`,
-    `Email: ${payload.email || ""}`,
-    "",
-    payload.message || "",
-  ].join("\n");
-  return `mailto:${SUPPORT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
 function installDeveloperRefreshControl() {
@@ -325,9 +316,10 @@ async function api(path) {
       console.warn("CFP Advantage cache read unavailable:", error.message);
     }
   }
-  const separator = path.includes("?") ? "&" : "?";
-  const requestPath = forceRefresh ? `${path}${separator}_refresh=${Date.now()}` : path;
-  const response = await fetch(`${API_BASE}${requestPath}`, { cache: forceRefresh ? "reload" : "default" });
+  const fetchOptions = forceRefresh
+    ? { cache: "no-store", headers: { "Cache-Control": "no-cache", Pragma: "no-cache" } }
+    : { cache: "default" };
+  const response = await fetch(`${API_BASE}${path}`, fetchOptions);
   if (!response.ok) {
     throw new Error(`${path} failed with ${response.status}`);
   }
@@ -345,6 +337,13 @@ function formatNumber(value, digits = 1) {
   if (value === null || value === undefined || value === "") return "-";
   const number = Number(value);
   return Number.isFinite(number) ? number.toFixed(digits) : "-";
+}
+
+function formatProjectionMargin(value) {
+  const number = Number(value);
+  if (!Number.isFinite(number)) return "-";
+  const rounded = Math.sign(number) * (Math.round((Math.abs(number) + Number.EPSILON) * 2) / 2);
+  return rounded.toFixed(1);
 }
 
 
@@ -822,7 +821,7 @@ function renderHistoricalSnapshot(payload, selectedGame) {
   const opponentContext = payload.opponent_context;
   const marginTeamA = Number(payload.projected_margin_team);
   const marginText = Number.isFinite(marginTeamA)
-    ? `${marginTeamA >= 0 ? teamA : teamB} by ${Math.abs(marginTeamA).toFixed(1)}`
+    ? `${marginTeamA >= 0 ? teamA : teamB} by ${formatProjectionMargin(Math.abs(marginTeamA))}`
     : "-";
   const homeFieldContext = Number(teamContext?.home_field_adjustment_team);
   const marginContextNote = Number.isFinite(homeFieldContext) && Math.abs(homeFieldContext) > 0
@@ -890,7 +889,11 @@ function pathContextLabel(value) {
 
 async function renderBracketSeason(season) {
   setStatus(`Loading ${season} Bracket Room...`);
-  const payload = await api(`/api/product-a/bracket-room?season=${encodeURIComponent(season)}`);
+  const [payload, logos] = await Promise.all([
+    api(`/api/product-a/bracket-room?season=${encodeURIComponent(season)}`),
+    loadTeamLogoCatalog(),
+  ]);
+  activeTeamLogos = logos;
   let treePayload = { tree: [] };
   try {
     treePayload = await api(`/api/product-a/bracket-room/tree?season=${encodeURIComponent(season)}`);
@@ -915,7 +918,7 @@ async function renderBracketSeason(season) {
   `;
   renderRows("bracketTable", rows, [
     { label: "Title Rank", render: (row) => row.title_probability_rank ?? row.adv_srs_rank ?? "-" },
-    { label: "Team", key: "team" },
+    { label: "Team", render: (row) => `<span class="team-name-with-logo">${teamLogoMarkup(row.team, activeTeamLogos)}${escapeHtml(row.team)}</span>` },
     { label: "Seed", key: "seed" },
     { label: "ADV SRS", render: (row) => formatNumber(row.adv_srs, 2) },
     { label: "Title Probability", render: (row) => `${formatNumber(Number(row.title_probability) * 100, 1)}%` },
@@ -976,8 +979,8 @@ function bracketGameCard(game) {
   const frameworkRead = game.diagnostic?.framework_read?.label || "Framework Unavailable";
   return `
     <button class="bracket-game-card" type="button" data-bracket-game="${escapeHtml(game.game_key)}">
-      <span>${escapeHtml(bracketTeamLabel(game.team_a || {}))}</span>
-      <span>${escapeHtml(bracketTeamLabel(game.team_b || {}))}</span>
+      <span class="team-name-with-logo">${teamLogoMarkup(game.team_a?.team || game.team_a?.display, activeTeamLogos)}${escapeHtml(bracketTeamLabel(game.team_a || {}))}</span>
+      <span class="team-name-with-logo">${teamLogoMarkup(game.team_b?.team || game.team_b?.display, activeTeamLogos)}${escapeHtml(bracketTeamLabel(game.team_b || {}))}</span>
       <small>Model lean: ${escapeHtml(favorite)} (${escapeHtml(winPct)})</small>
       <em>${escapeHtml(frameworkRead)}</em>
     </button>
@@ -997,7 +1000,7 @@ function openBracketDiagnostic(game) {
     <h2>${escapeHtml(bracketTeamLabel(game.team_a || {}))} vs ${escapeHtml(bracketTeamLabel(game.team_b || {}))}</h2>
     <div class="summary-grid">
       <div><span>Model Lean</span><strong>${escapeHtml(prob.favorite || "-")}</strong></div>
-      <div><span>Projected Margin</span><strong>${formatNumber(prob.projected_margin_team_a, 1)}</strong></div>
+      <div><span>Projected Margin</span><strong>${formatProjectionMargin(prob.projected_margin_team_a)}</strong></div>
       <div><span>Favorite Win Probability</span><strong>${prob.favorite_win_probability ? `${formatNumber(Number(prob.favorite_win_probability) * 100, 1)}%` : "-"}</strong></div>
       <div><span>Opponent Chance</span><strong>${prob.upset_risk ? `${formatNumber(Number(prob.upset_risk) * 100, 1)}%` : "-"}</strong></div>
     </div>
@@ -1038,7 +1041,7 @@ function diagnosticProfile(team) {
   const talentYield = talentYieldDisplay(profile.talent_yield);
   return `
     <article class="insight-panel compact bracket-diagnostic-card">
-      <h3>${escapeHtml(team.seed ? `${team.seed} ${team.team}` : team.team || "-")}</h3>
+      <h3 class="team-name-with-logo">${teamLogoMarkup(team.team, activeTeamLogos)}${escapeHtml(team.seed ? `${team.seed} ${team.team}` : team.team || "-")}</h3>
       <div class="bracket-profile-identity">
         <strong>${escapeHtml(profile.identity || "Framework Unavailable")}</strong>
         <small>${escapeHtml(profile.summary || profile.note || "")}</small>
@@ -1219,10 +1222,12 @@ async function renderTeamPage() {
   }
   setStatus("Loading team profile...");
   try {
-    const [profile, schedule] = await Promise.all([
+    const [profile, schedule, logos] = await Promise.all([
       api(`/api/team/${encodeURIComponent(season)}/${encodeURIComponent(team)}`),
       api(`/api/team/${encodeURIComponent(season)}/${encodeURIComponent(team)}/schedule?view=full`),
+      loadTeamLogoCatalog(),
     ]);
+    activeTeamLogos = logos;
     
     const intel = profile.intelligence || {};
     const stats = profile.comparison_stats || {};
@@ -1249,6 +1254,10 @@ async function renderTeamPage() {
     );
 
     $("teamPageResult").innerHTML = `
+      <div class="team-profile-brand">
+        ${teamLogoMarkup(team, activeTeamLogos)}
+        <div><span>${escapeHtml(season)} Team Profile</span><strong>${escapeHtml(team)}</strong></div>
+      </div>
       <div id="teamScheduleView" class="team-view-panel is-active">
         ${scheduleHtml}
       </div>
@@ -1261,9 +1270,10 @@ async function renderTeamPage() {
     `;
 
     // Setup tab switching
-    $("teamScheduleTab").addEventListener("click", () => switchTeamTab("schedule"));
-    $("teamStatsTab").addEventListener("click", () => switchTeamTab("stats"));
-    $("teamAdvProfileTab").addEventListener("click", () => switchTeamTab("adv"));
+    $("teamScheduleTab").onclick = () => switchTeamTab("schedule");
+    $("teamStatsTab").onclick = () => switchTeamTab("stats");
+    $("teamAdvProfileTab").onclick = () => switchTeamTab("adv");
+    switchTeamTab("schedule");
 
     setStatus("Team profile loaded.", "ok");
   } catch (error) {
@@ -1350,7 +1360,7 @@ function renderTeamScheduleView(season, team, intel, record, games) {
         <article class="schedule-game">
           <div class="schedule-week">${escapeHtml(String(weekField))}</div>
           <div class="schedule-opponent">
-            <strong>${homeAway} ${escapeHtml(opponent)}</strong>
+            <strong class="team-name-with-logo">${teamLogoMarkup(opponent, activeTeamLogos)}${homeAway} ${escapeHtml(opponent)}</strong>
             <span>${escapeHtml(dateStr)}${escapeHtml(neutralStr)}${escapeHtml(yardsStr)}</span>
           </div>
           <div class="schedule-score ${resultClass}">${escapeHtml(resultStr)} ${escapeHtml(score)}</div>
@@ -2148,14 +2158,180 @@ function renderRankingsPayload(payload) {
 }
 
 let recordPathPayload = null;
+let teamLogoCatalogPromise = null;
+let activeTeamLogos = {};
+
+function teamInitials(team) {
+  return String(team || "-")
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join("")
+    .toUpperCase();
+}
+
+async function loadTeamLogoCatalog() {
+  if (!teamLogoCatalogPromise) {
+    teamLogoCatalogPromise = fetch("team-logos.json?v=4.0.37", { cache: "force-cache" })
+      .then((response) => response.ok ? response.json() : { teams: {} })
+      .then((payload) => payload.teams || {})
+      .catch(() => ({}));
+  }
+  return teamLogoCatalogPromise;
+}
+
+function teamLogoMarkup(team, logos) {
+  const key = String(team || "").trim().toLowerCase();
+  const url = logos[key];
+  return `
+    <span class="hub-team-logo" aria-hidden="true">
+      <span>${escapeHtml(teamInitials(team))}</span>
+      ${url ? `<img src="${escapeHtml(url)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ""}
+    </span>
+  `;
+}
+
+function renderHubPick(matchup, logos) {
+  const date = hubKickoffLabel(matchup);
+  const projection = matchup.projection_unavailable
+    ? "Schedule only"
+    : `${matchup.projection_limited ? "Limited projection: " : ""}${matchup.projected_winner || "Model lean pending"} by ${formatProjectionMargin(matchup.projected_margin_abs)}`;
+  return `
+    <article class="hub-pick-row">
+      <div class="hub-pick-teams">
+        <div>${teamLogoMarkup(matchup.away_team, logos)}<strong>${escapeHtml(matchup.away_team)}</strong></div>
+        <span>at</span>
+        <div>${teamLogoMarkup(matchup.home_team, logos)}<strong>${escapeHtml(matchup.home_team)}</strong></div>
+      </div>
+      <div class="hub-pick-read">
+        <span>${escapeHtml(date)}</span>
+        <strong>${escapeHtml(projection)}</strong>
+        <small>${escapeHtml(matchup.context_label || "Pregame Context")}</small>
+      </div>
+    </article>
+  `;
+}
+
+function hubKickoffLabel(matchup) {
+  const fallback = matchup.date
+    ? new Date(`${matchup.date}T12:00:00`).toLocaleDateString(undefined, { month: "short", day: "numeric" })
+    : `Week ${matchup.week || 1}`;
+  if (matchup.kickoff_time_tbd) return `${fallback} · Time TBD`;
+  if (!matchup.kickoff_at) return fallback;
+  const kickoff = new Date(matchup.kickoff_at);
+  if (Number.isNaN(kickoff.getTime())) return fallback;
+  const kickoffDate = kickoff.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    timeZone: "America/New_York",
+  });
+  const kickoffTime = kickoff.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    timeZone: "America/New_York",
+  });
+  return `${kickoffDate} · ${kickoffTime} ET`;
+}
+
+function hubChronologicalValue(matchup) {
+  if (matchup.kickoff_at) {
+    const kickoff = new Date(matchup.kickoff_at).getTime();
+    if (Number.isFinite(kickoff)) return kickoff;
+  }
+  const fallback = new Date(`${matchup.date || "9999-12-31"}T23:59:59`).getTime();
+  return Number.isFinite(fallback) ? fallback : Number.MAX_SAFE_INTEGER;
+}
+
+function featuredGameDayMatchups(matchups, limit = 20) {
+  const selected = [...matchups]
+    .sort((left, right) => {
+      const leftSupported = left.projection_unavailable || left.projection_limited ? 0 : 1;
+      const rightSupported = right.projection_unavailable || right.projection_limited ? 0 : 1;
+      if (leftSupported !== rightSupported) return rightSupported - leftSupported;
+      const scoreDifference = Number(right.feature_score || -999) - Number(left.feature_score || -999);
+      if (scoreDifference) return scoreDifference;
+      const dateDifference = String(left.date || "").localeCompare(String(right.date || ""));
+      if (dateDifference) return dateDifference;
+      return String(left.away_team || "").localeCompare(String(right.away_team || ""));
+    })
+    .slice(0, limit);
+  return selected.sort((left, right) => {
+    const kickoffDifference = hubChronologicalValue(left) - hubChronologicalValue(right);
+    if (kickoffDifference) return kickoffDifference;
+    return String(left.away_team || "").localeCompare(String(right.away_team || ""));
+  });
+}
+
+async function loadHubGameDayCenter() {
+  const status = $("hubPicksStatus");
+  const list = $("hubPicksList");
+  if (!status || !list) return;
+  installHubLiveScoreboard();
+  try {
+    const refreshQuery = forceRefreshActive() ? "&refresh=true" : "";
+    const [payload, logos] = await Promise.all([
+      api(`/api/product-a/current-week?limit=150&include_schedule_only=true${refreshQuery}`),
+      loadTeamLogoCatalog(),
+    ]);
+    const allMatchups = payload.matchups || [];
+    const matchups = featuredGameDayMatchups(allMatchups);
+    const heading = $("hubPicksHeading");
+    if (heading) heading.textContent = payload.status?.label || `2026 Week ${payload.week || 1} Model Board`;
+    list.innerHTML = matchups.length
+      ? matchups.map((matchup) => renderHubPick(matchup, logos)).join("")
+      : '<div class="empty-state compact">Published Week 1 picks are temporarily unavailable.</div>';
+    status.textContent = matchups.length
+      ? `${matchups.length} featured games shown from the ${allMatchups.length}-game slate. Certified projections remain frozen before kickoff.`
+      : "The public receipt is preserved while the matchup feed reconnects.";
+    status.className = `status-line ${matchups.length ? "ok" : "warn"}`;
+  } catch (error) {
+    console.error("CFP Advantage Hub picks failed:", error);
+    status.textContent = "Published picks are temporarily unavailable here. The public receipt remains preserved.";
+    status.className = "status-line warn";
+    list.innerHTML = '<div class="empty-state compact">Open Matchups or the public pick receipts to view the frozen Week 1 board.</div>';
+  }
+}
+
+function installHubLiveScoreboard() {
+  const button = $("loadHubLiveScoreboard");
+  if (!button || button.dataset.bound === "true") return;
+  button.addEventListener("click", () => {
+    const embed = $("hubLiveScoreboardEmbed");
+    const host = $("hubLiveScoreboardFrame");
+    if (!embed || !host) return;
+    if (!host.querySelector("iframe")) {
+      const frame = document.createElement("iframe");
+      const source = new URL("https://www.sportbusy.com/embed/season");
+      source.searchParams.set("league", "cfb");
+      source.searchParams.set("filter", "all");
+      source.searchParams.set("tz", "America/New_York");
+      source.searchParams.set("h", "620");
+      source.searchParams.set("sb_parent", window.location.href);
+      frame.src = source.toString();
+      frame.title = "SportBusy college football schedule and live score widget";
+      frame.loading = "lazy";
+      frame.referrerPolicy = "strict-origin-when-cross-origin";
+      host.appendChild(frame);
+    }
+    const hidden = embed.classList.toggle("is-hidden");
+    button.setAttribute("aria-expanded", String(!hidden));
+    button.textContent = hidden ? "Show Scores" : "Hide Scores";
+  });
+  button.dataset.bound = "true";
+}
 
 async function loadLive2026Page() {
   installValidationModal();
+  installGridironReportModal();
+  installOffenseReportModal();
+  await Promise.all([loadSeasonTracker(), loadHubGameDayCenter()]);
   const status = $("recordPathStatus");
   if (!status) return;
   try {
     status.textContent = "Loading 2026 record paths...";
-    recordPathPayload = await api("/api/product-a/record-probabilities?season=2026&limit=136");
+    const refreshQuery = forceRefreshActive() ? "&refresh=true" : "";
+    recordPathPayload = await api(`/api/product-a/record-probabilities?season=2026&limit=136${refreshQuery}`);
     populateRecordTeamSelect(recordPathPayload);
     renderRecordPathBoard();
     status.textContent = recordPathPayload.method_note || "Record paths loaded.";
@@ -2167,20 +2343,145 @@ async function loadLive2026Page() {
       <div><span>Display Status</span><strong>API Update Pending</strong></div>
       <div><span>Method</span><strong>Exact Distribution</strong><small>Game probabilities drive record paths</small></div>
       <div><span>Pac-12 Flex Teams</span><strong>Held Out</strong><small>Until final matchup is set</small></div>
-      <div><span>Next Update</span><strong>Backend Deploy</strong><small>The board will populate automatically</small></div>
+      <div><span>Update Policy</span><strong>Certified Runs</strong><small>Paths update through the documented weekly process</small></div>
     `;
     $("recordPathDetail").innerHTML = `
       <div class="record-team-card">
         <p class="eyebrow">Record Paths</p>
-        <h3>2026 Board Is Being Connected</h3>
+        <h3>Record Paths Are Temporarily Unavailable</h3>
         <p>
-          Record probabilities are built and loaded, but this public API route is waiting on the next backend deploy.
-          Once the API update is live, this section will show team record distributions, average wins, and hinge games.
+          The certified record-path data could not be loaded. Team matchup projections remain available,
+          and this board will return automatically when the data service is available.
         </p>
       </div>
     `;
     $("recordPathLeaderboard").innerHTML = "";
   }
+}
+
+async function loadSeasonTracker() {
+  const status = $("seasonTrackerStatus");
+  if (!status) return;
+  try {
+    const refreshQuery = forceRefreshActive() ? "&refresh=true" : "";
+    const payload = await api(`/api/product-a/live-tracker?season=2026${refreshQuery}`);
+    const summary = payload.summary || {};
+    const graded = Number(summary.games_graded || 0);
+    const accuracy = summary.winner_accuracy === null || summary.winner_accuracy === undefined
+      ? "-"
+      : formatPercent(summary.winner_accuracy, 1);
+    const marginMae = summary.margin_mae === null || summary.margin_mae === undefined
+      ? "-"
+      : formatNumber(summary.margin_mae, 2);
+    $("seasonTrackerSummary").innerHTML = `
+      <div><span>Published Picks</span><strong>${escapeHtml(summary.games_published ?? 0)}</strong></div>
+      <div><span>Graded</span><strong>${escapeHtml(graded)}</strong></div>
+      <div><span>Pending</span><strong>${escapeHtml(summary.games_pending ?? 0)}</strong></div>
+      <div><span>Winner Accuracy</span><strong>${accuracy}</strong><small>${graded ? "Completed picks only" : "Begins after final scores"}</small></div>
+      <div><span>Margin MAE</span><strong>${marginMae}</strong><small>${graded ? "Average absolute error" : "Begins after final scores"}</small></div>
+    `;
+    const weeks = payload.weeks || [];
+    $("seasonTrackerWeeks").innerHTML = weeks.length ? weeks.map((row) => {
+      const weekGraded = Number(row.games_graded || 0);
+      const state = weekGraded
+        ? `${weekGraded} graded`
+        : `${Number(row.games_pending || 0)} awaiting finals`;
+      const weekAccuracy = row.winner_accuracy === null || row.winner_accuracy === undefined
+        ? "-"
+        : formatPercent(row.winner_accuracy, 1);
+      return `
+        <article>
+          <div><span>Week ${escapeHtml(row.week)}</span><strong>${escapeHtml(state)}</strong></div>
+          <div><span>Winner Accuracy</span><strong>${weekAccuracy}</strong></div>
+          <div><span>Margin MAE</span><strong>${row.margin_mae === null || row.margin_mae === undefined ? "-" : formatNumber(row.margin_mae, 2)}</strong></div>
+          <small>Receipt v${escapeHtml(row.receipt_version || 1)} · ${escapeHtml(String(row.publication_status || "preliminary").replaceAll("-", " "))}</small>
+        </article>
+      `;
+    }).join("") : '<div class="empty-state compact">No certified weekly receipts are available yet.</div>';
+    const updated = payload.updated_at_utc ? new Date(payload.updated_at_utc) : null;
+    $("seasonTrackerUpdated").textContent = updated && !Number.isNaN(updated.getTime())
+      ? `Last certified update: ${updated.toLocaleString()}. ${payload.update_policy || ""}`
+      : (payload.update_policy || "Updated after each certified weekly run.");
+    status.textContent = graded ? "Certified season results are current." : "Week 1 picks are published and awaiting final scores.";
+    status.className = "status-line ok";
+  } catch (error) {
+    console.error("CFP Advantage season tracker failed:", error);
+    status.textContent = "The certified season tracker is temporarily unavailable.";
+    status.className = "status-line warn";
+    $("seasonTrackerSummary").innerHTML = "";
+    $("seasonTrackerWeeks").innerHTML = "";
+    $("seasonTrackerUpdated").textContent = "Public timestamped receipts remain available in the validation repository.";
+  }
+}
+
+function installGridironReportModal() {
+  const modal = document.querySelector("[data-gridiron-modal]");
+  if (!modal || modal.dataset.bound === "true") return;
+  document.querySelectorAll("[data-open-gridiron-report]").forEach((trigger) => {
+    trigger.addEventListener("click", openGridironReportModal);
+  });
+  document.querySelectorAll("[data-close-gridiron-report]").forEach((trigger) => {
+    trigger.addEventListener("click", closeGridironReportModal);
+  });
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) closeGridironReportModal();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !modal.classList.contains("is-hidden")) {
+      closeGridironReportModal();
+    }
+  });
+  modal.dataset.bound = "true";
+}
+
+function openGridironReportModal() {
+  const modal = document.querySelector("[data-gridiron-modal]");
+  if (!modal) return;
+  modal.classList.remove("is-hidden");
+  document.body.classList.add("modal-open");
+  modal.querySelector("[data-close-gridiron-report]")?.focus();
+}
+
+function closeGridironReportModal() {
+  const modal = document.querySelector("[data-gridiron-modal]");
+  if (!modal) return;
+  modal.classList.add("is-hidden");
+  document.body.classList.remove("modal-open");
+}
+
+function installOffenseReportModal() {
+  const modal = document.querySelector("[data-offense-report-modal]");
+  if (!modal || modal.dataset.bound === "true") return;
+  document.querySelectorAll("[data-open-offense-report]").forEach((trigger) => {
+    trigger.addEventListener("click", openOffenseReportModal);
+  });
+  document.querySelectorAll("[data-close-offense-report]").forEach((trigger) => {
+    trigger.addEventListener("click", closeOffenseReportModal);
+  });
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) closeOffenseReportModal();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !modal.classList.contains("is-hidden")) {
+      closeOffenseReportModal();
+    }
+  });
+  modal.dataset.bound = "true";
+}
+
+function openOffenseReportModal() {
+  const modal = document.querySelector("[data-offense-report-modal]");
+  if (!modal) return;
+  modal.classList.remove("is-hidden");
+  document.body.classList.add("modal-open");
+  modal.querySelector("[data-close-offense-report]")?.focus();
+}
+
+function closeOffenseReportModal() {
+  const modal = document.querySelector("[data-offense-report-modal]");
+  if (!modal) return;
+  modal.classList.add("is-hidden");
+  document.body.classList.remove("modal-open");
 }
 
 function installValidationModal() {
@@ -2230,7 +2531,7 @@ function populateRecordTeamSelect(payload) {
   const firstTeam = (payload.teams || []).find((row) => row.status === "active")?.team || options[0]?.team || "";
   select.value = firstTeam;
   if (!select.dataset.bound) {
-    select.addEventListener("change", renderRecordPathBoard);
+    select.addEventListener("change", () => renderRecordPathBoard({ scroll: true }));
     select.dataset.bound = "true";
   }
 }
@@ -2251,17 +2552,182 @@ function recordDistributionBars(distribution = {}) {
       return winsB - winsA;
     });
   if (!entries.length) return '<div class="empty-state compact">Record distribution unavailable.</div>';
-  const max = Math.max(...entries.map((row) => row.probability), 0.01);
   return `
     <div class="record-distribution-bars">
       ${entries.map((row) => `
         <div class="record-bar-row">
           <span>${escapeHtml(row.record)}</span>
-          <div class="record-bar-track"><i style="width:${Math.max(2, (row.probability / max) * 100)}%"></i></div>
+          <div class="record-bar-track"><i style="width:${Math.max(2, Math.min(100, row.probability * 100))}%"></i></div>
           <strong>${formatPercent(row.probability, 1)}</strong>
         </div>
       `).join("")}
     </div>
+  `;
+}
+
+function locationLabel(side) {
+  if (side === "home") return "vs";
+  if (side === "away") return "at";
+  return "vs";
+}
+
+function recordPathCard(team = {}) {
+  const fallback = {
+    team: team.team,
+    expected_wins: team.expected_wins,
+    most_likely_record: team.likely_record,
+    most_likely_record_probability: team.likely_record_probability,
+    median_record: team.median_record,
+    prob_10_plus_wins: team.prob_10_plus_wins,
+    prob_11_plus_wins: team.prob_11_plus_wins,
+    prob_12_plus_wins: team.prob_12_plus_wins ?? team.prob_undefeated,
+    playoff_range_probability: team.prob_10_plus_wins,
+    recent_3yr_regular_wins_avg: team.recent_3yr_regular_wins_avg,
+    expected_vs_recent_3yr_regular_wins_gap: team.expected_vs_recent_3yr_regular_wins_gap,
+    expected_losses: team.expected_loss_games || [],
+    loss_risk_games: [],
+    upside_flip_path: team.upside_flip_path || [],
+    locked_path_scenarios: [],
+    why_distribution_is_cautious: [],
+    public_read: "This is a schedule-path view from today's frozen assumptions.",
+  };
+  return { ...fallback, ...(team.record_path_card || {}) };
+}
+
+function renderPathRiskGames(card = {}) {
+  const losses = Array.isArray(card.expected_losses) ? card.expected_losses : [];
+  const riskGames = Array.isArray(card.loss_risk_games) ? card.loss_risk_games : [];
+  const seen = new Set();
+  const games = [...losses, ...riskGames].filter((game) => {
+    const key = game.game_id || `${game.week}:${game.side}:${game.opponent}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+  if (!games.length) {
+    return '<div class="empty-state compact">No path-risk games are available for this team.</div>';
+  }
+  const helpText = losses.length
+    ? "Expected losses are listed first. The remaining rows are favored games with the highest individual loss risk and path impact."
+    : "The team is favored in every game, but these games carry the highest individual loss risk and can still make one loss more likely than an unbeaten season.";
+  return `
+    <p class="interpretation compact">${escapeHtml(helpText)}</p>
+    <div class="expected-loss-list">
+      ${games.slice(0, 10).map((game) => {
+        const winProbability = Number(game.win_probability);
+        const lossProbability = Number.isFinite(Number(game.loss_probability))
+          ? Number(game.loss_probability)
+          : Number.isFinite(winProbability) ? 1 - winProbability : null;
+        const pathClass = game.path_class === "expected_loss" ? "Expected loss" : "Loss-risk game";
+        const tenWin = formatSignedPercentPoints(game.win_prob_10_plus_delta);
+        const tenLoss = formatSignedPercentPoints(game.loss_prob_10_plus_delta);
+        const elevenWin = formatSignedPercentPoints(game.win_prob_11_plus_delta);
+        const elevenLoss = formatSignedPercentPoints(game.loss_prob_11_plus_delta);
+        return `
+        <div class="expected-loss-row">
+          <div>
+            <strong>${escapeHtml(locationLabel(game.side))} ${escapeHtml(game.opponent || "-")}</strong>
+            <small>${escapeHtml(pathClass)} · Week ${escapeHtml(game.week || "-")} · ${escapeHtml(game.date || "")}</small>
+            <small>10+ path: win ${tenWin} · loss ${tenLoss}</small>
+            <small>11+ path: win ${elevenWin} · loss ${elevenLoss}</small>
+          </div>
+          <div>
+            <span>${formatPercent(game.win_probability, 1)} win</span>
+            <small>${formatPercent(lossProbability, 1)} loss risk · ${formatNumber(game.expected_margin_team, 1)} pts</small>
+          </div>
+        </div>
+      `;
+      }).join("")}
+    </div>
+  `;
+}
+
+function pathRiskTitle(card = {}) {
+  const losses = Array.isArray(card.expected_losses) ? card.expected_losses : [];
+  const riskGames = Array.isArray(card.loss_risk_games) ? card.loss_risk_games : [];
+  if (losses.length && riskGames.length) return "Expected Losses & Top Loss-Risk Games";
+  if (losses.length) return "Current Expected Losses";
+  if (riskGames.length) return "Top Loss-Risk Games";
+  return "Schedule Risk";
+}
+
+function upsideStepLabel(step = {}, fallbackCount = 0) {
+  const count = Number(step.flipped_expected_losses || fallbackCount);
+  const pathType = step.path_type || "expected_loss_flip";
+  if (pathType === "loss_risk_hold") {
+    return `Protect ${count} loss-risk game${count === 1 ? "" : "s"}`;
+  }
+  return `Flip ${count} expected loss${count === 1 ? "" : "es"}`;
+}
+
+function upsideMetricLine(step = {}) {
+  if (step.path_type === "loss_risk_hold") {
+    return `11+ ${formatPercent(step.prob_11_plus, 1)} · 12-0 ${formatPercent(step.prob_12_plus, 1)}`;
+  }
+  return `10+ ${formatPercent(step.prob_10_plus, 1)} · 11+ ${formatPercent(step.prob_11_plus, 1)}`;
+}
+
+function renderCautiousReasons(card = {}) {
+  const reasons = Array.isArray(card.why_distribution_is_cautious) ? card.why_distribution_is_cautious : [];
+  if (!reasons.length) {
+    return '<div class="empty-state compact">No major caution flags are attached to this path.</div>';
+  }
+  return `
+    <ul class="record-reason-list">
+      ${reasons.map((reason) => `<li>${escapeHtml(reason)}</li>`).join("")}
+    </ul>
+  `;
+}
+
+function renderUpsidePath(card = {}) {
+  const scenarios = Array.isArray(card.locked_path_scenarios) ? card.locked_path_scenarios : [];
+  if (scenarios.length) {
+    return `
+      <div class="upside-path-list">
+        ${scenarios.map((scenario) => {
+          const locked = Array.isArray(scenario.locked_games) ? scenario.locked_games : [];
+          const games = locked.map((game) => `${locationLabel(game.side)} ${game.opponent}`).join(", ");
+          return `
+            <div class="upside-path-row">
+              <div>
+                <strong>Lock ${escapeHtml(scenario.locked_game_count || locked.length)} key win${Number(scenario.locked_game_count || locked.length) === 1 ? "" : "s"}</strong>
+                <small>${escapeHtml(games || "Key path games")}</small>
+              </div>
+              <div>
+                <span>${escapeHtml(scenario.likely_record || "-")}</span>
+                <small>10+ ${formatPercent(scenario.prob_10_plus, 1)} · 11+ ${formatPercent(scenario.prob_11_plus, 1)}</small>
+              </div>
+            </div>
+          `;
+        }).join("")}
+      </div>
+      <p class="interpretation compact">Locked scenarios hold all other game probabilities constant. They show how the record path changes if the highest-impact games are fixed as wins; they do not update team strength after the result.</p>
+    `;
+  }
+  const path = Array.isArray(card.upside_flip_path) ? card.upside_flip_path : [];
+  if (!path.length) {
+    return '<div class="empty-state compact">No locked path scenario is available for this team.</div>';
+  }
+  return `
+    <div class="upside-path-list">
+      ${path.map((step) => {
+        const flipped = Array.isArray(step.flipped_games) ? step.flipped_games : [];
+        const games = flipped.map((game) => `${locationLabel(game.side)} ${game.opponent}`).join(", ");
+        return `
+          <div class="upside-path-row">
+            <div>
+              <strong>${escapeHtml(upsideStepLabel(step, flipped.length))}</strong>
+              <small>${escapeHtml(games || "Expected-loss path")}</small>
+            </div>
+            <div>
+              <span>${escapeHtml(step.likely_record || "-")}</span>
+              <small>${escapeHtml(upsideMetricLine(step))}</small>
+            </div>
+          </div>
+        `;
+      }).join("")}
+    </div>
+    ${card.upside_path_read ? `<p class="interpretation compact">${escapeHtml(card.upside_path_read)}</p>` : ""}
   `;
 }
 
@@ -2280,12 +2746,11 @@ function renderHingeGame(team) {
     const baseline = Number(hinge[baselineKey]);
     const win = Number(hinge[winKey]);
     const loss = Number(hinge[lossKey]);
-    const max = Math.max(baseline || 0, win || 0, loss || 0, 0.01);
     const boost = Number.isFinite(win) && Number.isFinite(baseline) ? win - baseline : null;
     const damage = Number.isFinite(loss) && Number.isFinite(baseline) ? loss - baseline : null;
     const bar = (value, className) => `
       <div class="hinge-path-bar ${className}">
-        <span style="width:${Math.max(2, ((Number(value) || 0) / max) * 100)}%"></span>
+        <span style="width:${Math.max(2, Math.min(100, (Number(value) || 0) * 100))}%"></span>
         <strong>${formatPercent(value, 1)}</strong>
       </div>
     `;
@@ -2305,16 +2770,16 @@ function renderHingeGame(team) {
   }).join("");
   return `
     <article class="hinge-card">
-      <p class="eyebrow">Path Swing Game</p>
+      <p class="eyebrow">Single-Game Locked Result</p>
       <h3>${escapeHtml(location)} ${escapeHtml(hinge.opponent)}</h3>
       <div class="hinge-grid">
         <div>
-          <span>If They Win</span>
+          <span>Locked As Win</span>
           <strong>${escapeHtml(hinge.win_likely_record || "-")}</strong>
           <small>Expected wins: ${formatNumber(hinge.win_expected_wins, 2)}</small>
         </div>
         <div>
-          <span>If They Lose</span>
+          <span>Locked As Loss</span>
           <strong>${escapeHtml(hinge.loss_likely_record || "-")}</strong>
           <small>Expected wins: ${formatNumber(hinge.loss_expected_wins, 2)}</small>
         </div>
@@ -2328,11 +2793,100 @@ function renderHingeGame(team) {
         <h4>How This Game Moves The Path</h4>
         ${bars}
       </div>
+      <p class="interpretation compact">This holds all other game probabilities constant. It is not a team-strength update after the result.</p>
     </article>
   `;
 }
 
-function renderRecordPathBoard() {
+function renderFullSchedulePathImpact(team = {}) {
+  const games = Array.isArray(team.hinge_games) ? [...team.hinge_games] : [];
+  if (!games.length) {
+    return '<div class="empty-state compact">Full schedule path impact is unavailable for this team.</div>';
+  }
+  games.sort((a, b) => Number(a.week || 99) - Number(b.week || 99) || String(a.date || "").localeCompare(String(b.date || "")));
+  return `
+    <div class="schedule-impact-list">
+      ${games.map((game) => {
+        const location = locationLabel(game.side);
+        return `
+          <div class="schedule-impact-row">
+            <div>
+              <strong>${escapeHtml(location)} ${escapeHtml(game.opponent || "-")}</strong>
+              <small>Week ${escapeHtml(game.week || "-")} · ${escapeHtml(game.date || "")}</small>
+            </div>
+            <div>
+              <span>${formatPercent(game.win_probability, 1)} win</span>
+              <small>If win: ${escapeHtml(game.win_likely_record || "-")} · If loss: ${escapeHtml(game.loss_likely_record || "-")}</small>
+            </div>
+            <div>
+              <small>10+ path</small>
+              <strong>${formatSignedPercentPoints(game.win_prob_10_plus_delta)} / ${formatSignedPercentPoints(game.loss_prob_10_plus_delta)}</strong>
+            </div>
+            <div>
+              <small>11+ path</small>
+              <strong>${formatSignedPercentPoints(game.win_prob_11_plus_delta)} / ${formatSignedPercentPoints(game.loss_prob_11_plus_delta)}</strong>
+            </div>
+          </div>
+        `;
+      }).join("")}
+    </div>
+    <p class="interpretation compact">Path impact shows how winning or losing each game changes the team's 10+ and 11+ win chances compared with the current baseline.</p>
+  `;
+}
+
+function ensureRecordPathModal() {
+  let modal = document.querySelector("[data-record-path-modal]");
+  if (modal) return modal;
+  modal = document.createElement("section");
+  modal.className = "record-path-modal is-hidden";
+  modal.dataset.recordPathModal = "true";
+  modal.setAttribute("role", "dialog");
+  modal.setAttribute("aria-modal", "true");
+  modal.setAttribute("aria-label", "Record path detail");
+  modal.innerHTML = `
+    <div class="record-path-modal-card">
+      <button class="modal-close" type="button" data-close-record-path aria-label="Close record path detail">Close</button>
+      <div data-record-path-modal-content></div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) closeRecordPathModal();
+  });
+  modal.querySelector("[data-close-record-path]")?.addEventListener("click", closeRecordPathModal);
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !modal.classList.contains("is-hidden")) closeRecordPathModal();
+  });
+  return modal;
+}
+
+function openRecordPathModal(title, html) {
+  const modal = ensureRecordPathModal();
+  const content = modal.querySelector("[data-record-path-modal-content]");
+  if (!content) return;
+  content.innerHTML = `
+    <p class="eyebrow">Record Path Detail</p>
+    <h2>${escapeHtml(title)}</h2>
+    ${html}
+  `;
+  modal.classList.remove("is-hidden");
+  document.body.classList.add("modal-open");
+  modal.querySelector("[data-close-record-path]")?.focus();
+}
+
+function closeRecordPathModal() {
+  const modal = document.querySelector("[data-record-path-modal]");
+  if (!modal) return;
+  modal.classList.add("is-hidden");
+  document.body.classList.remove("modal-open");
+}
+
+function scrollRecordPathToTop() {
+  const panel = document.querySelector(".record-path-panel") || $("recordPathDetail");
+  panel?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function renderRecordPathBoard(options = {}) {
   if (!recordPathPayload) return;
   const summary = recordPathPayload.summary || {};
   const teams = recordPathPayload.teams || [];
@@ -2348,32 +2902,63 @@ function renderRecordPathBoard() {
     $("recordPathDetail").innerHTML = '<div class="empty-state">No active record paths are available.</div>';
     return;
   }
+  const card = recordPathCard(team);
+  if (options.scroll) {
+    window.requestAnimationFrame(scrollRecordPathToTop);
+  }
+  const gap = numberOrNull(card.expected_vs_recent_3yr_regular_wins_gap);
+  const gapLabel = gap === null ? "" : `${gap > 0 ? "+" : ""}${formatNumber(gap, 2)} vs recent baseline`;
   $("recordPathDetail").innerHTML = `
     <div class="record-team-card">
       <div>
         <p class="eyebrow">${escapeHtml(team.conference || "2026")} Record Path</p>
         <h3>${escapeHtml(team.team)}</h3>
-        <p>${escapeHtml(team.public_note || recordPathPayload.public_note || "")}</p>
+        <p>${escapeHtml(card.public_read || team.public_note || recordPathPayload.public_note || "")}</p>
       </div>
       <div class="summary-grid record-path-metrics">
-        <div><span>Most Likely Record</span><strong>${escapeHtml(team.likely_record || "-")}</strong><small>${formatPercent(team.likely_record_probability, 1)}</small></div>
-        <div><span>Average Wins</span><strong>${formatNumber(team.expected_wins, 2)}</strong></div>
-        <div><span>Expected Losses</span><strong>${formatNumber(team.expected_losses, 2)}</strong></div>
-        <div><span>10+ Wins</span><strong>${formatPercent(team.prob_10_plus_wins, 1)}</strong></div>
-        <div><span>11+ Wins</span><strong>${formatPercent(team.prob_11_plus_wins, 1)}</strong></div>
-        <div><span>Unbeaten</span><strong>${formatPercent(team.prob_undefeated, 1)}</strong></div>
+        <div><span>Expected Wins</span><strong>${formatNumber(card.expected_wins, 2)}</strong><small>Average schedule outcome</small></div>
+        <div><span>Most Likely Record</span><strong>${escapeHtml(card.most_likely_record || team.likely_record || "-")}</strong><small>${formatPercent(card.most_likely_record_probability, 1)}</small></div>
+        <div><span>Median Record</span><strong>${escapeHtml(card.median_record || "-")}</strong><small>Middle of distribution</small></div>
+        <div><span>10+ Wins</span><strong>${formatPercent(card.prob_10_plus_wins, 1)}</strong><small>Playoff-range path proxy</small></div>
+        <div><span>11+ Wins</span><strong>${formatPercent(card.prob_11_plus_wins, 1)}</strong></div>
+        <div><span>Recent Program Baseline</span><strong>${formatNumber(card.recent_3yr_regular_wins_avg, 1)}</strong><small>${escapeHtml(gapLabel || "Regular-season wins avg")}</small></div>
+      </div>
+      <div class="record-public-read">
+        <section>
+          <h4>${escapeHtml(pathRiskTitle(card))}</h4>
+          ${renderPathRiskGames(card)}
+        </section>
+        <section>
+          <h4>Upside Path</h4>
+          ${renderUpsidePath(card)}
+        </section>
+        <section>
+          <h4>Why The Distribution Is Cautious</h4>
+          ${renderCautiousReasons(card)}
+        </section>
       </div>
       <div class="record-path-columns">
         <section>
           <h4>Record Distribution</h4>
           ${recordDistributionBars(team.record_distribution)}
+          <p class="interpretation compact">Being favored in most games does not mean the team is expected to win all of them. Moderate loss risk across several games accumulates over the full schedule.</p>
         </section>
         <section>
           ${renderHingeGame(team)}
         </section>
       </div>
+      <section class="schedule-impact-card compact">
+        <div>
+          <h4>Full Schedule Path</h4>
+          <p class="interpretation compact">Open the full game-by-game path view to see how each locked win or loss changes the 10+ and 11+ win thresholds.</p>
+        </div>
+        <button type="button" class="secondary-action" data-open-record-path="full-schedule">View Full Schedule Path</button>
+      </section>
     </div>
   `;
+  $("recordPathDetail").querySelector("[data-open-record-path='full-schedule']")?.addEventListener("click", () => {
+    openRecordPathModal(`${team.team} Full Schedule Path`, renderFullSchedulePathImpact(team));
+  });
   const leaders = active.slice(0, 12);
   $("recordPathLeaderboard").innerHTML = `
     <h3>Teams With Highest Average Wins</h3>
@@ -2392,7 +2977,7 @@ function renderRecordPathBoard() {
     button.addEventListener("click", () => {
       const select = $("recordTeamSelect");
       if (select) select.value = button.dataset.recordTeam || "";
-      renderRecordPathBoard();
+      renderRecordPathBoard({ scroll: true });
     });
   });
 }
