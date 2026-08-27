@@ -320,6 +320,7 @@ select {
   padding: 2px 2px 14px;
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
+  scroll-padding-left: 2px;
   scrollbar-color: var(--green) #e7ece9;
 }
 

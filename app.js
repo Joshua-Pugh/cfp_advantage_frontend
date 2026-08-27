@@ -1042,6 +1042,7 @@ async function loadCurrentMatchups() {
   if (payload.weekly_snapshot_available) {
     els.featuredMatchupGrid.innerHTML = state.currentMatchups.map(renderCurrentMatchupCard).join("");
     els.featuredMatchupGrid.classList.remove("is-hidden");
+    requestAnimationFrame(() => els.featuredMatchupGrid.scrollTo({ left: 0, behavior: "auto" }));
     els.currentMatchupsEmpty.classList.add("is-hidden");
     return;
   }
@@ -1051,6 +1052,15 @@ async function loadCurrentMatchups() {
   els.currentMatchupsEmptyTitle.textContent = status.label || "No current-season data";
   els.currentMatchupsEmptyNote.textContent = payload.weekly_snapshot_note || status.message || "Current-week matchup intelligence is not available yet.";
   els.currentMatchupsEmpty.classList.remove("is-hidden");
+}
+
+function scrollMatchupRail(direction) {
+  if (!els.featuredMatchupGrid) return;
+  const card = els.featuredMatchupGrid.querySelector(".featured-matchup-card");
+  const styles = window.getComputedStyle(els.featuredMatchupGrid);
+  const gap = Number.parseFloat(styles.columnGap || styles.gap || "0") || 0;
+  const distance = (card?.getBoundingClientRect().width || 420) + gap;
+  els.featuredMatchupGrid.scrollBy({ left: direction * distance, behavior: "smooth" });
 }
 
 function numericOrNull(value) {
@@ -1842,6 +1852,9 @@ async function boot() {
   await loadCurrentMatchups();
   await loadProductGuides();
   hideStatus();
+  if (window.location.hash === "#full-slate") {
+    await openFullSlateModal();
+  }
 }
 
 async function openExplorer() {
@@ -1880,10 +1893,10 @@ if (els.explorerViewTab) els.explorerViewTab.addEventListener("click", openExplo
 if (els.metricsViewTab) els.metricsViewTab.addEventListener("click", () => setWorkspaceView("metrics"));
 if (els.termsAcceptButton) els.termsAcceptButton.addEventListener("click", acceptTerms);
 if (els.matchupRailPrevious) {
-  els.matchupRailPrevious.addEventListener("click", () => els.featuredMatchupGrid?.scrollBy({ left: -420, behavior: "smooth" }));
+  els.matchupRailPrevious.addEventListener("click", () => scrollMatchupRail(-1));
 }
 if (els.matchupRailNext) {
-  els.matchupRailNext.addEventListener("click", () => els.featuredMatchupGrid?.scrollBy({ left: 420, behavior: "smooth" }));
+  els.matchupRailNext.addEventListener("click", () => scrollMatchupRail(1));
 }
 if (els.fullSlateButton) els.fullSlateButton.addEventListener("click", openFullSlateModal);
 if (els.fullSlateModalClose) els.fullSlateModalClose.addEventListener("click", closeFullSlateModal);

@@ -2203,6 +2203,21 @@ function renderHubPick(matchup, logos) {
   `;
 }
 
+function featuredGameDayMatchups(matchups, limit = 20) {
+  return [...matchups]
+    .sort((left, right) => {
+      const leftSupported = left.projection_unavailable || left.projection_limited ? 0 : 1;
+      const rightSupported = right.projection_unavailable || right.projection_limited ? 0 : 1;
+      if (leftSupported !== rightSupported) return rightSupported - leftSupported;
+      const scoreDifference = Number(right.feature_score || -999) - Number(left.feature_score || -999);
+      if (scoreDifference) return scoreDifference;
+      const dateDifference = String(left.date || "").localeCompare(String(right.date || ""));
+      if (dateDifference) return dateDifference;
+      return String(left.away_team || "").localeCompare(String(right.away_team || ""));
+    })
+    .slice(0, limit);
+}
+
 async function loadHubGameDayCenter() {
   const status = $("hubPicksStatus");
   const list = $("hubPicksList");
@@ -2214,18 +2229,15 @@ async function loadHubGameDayCenter() {
       api(`/api/product-a/current-week?limit=150&include_schedule_only=true${refreshQuery}`),
       loadTeamLogoCatalog(),
     ]);
-    const matchups = [...(payload.matchups || [])].sort((left, right) => {
-      const dateCompare = String(left.date || "").localeCompare(String(right.date || ""));
-      if (dateCompare) return dateCompare;
-      return String(left.away_team || "").localeCompare(String(right.away_team || ""));
-    });
+    const allMatchups = payload.matchups || [];
+    const matchups = featuredGameDayMatchups(allMatchups);
     const heading = $("hubPicksHeading");
     if (heading) heading.textContent = payload.status?.label || `2026 Week ${payload.week || 1} Model Board`;
     list.innerHTML = matchups.length
       ? matchups.map((matchup) => renderHubPick(matchup, logos)).join("")
       : '<div class="empty-state compact">Published Week 1 picks are temporarily unavailable.</div>';
     status.textContent = matchups.length
-      ? `${matchups.length} games shown, including schedule-only FBS-FCS and G5 matchups. Certified projections remain frozen before kickoff.`
+      ? `${matchups.length} featured games shown from the ${allMatchups.length}-game slate. Certified projections remain frozen before kickoff.`
       : "The public receipt is preserved while the matchup feed reconnects.";
     status.className = `status-line ${matchups.length ? "ok" : "warn"}`;
   } catch (error) {
