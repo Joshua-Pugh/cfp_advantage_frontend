@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>2026 Season Hub | CFP Advantage</title>
-  <link rel="stylesheet" href="styles.css?v=4.0.39">
+  <link rel="stylesheet" href="styles.css?v=4.0.44">
   </head>
   <body data-page="live-2026">
     <main class="app-shell">
@@ -130,7 +130,7 @@
           <div>
             <p class="eyebrow">Game Day Center</p>
             <h2 id="game-day-center-heading">Frozen Picks Beside The Live Scoreboard</h2>
-            <p>Pregame projections remain frozen while the unofficial scoreboard follows games in progress.</p>
+            <p>Pregame projections remain frozen while the CFBD scoreboard follows games in progress.</p>
           </div>
           <a class="secondary-button" href="matchups.html">View All Matchups</a>
         </div>
@@ -148,20 +148,17 @@
           <aside class="hub-live-scoreboard" aria-labelledby="hubLiveScoreboardTitle">
             <div class="game-day-heading">
               <div>
-                <p class="eyebrow">Unofficial Live Results</p>
-                <h3 id="hubLiveScoreboardTitle">Saturday Scoreboard</h3>
+                <p class="eyebrow">CFBD Live Feed</p>
+                <h3 id="hubLiveScoreboardTitle">College Football Scoreboard</h3>
               </div>
               <button id="loadHubLiveScoreboard" class="secondary-button" type="button" aria-controls="hubLiveScoreboardEmbed" aria-expanded="false">Load Scores</button>
             </div>
             <p class="game-day-note">
-              Third-party scores are shown for convenience and may order games by live status. They never alter frozen CFP Advantage picks. Final margins, projection error, and winner grades appear only after the certified weekly grading run.
+              Live scores are shown for convenience and may order games by live status. They never alter frozen CFP Advantage picks and are not official CFP Advantage grades. Final margins, projection error, and winner grades appear only after the certified weekly grading run.
             </p>
             <div id="hubLiveScoreboardEmbed" class="hub-scoreboard-embed is-hidden">
               <div id="hubLiveScoreboardFrame" class="live-scoreboard-frame"></div>
-              <p class="live-scoreboard-credit">
-                Schedule and score presentation provided by
-                <a href="https://www.sportbusy.com/college-football-widget/" target="_blank" rel="noopener noreferrer">SportBusy</a>.
-              </p>
+              <p class="live-scoreboard-credit">Live schedule and score data provided by CollegeFootballData.com.</p>
             </div>
           </aside>
         </div>
@@ -1148,7 +1145,8 @@
       </div>
     </section>
 
-    <script src="config.js?v=4.0.36"></script>
-  <script src="site.js?v=4.0.42"></script>
+    <script src="config.js?v=4.0.44"></script>
+  <script src="scoreboard.js?v=4.0.44"></script>
+  <script src="site.js?v=4.0.44"></script>
   </body>
 </html>

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Matchups | CFP Advantage</title>
-  <link rel="stylesheet" href="styles.css?v=4.0.43">
+  <link rel="stylesheet" href="styles.css?v=4.0.44">
   </head>
   <body>
     <main class="app-shell matchup-page-shell">
@@ -55,11 +55,11 @@
 
       <section class="live-scoreboard-panel" aria-labelledby="liveScoreboardTitle">
         <div class="live-scoreboard-copy">
-          <p class="eyebrow">Unofficial Live Results</p>
-          <h2 id="liveScoreboardTitle">Saturday Scoreboard</h2>
+          <p class="eyebrow">CFBD Live Feed</p>
+          <h2 id="liveScoreboardTitle">College Football Scoreboard</h2>
           <p>
-            Third-party scores are shown for convenience and may update independently of CFP Advantage.
-            Pregame projections stay frozen; official grading occurs only after the certified weekly refresh.
+            Live scores are shown for convenience and do not alter frozen CFP Advantage projections.
+            They are not official CFP Advantage grades; grading occurs only after the certified weekly refresh.
           </p>
           <button id="loadLiveScoreboard" class="secondary-button" type="button" aria-controls="liveScoreboardEmbed" aria-expanded="false">
             Load Live Scoreboard
@@ -67,10 +67,7 @@
         </div>
         <div id="liveScoreboardEmbed" class="live-scoreboard-embed is-hidden">
           <div class="live-scoreboard-frame" id="liveScoreboardFrame"></div>
-          <p class="live-scoreboard-credit">
-            Schedule and score presentation provided by
-            <a href="https://www.sportbusy.com/college-football-widget/" target="_blank" rel="noopener noreferrer">SportBusy</a>.
-          </p>
+          <p class="live-scoreboard-credit">Live schedule and score data provided by CollegeFootballData.com.</p>
         </div>
       </section>
     </main>
@@ -112,7 +109,8 @@
       </div>
     </section>
 
-    <script src="config.js?v=4.0.34"></script>
-    <script src="app.js?v=4.0.43"></script>
+    <script src="config.js?v=4.0.44"></script>
+    <script src="scoreboard.js?v=4.0.44"></script>
+    <script src="app.js?v=4.0.44"></script>
   </body>
 </html>

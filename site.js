@@ -2173,7 +2173,7 @@ function teamInitials(team) {
 
 async function loadTeamLogoCatalog() {
   if (!teamLogoCatalogPromise) {
-    teamLogoCatalogPromise = fetch("team-logos.json?v=4.0.37", { cache: "force-cache" })
+    teamLogoCatalogPromise = fetch("team-logos.json?v=4.0.44", { cache: "force-cache" })
       .then((response) => response.ok ? response.json() : { teams: {} })
       .then((payload) => payload.teams || {})
       .catch(() => ({}));
@@ -2186,7 +2186,7 @@ function teamLogoMarkup(team, logos) {
   const url = logos[key];
   return `
     <span class="hub-team-logo" aria-hidden="true">
-      <span>${escapeHtml(teamInitials(team))}</span>
+      <span class="team-logo-fallback">${escapeHtml(teamInitials(team))}</span>
       ${url ? `<img src="${escapeHtml(url)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ""}
     </span>
   `;
@@ -2296,27 +2296,22 @@ async function loadHubGameDayCenter() {
 function installHubLiveScoreboard() {
   const button = $("loadHubLiveScoreboard");
   if (!button || button.dataset.bound === "true") return;
-  button.addEventListener("click", () => {
+  button.addEventListener("click", async () => {
     const embed = $("hubLiveScoreboardEmbed");
     const host = $("hubLiveScoreboardFrame");
     if (!embed || !host) return;
-    if (!host.querySelector("iframe")) {
-      const frame = document.createElement("iframe");
-      const source = new URL("https://www.sportbusy.com/embed/season");
-      source.searchParams.set("league", "cfb");
-      source.searchParams.set("filter", "all");
-      source.searchParams.set("tz", "America/New_York");
-      source.searchParams.set("h", "620");
-      source.searchParams.set("sb_parent", window.location.href);
-      frame.src = source.toString();
-      frame.title = "SportBusy college football schedule and live score widget";
-      frame.loading = "lazy";
-      frame.referrerPolicy = "strict-origin-when-cross-origin";
-      host.appendChild(frame);
+    const hidden = embed.classList.contains("is-hidden");
+    if (!hidden) {
+      embed.classList.add("is-hidden");
+      button.setAttribute("aria-expanded", "false");
+      button.textContent = "Show Scores";
+      return;
     }
-    const hidden = embed.classList.toggle("is-hidden");
-    button.setAttribute("aria-expanded", String(!hidden));
-    button.textContent = hidden ? "Show Scores" : "Hide Scores";
+    embed.classList.remove("is-hidden");
+    button.setAttribute("aria-expanded", "true");
+    button.textContent = "Refreshing Scores...";
+    await window.CFPAdvantageScoreboard.load({ host, apiBase: API_BASE });
+    button.textContent = "Hide Scores";
   });
   button.dataset.bound = "true";
 }
