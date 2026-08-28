@@ -689,9 +689,9 @@ function renderCurrentMatchupCard(matchup) {
         <strong>${escapeHtml(matchup.context_label || "Pregame Context")}</strong>
       </div>
       <div class="featured-matchup-title">
-        <div><span>Away</span><strong class="team-name-with-logo">${matchupTeamLogoMarkup(matchup.away_team)}${escapeHtml(matchup.away_team)}</strong></div>
+        <div><span>Away</span><strong>${escapeHtml(matchup.away_team)}</strong></div>
         <b>at</b>
-        <div><span>Home</span><strong class="team-name-with-logo">${matchupTeamLogoMarkup(matchup.home_team)}${escapeHtml(matchup.home_team)}</strong></div>
+        <div><span>Home</span><strong>${escapeHtml(matchup.home_team)}</strong></div>
       </div>
       <div class="weekly-projection-strip">
         <div><span>Model Lean</span><strong>${escapeHtml(matchup.projected_winner)}</strong></div>
@@ -783,7 +783,7 @@ function fullMatchupPreview(matchup) {
       <div class="panel-heading">
         <div>
           <p class="eyebrow">${escapeHtml(matchup.date || `Week ${matchup.week}`)}</p>
-          <h2 class="matchup-title-with-logos">${matchupTeamLogoMarkup(matchup.away_team)}${escapeHtml(matchup.away_team)} <small>at</small> ${matchupTeamLogoMarkup(matchup.home_team)}${escapeHtml(matchup.home_team)}</h2>
+          <h2>${escapeHtml(matchup.away_team)} at ${escapeHtml(matchup.home_team)}</h2>
           <p class="panel-note">${escapeHtml(matchup.context_note || "")}</p>
         </div>
         <span class="framework-read-label">${escapeHtml(matchup.context_label || "Mixed Context")}</span>
