@@ -781,10 +781,11 @@ select {
 
 .featured-matchup-title div {
   min-width: 0;
+  text-align: center;
 }
 
 .featured-matchup-title div:last-child {
-  text-align: right;
+  text-align: center;
 }
 
 .featured-matchup-title span,
@@ -3033,16 +3034,17 @@ tbody tr.is-clickable {
 }
 
 .featured-matchup-title .team-name-with-logo {
-  align-items: center;
-  gap: 10px;
+  display: grid;
+  justify-items: center;
+  gap: 6px;
 }
 
 .featured-matchup-title > div:first-child .team-name-with-logo {
-  justify-content: flex-start;
+  justify-content: center;
 }
 
 .featured-matchup-title > div:last-child .team-name-with-logo {
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 .featured-matchup-title .team-logo {
@@ -4291,7 +4293,7 @@ pre {
   }
 
   .featured-matchup-title > div:last-child .team-name-with-logo {
-    justify-items: end;
+    justify-items: center;
   }
 
   .featured-matchup-title .team-logo {

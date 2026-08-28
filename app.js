@@ -33,7 +33,9 @@ function loadMatchupTeamLogos() {
 
 function matchupTeamLogoMarkup(team) {
   const url = state.teamLogos?.[String(team || "").trim().toLowerCase()];
-  return `<span class="team-logo" aria-hidden="true"><span>${escapeHtml(matchupTeamInitials(team))}</span>${url ? `<img src="${escapeHtml(url)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ""}</span>`;
+  const teamName = escapeHtml(team || "Unknown team");
+  const fallback = url ? "" : `<span aria-hidden="true">${escapeHtml(matchupTeamInitials(team))}</span>`;
+  return `<span class="team-logo" title="${teamName}" aria-label="${teamName}">${fallback}${url ? `<img src="${escapeHtml(url)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ""}</span>`;
 }
 const FORCE_REFRESH_KEY = "cfp_adv_force_refresh_until";
 const TERMS_ACCEPTED_KEY = "cfp_adv_terms_accepted";
@@ -678,6 +680,14 @@ function advantageList(matchup, team) {
   return advantages.slice(0, 4).map((item) => `<li>${escapeHtml(item)}</li>`).join("");
 }
 
+function matchupContextNote(matchup) {
+  const note = String(matchup?.context_note || "").trim();
+  if (note === "This is a preseason control expectation based on weighted recent team history. It is not current-season evidence yet.") {
+    return "This preseason profile is based on weighted recent team history. It describes expected tendencies before current-season evidence is available.";
+  }
+  return note;
+}
+
 function renderCurrentMatchupCard(matchup) {
   const matchupDate = matchup.date
     ? new Date(`${matchup.date}T12:00:00`).toLocaleDateString(undefined, { month: "short", day: "numeric" })
@@ -693,7 +703,6 @@ function renderCurrentMatchupCard(matchup) {
           <span>Away</span>
           <span class="team-name-with-logo">
             ${matchupTeamLogoMarkup(matchup.away_team)}
-            <strong>${escapeHtml(matchup.away_team)}</strong>
           </span>
         </div>
         <b>at</b>
@@ -701,7 +710,6 @@ function renderCurrentMatchupCard(matchup) {
           <span>Home</span>
           <span class="team-name-with-logo">
             ${matchupTeamLogoMarkup(matchup.home_team)}
-            <strong>${escapeHtml(matchup.home_team)}</strong>
           </span>
         </div>
       </div>
@@ -710,7 +718,7 @@ function renderCurrentMatchupCard(matchup) {
         <div><span>Projected Margin</span><strong>By ${formatProjectionMargin(matchup.projected_margin_abs)}</strong></div>
         <div><span>Projection Closeness</span><strong>${formatPercent(matchup.projection_closeness ?? matchup.close_matchup_risk, 0)}</strong></div>
       </div>
-      <p class="weekly-context-note">${escapeHtml(matchup.context_note)}</p>
+      <p class="weekly-context-note">${escapeHtml(matchupContextNote(matchup))}</p>
       <button class="matchup-preview-button" type="button" data-matchup-game="${escapeHtml(matchup.game_id)}">Full Matchup Analysis</button>
     </article>
   `;
@@ -796,7 +804,7 @@ function fullMatchupPreview(matchup) {
         <div>
           <p class="eyebrow">${escapeHtml(matchup.date || `Week ${matchup.week}`)}</p>
           <h2>${escapeHtml(matchup.away_team)} at ${escapeHtml(matchup.home_team)}</h2>
-          <p class="panel-note">${escapeHtml(matchup.context_note || "")}</p>
+          <p class="panel-note">${escapeHtml(matchupContextNote(matchup))}</p>
         </div>
         <span class="framework-read-label">${escapeHtml(matchup.context_label || "Mixed Context")}</span>
       </div>
@@ -811,7 +819,7 @@ function fullMatchupPreview(matchup) {
         <div class="matchup-story-heading">
           <p class="eyebrow">Framework Read</p>
           <h3>${escapeHtml(matchup.context_label || "Mixed Framework Read")}</h3>
-          <p>${escapeHtml(matchup.context_note || "")}</p>
+          <p>${escapeHtml(matchupContextNote(matchup))}</p>
         </div>
         ${hasFrameworkSample ? `
           ${hasExpectedFootballProfile(away) || hasExpectedFootballProfile(home) ? `
