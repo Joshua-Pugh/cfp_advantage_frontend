@@ -3006,27 +3006,6 @@ tbody tr.is-clickable {
   background: #eef2ee;
 }
 
-.team-logo-fallback {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  width: 100%;
-  height: 100%;
-  place-items: center;
-  line-height: 1;
-  text-align: center;
-}
-
-.matchup-conference-context {
-  margin: 8px 0 0;
-  color: var(--muted);
-  font-size: 10px;
-  font-weight: 900;
-  letter-spacing: 0;
-  text-align: center;
-  text-transform: uppercase;
-}
-
 .official-score-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));

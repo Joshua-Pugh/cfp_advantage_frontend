@@ -23,7 +23,7 @@ function matchupTeamInitials(team) {
 
 function loadMatchupTeamLogos() {
   if (!matchupTeamLogoCatalogPromise) {
-    matchupTeamLogoCatalogPromise = fetch("team-logos.json?v=4.0.44", { cache: "force-cache" })
+    matchupTeamLogoCatalogPromise = fetch("team-logos.json?v=4.0.45", { cache: "force-cache" })
       .then((response) => response.ok ? response.json() : { teams: {} })
       .then((payload) => payload.teams || {})
       .catch(() => ({}));
@@ -34,8 +34,8 @@ function loadMatchupTeamLogos() {
 function matchupTeamLogoMarkup(team) {
   const url = state.teamLogos?.[String(team || "").trim().toLowerCase()];
   const teamName = escapeHtml(team || "Unknown team");
-  const fallback = `<span class="team-logo-fallback" aria-hidden="true">${escapeHtml(matchupTeamInitials(team))}</span>`;
-  return `<span class="team-logo" aria-label="${teamName}">${fallback}${url ? `<img src="${escapeHtml(url)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ""}</span>`;
+  const fallback = url ? "" : `<span aria-hidden="true">${escapeHtml(matchupTeamInitials(team))}</span>`;
+  return `<span class="team-logo" title="${teamName}" aria-label="${teamName}">${fallback}${url ? `<img src="${escapeHtml(url)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ""}</span>`;
 }
 const FORCE_REFRESH_KEY = "cfp_adv_force_refresh_until";
 const TERMS_ACCEPTED_KEY = "cfp_adv_terms_accepted";
@@ -688,15 +688,6 @@ function matchupContextNote(matchup) {
   return note;
 }
 
-function matchupConferenceContext(matchup) {
-  const awayConference = String(matchup?.away_conference || "").trim();
-  const homeConference = String(matchup?.home_conference || "").trim();
-  if (!awayConference && !homeConference) return "";
-  if (matchup?.game_type) return String(matchup.game_type).toUpperCase();
-  if (awayConference && awayConference === homeConference) return `${awayConference.toUpperCase()} MATCHUP`;
-  return [awayConference, "NON-CONFERENCE", homeConference].filter(Boolean).map((value) => value.toUpperCase()).join(" · ");
-}
-
 function renderCurrentMatchupCard(matchup) {
   const matchupDate = matchup.date
     ? new Date(`${matchup.date}T12:00:00`).toLocaleDateString(undefined, { month: "short", day: "numeric" })
@@ -707,7 +698,6 @@ function renderCurrentMatchupCard(matchup) {
         <span>${escapeHtml(matchupDate)}</span>
         <strong>${escapeHtml(matchup.context_label || "Pregame Context")}</strong>
       </div>
-      ${matchupConferenceContext(matchup) ? `<p class="matchup-conference-context">${escapeHtml(matchupConferenceContext(matchup))}</p>` : ""}
       <div class="featured-matchup-title">
         <div>
           <span>Away</span>
