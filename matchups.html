@@ -41,7 +41,7 @@
             <p id="currentMatchupsMessage" class="panel-note">Deep matchup analysis for the current weekly slate.</p>
           </div>
           <div class="matchup-rail-actions">
-            <button id="fullSlateButton" class="secondary-button" type="button">Full Slate</button>
+            <button id="fullSlateButton" class="secondary-button" type="button">View Weekly Schedule</button>
             <button id="matchupRailPrevious" class="icon-button" type="button" aria-label="Previous matchups" title="Previous matchups">&larr;</button>
             <button id="matchupRailNext" class="icon-button" type="button" aria-label="Next matchups" title="Next matchups">&rarr;</button>
           </div>
@@ -68,6 +68,25 @@
         <div id="liveScoreboardEmbed" class="live-scoreboard-embed is-hidden">
           <div class="live-scoreboard-frame" id="liveScoreboardFrame"></div>
           <p class="live-scoreboard-credit">Live schedule and score data provided by CollegeFootballData.com.</p>
+        </div>
+      </section>
+
+      <section class="full-slate-panel" aria-labelledby="fullSlateTitle">
+        <div class="full-slate-panel-header">
+          <div>
+            <p class="eyebrow">WEEKLY SLATE</p>
+            <h2 id="fullSlateTitle">Full Schedule</h2>
+          </div>
+          <button id="viewFullSlateButton" class="secondary-button" type="button" aria-controls="fullSlateTable" aria-expanded="false">
+            View Full Slate
+          </button>
+        </div>
+        <div id="fullSlateTable" class="full-slate-table-container is-hidden">
+          <label class="full-slate-inline-search">
+            <span>Search Team</span>
+            <input id="fullSlateInlineSearch" type="search" placeholder="Georgia, Clemson, LSU...">
+          </label>
+          <div id="fullSlateTableContent" class="full-slate-table-content"></div>
         </div>
       </section>
     </main>
