@@ -430,7 +430,6 @@ const els = {
   currentMatchupsEmpty: $("currentMatchupsEmpty"),
   currentMatchupsEmptyTitle: $("currentMatchupsEmptyTitle"),
   currentMatchupsEmptyNote: $("currentMatchupsEmptyNote"),
-  fullSlateButton: $("fullSlateButton"),
   fullSlateModal: $("fullSlateModal"),
   fullSlateModalClose: $("fullSlateModalClose"),
   fullSlateTitle: $("fullSlateTitle"),
@@ -2063,7 +2062,6 @@ if (els.matchupRailPrevious) {
 if (els.matchupRailNext) {
   els.matchupRailNext.addEventListener("click", () => scrollMatchupRail(1));
 }
-if (els.fullSlateButton) els.fullSlateButton.addEventListener("click", openFullSlateModal);
 if (els.fullSlateModalClose) els.fullSlateModalClose.addEventListener("click", closeFullSlateModal);
 if (els.fullSlateSearch) els.fullSlateSearch.addEventListener("input", renderFullSlateList);
 if (els.loadLiveScoreboard) els.loadLiveScoreboard.addEventListener("click", loadLiveScoreboard);
