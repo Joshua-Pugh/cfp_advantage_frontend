@@ -23,7 +23,7 @@ function matchupTeamInitials(team) {
 
 function loadMatchupTeamLogos() {
   if (!matchupTeamLogoCatalogPromise) {
-    matchupTeamLogoCatalogPromise = fetch("team-logos.json?v=4.0.38", { cache: "force-cache" })
+    matchupTeamLogoCatalogPromise = fetch("team-logos.json?v=4.0.42", { cache: "force-cache" })
       .then((response) => response.ok ? response.json() : { teams: {} })
       .then((payload) => payload.teams || {})
       .catch(() => ({}));
@@ -689,9 +689,21 @@ function renderCurrentMatchupCard(matchup) {
         <strong>${escapeHtml(matchup.context_label || "Pregame Context")}</strong>
       </div>
       <div class="featured-matchup-title">
-        <div><span>Away</span><strong>${escapeHtml(matchup.away_team)}</strong></div>
+        <div>
+          <span>Away</span>
+          <span class="team-name-with-logo">
+            ${matchupTeamLogoMarkup(matchup.away_team)}
+            <strong>${escapeHtml(matchup.away_team)}</strong>
+          </span>
+        </div>
         <b>at</b>
-        <div><span>Home</span><strong>${escapeHtml(matchup.home_team)}</strong></div>
+        <div>
+          <span>Home</span>
+          <span class="team-name-with-logo">
+            ${matchupTeamLogoMarkup(matchup.home_team)}
+            <strong>${escapeHtml(matchup.home_team)}</strong>
+          </span>
+        </div>
       </div>
       <div class="weekly-projection-strip">
         <div><span>Model Lean</span><strong>${escapeHtml(matchup.projected_winner)}</strong></div>
