@@ -2351,6 +2351,86 @@ async function loadHomeProductStatus() {
   }
 }
 
+function unofficialResultCard(result, logos) {
+  const tone = result.model_result === "W" ? "is-win" : result.model_result === "L" ? "is-loss" : "is-push";
+  const outcome = result.model_result === "W" ? "Win" : result.model_result === "L" ? "Loss" : "Push";
+  return `
+    <article class="home-unofficial-result ${tone}">
+      <div class="home-unofficial-result-topline">
+        <span>Final</span>
+        <b>${outcome}</b>
+      </div>
+      <div class="home-unofficial-scoreline">
+        <span>${teamLogoMarkup(result.away_team, logos)}<strong>${escapeHtml(result.away_team)} ${escapeHtml(result.away_score)}</strong></span>
+        <em>-</em>
+        <span>${teamLogoMarkup(result.home_team, logos)}<strong>${escapeHtml(result.home_team)} ${escapeHtml(result.home_score)}</strong></span>
+      </div>
+      <small>ADV pick: ${escapeHtml(result.projected_winner)} by ${formatProjectionMargin(result.projected_margin_abs)}</small>
+    </article>
+  `;
+}
+
+async function loadHomeUnofficialResults() {
+  const host = $("homeUnofficialResultsList");
+  const record = $("homeUnofficialRecord");
+  const label = $("homeUnofficialResultsLabel");
+  if (!host || !record || !label) return;
+
+  try {
+    const [picksPayload, scoreResponse, logos] = await Promise.all([
+      api("/api/product-a/current-week?limit=150"),
+      fetch(`${API_BASE}/api/game-day/scoreboard?classification=fbs`, {
+        cache: "no-store",
+        headers: { "Cache-Control": "no-cache" },
+      }),
+      loadTeamLogoCatalog(),
+    ]);
+    if (!scoreResponse.ok) throw new Error(`Scoreboard request failed with ${scoreResponse.status}`);
+
+    const scorePayload = await scoreResponse.json();
+    const picks = Array.isArray(picksPayload.matchups) ? picksPayload.matchups : [];
+    const pickByGame = new Map(picks.map((pick) => [String(pick.game_id), pick]));
+    const finals = (Array.isArray(scorePayload.games) ? scorePayload.games : [])
+      .filter((game) => game.status === "completed" && pickByGame.has(String(game.game_id)))
+      .map((game) => {
+        const pick = pickByGame.get(String(game.game_id));
+        const awayScore = Number(game.away_team?.points);
+        const homeScore = Number(game.home_team?.points);
+        const actualWinner = awayScore === homeScore
+          ? null
+          : awayScore > homeScore ? pick.away_team : pick.home_team;
+        return {
+          game_id: String(game.game_id),
+          start_date: game.start_date,
+          away_team: pick.away_team,
+          home_team: pick.home_team,
+          away_score: awayScore,
+          home_score: homeScore,
+          projected_winner: pick.projected_winner,
+          projected_margin_abs: pick.projected_margin_abs,
+          model_result: actualWinner === null ? "P" : actualWinner === pick.projected_winner ? "W" : "L",
+        };
+      })
+      .sort((left, right) => new Date(right.start_date).getTime() - new Date(left.start_date).getTime());
+
+    const wins = finals.filter((game) => game.model_result === "W").length;
+    const losses = finals.filter((game) => game.model_result === "L").length;
+    const pushes = finals.filter((game) => game.model_result === "P").length;
+    const week = picksPayload.status?.selected_week || picks[0]?.week || 1;
+    label.textContent = `Week ${week}`;
+    record.textContent = finals.length
+      ? `${wins}-${losses}${pushes ? `-${pushes}` : ""} unofficial`
+      : "No finals yet";
+    host.innerHTML = finals.length
+      ? finals.slice(0, 4).map((result) => unofficialResultCard(result, logos)).join("")
+      : '<span class="home-unofficial-empty">Completed games will appear here as live finals become available.</span>';
+  } catch (error) {
+    console.error("CFP Advantage unofficial results failed:", error);
+    record.textContent = "Temporarily unavailable";
+    host.innerHTML = '<span class="home-unofficial-empty">The live results feed is reconnecting. Certified records remain unchanged.</span>';
+  }
+}
+
 async function loadHomeScoreStrip() {
   const host = $("homeScoreboardStrip");
   if (!host || !window.CFPAdvantageScoreboard) return;
@@ -3154,6 +3234,7 @@ async function boot() {
     if (page === "home") await Promise.all([
       loadHomeWeeklySurface(),
       loadHomeProductStatus(),
+      loadHomeUnofficialResults(),
       loadHomeScoreStrip(),
       loadNewsPage("homeNewsList", 3, true),
     ]);

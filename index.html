@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CFP Advantage | 2026 Live Season</title>
-    <link rel="stylesheet" href="styles.css?v=4.0.56">
+    <link rel="stylesheet" href="styles.css?v=4.0.57">
   </head>
   <body data-page="home">
     <main class="app-shell home-shell">
@@ -43,6 +43,19 @@
             <div><span>Graded Picks</span><b id="homeGradedPicks">-</b></div>
           </div>
           <small id="homeValidationNote">Loading the certified season record...</small>
+        </div>
+        <div class="home-unofficial-results" id="homeUnofficialResults" aria-live="polite">
+          <div class="home-unofficial-results-heading">
+            <div>
+              <span class="eyebrow" id="homeUnofficialResultsLabel">Current Week</span>
+              <strong>Unofficial Model Results</strong>
+            </div>
+            <b id="homeUnofficialRecord">Checking finals...</b>
+          </div>
+          <div id="homeUnofficialResultsList" class="home-unofficial-results-list">
+            <span class="home-matchups-spinner" aria-hidden="true"></span>
+          </div>
+          <small>Live CFBD finals are provisional. The certified tracker updates only after the weekly grading run.</small>
         </div>
       </section>
 
@@ -140,8 +153,8 @@
     </footer>
     </main>
 
-    <script src="config.js?v=4.0.56"></script>
-    <script src="scoreboard.js?v=4.0.56"></script>
-    <script src="site.js?v=4.0.56"></script>
+    <script src="config.js?v=4.0.57"></script>
+    <script src="scoreboard.js?v=4.0.57"></script>
+    <script src="site.js?v=4.0.57"></script>
   </body>
 </html>

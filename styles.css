@@ -271,6 +271,126 @@ select {
   line-height: 1.1;
 }
 
+.home-unofficial-results {
+  display: grid;
+  grid-column: 1 / -1;
+  gap: 10px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.home-unofficial-results-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.home-unofficial-results-heading > div {
+  display: grid;
+  gap: 3px;
+}
+
+.home-unofficial-results-heading strong {
+  color: var(--charcoal);
+  font-size: 18px;
+}
+
+.home-unofficial-results-heading b {
+  color: var(--green);
+  font-size: 15px;
+}
+
+.home-unofficial-results-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.home-unofficial-results-list .home-matchups-spinner {
+  grid-column: 1 / -1;
+  width: 24px;
+  height: 24px;
+  margin: 4px auto;
+}
+
+.home-unofficial-result {
+  display: grid;
+  gap: 7px;
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+}
+
+.home-unofficial-result.is-win {
+  box-shadow: inset 3px 0 0 #2f7a62;
+}
+
+.home-unofficial-result.is-loss {
+  box-shadow: inset 3px 0 0 #a34a4a;
+}
+
+.home-unofficial-result-topline,
+.home-unofficial-scoreline,
+.home-unofficial-scoreline > span {
+  display: flex;
+  align-items: center;
+}
+
+.home-unofficial-result-topline {
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.home-unofficial-result.is-win .home-unofficial-result-topline b {
+  color: #1f6b50;
+}
+
+.home-unofficial-result.is-loss .home-unofficial-result-topline b {
+  color: #913f3f;
+}
+
+.home-unofficial-scoreline {
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.home-unofficial-scoreline > span {
+  gap: 5px;
+  min-width: 0;
+}
+
+.home-unofficial-scoreline strong {
+  overflow-wrap: anywhere;
+  color: var(--charcoal);
+  font-size: 12px;
+}
+
+.home-unofficial-scoreline em {
+  color: var(--muted);
+  font-style: normal;
+}
+
+.home-unofficial-scoreline .hub-team-logo {
+  flex-basis: 24px;
+  width: 24px;
+  height: 24px;
+}
+
+.home-unofficial-result > small,
+.home-unofficial-results > small,
+.home-unofficial-empty {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
 .home-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -4751,6 +4871,10 @@ pre {
 }
 
 @media (max-width: 1050px) {
+  .home-unofficial-results-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .topbar,
   .scoreboard,
   .content-grid,
@@ -5263,6 +5387,15 @@ pre {
 }
 
 @media (max-width: 700px) {
+  .home-unofficial-results-heading {
+    display: grid;
+    align-items: start;
+  }
+
+  .home-unofficial-results-list {
+    grid-template-columns: 1fr;
+  }
+
   .bracket-tree {
     grid-template-columns: 1fr;
   }
