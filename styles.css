@@ -662,12 +662,38 @@ select {
 
 .home-matchup-card {
   color: inherit;
-  cursor: pointer;
 }
 
-.home-matchup-card:focus-visible {
-  outline: 3px solid rgba(43, 102, 86, 0.28);
-  outline-offset: 3px;
+.home-matchups-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.home-matchups-cta.is-hidden {
+  display: none;
+}
+
+.home-matchups-cta strong {
+  display: block;
+  color: var(--charcoal);
+  font-size: 18px;
+}
+
+.home-matchups-cta p {
+  max-width: 680px;
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-weight: 650;
+  line-height: 1.45;
+}
+
+.home-matchups-cta .primary-action {
+  flex: 0 0 auto;
+  text-align: center;
 }
 
 .home-score-strip-section {
@@ -4554,6 +4580,14 @@ pre {
     min-width: 0;
     overflow: hidden;
     padding: 14px;
+  }
+
+  .home-matchups-cta {
+    display: grid;
+  }
+
+  .home-matchups-cta .primary-action {
+    width: 100%;
   }
 
   .featured-matchup-grid {

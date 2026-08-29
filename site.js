@@ -2223,7 +2223,7 @@ function renderHomeMatchupCard(matchup, logos) {
       ? `${awayConference} non-con game ${homeConference}`
       : "";
   return `
-    <article class="featured-matchup-card matchup-rail-card home-matchup-card" role="link" tabindex="0" data-home-matchup-game="${escapeHtml(matchup.game_id)}" aria-label="Open ${escapeHtml(matchup.away_team)} at ${escapeHtml(matchup.home_team)} matchup analysis">
+    <article class="featured-matchup-card matchup-rail-card home-matchup-card">
       <div class="featured-matchup-topline">
         <span>${escapeHtml(matchupDate)}</span>
         <strong>${escapeHtml(matchup.context_label || "Pregame Context")}</strong>
@@ -2248,15 +2248,8 @@ function renderHomeMatchupCard(matchup, logos) {
         <div><span title="How close the projected margin is, not model confidence">Projection Closeness</span><strong>${formatPercent(matchup.projection_closeness ?? matchup.close_matchup_risk, 0)}</strong></div>
       </div>
       <p class="weekly-context-note">${escapeHtml(homeMatchupContextNote(matchup))}</p>
-      <span class="matchup-preview-button">Full Matchup Analysis</span>
     </article>
   `;
-}
-
-function openHomeMatchup(gameId) {
-  const query = new URLSearchParams({ game_id: String(gameId) });
-  if (LOCAL_API_OVERRIDE) query.set("api", LOCAL_API_OVERRIDE);
-  window.location.href = `matchups.html?${query.toString()}`;
 }
 
 function scrollHomeMatchups(direction) {
@@ -2274,7 +2267,7 @@ async function loadHomeWeeklySurface() {
   if (!rail || !empty) return;
   try {
     const [payload, logos] = await Promise.all([
-      api("/api/product-a/current-week?limit=6"),
+      api("/api/product-a/current-week?limit=5"),
       loadTeamLogoCatalog(),
     ]);
     const matchups = payload.matchups || [];
@@ -2289,17 +2282,14 @@ async function loadHomeWeeklySurface() {
     rail.innerHTML = matchups.map((matchup) => renderHomeMatchupCard(matchup, logos)).join("");
     rail.classList.remove("is-hidden");
     empty.classList.add("is-hidden");
-    rail.addEventListener("click", (event) => {
-      const card = event.target.closest("[data-home-matchup-game]");
-      if (card) openHomeMatchup(card.dataset.homeMatchupGame);
-    });
-    rail.addEventListener("keydown", (event) => {
-      if (!["Enter", " "].includes(event.key)) return;
-      const card = event.target.closest("[data-home-matchup-game]");
-      if (!card) return;
-      event.preventDefault();
-      openHomeMatchup(card.dataset.homeMatchupGame);
-    });
+    const week = payload.week || status.selected_week || 1;
+    const cta = $("homeMatchupsCta");
+    const explore = $("homeMatchupsExplore");
+    const destination = new URLSearchParams({ full_slate: "1" });
+    if (LOCAL_API_OVERRIDE) destination.set("api", LOCAL_API_OVERRIDE);
+    explore.textContent = `Explore All Week ${week} Matchups`;
+    explore.href = `matchups.html?${destination.toString()}#full-slate`;
+    cta.classList.remove("is-hidden");
     $("homeMatchupPrevious")?.addEventListener("click", () => scrollHomeMatchups(-1));
     $("homeMatchupNext")?.addEventListener("click", () => scrollHomeMatchups(1));
   } catch (error) {

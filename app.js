@@ -1911,7 +1911,9 @@ async function boot() {
   showStatus("Fetching Matchups...", "Preparing the weekly matchup workspace.", true);
   await loadCurrentMatchups();
   await loadProductGuides();
-  const linkedGameId = new URLSearchParams(window.location.search).get("game_id");
+  const pageQuery = new URLSearchParams(window.location.search);
+  if (pageQuery.get("full_slate") === "1") await loadFullSlateTableData();
+  const linkedGameId = pageQuery.get("game_id");
   if (linkedGameId) openMatchupPreview(linkedGameId);
   hideStatus();
 }
