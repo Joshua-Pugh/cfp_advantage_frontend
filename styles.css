@@ -565,6 +565,20 @@ select {
   margin: 6px 0 10px;
 }
 
+.full-slate-empty {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+}
+
+.full-slate-empty.is-hidden {
+  display: none;
+}
+
+.full-slate-empty .secondary-button {
+  margin-top: 4px;
+}
+
 .full-slate-table-container.is-hidden {
   display: none;
 }

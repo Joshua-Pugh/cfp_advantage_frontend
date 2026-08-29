@@ -430,12 +430,6 @@ const els = {
   currentMatchupsEmpty: $("currentMatchupsEmpty"),
   currentMatchupsEmptyTitle: $("currentMatchupsEmptyTitle"),
   currentMatchupsEmptyNote: $("currentMatchupsEmptyNote"),
-  fullSlateModal: $("fullSlateModal"),
-  fullSlateModalClose: $("fullSlateModalClose"),
-  fullSlateTitle: $("fullSlateTitle"),
-  fullSlateNote: $("fullSlateNote"),
-  fullSlateSearch: $("fullSlateSearch"),
-  fullSlateContent: $("fullSlateContent"),
   loadLiveScoreboard: $("loadLiveScoreboard"),
   liveScoreboardEmbed: $("liveScoreboardEmbed"),
   liveScoreboardFrame: $("liveScoreboardFrame"),
@@ -443,6 +437,7 @@ const els = {
   fullSlateTable: $("fullSlateTable"),
   fullSlateTableContent: $("fullSlateTableContent"),
   fullSlateInlineSearch: $("fullSlateInlineSearch"),
+  fullSlatePrompt: $("fullSlatePrompt"),
   matchupRailPrevious: $("matchupRailPrevious"),
   matchupRailNext: $("matchupRailNext"),
   matchupPreviewModal: $("matchupPreviewModal"),
@@ -938,90 +933,6 @@ function fullMatchupPreview(matchup) {
 }
 
 
-async function openFullSlateModal() {
-  if (!els.fullSlateModal || !els.fullSlateContent) return;
-  els.fullSlateTitle.textContent = els.currentMatchupsLabel?.textContent || "Full Slate";
-  els.fullSlateNote.textContent = "Loading the full weekly slate...";
-  els.fullSlateContent.innerHTML = '<div class="empty-state compact">Loading full slate...</div>';
-  els.fullSlateModal.classList.remove("is-hidden");
-  document.body.classList.add("modal-open");
-  try {
-    const query = state.currentMatchupQuery
-      ? `?${state.currentMatchupQuery}&limit=150&include_schedule_only=true&refresh=true`
-      : "?limit=150&include_schedule_only=true&refresh=true";
-    const [payload, logos] = await Promise.all([
-      api(`/api/product-a/current-week${query}`),
-      loadMatchupTeamLogos(),
-    ]);
-    state.teamLogos = logos;
-    state.fullSlateMatchups = payload.matchups || [];
-    els.fullSlateNote.textContent = payload.status?.message || "Search or select any matchup from the selected week.";
-    if (els.fullSlateSearch) els.fullSlateSearch.value = "";
-    renderFullSlateList();
-    els.fullSlateSearch?.focus();
-  } catch (error) {
-    els.fullSlateNote.textContent = "Full slate unavailable.";
-    els.fullSlateContent.innerHTML = `<div class="empty-state compact">${escapeHtml(error.message)}</div>`;
-  }
-}
-
-function renderFullSlateList() {
-  if (!els.fullSlateContent) return;
-  const search = String(els.fullSlateSearch?.value || "").trim().toLowerCase();
-  const aliasMap = {
-    uga: ["georgia", "bulldogs", "dawgs"],
-    dawgs: ["georgia"],
-    bulldogs: ["georgia"],
-  };
-  const searchTerms = [search, ...(aliasMap[search] || [])].filter(Boolean);
-  const rows = (state.fullSlateMatchups || []).filter((matchup) => {
-    if (!search) return true;
-    const haystack = [
-      matchup.away_team,
-      matchup.home_team,
-      matchup.projected_winner,
-      matchup.away_conference,
-      matchup.home_conference,
-      matchup.away_team_tier,
-      matchup.home_team_tier,
-      matchup.game_type,
-    ].map((value) => String(value || "").toLowerCase()).join(" ");
-    return searchTerms.some((term) => haystack.includes(term));
-  });
-  if (!rows.length) {
-    els.fullSlateContent.innerHTML = '<div class="empty-state compact">No matchups match that search.</div>';
-    return;
-  }
-  const teamMeta = (tier, conference) => [tier, conference]
-    .filter(Boolean)
-    .map((value) => String(value).toUpperCase())
-    .join(" - ");
-  const rowClass = (matchup) => [
-    "full-slate-row",
-    matchup.projection_unavailable ? "is-schedule-only" : "",
-    matchup.projection_limited ? "is-limited-projection" : "",
-  ].filter(Boolean).join(" ");
-  const projectionLine = (matchup) => {
-    if (matchup.projection_unavailable) {
-      return escapeHtml(matchup.context_note || "Schedule-only row. No ADV projection is published for this matchup.");
-    }
-    const prefix = matchup.projection_limited ? "Limited projection: " : "";
-    return `${prefix}${escapeHtml(matchup.projected_winner || "-")} by ${formatProjectionMargin(matchup.projected_margin_abs)} - ${escapeHtml(matchup.context_label || "Pregame Context")}`;
-  };
-  els.fullSlateContent.innerHTML = rows.map((matchup) => `
-    <button type="button" class="${rowClass(matchup)}" data-full-slate-game="${escapeHtml(matchup.game_id)}">
-      <span class="full-slate-row-date">Week ${escapeHtml(matchup.week || "-")} - ${escapeHtml(matchup.date || "")}</span>
-      <strong class="full-slate-matchup-title">${matchupTeamLogoMarkup(matchup.away_team)}${escapeHtml(matchup.away_team)} <small>at</small> ${matchupTeamLogoMarkup(matchup.home_team)}${escapeHtml(matchup.home_team)}</strong>
-      <span class="full-slate-team-meta">
-        <span>${escapeHtml(matchup.away_team || "-")}: ${escapeHtml(teamMeta(matchup.away_team_tier, matchup.away_conference) || "Team profile")}</span>
-        <span>${escapeHtml(matchup.home_team || "-")}: ${escapeHtml(teamMeta(matchup.home_team_tier, matchup.home_conference) || "Team profile")}</span>
-        ${matchup.game_type ? `<span>${escapeHtml(matchup.game_type)}</span>` : ""}
-      </span>
-      <em>${projectionLine(matchup)}</em>
-    </button>
-  `).join("");
-}
-
 function renderFullSlateTableInline() {
   if (!els.fullSlateTableContent) return;
   const search = String(els.fullSlateInlineSearch?.value || "").trim().toLowerCase();
@@ -1098,26 +1009,20 @@ function renderFullSlateTableInline() {
 
 async function loadFullSlateTableData() {
   if (!els.fullSlateTable || !els.fullSlateTableContent) return;
-  const isHidden = els.fullSlateTable.classList.contains("is-hidden");
-  if (!isHidden) {
-    els.fullSlateTable.classList.add("is-hidden");
-    els.viewFullSlateButton?.setAttribute("aria-expanded", "false");
-    return;
-  }
-  
-  // If data is already loaded, just show it
+
   if (state.fullSlateMatchups && state.fullSlateMatchups.length > 0) {
     els.fullSlateTable.classList.remove("is-hidden");
+    els.fullSlatePrompt?.classList.add("is-hidden");
     els.viewFullSlateButton?.setAttribute("aria-expanded", "true");
     renderFullSlateTableInline();
     return;
   }
-  
-  // Otherwise, load the data
+
   els.fullSlateTable.classList.remove("is-hidden");
-  els.viewFullSlateButton?.setAttribute("aria-expanded", "true");
+  els.viewFullSlateButton?.setAttribute("disabled", "disabled");
+  if (els.viewFullSlateButton) els.viewFullSlateButton.textContent = "Loading Full Game List...";
   els.fullSlateTableContent.innerHTML = '<div class="empty-state compact">Loading full slate...</div>';
-  
+
   try {
     const query = state.currentMatchupQuery
       ? `?${state.currentMatchupQuery}&limit=150&include_schedule_only=true&refresh=true`
@@ -1129,9 +1034,15 @@ async function loadFullSlateTableData() {
     state.teamLogos = logos;
     state.fullSlateMatchups = payload.matchups || [];
     if (els.fullSlateInlineSearch) els.fullSlateInlineSearch.value = "";
+    els.fullSlatePrompt?.classList.add("is-hidden");
+    els.viewFullSlateButton?.setAttribute("aria-expanded", "true");
     renderFullSlateTableInline();
   } catch (error) {
+    els.fullSlateTable.classList.add("is-hidden");
     els.fullSlateTableContent.innerHTML = `<div class="empty-state compact">Full slate unavailable: ${escapeHtml(error.message)}</div>`;
+    if (els.viewFullSlateButton) els.viewFullSlateButton.textContent = "Try Loading Full Game List Again";
+  } finally {
+    els.viewFullSlateButton?.removeAttribute("disabled");
   }
 }
 
@@ -1149,12 +1060,6 @@ async function loadLiveScoreboard() {
   els.loadLiveScoreboard.textContent = "Refreshing Scores...";
   await window.CFPAdvantageScoreboard.load({ host: els.liveScoreboardFrame, apiBase: API_BASE });
   els.loadLiveScoreboard.textContent = "Hide Live Scoreboard";
-}
-
-function closeFullSlateModal() {
-  if (!els.fullSlateModal) return;
-  els.fullSlateModal.classList.add("is-hidden");
-  document.body.classList.remove("modal-open");
 }
 
 function openMatchupPreview(gameId) {
@@ -2016,9 +1921,6 @@ async function boot() {
   await loadCurrentMatchups();
   await loadProductGuides();
   hideStatus();
-  if (window.location.hash === "#full-slate") {
-    await openFullSlateModal();
-  }
 }
 
 async function openExplorer() {
@@ -2046,7 +1948,6 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
     closeHelp();
     closeMatchupPreview();
-    closeFullSlateModal();
   }
 });
 
@@ -2062,8 +1963,6 @@ if (els.matchupRailPrevious) {
 if (els.matchupRailNext) {
   els.matchupRailNext.addEventListener("click", () => scrollMatchupRail(1));
 }
-if (els.fullSlateModalClose) els.fullSlateModalClose.addEventListener("click", closeFullSlateModal);
-if (els.fullSlateSearch) els.fullSlateSearch.addEventListener("input", renderFullSlateList);
 if (els.loadLiveScoreboard) els.loadLiveScoreboard.addEventListener("click", loadLiveScoreboard);
 if (els.viewFullSlateButton) els.viewFullSlateButton.addEventListener("click", loadFullSlateTableData);
 if (els.fullSlateInlineSearch) els.fullSlateInlineSearch.addEventListener("input", renderFullSlateTableInline);
@@ -2074,19 +1973,6 @@ if (els.fullSlateTableContent) {
     const matchup = state.fullSlateMatchups.find((row) => String(row.game_id) === String(button.dataset.fullSlateGame));
     if (matchup?.projection_unavailable || matchup?.projection_limited) return;
     if (matchup) {
-      state.currentMatchups = [...state.currentMatchups.filter((row) => String(row.game_id) !== String(matchup.game_id)), matchup];
-      openMatchupPreview(matchup.game_id);
-    }
-  });
-}
-if (els.fullSlateContent) {
-  els.fullSlateContent.addEventListener("click", (event) => {
-    const button = event.target.closest("[data-full-slate-game]");
-    if (!button) return;
-    const matchup = state.fullSlateMatchups.find((row) => String(row.game_id) === String(button.dataset.fullSlateGame));
-    if (matchup?.projection_unavailable || matchup?.projection_limited) return;
-    if (matchup) {
-      closeFullSlateModal();
       state.currentMatchups = [...state.currentMatchups.filter((row) => String(row.game_id) !== String(matchup.game_id)), matchup];
       openMatchupPreview(matchup.game_id);
     }

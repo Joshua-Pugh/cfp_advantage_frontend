@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Matchups | CFP Advantage</title>
-  <link rel="stylesheet" href="styles.css?v=4.0.45">
+  <link rel="stylesheet" href="styles.css?v=4.0.46">
   </head>
   <body>
     <main class="app-shell matchup-page-shell">
@@ -75,9 +75,14 @@
           <div>
             <p class="eyebrow">WEEKLY SLATE</p>
             <h2 id="fullSlateTitle">Full Schedule</h2>
+            <p class="panel-note">Browse every game in the selected week, including schedule-only FBS and FCS matchups.</p>
           </div>
+        </div>
+        <div id="fullSlatePrompt" class="current-matchups-empty full-slate-empty">
+          <strong>The full weekly slate is ready when you are.</strong>
+          <p>Load the complete game list only when you need it. This keeps the page quick while Games of the Week stays focused on the featured matchups.</p>
           <button id="viewFullSlateButton" class="secondary-button" type="button" aria-controls="fullSlateTable" aria-expanded="false">
-            Load All Games
+            Load Full Game List
           </button>
         </div>
         <div id="fullSlateTable" class="full-slate-table-container is-hidden">
@@ -97,24 +102,6 @@
       </div>
     </section>
 
-    <section id="fullSlateModal" class="bracket-modal is-hidden" aria-label="Full weekly slate" role="dialog" aria-modal="true">
-      <div class="bracket-modal-card matchup-preview-modal-card">
-        <button id="fullSlateModalClose" class="help-close" type="button" aria-label="Close full slate">x</button>
-        <div class="panel-heading compact-heading">
-          <div>
-            <p class="eyebrow">Weekly Slate</p>
-            <h2 id="fullSlateTitle">Full Slate</h2>
-            <p id="fullSlateNote" class="panel-note">Search or select any matchup from the selected week.</p>
-          </div>
-        </div>
-        <label class="full-slate-search">
-          <span>Search Team</span>
-          <input id="fullSlateSearch" type="search" placeholder="Georgia, Clemson, LSU...">
-        </label>
-        <div id="fullSlateContent" class="full-slate-list"></div>
-      </div>
-    </section>
-
     <section id="termsBanner" class="terms-banner is-hidden" aria-label="Terms acknowledgement">
       <div class="terms-card">
         <p class="eyebrow">CFP Advantage Terms</p>
@@ -127,8 +114,8 @@
       </div>
     </section>
 
-    <script src="config.js?v=4.0.45"></script>
-    <script src="scoreboard.js?v=4.0.45"></script>
-    <script src="app.js?v=4.0.45"></script>
+    <script src="config.js?v=4.0.46"></script>
+    <script src="scoreboard.js?v=4.0.46"></script>
+    <script src="app.js?v=4.0.46"></script>
   </body>
 </html>
