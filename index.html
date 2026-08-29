@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CFP Advantage | 2026 Live Season</title>
-    <link rel="stylesheet" href="styles.css?v=4.0.57">
+    <link rel="stylesheet" href="styles.css?v=4.0.58">
   </head>
   <body data-page="home">
     <main class="app-shell home-shell">
@@ -52,8 +52,31 @@
             </div>
             <b id="homeUnofficialRecord">Checking finals...</b>
           </div>
+          <div class="home-unofficial-summary">
+            <div>
+              <span>Completed Games</span>
+              <strong id="homeUnofficialCompleted">0</strong>
+            </div>
+            <div>
+              <span>Model Record</span>
+              <strong id="homeUnofficialModelRecord">0-0</strong>
+            </div>
+            <div>
+              <span>Winner Accuracy</span>
+              <strong id="homeUnofficialAccuracy">0.0%</strong>
+            </div>
+            <div>
+              <span>Average Margin Error</span>
+              <strong id="homeUnofficialMae">-</strong>
+            </div>
+          </div>
           <div id="homeUnofficialResultsList" class="home-unofficial-results-list">
             <span class="home-matchups-spinner" aria-hidden="true"></span>
+          </div>
+          <div class="home-unofficial-actions">
+            <button id="homeUnofficialViewAll" class="secondary-button" type="button">
+              View All Unofficial Results
+            </button>
           </div>
           <small>Live CFBD finals are provisional. The certified tracker updates only after the weekly grading run.</small>
         </div>
@@ -145,6 +168,26 @@
           </article>
         </div>
       </section>
+      <section id="homeUnofficialModal" class="unofficial-results-modal is-hidden" role="dialog" aria-modal="true" aria-labelledby="homeUnofficialModalTitle">
+        <div class="unofficial-results-modal-card">
+          <button id="homeUnofficialModalClose" class="modal-close" type="button">
+            Close
+          </button>
+          <p class="eyebrow">2026 Live Validation</p>
+          <h2 id="homeUnofficialModalTitle">Unofficial Model Results</h2>
+          <div id="homeUnofficialModalSummary" class="home-unofficial-summary"></div>
+          <div id="homeUnofficialModalList" class="unofficial-results-modal-list"></div>
+          <div class="unofficial-results-pagination">
+            <button id="homeUnofficialPrevious" class="secondary-button" type="button">
+              ← Previous
+            </button>
+            <span id="homeUnofficialPageLabel">Page 1</span>
+            <button id="homeUnofficialNext" class="secondary-button" type="button">
+              Next →
+            </button>
+          </div>
+        </div>
+      </section>
 
      <footer class="site-footer">
       <p>© 2026 CFP Advantage. All rights reserved.</p>
@@ -153,8 +196,8 @@
     </footer>
     </main>
 
-    <script src="config.js?v=4.0.57"></script>
-    <script src="scoreboard.js?v=4.0.57"></script>
-    <script src="site.js?v=4.0.57"></script>
+    <script src="config.js?v=4.0.58"></script>
+    <script src="scoreboard.js?v=4.0.58"></script>
+    <script src="site.js?v=4.0.58"></script>
   </body>
 </html>

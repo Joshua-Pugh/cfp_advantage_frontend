@@ -7,6 +7,12 @@ const DONATE_URL = CONFIG.DONATE_URL || "";
 const SHOW_DEV_TOOLS = IS_LOCAL_HOST || CONFIG.ENABLE_DEV_TOOLS === true;
 const CACHE_PREFIX = `cfp_adv_api_cache:${CONFIG.APP_VERSION || "dev"}:`;
 const CACHE_TTL_MS = IS_LOCAL_HOST ? 0 : 1000 * 60 * 20;
+
+const UNOFFICIAL_RESULTS_PAGE_SIZE = 8;
+let unofficialResultsPage = 0;
+let unofficialResultsData = [];
+let unofficialResultsLogos = {};
+
 const apiMemoryCache = new Map();
 const FORCE_REFRESH_KEY = "cfp_adv_force_refresh_until";
 const TERMS_ACCEPTED_KEY = "cfp_adv_terms_accepted";
@@ -2399,6 +2405,11 @@ async function loadHomeUnofficialResults() {
         const actualWinner = awayScore === homeScore
           ? null
           : awayScore > homeScore ? pick.away_team : pick.home_team;
+          
+        const projectedWinnerScore = pick.projected_winner === pick.away_team ? awayScore : homeScore;
+        const projectedLoserScore = pick.projected_winner === pick.away_team ? homeScore : awayScore;
+        const actualProjectedWinnerMargin = projectedWinnerScore - projectedLoserScore;
+        const marginError = Math.abs(actualProjectedWinnerMargin - Number(pick.projected_margin_abs));
         return {
           game_id: String(game.game_id),
           start_date: game.start_date,
@@ -2409,6 +2420,7 @@ async function loadHomeUnofficialResults() {
           projected_winner: pick.projected_winner,
           projected_margin_abs: pick.projected_margin_abs,
           model_result: actualWinner === null ? "P" : actualWinner === pick.projected_winner ? "W" : "L",
+          margin_error: marginError,
         };
       })
       .sort((left, right) => new Date(right.start_date).getTime() - new Date(left.start_date).getTime());
@@ -2416,8 +2428,24 @@ async function loadHomeUnofficialResults() {
     const wins = finals.filter((game) => game.model_result === "W").length;
     const losses = finals.filter((game) => game.model_result === "L").length;
     const pushes = finals.filter((game) => game.model_result === "P").length;
+    const completedGames = finals.length;
+    const decidedGames = wins + losses;
+    
+    const winnerAccuracy = decidedGames ? (wins / decidedGames) * 100 : 0;
+    const averageMarginError = completedGames 
+      ? finals.reduce((sum, game) => sum + game.margin_error, 0) / completedGames 
+      : null;
     const week = picksPayload.status?.selected_week || picks[0]?.week || 1;
     label.textContent = `Week ${week}`;
+    $("homeUnofficialCompleted").textContent = String(completedGames);
+    $("homeUnofficialModelRecord").textContent = `${wins}-${losses}${pushes ? `-${pushes}` : ""}`;
+    $("homeUnofficialAccuracy").textContent = `${winnerAccuracy.toFixed(1)}%`;
+    $("homeUnofficialMae").textContent = averageMarginError === null
+      ? "-"
+      : averageMarginError.toFixed(1);
+    unofficialResultsData = finals;
+    unofficialResultsLogos = logos;
+    unofficialResultsPage = 0;
     record.textContent = finals.length
       ? `${wins}-${losses}${pushes ? `-${pushes}` : ""} unofficial`
       : "No finals yet";
@@ -2429,6 +2457,102 @@ async function loadHomeUnofficialResults() {
     record.textContent = "Temporarily unavailable";
     host.innerHTML = '<span class="home-unofficial-empty">The live results feed is reconnecting. Certified records remain unchanged.</span>';
   }
+}
+
+function renderUnofficialResultsModal() {
+  const modalList = $("homeUnofficialModalList");
+  const pageLabel = $("homeUnofficialPageLabel");
+  const previousButton = $("homeUnofficialPrevious");
+  const nextButton = $("homeUnofficialNext");
+  const summary = $("homeUnofficialModalSummary");
+
+  if (!modalList || !pageLabel) return;
+
+  const total = unofficialResultsData.length;
+  const totalPages = Math.max(
+    1,
+    Math.ceil(total / UNOFFICIAL_RESULTS_PAGE_SIZE)
+  );
+
+  unofficialResultsPage = Math.min(
+    unofficialResultsPage,
+    totalPages - 1
+  );
+
+  const start =
+    unofficialResultsPage * UNOFFICIAL_RESULTS_PAGE_SIZE;
+
+  const visibleResults = unofficialResultsData.slice(
+    start,
+    start + UNOFFICIAL_RESULTS_PAGE_SIZE
+  );
+
+  const wins = unofficialResultsData.filter(
+    (game) => game.model_result === "W"
+  ).length;
+
+  const losses = unofficialResultsData.filter(
+    (game) => game.model_result === "L"
+  ).length;
+
+  const pushes = unofficialResultsData.filter(
+    (game) => game.model_result === "P"
+  ).length;
+
+  const decidedGames = wins + losses;
+
+  const accuracy = decidedGames
+    ? (wins / decidedGames) * 100
+    : 0;
+
+  const mae = total
+    ? unofficialResultsData.reduce(
+        (sum, game) => sum + game.margin_error,
+        0
+      ) / total
+    : null;
+
+  summary.innerHTML = `
+    <div>
+      <span>Completed Games</span>
+      <strong>${total}</strong>
+    </div>
+
+    <div>
+      <span>Model Record</span>
+      <strong>${wins}-${losses}${pushes ? `-${pushes}` : ""}</strong>
+    </div>
+
+    <div>
+      <span>Winner Accuracy</span>
+      <strong>${accuracy.toFixed(1)}%</strong>
+    </div>
+
+    <div>
+      <span>Average Margin Error</span>
+      <strong>${mae === null ? "-" : mae.toFixed(1)}</strong>
+    </div>
+  `;
+
+  modalList.innerHTML = visibleResults.length
+    ? visibleResults
+        .map((result) =>
+          unofficialResultCard(
+            result,
+            unofficialResultsLogos
+          )
+        )
+        .join("")
+    : '<span class="home-unofficial-empty">No completed games yet.</span>';
+
+  pageLabel.textContent =
+    `Page ${unofficialResultsPage + 1} of ${totalPages}`;
+
+  previousButton.disabled =
+    unofficialResultsPage === 0;
+
+  nextButton.disabled =
+    unofficialResultsPage >= totalPages - 1;
 }
 
 async function loadHomeScoreStrip() {
@@ -3222,10 +3346,59 @@ function renderRecordPathBoard(options = {}) {
   });
 }
 
+function setupUnofficialResultsModal() {
+  const modal = $("homeUnofficialModal");
+  const openButton = $("homeUnofficialViewAll");
+  const closeButton = $("homeUnofficialModalClose");
+  const previousButton = $("homeUnofficialPrevious");
+  const nextButton = $("homeUnofficialNext");
+
+  if (!modal || !openButton) return;
+
+  openButton.addEventListener("click", () => {
+    unofficialResultsPage = 0;
+    renderUnofficialResultsModal();
+    modal.classList.remove("is-hidden");
+    document.body.classList.add("modal-open");
+  });
+
+  closeButton?.addEventListener("click", () => {
+    modal.classList.add("is-hidden");
+    document.body.classList.remove("modal-open");
+  });
+
+  previousButton?.addEventListener("click", () => {
+    if (unofficialResultsPage > 0) {
+      unofficialResultsPage -= 1;
+      renderUnofficialResultsModal();
+    }
+  });
+
+  nextButton?.addEventListener("click", () => {
+    const totalPages = Math.ceil(
+      unofficialResultsData.length /
+      UNOFFICIAL_RESULTS_PAGE_SIZE
+    );
+
+    if (unofficialResultsPage < totalPages - 1) {
+      unofficialResultsPage += 1;
+      renderUnofficialResultsModal();
+    }
+  });
+
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      modal.classList.add("is-hidden");
+      document.body.classList.remove("modal-open");
+    }
+  });
+}
+
 async function boot() {
   const page = document.body.dataset.page;
   try {
     setupSiteChrome();
+    if (page === "home") {setupUnofficialResultsModal();}
     if (page === "metrics") await loadMetricPage();
     if (page === "historical") await loadHistoricalPage();
     if (page === "bracket") await loadBracketPage();
