@@ -1090,8 +1090,8 @@ async function loadFullSlateTableData() {
 
   try {
     const query = state.currentMatchupQuery
-      ? `?${state.currentMatchupQuery}&limit=150&include_schedule_only=true&refresh=true`
-      : "?limit=150&include_schedule_only=true&refresh=true";
+    ? `?${state.currentMatchupQuery}&limit=150&include_schedule_only=true`
+    : "?limit=150&include_schedule_only=true";
     const [payload, logos] = await Promise.all([
       api(`/api/product-a/current-week${query}`),
       loadMatchupTeamLogos(),
