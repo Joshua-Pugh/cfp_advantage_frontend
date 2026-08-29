@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Matchups | CFP Advantage</title>
-  <link rel="stylesheet" href="styles.css?v=4.0.49">
+  <link rel="stylesheet" href="styles.css?v=4.0.52">
   </head>
   <body>
     <main class="app-shell matchup-page-shell">
@@ -24,12 +24,28 @@
         </div>
       </header>
 
-      <section class="loader-panel is-hidden" id="loaderPanel" role="status" aria-live="polite">
-        <div class="loader-mark" aria-hidden="true"></div>
-        <div>
-          <p class="eyebrow">CFP Advantage Model</p>
-          <h2 id="loaderTitle">Fetching Matchups...</h2>
-          <p id="loaderMessage">Please wait.</p>
+      <section class="full-slate-panel" id="full-slate" aria-labelledby="fullSlateTitle">
+        <div class="full-slate-panel-header">
+          <div>
+            <p class="eyebrow">WEEKLY SLATE</p>
+            <h2 id="fullSlateTitle">Full Schedule</h2>
+            <p class="panel-note">Browse every game in the selected week, including schedule-only FBS and FCS matchups.</p>
+          </div>
+        </div>
+        <div id="fullSlatePrompt" class="current-matchups-empty full-slate-empty">
+          <span class="home-matchups-spinner" aria-hidden="true"></span>
+          <strong>Checking the current weekly slate</strong>
+          <p>Featured matchup outlooks will appear here when the certified weekly snapshot is available.</p>
+          <button id="viewFullSlateButton" class="secondary-button" type="button" aria-controls="fullSlateTable" aria-expanded="false">
+            Load Full Game List
+          </button>
+        </div>
+        <div id="fullSlateTable" class="full-slate-table-container is-hidden">
+          <label class="full-slate-inline-search">
+            <span>Search Team</span>
+            <input id="fullSlateInlineSearch" type="search" placeholder="Georgia, Clemson, LSU...">
+          </label>
+          <div id="fullSlateTableContent" class="full-slate-table-content"></div>
         </div>
       </section>
 
@@ -44,34 +60,15 @@
           <button id="loadLiveScoreboard" class="secondary-button" type="button" aria-controls="liveScoreboardEmbed" aria-expanded="false">
             Load Live Scoreboard
           </button>
+          <div class="live-board-selection" id="liveBoardSelection" aria-live="polite">
+            <strong>Your Live Board</strong>
+            <p>Select games from the weekly slate or scoreboard to keep them together here.</p>
+            <div id="liveBoardSelectionList" class="live-board-selection-list"></div>
+          </div>
         </div>
         <div id="liveScoreboardEmbed" class="live-scoreboard-embed is-hidden">
           <div class="live-scoreboard-frame" id="liveScoreboardFrame"></div>
           <p class="live-scoreboard-credit">Live schedule and score data provided by CollegeFootballData.com.</p>
-        </div>
-      </section>
-
-      <section class="full-slate-panel" id="full-slate" aria-labelledby="fullSlateTitle">
-        <div class="full-slate-panel-header">
-          <div>
-            <p class="eyebrow">WEEKLY SLATE</p>
-            <h2 id="fullSlateTitle">Full Schedule</h2>
-            <p class="panel-note">Browse every game in the selected week, including schedule-only FBS and FCS matchups.</p>
-          </div>
-        </div>
-        <div id="fullSlatePrompt" class="current-matchups-empty full-slate-empty">
-          <strong>The full weekly slate is ready when you are.</strong>
-          <p>Load the complete game list when you want to browse every matchup or open a full CFP Advantage breakdown.</p>
-          <button id="viewFullSlateButton" class="secondary-button" type="button" aria-controls="fullSlateTable" aria-expanded="false">
-            Load Full Game List
-          </button>
-        </div>
-        <div id="fullSlateTable" class="full-slate-table-container is-hidden">
-          <label class="full-slate-inline-search">
-            <span>Search Team</span>
-            <input id="fullSlateInlineSearch" type="search" placeholder="Georgia, Clemson, LSU...">
-          </label>
-          <div id="fullSlateTableContent" class="full-slate-table-content"></div>
         </div>
       </section>
     </main>
@@ -83,8 +80,8 @@
       </div>
     </section>
 
-    <script src="config.js?v=4.0.46"></script>
-    <script src="scoreboard.js?v=4.0.48"></script>
-    <script src="app.js?v=4.0.49"></script>
+    <script src="config.js?v=4.0.52"></script>
+    <script src="scoreboard.js?v=4.0.52"></script>
+    <script src="app.js?v=4.0.52"></script>
   </body>
 </html>

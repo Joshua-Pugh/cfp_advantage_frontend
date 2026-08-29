@@ -23,7 +23,7 @@ function matchupTeamInitials(team) {
 
 function loadMatchupTeamLogos() {
   if (!matchupTeamLogoCatalogPromise) {
-    matchupTeamLogoCatalogPromise = fetch("team-logos.json?v=4.0.45", { cache: "force-cache" })
+    matchupTeamLogoCatalogPromise = fetch("team-logos.json?v=4.0.52", { cache: "force-cache" })
       .then((response) => response.ok ? response.json() : { teams: {} })
       .then((payload) => payload.teams || {})
       .catch(() => ({}));
@@ -34,8 +34,8 @@ function loadMatchupTeamLogos() {
 function matchupTeamLogoMarkup(team) {
   const url = state.teamLogos?.[String(team || "").trim().toLowerCase()];
   const teamName = escapeHtml(team || "Unknown team");
-  const fallback = url ? "" : `<span aria-hidden="true">${escapeHtml(matchupTeamInitials(team))}</span>`;
-  return `<span class="team-logo" title="${teamName}" aria-label="${teamName}">${fallback}${url ? `<img src="${escapeHtml(url)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ""}</span>`;
+  const logoClass = url ? "has-logo" : "is-fallback";
+  return `<span class="team-logo ${logoClass}" title="${teamName}" aria-label="${teamName}"><span class="team-logo-fallback" aria-hidden="true">${escapeHtml(matchupTeamInitials(team))}</span>${url ? `<img src="${escapeHtml(url)}" alt="" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.remove('has-logo');this.parentElement.classList.add('is-fallback')">` : ""}</span>`;
 }
 const FORCE_REFRESH_KEY = "cfp_adv_force_refresh_until";
 const TERMS_ACCEPTED_KEY = "cfp_adv_terms_accepted";
@@ -341,6 +341,7 @@ const state = {
   currentMatchupQuery: "",
   fullSlateMatchups: [],
   teamLogos: {},
+  selectedLiveBoardIds: [],
   hasRecap: false,
   activeView: "pregame",
   explorerLoaded: false,
@@ -439,6 +440,7 @@ const els = {
   fullSlateTableContent: $("fullSlateTableContent"),
   fullSlateInlineSearch: $("fullSlateInlineSearch"),
   fullSlatePrompt: $("fullSlatePrompt"),
+  liveBoardSelectionList: $("liveBoardSelectionList"),
   matchupRailPrevious: $("matchupRailPrevious"),
   matchupRailNext: $("matchupRailNext"),
   matchupPreviewModal: $("matchupPreviewModal"),
@@ -1022,9 +1024,10 @@ function renderFullSlateTableInline() {
         <div>Matchup</div>
         <div>Conference</div>
         <div>Projection</div>
+        <div>Live Board</div>
       </div>
       ${rows.map((matchup) => `
-        <button type="button" class="${rowClass(matchup)}" data-full-slate-game="${escapeHtml(matchup.game_id)}">
+        <article class="${rowClass(matchup)}">
           <div class="full-slate-table-cell">Week ${escapeHtml(matchup.week || "-")}</div>
           <div class="full-slate-table-cell">
             <strong>${matchupTeamLogoMarkup(matchup.away_team)}${escapeHtml(matchup.away_team)}</strong>
@@ -1035,27 +1038,36 @@ function renderFullSlateTableInline() {
             ${matchup.away_conference === matchup.home_conference ? escapeHtml(matchup.away_conference) : `${escapeHtml(matchup.away_conference)} vs ${escapeHtml(matchup.home_conference)}`}
           </div>
           <div class="full-slate-table-cell"><em>${projectionLine(matchup)}</em></div>
-        </button>
+          <div class="full-slate-row-actions">
+            ${!matchup.projection_unavailable && !matchup.projection_limited ? `<button type="button" class="full-slate-analysis-button" data-full-slate-game="${escapeHtml(matchup.game_id)}">Full Analysis</button>` : ""}
+            <button type="button" class="full-slate-live-button${state.selectedLiveBoardIds.includes(String(matchup.game_id)) ? " is-selected" : ""}" data-live-board-game="${escapeHtml(matchup.game_id)}" aria-pressed="${state.selectedLiveBoardIds.includes(String(matchup.game_id))}">${state.selectedLiveBoardIds.includes(String(matchup.game_id)) ? "On Live Board" : "Add to Live Board"}</button>
+          </div>
+        </article>
       `).join("")}
     </div>
   `;
 }
 
 async function loadFullSlateTableData() {
-  if (!els.fullSlateTable || !els.fullSlateTableContent) return;
+  if (!els.fullSlateTable || !els.fullSlateTableContent || !els.fullSlatePrompt || !els.viewFullSlateButton) return;
 
   if (state.fullSlateMatchups && state.fullSlateMatchups.length > 0) {
     els.fullSlateTable.classList.remove("is-hidden");
-    els.fullSlatePrompt?.classList.add("is-hidden");
-    els.viewFullSlateButton?.setAttribute("aria-expanded", "true");
+    els.fullSlatePrompt.classList.add("is-hidden");
+    els.viewFullSlateButton.setAttribute("aria-expanded", "true");
     renderFullSlateTableInline();
     return;
   }
 
-  els.fullSlateTable.classList.remove("is-hidden");
-  els.viewFullSlateButton?.setAttribute("disabled", "disabled");
-  if (els.viewFullSlateButton) els.viewFullSlateButton.textContent = "Loading Full Game List...";
-  els.fullSlateTableContent.innerHTML = '<div class="empty-state compact">Loading full slate...</div>';
+  const promptTitle = els.fullSlatePrompt.querySelector("strong");
+  const promptText = els.fullSlatePrompt.querySelector("p");
+  els.fullSlatePrompt.classList.remove("is-hidden");
+  els.fullSlateTable.classList.add("is-hidden");
+  els.fullSlatePrompt.classList.add("is-loading");
+  if (promptTitle) promptTitle.textContent = "Loading this week's matchups...";
+  if (promptText) promptText.textContent = "Checking the current weekly slate and loading the full game list.";
+  els.viewFullSlateButton.setAttribute("disabled", "disabled");
+  els.viewFullSlateButton.textContent = "Loading Full Game List...";
 
   try {
     const query = state.currentMatchupQuery
@@ -1067,16 +1079,23 @@ async function loadFullSlateTableData() {
     ]);
     state.teamLogos = logos;
     state.fullSlateMatchups = payload.matchups || [];
+    syncLiveBoardSelection();
     if (els.fullSlateInlineSearch) els.fullSlateInlineSearch.value = "";
-    els.fullSlatePrompt?.classList.add("is-hidden");
-    els.viewFullSlateButton?.setAttribute("aria-expanded", "true");
+    els.fullSlatePrompt.classList.add("is-hidden");
+    els.fullSlateTable.classList.remove("is-hidden");
+    els.viewFullSlateButton.setAttribute("aria-expanded", "true");
     renderFullSlateTableInline();
   } catch (error) {
+    els.fullSlatePrompt.classList.remove("is-loading");
+    if (promptTitle) promptTitle.textContent = "Weekly slate unavailable";
+    if (promptText) promptText.textContent = error.message || "The full slate could not be loaded right now.";
     els.fullSlateTable.classList.add("is-hidden");
-    els.fullSlateTableContent.innerHTML = `<div class="empty-state compact">Full slate unavailable: ${escapeHtml(error.message)}</div>`;
-    if (els.viewFullSlateButton) els.viewFullSlateButton.textContent = "Try Loading Full Game List Again";
+    els.viewFullSlateButton.textContent = "Try Loading Full Game List Again";
+    els.viewFullSlateButton.removeAttribute("disabled");
   } finally {
-    els.viewFullSlateButton?.removeAttribute("disabled");
+    if (!els.fullSlatePrompt.classList.contains("is-hidden") && !els.fullSlatePrompt.classList.contains("is-loading")) {
+      els.viewFullSlateButton.removeAttribute("disabled");
+    }
   }
 }
 
@@ -1092,8 +1111,19 @@ async function loadLiveScoreboard() {
   els.liveScoreboardEmbed.classList.remove("is-hidden");
   els.loadLiveScoreboard.setAttribute("aria-expanded", "true");
   els.loadLiveScoreboard.textContent = "Refreshing Scores...";
-  await window.CFPAdvantageScoreboard.load({ host: els.liveScoreboardFrame, apiBase: API_BASE });
+  await window.CFPAdvantageScoreboard.load({ host: els.liveScoreboardFrame, apiBase: API_BASE, selectable: true });
   els.loadLiveScoreboard.textContent = "Hide Live Scoreboard";
+}
+
+function syncLiveBoardSelection() {
+  state.selectedLiveBoardIds = window.CFPAdvantageScoreboard?.selectedGameIds?.() || [];
+  if (els.liveBoardSelectionList) {
+    const selected = state.fullSlateMatchups.filter((game) => state.selectedLiveBoardIds.includes(String(game.game_id)));
+    els.liveBoardSelectionList.innerHTML = selected.length
+      ? selected.map((game) => `<div class="live-board-selection-row"><span>${matchupTeamLogoMarkup(game.away_team)}${escapeHtml(game.away_team)} at ${matchupTeamLogoMarkup(game.home_team)}${escapeHtml(game.home_team)}</span><button type="button" data-remove-live-board-game="${escapeHtml(game.game_id)}" aria-label="Remove ${escapeHtml(game.away_team)} at ${escapeHtml(game.home_team)} from Live Board">Remove</button></div>`).join("")
+      : '<span class="live-board-empty">No games selected yet.</span>';
+  }
+  if (els.fullSlateTableContent && state.fullSlateMatchups.length) renderFullSlateTableInline();
 }
 
 function openMatchupPreview(gameId) {
@@ -1302,6 +1332,7 @@ function setOptions(select, rows, getValue, getLabel, placeholder = "") {
 }
 
 function showStatus(title, message, loading = false) {
+  if (!els.loaderPanel || !els.loaderTitle || !els.loaderMessage) return;
   els.loaderTitle.textContent = title;
   els.loaderMessage.textContent = message;
   els.loaderPanel.classList.remove("is-hidden");
@@ -1309,6 +1340,7 @@ function showStatus(title, message, loading = false) {
 }
 
 function hideStatus() {
+  if (!els.loaderPanel) return;
   els.loaderPanel.classList.add("is-hidden");
   els.loaderPanel.classList.remove("is-loading");
 }
@@ -1941,11 +1973,18 @@ async function boot() {
   setupSiteChrome();
   console.info("CFP Advantage API base:", API_BASE);
   console.info("CFP Advantage environment:", APP_ENVIRONMENT, "| static fallback enabled:", USE_STATIC_FALLBACK);
-  showStatus("Fetching Matchups...", "Preparing the weekly matchup workspace.", true);
-  await loadCurrentMatchups();
+  if (els.loaderPanel) showStatus("Fetching Matchups...", "Preparing the weekly matchup workspace.", true);
+  if (els.currentMatchupsPanel && els.currentMatchupsLabel && els.currentMatchupsMessage) {
+    await loadCurrentMatchups();
+  }
   await loadProductGuides();
   const pageQuery = new URLSearchParams(window.location.search);
-  if (pageQuery.get("full_slate") === "1") await loadFullSlateTableData();
+  syncLiveBoardSelection();
+  if (els.fullSlateTable && els.fullSlatePrompt) {
+    await loadFullSlateTableData();
+  } else if (pageQuery.get("full_slate") === "1") {
+    await loadFullSlateTableData();
+  }
   const linkedGameId = pageQuery.get("game_id");
   if (linkedGameId) openMatchupPreview(linkedGameId);
   hideStatus();
@@ -1996,6 +2035,11 @@ if (els.viewFullSlateButton) els.viewFullSlateButton.addEventListener("click", l
 if (els.fullSlateInlineSearch) els.fullSlateInlineSearch.addEventListener("input", renderFullSlateTableInline);
 if (els.fullSlateTableContent) {
   els.fullSlateTableContent.addEventListener("click", (event) => {
+    const liveBoardButton = event.target.closest("[data-live-board-game]");
+    if (liveBoardButton) {
+      window.CFPAdvantageScoreboard?.toggleSelection?.(liveBoardButton.dataset.liveBoardGame);
+      return;
+    }
     const button = event.target.closest("[data-full-slate-game]");
     if (!button) return;
     const matchup = state.fullSlateMatchups.find((row) => String(row.game_id) === String(button.dataset.fullSlateGame));
@@ -2006,6 +2050,13 @@ if (els.fullSlateTableContent) {
     }
   });
 }
+if (els.liveBoardSelectionList) {
+  els.liveBoardSelectionList.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-remove-live-board-game]");
+    if (button) window.CFPAdvantageScoreboard?.toggleSelection?.(button.dataset.removeLiveBoardGame);
+  });
+}
+window.addEventListener("cfp-live-board-change", syncLiveBoardSelection);
 if (els.featuredMatchupGrid) {
   els.featuredMatchupGrid.addEventListener("click", (event) => {
     const button = event.target.closest("[data-matchup-game]");

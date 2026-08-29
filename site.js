@@ -2175,7 +2175,7 @@ function teamInitials(team) {
 
 async function loadTeamLogoCatalog() {
   if (!teamLogoCatalogPromise) {
-    teamLogoCatalogPromise = fetch("team-logos.json?v=4.0.44", { cache: "force-cache" })
+    teamLogoCatalogPromise = fetch("team-logos.json?v=4.0.52", { cache: "force-cache" })
       .then((response) => response.ok ? response.json() : { teams: {} })
       .then((payload) => payload.teams || {})
       .catch(() => ({}));
@@ -2187,9 +2187,9 @@ function teamLogoMarkup(team, logos) {
   const key = String(team || "").trim().toLowerCase();
   const url = logos[key];
   return `
-    <span class="hub-team-logo" aria-hidden="true">
+    <span class="hub-team-logo ${url ? "has-logo" : "is-fallback"}" aria-hidden="true">
       <span class="team-logo-fallback">${escapeHtml(teamInitials(team))}</span>
-      ${url ? `<img src="${escapeHtml(url)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ""}
+      ${url ? `<img src="${escapeHtml(url)}" alt="" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.remove('has-logo');this.parentElement.classList.add('is-fallback')">` : ""}
     </span>
   `;
 }
@@ -2198,8 +2198,7 @@ function homeMatchupLogoMarkup(team, logos) {
   const key = String(team || "").trim().toLowerCase();
   const url = logos[key];
   const teamName = escapeHtml(team || "Unknown team");
-  const fallback = url ? "" : `<span aria-hidden="true">${escapeHtml(teamInitials(team))}</span>`;
-  return `<span class="team-logo" title="${teamName}" aria-label="${teamName}">${fallback}${url ? `<img src="${escapeHtml(url)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ""}</span>`;
+  return `<span class="team-logo ${url ? "has-logo" : "is-fallback"}" title="${teamName}" aria-label="${teamName}"><span class="team-logo-fallback" aria-hidden="true">${escapeHtml(teamInitials(team))}</span>${url ? `<img src="${escapeHtml(url)}" alt="" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.remove('has-logo');this.parentElement.classList.add('is-fallback')">` : ""}</span>`;
 }
 
 function shortConferenceTag(conference) {

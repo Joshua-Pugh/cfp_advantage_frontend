@@ -16,11 +16,44 @@
     .join("")
     .toUpperCase();
 
+  const SELECTION_KEY = "cfp_adv_live_board_games_v1";
+  let storedSelection = [];
+  try {
+    storedSelection = JSON.parse(localStorage.getItem(SELECTION_KEY) || "[]");
+  } catch (_error) {
+    storedSelection = [];
+  }
+  const selected = new Set((Array.isArray(storedSelection) ? storedSelection : []).map(String));
+  let activeHost = null;
+  let activeGames = [];
+  let activeLogos = {};
+  let activeCompact = false;
+  let activeSelectable = false;
+  let filterSelected = false;
+
+  function selectedGameIds() {
+    return [...selected];
+  }
+
+  function persistSelection() {
+    localStorage.setItem(SELECTION_KEY, JSON.stringify(selectedGameIds()));
+    window.dispatchEvent(new CustomEvent("cfp-live-board-change", { detail: { gameIds: selectedGameIds() } }));
+  }
+
+  function toggleSelection(gameId) {
+    const id = String(gameId);
+    if (selected.has(id)) selected.delete(id);
+    else selected.add(id);
+    if (!selected.size) filterSelected = false;
+    persistSelection();
+    renderActiveScoreboard();
+  }
+
   let logoCatalogPromise;
 
   function logoCatalog() {
     if (!logoCatalogPromise) {
-      logoCatalogPromise = fetch("team-logos.json?v=4.0.44", { cache: "force-cache" })
+      logoCatalogPromise = fetch("team-logos.json?v=4.0.52", { cache: "force-cache" })
         .then((response) => response.ok ? response.json() : { teams: {} })
         .then((payload) => payload.teams || {})
         .catch(() => ({}));
@@ -35,9 +68,9 @@
       ? `https://cdn.collegefootballdata.com/logos/48/${teamId}.png`
       : logos[name.trim().toLowerCase()];
     return `
-      <span class="score-team-logo" aria-label="${escapeHtml(name)}">
+      <span class="score-team-logo ${url ? "has-logo" : "is-fallback"}" aria-label="${escapeHtml(name)}">
         <span class="team-logo-fallback" aria-hidden="true">${escapeHtml(initials(name))}</span>
-        ${url ? `<img src="${escapeHtml(url)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ""}
+        ${url ? `<img src="${escapeHtml(url)}" alt="" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.remove('has-logo');this.parentElement.classList.add('is-fallback')">` : ""}
       </span>
     `;
   }
@@ -91,6 +124,7 @@
           ${teamRow(game.home_team, logos, game.possession)}
         </div>
         ${game.situation ? `<p>${escapeHtml(game.situation)}</p>` : ""}
+        ${activeSelectable ? `<button type="button" class="score-select-button${selected.has(String(game.game_id)) ? " is-selected" : ""}" data-score-select="${escapeHtml(game.game_id)}" aria-pressed="${selected.has(String(game.game_id))}">${selected.has(String(game.game_id)) ? "Selected" : "Add to Live Board"}</button>` : ""}
       </article>
     `;
   }
@@ -110,7 +144,18 @@
     });
   }
 
-  async function load({ host, apiBase, compact = false, limit = null }) {
+  function renderActiveScoreboard() {
+    if (!activeHost) return;
+    const games = filterSelected ? activeGames.filter((game) => selected.has(String(game.game_id))) : activeGames;
+    const controls = activeSelectable && selected.size
+      ? `<div class="scoreboard-selection-controls"><strong>${selected.size} selected</strong><button type="button" data-score-filter>${filterSelected ? "Show All Games" : "Filter Selected Games"}</button><button type="button" data-score-clear>Clear</button></div>`
+      : "";
+    activeHost.innerHTML = activeGames.length
+      ? `${controls}<div class="official-score-grid${activeCompact ? " is-compact" : ""}">${games.map((game) => gameMarkup(game, activeLogos)).join("")}</div>`
+      : '<div class="empty-state compact">No games are currently listed.</div>';
+  }
+
+  async function load({ host, apiBase, compact = false, limit = null, selectable = false }) {
     if (!host) return;
     host.innerHTML = '<div class="scoreboard-loading">Loading the CFBD scoreboard...</div>';
     try {
@@ -126,14 +171,32 @@
       const games = sortGames(Array.isArray(payload.games) ? payload.games : []);
       const hasLimit = limit !== null && limit !== undefined && Number.isFinite(Number(limit));
       const visibleGames = hasLimit ? games.slice(0, Number(limit)) : games;
-      host.innerHTML = games.length
-        ? `<div class="official-score-grid${compact ? " is-compact" : ""}">${visibleGames.map((game) => gameMarkup(game, logos)).join("")}</div>`
-        : '<div class="empty-state compact">No games are currently listed.</div>';
+      activeHost = host;
+      activeGames = visibleGames;
+      activeLogos = logos;
+      activeCompact = compact;
+      activeSelectable = selectable;
+      renderActiveScoreboard();
     } catch (error) {
       console.error("CFP Advantage scoreboard failed:", error);
       host.innerHTML = '<div class="empty-state compact">The CFBD scoreboard is temporarily unavailable. Frozen matchup projections remain available above.</div>';
     }
   }
 
-  window.CFPAdvantageScoreboard = { load };
+  document.addEventListener("click", (event) => {
+    const selectButton = event.target.closest("[data-score-select]");
+    if (selectButton) toggleSelection(selectButton.dataset.scoreSelect);
+    if (event.target.closest("[data-score-filter]")) {
+      filterSelected = !filterSelected;
+      renderActiveScoreboard();
+    }
+    if (event.target.closest("[data-score-clear]")) {
+      selected.clear();
+      filterSelected = false;
+      persistSelection();
+      renderActiveScoreboard();
+    }
+  });
+
+  window.CFPAdvantageScoreboard = { load, selectedGameIds, toggleSelection };
 }());
