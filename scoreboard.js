@@ -16,14 +16,7 @@
     .join("")
     .toUpperCase();
 
-  const SELECTION_KEY = "cfp_adv_live_board_games_v1";
-  let storedSelection = [];
-  try {
-    storedSelection = JSON.parse(localStorage.getItem(SELECTION_KEY) || "[]");
-  } catch (_error) {
-    storedSelection = [];
-  }
-  const selected = new Set((Array.isArray(storedSelection) ? storedSelection : []).map(String));
+  const selected = new Set();
   let activeHost = null;
   let activeGames = [];
   let activeLogos = {};
@@ -37,10 +30,13 @@
   function selectedGameIds() {
     return [...selected];
   }
-
+  
   function persistSelection() {
-    localStorage.setItem(SELECTION_KEY, JSON.stringify(selectedGameIds()));
-    window.dispatchEvent(new CustomEvent("cfp-live-board-change", { detail: { gameIds: selectedGameIds() } }));
+    window.dispatchEvent(
+      new CustomEvent("cfp-live-board-change", {
+        detail: { gameIds: selectedGameIds() }
+      })
+    );
   }
 
   function toggleSelection(gameId) {
