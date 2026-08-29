@@ -14,6 +14,7 @@ const APP_ENVIRONMENT = APP_CONFIG.ENVIRONMENT || "local";
 const SHOW_DEV_TOOLS = IS_LOCAL_HOST || APP_CONFIG.ENABLE_DEV_TOOLS === true;
 const CACHE_PREFIX = `cfp_adv_api_cache:${APP_CONFIG.APP_VERSION || "dev"}:`;
 const CACHE_TTL_MS = 1000 * 60 * 20;
+const LIVE_CACHE_TTL_MS = 1000 * 60 * 3;
 const apiMemoryCache = new Map();
 let matchupTeamLogoCatalogPromise = null;
 
@@ -1306,6 +1307,14 @@ function validSeason(value) {
   return /^\d{4}$/.test(String(value || ""));
 }
 
+function cacheTtlForPath(path) {
+  if (path.startsWith("/api/product-a/current-week")) {
+    return LIVE_CACHE_TTL_MS;
+  }
+
+  return CACHE_TTL_MS;
+}
+
 async function api(path) {
   try {
     const forceRefresh = (() => {
@@ -1316,12 +1325,13 @@ async function api(path) {
       }
     })();
     const cacheKey = `${CACHE_PREFIX}${path}`;
+    const cacheTtl = cacheTtlForPath(path);
     if (!forceRefresh) {
       const memory = apiMemoryCache.get(cacheKey);
-      if (memory && Date.now() - memory.stored_at < CACHE_TTL_MS) return memory.data;
+      if (memory && Date.now() - memory.stored_at < cacheTtl) return memory.data;
       try {
         const cached = JSON.parse(window.sessionStorage.getItem(cacheKey) || "null");
-        if (cached && Date.now() - cached.stored_at < CACHE_TTL_MS) {
+        if (cached && Date.now() - cached.stored_at < cacheTtl) {
           apiMemoryCache.set(cacheKey, cached);
           return cached.data;
         }
