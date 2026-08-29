@@ -2378,9 +2378,8 @@ function unofficialResultCard(result, logos) {
 
 async function loadHomeUnofficialResults() {
   const host = $("homeUnofficialResultsList");
-  const record = $("homeUnofficialRecord");
   const label = $("homeUnofficialResultsLabel");
-  if (!host || !record || !label) return;
+  if (!host || !label) return;
 
   try {
     const [picksPayload, scoreResponse, logos] = await Promise.all([
@@ -2446,15 +2445,11 @@ async function loadHomeUnofficialResults() {
     unofficialResultsData = finals;
     unofficialResultsLogos = logos;
     unofficialResultsPage = 0;
-    record.textContent = finals.length
-      ? `${wins}-${losses}${pushes ? `-${pushes}` : ""} unofficial`
-      : "No finals yet";
     host.innerHTML = finals.length
       ? finals.slice(0, 4).map((result) => unofficialResultCard(result, logos)).join("")
       : '<span class="home-unofficial-empty">Completed games will appear here as live finals become available.</span>';
   } catch (error) {
     console.error("CFP Advantage unofficial results failed:", error);
-    record.textContent = "Temporarily unavailable";
     host.innerHTML = '<span class="home-unofficial-empty">The live results feed is reconnecting. Certified records remain unchanged.</span>';
   }
 }

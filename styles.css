@@ -296,11 +296,6 @@ select {
   font-size: 18px;
 }
 
-.home-unofficial-results-heading b {
-  color: var(--green);
-  font-size: 15px;
-}
-
 .home-unofficial-summary {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
