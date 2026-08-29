@@ -1,8 +1,9 @@
 ﻿const CONFIG = window.CFP_ADV_CONFIG || {};
-const API_BASE = (CONFIG.API_BASE_URL || "https://cfp-advantage-model-1.onrender.com").replace(/\/$/, "");
+const IS_LOCAL_HOST = ["127.0.0.1", "localhost"].includes(window.location.hostname);
+const LOCAL_API_OVERRIDE = IS_LOCAL_HOST ? new URLSearchParams(window.location.search).get("api") : "";
+const API_BASE = (LOCAL_API_OVERRIDE || CONFIG.API_BASE_URL || "https://cfp-advantage-model-1.onrender.com").replace(/\/$/, "");
 const SUPPORT_EMAIL = CONFIG.SUPPORT_EMAIL || "support@cfpadvantage.com";
 const DONATE_URL = CONFIG.DONATE_URL || "";
-const IS_LOCAL_HOST = ["127.0.0.1", "localhost"].includes(window.location.hostname);
 const SHOW_DEV_TOOLS = IS_LOCAL_HOST || CONFIG.ENABLE_DEV_TOOLS === true;
 const CACHE_PREFIX = `cfp_adv_api_cache:${CONFIG.APP_VERSION || "dev"}:`;
 const CACHE_TTL_MS = IS_LOCAL_HOST ? 0 : 1000 * 60 * 20;
@@ -57,6 +58,7 @@ function setupSiteChrome() {
       <a href="legal.html#disclaimer">Disclaimer</a>
       <a href="legal.html#refunds">Refund Policy</a>
     </nav>
+    <p class="footer-legal-notice">By using CFP Advantage, you acknowledge the <a href="legal.html#terms">Terms</a>, <a href="legal.html#privacy">Privacy Policy</a>, and <a href="legal.html#disclaimer">Disclaimer</a>.</p>
     <p class="footer-copyright">Copyright 2026 CFP Advantage. All rights reserved.</p>
   `;
   installContactModal();
@@ -2192,6 +2194,128 @@ function teamLogoMarkup(team, logos) {
   `;
 }
 
+function homeMatchupLogoMarkup(team, logos) {
+  const key = String(team || "").trim().toLowerCase();
+  const url = logos[key];
+  const teamName = escapeHtml(team || "Unknown team");
+  const fallback = url ? "" : `<span aria-hidden="true">${escapeHtml(teamInitials(team))}</span>`;
+  return `<span class="team-logo" title="${teamName}" aria-label="${teamName}">${fallback}${url ? `<img src="${escapeHtml(url)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ""}</span>`;
+}
+
+function homeMatchupContextNote(matchup) {
+  const note = String(matchup?.context_note || "").trim();
+  if (note === "This is a preseason control expectation based on weighted recent team history. It is not current-season evidence yet.") {
+    return "This preseason profile is based on weighted recent team history. It describes expected tendencies before current-season evidence is available.";
+  }
+  return note;
+}
+
+function renderHomeMatchupCard(matchup, logos) {
+  const matchupDate = matchup.date
+    ? new Date(`${matchup.date}T12:00:00`).toLocaleDateString(undefined, { month: "short", day: "numeric" })
+    : `Week ${matchup.week}`;
+  const awayConference = String(matchup.away_conference || "").trim();
+  const homeConference = String(matchup.home_conference || "").trim();
+  const sameConference = awayConference && homeConference && awayConference.toLowerCase() === homeConference.toLowerCase();
+  const conferenceLabel = sameConference
+    ? awayConference
+    : awayConference && homeConference
+      ? `${awayConference} non-con game ${homeConference}`
+      : "";
+  return `
+    <article class="featured-matchup-card matchup-rail-card home-matchup-card" role="link" tabindex="0" data-home-matchup-game="${escapeHtml(matchup.game_id)}" aria-label="Open ${escapeHtml(matchup.away_team)} at ${escapeHtml(matchup.home_team)} matchup analysis">
+      <div class="featured-matchup-topline">
+        <span>${escapeHtml(matchupDate)}</span>
+        <strong>${escapeHtml(matchup.context_label || "Pregame Context")}</strong>
+      </div>
+      <div class="featured-matchup-title">
+        <div>
+          <span>Away</span>
+          <span class="team-name-with-logo">${homeMatchupLogoMarkup(matchup.away_team, logos)}</span>
+        </div>
+        <div>
+          <b>vs</b>
+          ${conferenceLabel ? `<small class="matchup-conference-label">${escapeHtml(conferenceLabel)}</small>` : ""}
+        </div>
+        <div>
+          <span>Home</span>
+          <span class="team-name-with-logo">${homeMatchupLogoMarkup(matchup.home_team, logos)}</span>
+        </div>
+      </div>
+      <div class="weekly-projection-strip">
+        <div><span>Model Lean</span><strong>${escapeHtml(matchup.projected_winner)}</strong></div>
+        <div><span>Projected Margin</span><strong>By ${formatProjectionMargin(matchup.projected_margin_abs)}</strong></div>
+        <div><span title="How close the projected margin is, not model confidence">Projection Closeness</span><strong>${formatPercent(matchup.projection_closeness ?? matchup.close_matchup_risk, 0)}</strong></div>
+      </div>
+      <p class="weekly-context-note">${escapeHtml(homeMatchupContextNote(matchup))}</p>
+      <span class="matchup-preview-button">Full Matchup Analysis</span>
+    </article>
+  `;
+}
+
+function openHomeMatchup(gameId) {
+  const query = new URLSearchParams({ game_id: String(gameId) });
+  if (LOCAL_API_OVERRIDE) query.set("api", LOCAL_API_OVERRIDE);
+  window.location.href = `matchups.html?${query.toString()}`;
+}
+
+function scrollHomeMatchups(direction) {
+  const rail = $("homeFeaturedMatchups");
+  if (!rail) return;
+  const card = rail.querySelector(".featured-matchup-card");
+  const styles = window.getComputedStyle(rail);
+  const gap = Number.parseFloat(styles.columnGap || styles.gap || "0") || 0;
+  rail.scrollBy({ left: direction * ((card?.getBoundingClientRect().width || 430) + gap), behavior: "smooth" });
+}
+
+async function loadHomeWeeklySurface() {
+  const rail = $("homeFeaturedMatchups");
+  const empty = $("homeMatchupsEmpty");
+  if (!rail || !empty) return;
+  try {
+    const [payload, logos] = await Promise.all([
+      api("/api/product-a/current-week?limit=6"),
+      loadTeamLogoCatalog(),
+    ]);
+    const matchups = payload.matchups || [];
+    const status = payload.status || {};
+    $("homeMatchupsLabel").textContent = status.label || `Week ${payload.week || 1}`;
+    $("homeMatchupsMessage").textContent = "Certified pregame outlooks for the games that define the week.";
+    if (!payload.weekly_snapshot_available || !matchups.length) {
+      $("homeMatchupsEmptyTitle").textContent = status.label || "Weekly snapshot pending";
+      $("homeMatchupsEmptyNote").textContent = payload.weekly_snapshot_note || status.message || "Featured matchup outlooks are not available yet.";
+      return;
+    }
+    rail.innerHTML = matchups.map((matchup) => renderHomeMatchupCard(matchup, logos)).join("");
+    rail.classList.remove("is-hidden");
+    empty.classList.add("is-hidden");
+    rail.addEventListener("click", (event) => {
+      const card = event.target.closest("[data-home-matchup-game]");
+      if (card) openHomeMatchup(card.dataset.homeMatchupGame);
+    });
+    rail.addEventListener("keydown", (event) => {
+      if (!["Enter", " "].includes(event.key)) return;
+      const card = event.target.closest("[data-home-matchup-game]");
+      if (!card) return;
+      event.preventDefault();
+      openHomeMatchup(card.dataset.homeMatchupGame);
+    });
+    $("homeMatchupPrevious")?.addEventListener("click", () => scrollHomeMatchups(-1));
+    $("homeMatchupNext")?.addEventListener("click", () => scrollHomeMatchups(1));
+  } catch (error) {
+    console.error("CFP Advantage home matchups failed:", error);
+    $("homeMatchupsLabel").textContent = "Games Of The Week";
+    $("homeMatchupsEmptyTitle").textContent = "Featured matchups are reconnecting";
+    $("homeMatchupsEmptyNote").textContent = "The full weekly slate remains available on the Matchups page.";
+  }
+}
+
+async function loadHomeScoreStrip() {
+  const host = $("homeScoreboardStrip");
+  if (!host || !window.CFPAdvantageScoreboard) return;
+  await window.CFPAdvantageScoreboard.load({ host, apiBase: API_BASE, compact: true, limit: 4 });
+}
+
 function renderHubPick(matchup, logos) {
   const date = hubKickoffLabel(matchup);
   const projection = matchup.projection_unavailable
@@ -2981,13 +3105,16 @@ async function boot() {
   const page = document.body.dataset.page;
   try {
     setupSiteChrome();
-    await loadTermsGate();
     if (page === "metrics") await loadMetricPage();
     if (page === "historical") await loadHistoricalPage();
     if (page === "bracket") await loadBracketPage();
     if (page === "legal") await loadLegalPage();
     if (page === "news") await loadNewsPage("newsList", 20, false);
-    if (page === "home") await loadNewsPage("homeNewsList", 3, true);
+    if (page === "home") await Promise.all([
+      loadHomeWeeklySurface(),
+      loadHomeScoreStrip(),
+      loadNewsPage("homeNewsList", 3, true),
+    ]);
     if (page === "team") await loadTeamPage();
     if (page === "recap") await loadStandaloneRecapPage();
     if (page === "rankings") await loadRankingsPage();

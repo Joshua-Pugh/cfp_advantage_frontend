@@ -77,6 +77,7 @@ function setupSiteChrome() {
       <a href="legal.html#disclaimer">Disclaimer</a>
       <a href="legal.html#refunds">Refund Policy</a>
     </nav>
+    <p class="footer-legal-notice">By using CFP Advantage, you acknowledge the <a href="legal.html#terms">Terms</a>, <a href="legal.html#privacy">Privacy Policy</a>, and <a href="legal.html#disclaimer">Disclaimer</a>.</p>
     <p class="footer-copyright">Copyright 2026 CFP Advantage. All rights reserved.</p>
   `;
   shell.appendChild(footer);
@@ -1105,6 +1106,7 @@ async function loadCurrentMatchups() {
   state.currentMatchupQuery = status.season && status.selected_week
     ? `season=${encodeURIComponent(status.season)}&week=${encodeURIComponent(status.selected_week)}`
     : "";
+  if (!els.currentMatchupsLabel || !els.currentMatchupsMessage || !els.featuredMatchupGrid || !els.currentMatchupsEmpty) return;
   els.currentMatchupsLabel.textContent = status.label || "Current Matchups";
   els.currentMatchupsMessage.textContent = status.message || payload.weekly_snapshot_note || "";
 
@@ -1387,16 +1389,7 @@ function metricLabelWithScale(label) {
 }
 
 async function loadProductGuides() {
-  if (!els.metricCatalogState) {
-    try {
-      const legal = await api("/api/legal/acknowledgement");
-      state.termsVersion = legal.terms_version || DEFAULT_TERMS_VERSION;
-      showTermsBanner(TERMS_GATE_MESSAGE);
-    } catch (error) {
-      showTermsBanner(TERMS_GATE_MESSAGE);
-    }
-    return;
-  }
+  if (!els.metricCatalogState) return;
   els.metricCatalogState.textContent = "Loading metric guide...";
   try {
     const [metrics, stats, legal] = await Promise.all([
@@ -1410,12 +1403,10 @@ async function loadProductGuides() {
     renderMetricCards(state.metricCatalog);
     renderComparisonStats(state.comparisonStats);
     els.metricCatalogState.textContent = `${state.metricCatalog.length} public metrics and ${state.comparisonStats.length} comparison stats loaded.`;
-    showTermsBanner(TERMS_GATE_MESSAGE);
   } catch (error) {
     els.metricCatalogState.textContent = `Metric guide unavailable from API: ${error.message}`;
     renderMetricCards([]);
     renderComparisonStats([]);
-    showTermsBanner(TERMS_GATE_MESSAGE);
   }
 }
 
@@ -1917,9 +1908,11 @@ async function boot() {
   setupSiteChrome();
   console.info("CFP Advantage API base:", API_BASE);
   console.info("CFP Advantage environment:", APP_ENVIRONMENT, "| static fallback enabled:", USE_STATIC_FALLBACK);
-  showStatus("Fetching Matchups...", "Preparing games of the week.", true);
+  showStatus("Fetching Matchups...", "Preparing the weekly matchup workspace.", true);
   await loadCurrentMatchups();
   await loadProductGuides();
+  const linkedGameId = new URLSearchParams(window.location.search).get("game_id");
+  if (linkedGameId) openMatchupPreview(linkedGameId);
   hideStatus();
 }
 

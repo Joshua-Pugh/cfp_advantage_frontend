@@ -95,7 +95,22 @@
     `;
   }
 
-  async function load({ host, apiBase }) {
+  function gameOrder(game) {
+    const statusOrder = { in_progress: 0, scheduled: 1, completed: 2 };
+    const status = statusOrder[game.status] ?? 3;
+    const kickoff = new Date(game.start_date).getTime();
+    return [status, Number.isFinite(kickoff) ? kickoff : Number.MAX_SAFE_INTEGER];
+  }
+
+  function sortGames(games) {
+    return [...games].sort((left, right) => {
+      const leftOrder = gameOrder(left);
+      const rightOrder = gameOrder(right);
+      return leftOrder[0] - rightOrder[0] || leftOrder[1] - rightOrder[1];
+    });
+  }
+
+  async function load({ host, apiBase, compact = false, limit = null }) {
     if (!host) return;
     host.innerHTML = '<div class="scoreboard-loading">Loading the CFBD scoreboard...</div>';
     try {
@@ -108,9 +123,11 @@
       ]);
       if (!response.ok) throw new Error(`Scoreboard request failed with ${response.status}`);
       const payload = await response.json();
-      const games = Array.isArray(payload.games) ? payload.games : [];
+      const games = sortGames(Array.isArray(payload.games) ? payload.games : []);
+      const hasLimit = limit !== null && limit !== undefined && Number.isFinite(Number(limit));
+      const visibleGames = hasLimit ? games.slice(0, Number(limit)) : games;
       host.innerHTML = games.length
-        ? `<div class="official-score-grid">${games.map((game) => gameMarkup(game, logos)).join("")}</div>`
+        ? `<div class="official-score-grid${compact ? " is-compact" : ""}">${visibleGames.map((game) => gameMarkup(game, logos)).join("")}</div>`
         : '<div class="empty-state compact">No games are currently listed.</div>';
     } catch (error) {
       console.error("CFP Advantage scoreboard failed:", error);

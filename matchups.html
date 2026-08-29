@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Matchups | CFP Advantage</title>
-  <link rel="stylesheet" href="styles.css?v=4.0.47">
+  <link rel="stylesheet" href="styles.css?v=4.0.48">
   </head>
   <body>
     <main class="app-shell matchup-page-shell">
@@ -33,26 +33,7 @@
         </div>
       </section>
 
-      <section class="current-matchups-panel" id="currentMatchupsPanel">
-        <div class="current-matchups-heading">
-          <div>
-            <p class="eyebrow">Games Of The Week</p>
-            <h2 id="currentMatchupsLabel">Loading season status...</h2>
-            <p id="currentMatchupsMessage" class="panel-note">Deep matchup analysis for the current weekly slate.</p>
-          </div>
-          <div class="matchup-rail-actions">
-            <button id="matchupRailPrevious" class="icon-button" type="button" aria-label="Previous matchups" title="Previous matchups">&larr;</button>
-            <button id="matchupRailNext" class="icon-button" type="button" aria-label="Next matchups" title="Next matchups">&rarr;</button>
-          </div>
-        </div>
-        <div id="featuredMatchupGrid" class="featured-matchup-grid matchup-rail is-hidden" aria-label="Featured matchups"></div>
-        <div id="currentMatchupsEmpty" class="current-matchups-empty">
-          <strong id="currentMatchupsEmptyTitle">Checking current-season data</strong>
-          <p id="currentMatchupsEmptyNote">Games of the week will appear here when current-season snapshots are available.</p>
-        </div>
-      </section>
-
-      <section class="live-scoreboard-panel" aria-labelledby="liveScoreboardTitle">
+      <section class="live-scoreboard-panel" id="live-scoreboard" aria-labelledby="liveScoreboardTitle">
         <div class="live-scoreboard-copy">
           <p class="eyebrow">CFBD Live Feed</p>
           <h2 id="liveScoreboardTitle">College Football Scoreboard</h2>
@@ -80,7 +61,7 @@
         </div>
         <div id="fullSlatePrompt" class="current-matchups-empty full-slate-empty">
           <strong>The full weekly slate is ready when you are.</strong>
-          <p>Load the complete game list only when you need it. This keeps the page quick while Games of the Week stays focused on the featured matchups.</p>
+          <p>Load the complete game list when you want to browse every matchup or open a full CFP Advantage breakdown.</p>
           <button id="viewFullSlateButton" class="secondary-button" type="button" aria-controls="fullSlateTable" aria-expanded="false">
             Load Full Game List
           </button>
@@ -102,20 +83,8 @@
       </div>
     </section>
 
-    <section id="termsBanner" class="terms-banner is-hidden" aria-label="Terms acknowledgement">
-      <div class="terms-card">
-        <p class="eyebrow">CFP Advantage Terms</p>
-        <h2>Accept Terms To Continue</h2>
-        <p id="termsBannerText">Before entering CFP Advantage, please review and accept the Terms of Use. CFP Advantage provides football intelligence and model-derived context for informational and educational purposes. It does not guarantee outcomes. Free site access is intended for users 13 and older; purchases, donations, premium content, subscriptions, or other payment transactions are restricted to individuals 18 or older.</p>
-        <div class="terms-actions">
-          <button id="termsAcceptButton" type="button">Accept And Enter</button>
-          <a href="legal.html">Read Legal Terms</a>
-        </div>
-      </div>
-    </section>
-
     <script src="config.js?v=4.0.46"></script>
-    <script src="scoreboard.js?v=4.0.46"></script>
-    <script src="app.js?v=4.0.46"></script>
+    <script src="scoreboard.js?v=4.0.48"></script>
+    <script src="app.js?v=4.0.48"></script>
   </body>
 </html>
