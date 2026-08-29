@@ -744,15 +744,25 @@ select {
   to { transform: rotate(360deg); }
 }
 
-.home-preseason-note {
-  margin: 0;
+.home-matchup-guide {
+  display: grid;
+  gap: 5px;
   padding: 12px 14px;
   border-left: 3px solid var(--green);
   background: var(--paper);
+}
+
+.home-matchup-guide p {
+  margin: 0;
   color: var(--muted);
   font-size: 14px;
   font-weight: 700;
   line-height: 1.5;
+}
+
+.home-matchup-guide strong {
+  margin-right: 4px;
+  color: var(--charcoal);
 }
 
 .home-score-strip-section {
@@ -1064,12 +1074,20 @@ select {
 }
 
 .matchup-conference-label {
-  display: block;
-  color: var(--muted);
-  font-size: 11px;
-  font-weight: 600;
+  display: inline-flex;
+  justify-content: center;
+  max-width: 150px;
+  margin: 5px auto 0;
+  padding: 4px 6px;
+  border: 1px solid #bfd0c7;
+  border-radius: 4px;
+  background: #edf5f0;
+  color: var(--green);
+  font-size: 10px;
+  font-weight: 850;
+  line-height: 1.25;
+  text-align: center;
   text-transform: uppercase;
-  margin-top: 2px;
 }
 
 .weekly-projection-strip {

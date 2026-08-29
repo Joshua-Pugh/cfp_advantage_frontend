@@ -2210,9 +2210,9 @@ function renderHomeMatchupCard(matchup, logos) {
   const homeConference = String(matchup.home_conference || "").trim();
   const sameConference = awayConference && homeConference && awayConference.toLowerCase() === homeConference.toLowerCase();
   const conferenceLabel = sameConference
-    ? awayConference
+    ? `${awayConference} Matchup`
     : awayConference && homeConference
-      ? `${awayConference} non-con game ${homeConference}`
+      ? `${awayConference} • Non-Conference • ${homeConference}`
       : "";
   return `
     <article class="featured-matchup-card matchup-rail-card home-matchup-card">

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CFP Advantage | 2026 Live Season</title>
-    <link rel="stylesheet" href="styles.css?v=4.0.50">
+    <link rel="stylesheet" href="styles.css?v=4.0.51">
   </head>
   <body data-page="home">
     <main class="app-shell home-shell">
@@ -58,7 +58,10 @@
             <button id="homeMatchupNext" class="icon-button" type="button" aria-label="Next matchups" title="Next matchups">&rarr;</button>
           </div>
         </div>
-        <p class="home-preseason-note">This preseason profile is based on weighted recent team history. It describes expected tendencies before current-season evidence is available.</p>
+        <div class="home-matchup-guide">
+          <p><strong>Projection Closeness</strong> A higher percentage means the game is projected to finish closer. It does not measure confidence in the model lean.</p>
+          <p>This preseason profile is based on weighted recent team history. It describes expected tendencies before current-season evidence is available.</p>
+        </div>
         <div id="homeFeaturedMatchups" class="featured-matchup-grid matchup-rail is-hidden" aria-label="Games of the week"></div>
         <div id="homeMatchupsEmpty" class="current-matchups-empty" role="status" aria-live="polite">
           <span class="home-matchups-spinner" aria-hidden="true"></span>
@@ -139,6 +142,6 @@
 
     <script src="config.js?v=4.0.46"></script>
     <script src="scoreboard.js?v=4.0.48"></script>
-    <script src="site.js?v=4.0.50"></script>
+    <script src="site.js?v=4.0.51"></script>
   </body>
 </html>
