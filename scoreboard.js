@@ -29,7 +29,10 @@
   let activeLogos = {};
   let activeCompact = false;
   let activeSelectable = false;
+  let activeApiBase = "";
+  let activeLimit = null;
   let filterSelected = false;
+  let scoreboardRefreshing = false;
 
   function selectedGameIds() {
     return [...selected];
@@ -144,19 +147,110 @@
     });
   }
 
-  function renderActiveScoreboard() {
-    if (!activeHost) return;
-    const games = filterSelected ? activeGames.filter((game) => selected.has(String(game.game_id))) : activeGames;
-    const controls = activeSelectable && selected.size
-      ? `<div class="scoreboard-selection-controls"><strong>${selected.size} selected</strong><button type="button" data-score-filter>${filterSelected ? "Show All Games" : "Filter Selected Games"}</button><button type="button" data-score-clear>Clear</button></div>`
+ function renderActiveScoreboard() {
+  if (!activeHost) return;
+
+  const games = filterSelected
+    ? activeGames.filter((game) => selected.has(String(game.game_id)))
+    : activeGames;
+
+  const selectionControls =
+    activeSelectable && selected.size
+      ? `
+        <strong>${selected.size} selected</strong>
+
+        <button type="button" data-score-filter>
+          ${filterSelected ? "Show All Games" : "Filter Selected Games"}
+        </button>
+
+        <button type="button" data-score-clear>
+          Clear
+        </button>
+      `
       : "";
-    activeHost.innerHTML = activeGames.length
-      ? `${controls}<div class="official-score-grid${activeCompact ? " is-compact" : ""}">${games.map((game) => gameMarkup(game, activeLogos)).join("")}</div>`
-      : '<div class="empty-state compact">No games are currently listed.</div>';
+
+  const controls = `
+    <div class="scoreboard-selection-controls">
+      ${selectionControls}
+
+      <button
+        type="button"
+        data-score-refresh
+        ${scoreboardRefreshing ? "disabled" : ""}
+      >
+        ${scoreboardRefreshing ? "Refreshing..." : "Refresh Scores"}
+      </button>
+    </div>
+  `;
+
+  activeHost.innerHTML = activeGames.length
+    ? `
+      ${controls}
+
+      <div class="official-score-grid${activeCompact ? " is-compact" : ""}">
+        ${games.map((game) => gameMarkup(game, activeLogos)).join("")}
+      </div>
+    `
+    : '<div class="empty-state compact">No games are currently listed.</div>';
+}
+
+async function refreshScores() {
+  if (!activeHost || !activeApiBase || scoreboardRefreshing) return;
+
+  scoreboardRefreshing = true;
+  renderActiveScoreboard();
+
+  try {
+    const response = await fetch(
+      `${String(activeApiBase).replace(/\/$/, "")}/api/game-day/scoreboard?classification=fbs`,
+      {
+        cache: "no-store",
+        headers: {
+          "Cache-Control": "no-cache",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(
+        `Scoreboard request failed with ${response.status}`
+      );
+    }
+
+    const payload = await response.json();
+
+    const games = sortGames(
+      Array.isArray(payload.games) ? payload.games : []
+    );
+
+    const hasLimit =
+      activeLimit !== null &&
+      activeLimit !== undefined &&
+      Number.isFinite(Number(activeLimit));
+
+    activeGames = hasLimit
+      ? games.slice(0, Number(activeLimit))
+      : games;
+  } catch (error) {
+    console.error(
+      "CFP Advantage scoreboard refresh failed:",
+      error
+    );
+  } finally {
+    scoreboardRefreshing = false;
+    renderActiveScoreboard();
   }
+}
 
   async function load({ host, apiBase, compact = false, limit = null, selectable = false }) {
     if (!host) return;
+
+    activeHost = host;
+    activeApiBase = apiBase;
+    activeLimit = limit;
+    activeCompact = compact;
+    activeSelectable = selectable;
+
     host.innerHTML = '<div class="scoreboard-loading">Loading the CFBD scoreboard...</div>';
     try {
       const [response, logos] = await Promise.all([
@@ -184,6 +278,11 @@
   }
 
   document.addEventListener("click", (event) => {
+    if (event.target.closest("[data-score-refresh]")) {
+      refreshScores();
+      return;
+    }
+    
     const selectButton = event.target.closest("[data-score-select]");
     if (selectButton) toggleSelection(selectButton.dataset.scoreSelect);
     if (event.target.closest("[data-score-filter]")) {
@@ -198,5 +297,9 @@
     }
   });
 
-  window.CFPAdvantageScoreboard = { load, selectedGameIds, toggleSelection };
+  window.CFPAdvantageScoreboard = {
+  load,
+  refresh: refreshScores,
+  selectedGameIds,
+  toggleSelection};
 }());

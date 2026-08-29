@@ -1116,14 +1116,73 @@ async function loadLiveScoreboard() {
 }
 
 function syncLiveBoardSelection() {
-  state.selectedLiveBoardIds = window.CFPAdvantageScoreboard?.selectedGameIds?.() || [];
+  state.selectedLiveBoardIds =
+    window.CFPAdvantageScoreboard?.selectedGameIds?.() || [];
+
   if (els.liveBoardSelectionList) {
-    const selected = state.fullSlateMatchups.filter((game) => state.selectedLiveBoardIds.includes(String(game.game_id)));
+    const selected = state.fullSlateMatchups.filter((game) =>
+      state.selectedLiveBoardIds.includes(String(game.game_id))
+    );
+
     els.liveBoardSelectionList.innerHTML = selected.length
-      ? selected.map((game) => `<div class="live-board-selection-row"><span>${matchupTeamLogoMarkup(game.away_team)}${escapeHtml(game.away_team)} at ${matchupTeamLogoMarkup(game.home_team)}${escapeHtml(game.home_team)}</span><button type="button" data-remove-live-board-game="${escapeHtml(game.game_id)}" aria-label="Remove ${escapeHtml(game.away_team)} at ${escapeHtml(game.home_team)} from Live Board">Remove</button></div>`).join("")
+      ? selected.map((game) => {
+          const hasProjection =
+            !game.projection_unavailable &&
+            game.projected_winner &&
+            Number.isFinite(Number(game.projected_margin_abs));
+
+          const projectionMarkup = hasProjection
+            ? `
+              <div class="live-board-model-read">
+                <span>ADV Pick</span>
+                <strong>
+                  ${escapeHtml(game.projected_winner)}
+                  by ${formatProjectionMargin(game.projected_margin_abs)}
+                </strong>
+              </div>
+            `
+            : `
+              <div class="live-board-model-read">
+                <span>ADV Pick</span>
+                <strong>Not Available</strong>
+              </div>
+            `;
+
+          return `
+            <div class="live-board-selection-row">
+              <div class="live-board-selection-info">
+                <div class="live-board-matchup">
+                  ${matchupTeamLogoMarkup(game.away_team)}
+                  <strong>${escapeHtml(game.away_team)}</strong>
+
+                  <span>at</span>
+
+                  ${matchupTeamLogoMarkup(game.home_team)}
+                  <strong>${escapeHtml(game.home_team)}</strong>
+                </div>
+
+                ${projectionMarkup}
+              </div>
+
+              <button
+                type="button"
+                data-remove-live-board-game="${escapeHtml(game.game_id)}"
+                aria-label="Remove ${escapeHtml(game.away_team)} at ${escapeHtml(game.home_team)} from Live Board"
+              >
+                Remove
+              </button>
+            </div>
+          `;
+        }).join("")
       : '<span class="live-board-empty">No games selected yet.</span>';
   }
-  if (els.fullSlateTableContent && state.fullSlateMatchups.length) renderFullSlateTableInline();
+
+  if (
+    els.fullSlateTableContent &&
+    state.fullSlateMatchups.length
+  ) {
+    renderFullSlateTableInline();
+  }
 }
 
 function openMatchupPreview(gameId) {

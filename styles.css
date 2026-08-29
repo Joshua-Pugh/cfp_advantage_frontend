@@ -605,6 +605,56 @@ select {
   font-weight: 800;
 }
 
+.live-board-selection-info {
+  display: grid;
+  gap: 7px;
+  min-width: 0;
+  flex: 1;
+}
+
+.live-board-matchup {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  min-width: 0;
+  font-size: 11px;
+}
+
+.live-board-matchup strong {
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.live-board-matchup > span:not(.team-logo) {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.live-board-model-read {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--line);
+}
+
+.live-board-model-read span {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.live-board-model-read strong {
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 900;
+}
+
 .full-slate-row.is-limited-projection {
   background: #fbfcf8;
   cursor: default;
