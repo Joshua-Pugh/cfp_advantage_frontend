@@ -2202,6 +2202,33 @@ function homeMatchupLogoMarkup(team, logos) {
   return `<span class="team-logo" title="${teamName}" aria-label="${teamName}">${fallback}${url ? `<img src="${escapeHtml(url)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ""}</span>`;
 }
 
+function shortConferenceTag(conference) {
+  const raw = String(conference || "").trim();
+  if (!raw) return "";
+
+  const normalized = raw.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").trim();
+  const tagMap = {
+    "american athletic conference": "AAC",
+    "american athletic": "AAC",
+    "big ten conference": "B1G",
+    "big ten": "B1G",
+    "big 12 conference": "XII",
+    "big 12": "XII",
+    "fbs independents": "Ind.",
+    "fbs independent": "Ind.",
+    "independents": "Ind.",
+    "independent": "Ind."
+  };
+
+  if (tagMap[normalized]) {
+    return tagMap[normalized];
+  }
+
+  const shorthand = raw.replace(/\bconference\b/gi, "").replace(/\s+/g, " ").trim();
+  if (shorthand.length <= 8) return shorthand;
+  return shorthand.split(" ").map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()).join(" ");
+}
+
 function renderHomeMatchupCard(matchup, logos) {
   const matchupDate = matchup.date
     ? new Date(`${matchup.date}T12:00:00`).toLocaleDateString(undefined, { month: "short", day: "numeric" })
@@ -2209,11 +2236,18 @@ function renderHomeMatchupCard(matchup, logos) {
   const awayConference = String(matchup.away_conference || "").trim();
   const homeConference = String(matchup.home_conference || "").trim();
   const sameConference = awayConference && homeConference && awayConference.toLowerCase() === homeConference.toLowerCase();
-  const conferenceLabel = sameConference
-    ? `${awayConference} Matchup`
-    : awayConference && homeConference
-      ? `${awayConference} • Non-Conference • ${homeConference}`
-      : "";
+  let conferenceMarkup = "";
+  if (sameConference && awayConference) {
+    conferenceMarkup = `<div class="matchup-conference-group"><span class="matchup-conference-tag">${escapeHtml(shortConferenceTag(awayConference))}</span></div>`;
+  } else if (awayConference && homeConference) {
+    conferenceMarkup = `
+      <div class="matchup-conference-group">
+        <span class="matchup-conference-tag">${escapeHtml(shortConferenceTag(awayConference))}</span>
+        <span class="matchup-conference-divider">non-conf</span>
+        <span class="matchup-conference-tag">${escapeHtml(shortConferenceTag(homeConference))}</span>
+      </div>
+    `;
+  }
   return `
     <article class="featured-matchup-card matchup-rail-card home-matchup-card">
       <div class="featured-matchup-topline">
@@ -2227,7 +2261,7 @@ function renderHomeMatchupCard(matchup, logos) {
         </div>
         <div>
           <b>vs</b>
-          ${conferenceLabel ? `<small class="matchup-conference-label">${escapeHtml(conferenceLabel)}</small>` : ""}
+          ${conferenceMarkup}
         </div>
         <div>
           <span>Home</span>
