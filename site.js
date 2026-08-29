@@ -2202,14 +2202,6 @@ function homeMatchupLogoMarkup(team, logos) {
   return `<span class="team-logo" title="${teamName}" aria-label="${teamName}">${fallback}${url ? `<img src="${escapeHtml(url)}" alt="" loading="lazy" onerror="this.style.display='none'">` : ""}</span>`;
 }
 
-function homeMatchupContextNote(matchup) {
-  const note = String(matchup?.context_note || "").trim();
-  if (note === "This is a preseason control expectation based on weighted recent team history. It is not current-season evidence yet.") {
-    return "This preseason profile is based on weighted recent team history. It describes expected tendencies before current-season evidence is available.";
-  }
-  return note;
-}
-
 function renderHomeMatchupCard(matchup, logos) {
   const matchupDate = matchup.date
     ? new Date(`${matchup.date}T12:00:00`).toLocaleDateString(undefined, { month: "short", day: "numeric" })
@@ -2247,7 +2239,6 @@ function renderHomeMatchupCard(matchup, logos) {
         <div><span>Projected Margin</span><strong>By ${formatProjectionMargin(matchup.projected_margin_abs)}</strong></div>
         <div><span title="How close the projected margin is, not model confidence">Projection Closeness</span><strong>${formatPercent(matchup.projection_closeness ?? matchup.close_matchup_risk, 0)}</strong></div>
       </div>
-      <p class="weekly-context-note">${escapeHtml(homeMatchupContextNote(matchup))}</p>
     </article>
   `;
 }
@@ -2267,7 +2258,7 @@ async function loadHomeWeeklySurface() {
   if (!rail || !empty) return;
   try {
     const [payload, logos] = await Promise.all([
-      api("/api/product-a/current-week?limit=5"),
+      api("/api/product-a/current-week?limit=8"),
       loadTeamLogoCatalog(),
     ]);
     const matchups = payload.matchups || [];
@@ -2275,6 +2266,8 @@ async function loadHomeWeeklySurface() {
     $("homeMatchupsLabel").textContent = status.label || `Week ${payload.week || 1}`;
     $("homeMatchupsMessage").textContent = "Certified pregame outlooks for the games that define the week.";
     if (!payload.weekly_snapshot_available || !matchups.length) {
+      rail.classList.add("is-hidden");
+      empty.querySelector(".home-matchups-spinner")?.classList.add("is-hidden");
       $("homeMatchupsEmptyTitle").textContent = status.label || "Weekly snapshot pending";
       $("homeMatchupsEmptyNote").textContent = payload.weekly_snapshot_note || status.message || "Featured matchup outlooks are not available yet.";
       return;
@@ -2294,9 +2287,34 @@ async function loadHomeWeeklySurface() {
     $("homeMatchupNext")?.addEventListener("click", () => scrollHomeMatchups(1));
   } catch (error) {
     console.error("CFP Advantage home matchups failed:", error);
+    empty.querySelector(".home-matchups-spinner")?.classList.add("is-hidden");
     $("homeMatchupsLabel").textContent = "Games Of The Week";
     $("homeMatchupsEmptyTitle").textContent = "Featured matchups are reconnecting";
     $("homeMatchupsEmptyNote").textContent = "The full weekly slate remains available on the Matchups page.";
+  }
+}
+
+async function loadHomeProductStatus() {
+  const note = $("homeValidationNote");
+  if (!note) return;
+  try {
+    const payload = await api("/api/product-a/live-tracker?season=2026");
+    const summary = payload.summary || {};
+    const graded = Number(summary.games_graded || 0);
+    $("homePublishedPicks").textContent = String(summary.games_published ?? 0);
+    $("homeWinnerAccuracy").textContent = summary.winner_accuracy === null || summary.winner_accuracy === undefined
+      ? "Pending"
+      : formatPercent(summary.winner_accuracy, 1);
+    $("homeMarginMae").textContent = summary.margin_mae === null || summary.margin_mae === undefined
+      ? "Pending"
+      : formatNumber(summary.margin_mae, 2);
+    $("homeGradedPicks").textContent = String(graded);
+    note.textContent = graded
+      ? "Updated after the latest certified grading run."
+      : "Published before kickoff. Grading begins after certified finals.";
+  } catch (error) {
+    console.error("CFP Advantage home validation snapshot failed:", error);
+    note.textContent = "The certified season snapshot is temporarily unavailable.";
   }
 }
 
@@ -3102,6 +3120,7 @@ async function boot() {
     if (page === "news") await loadNewsPage("newsList", 20, false);
     if (page === "home") await Promise.all([
       loadHomeWeeklySurface(),
+      loadHomeProductStatus(),
       loadHomeScoreStrip(),
       loadNewsPage("homeNewsList", 3, true),
     ]);

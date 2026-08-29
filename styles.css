@@ -243,6 +243,34 @@ select {
   line-height: 1.45;
 }
 
+.home-validation-snapshot {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 4px 0;
+}
+
+.home-validation-snapshot div {
+  min-width: 0;
+  padding: 9px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--paper);
+}
+
+.home-validation-snapshot span {
+  display: block;
+  font-size: 10px;
+}
+
+.home-validation-snapshot b {
+  display: block;
+  margin-top: 3px;
+  color: var(--charcoal);
+  font-size: 18px;
+  line-height: 1.1;
+}
+
 .home-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -273,6 +301,7 @@ select {
 }
 
 .current-matchups-empty {
+  position: relative;
   padding: 28px;
   border: 1px dashed #b9c5c0;
   border-radius: 8px;
@@ -694,6 +723,36 @@ select {
 .home-matchups-cta .primary-action {
   flex: 0 0 auto;
   text-align: center;
+}
+
+.home-matchups-spinner {
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin: 0 auto 14px;
+  border: 3px solid #cbd7d1;
+  border-top-color: var(--green);
+  border-radius: 50%;
+  animation: home-matchups-spin 800ms linear infinite;
+}
+
+.home-matchups-spinner.is-hidden {
+  display: none;
+}
+
+@keyframes home-matchups-spin {
+  to { transform: rotate(360deg); }
+}
+
+.home-preseason-note {
+  margin: 0;
+  padding: 12px 14px;
+  border-left: 3px solid var(--green);
+  background: var(--paper);
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
 }
 
 .home-score-strip-section {
