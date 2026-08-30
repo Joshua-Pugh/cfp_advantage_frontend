@@ -2234,10 +2234,23 @@ function shortConferenceTag(conference) {
   return shorthand.split(" ").map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()).join(" ");
 }
 
+function matchupDateLabel(matchup) {
+  const kickoff = !matchup.kickoff_time_tbd && matchup.kickoff_at
+    ? new Date(matchup.kickoff_at)
+    : null;
+  if (kickoff && Number.isFinite(kickoff.getTime())) {
+    return kickoff.toLocaleDateString("en-US", {
+      month: "short", day: "numeric", timeZone: "America/New_York",
+    });
+  }
+  const date = matchup.date ? new Date(`${matchup.date}T12:00:00`) : null;
+  return date && Number.isFinite(date.getTime())
+    ? date.toLocaleDateString("en-US", { month: "short", day: "numeric" })
+    : `Week ${matchup.week || 1}`;
+}
+
 function renderHomeMatchupCard(matchup, logos) {
-  const matchupDate = matchup.date
-    ? new Date(`${matchup.date}T12:00:00`).toLocaleDateString(undefined, { month: "short", day: "numeric" })
-    : `Week ${matchup.week}`;
+  const matchupDate = matchupDateLabel(matchup);
   const awayConference = String(matchup.away_conference || "").trim();
   const homeConference = String(matchup.home_conference || "").trim();
   const sameConference = awayConference && homeConference && awayConference.toLowerCase() === homeConference.toLowerCase();
@@ -2597,9 +2610,7 @@ function renderHubPick(matchup, logos) {
 }
 
 function hubKickoffLabel(matchup) {
-  const fallback = matchup.date
-    ? new Date(`${matchup.date}T12:00:00`).toLocaleDateString(undefined, { month: "short", day: "numeric" })
-    : `Week ${matchup.week || 1}`;
+  const fallback = matchupDateLabel(matchup);
   if (matchup.kickoff_time_tbd) return `${fallback} · Time TBD`;
   if (!matchup.kickoff_at) return fallback;
   const kickoff = new Date(matchup.kickoff_at);

@@ -719,10 +719,23 @@ function shortConferenceTag(conference) {
   return shorthand.split(" ").map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()).join(" ");
 }
 
+function matchupDateLabel(matchup) {
+  const kickoff = !matchup.kickoff_time_tbd && matchup.kickoff_at
+    ? new Date(matchup.kickoff_at)
+    : null;
+  if (kickoff && Number.isFinite(kickoff.getTime())) {
+    return kickoff.toLocaleDateString("en-US", {
+      month: "short", day: "numeric", timeZone: "America/New_York",
+    });
+  }
+  const date = matchup.date ? new Date(`${matchup.date}T12:00:00`) : null;
+  return date && Number.isFinite(date.getTime())
+    ? date.toLocaleDateString("en-US", { month: "short", day: "numeric" })
+    : `Week ${matchup.week || 1}`;
+}
+
 function renderCurrentMatchupCard(matchup) {
-  const matchupDate = matchup.date
-    ? new Date(`${matchup.date}T12:00:00`).toLocaleDateString(undefined, { month: "short", day: "numeric" })
-    : `Week ${matchup.week}`;
+  const matchupDate = matchupDateLabel(matchup);
   
   // Determine conference label
   const awayConf = String(matchup.away_conference || "").trim();
@@ -854,7 +867,7 @@ function fullMatchupPreview(matchup) {
     <section class="matchup-preview-detail">
       <div class="panel-heading">
         <div>
-          <p class="eyebrow">${escapeHtml(matchup.date || `Week ${matchup.week}`)}</p>
+          <p class="eyebrow">${escapeHtml(matchupDateLabel(matchup))}</p>
           <h2>${escapeHtml(matchup.away_team)} at ${escapeHtml(matchup.home_team)}</h2>
           <p class="panel-note">${escapeHtml(matchupContextNote(matchup))}</p>
         </div>
