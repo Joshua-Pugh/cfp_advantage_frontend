@@ -1,4 +1,4 @@
-﻿const CONFIG = window.CFP_ADV_CONFIG || {};
+const CONFIG = window.CFP_ADV_CONFIG || {};
 const IS_LOCAL_HOST = ["127.0.0.1", "localhost"].includes(window.location.hostname);
 const LOCAL_API_OVERRIDE = IS_LOCAL_HOST ? new URLSearchParams(window.location.search).get("api") : "";
 const API_BASE = (LOCAL_API_OVERRIDE || CONFIG.API_BASE_URL || "https://cfp-advantage-model-1.onrender.com").replace(/\/$/, "");
@@ -269,8 +269,8 @@ const BRACKET_FRAMEWORK_LABELS = {
   control_denial: "Control Denial",
   control_finish: "Control Finish Rate",
   control_drive_shutout: "Control Drive Shutout Rate",
-  control_production: "Control Production",
-  defensive_control_production_allowed: "Defensive Control Production Allowed",
+  control_production: "Control Pressure",
+  defensive_control_production_allowed: "Control Pressure Allowed",
 };
 
 function $(id) {
@@ -659,7 +659,7 @@ function renderComparisonStats(target, rows) {
 }
 
 function publicMetricName(name) {
-  return METRIC_DISPLAY[name]?.[0] || name;
+  return publicProfileSummary(METRIC_DISPLAY[name]?.[0] || name);
 }
 
 function publicMetricDescription(metric) {
@@ -807,8 +807,8 @@ function historicalContextCard(title, context) {
         <div><span>Control Denial</span><strong>${formatPercent(context.rolling_control_denial_rate, 2)}</strong></div>
         <div><span>Control Finish Rate</span><strong>${formatPercent(context.rolling_control_finish_rate, 2)}</strong></div>
         <div><span>Control Drive Shutout Rate</span><strong>${formatPercent(context.rolling_finishing_resistance, 2)}</strong><small>Share of opponent control drives held scoreless</small></div>
-        <div><span>Control Points Per Offensive Drive</span><strong>${formatNumber(context.rolling_control_production_rate, 2)}</strong><small>ADV-derived pressure across ${formatNumber(context.rolling_offensive_drives, 0)} offensive drives</small></div>
-        <div><span>Control Points Allowed Per Defensive Drive</span><strong>${formatNumber(context.rolling_defensive_control_production_allowed, 2)}</strong><small>Pressure allowed across ${formatNumber(context.rolling_defensive_drives, 0)} defensive drives · Lower is better</small></div>
+        <div><span>Control Pressure Per Offensive Drive</span><strong>${formatNumber(context.rolling_control_production_rate, 2)}</strong><small>ADV-derived pressure across ${formatNumber(context.rolling_offensive_drives, 0)} offensive drives</small></div>
+        <div><span>Control Pressure Allowed Per Defensive Drive</span><strong>${formatNumber(context.rolling_defensive_control_production_allowed, 2)}</strong><small>Pressure allowed across ${formatNumber(context.rolling_defensive_drives, 0)} defensive drives · Lower is better</small></div>
         <div><span>Creation Waste</span><strong>${formatPercent(context.rolling_creation_waste_rate, 2)}</strong></div>
         <div><span>Finish Waste</span><strong>${formatPercent(context.rolling_finish_waste_rate, 2)}</strong></div>
         <div><span>Scoreboard Control Gap</span><strong>${formatNumber(context.rolling_dce, 2)}</strong></div>
@@ -987,8 +987,8 @@ function bracketGameCard(game) {
   const frameworkRead = game.diagnostic?.framework_read?.label || "Framework Unavailable";
   return `
     <button class="bracket-game-card" type="button" data-bracket-game="${escapeHtml(game.game_key)}">
-      <span class="team-name-with-logo">${teamLogoMarkup(game.team_a?.team || game.team_a?.display, activeTeamLogos)}${escapeHtml(bracketTeamLabel(game.team_a || {}))}</span>
-      <span class="team-name-with-logo">${teamLogoMarkup(game.team_b?.team || game.team_b?.display, activeTeamLogos)}${escapeHtml(bracketTeamLabel(game.team_b || {}))}</span>
+      <span class="team-name-with-logo">${teamLogoMarkup(game.team_a?.team || game.team_a?.display, activeTeamLogos)}<span class="bracket-team-name">${escapeHtml(bracketTeamLabel(game.team_a || {}))}</span></span>
+      <span class="team-name-with-logo">${teamLogoMarkup(game.team_b?.team || game.team_b?.display, activeTeamLogos)}<span class="bracket-team-name">${escapeHtml(bracketTeamLabel(game.team_b || {}))}</span></span>
       <small>Model lean: ${escapeHtml(favorite)} (${escapeHtml(winPct)})</small>
       <em>${escapeHtml(frameworkRead)}</em>
     </button>
@@ -1052,7 +1052,7 @@ function diagnosticProfile(team) {
       <h3 class="team-name-with-logo">${teamLogoMarkup(team.team, activeTeamLogos)}${escapeHtml(team.seed ? `${team.seed} ${team.team}` : team.team || "-")}</h3>
       <div class="bracket-profile-identity">
         <strong>${escapeHtml(profile.identity || "Framework Unavailable")}</strong>
-        <small>${escapeHtml(profile.summary || profile.note || "")}</small>
+        <small>${escapeHtml(publicProfileSummary(profile.summary || profile.note))}</small>
       </div>
       ${bracketFrameworkGrid(profile)}
       <div class="summary-grid mini bracket-context-grid">
@@ -1062,8 +1062,8 @@ function diagnosticProfile(team) {
         <div><span>ADV Schedule Rating</span><strong>${formatNumber(team.adv_schedule_rating, 1)}</strong></div>
         <div><span>Control Foundation</span><strong>${escapeHtml(profile.foundation?.label || "-")}</strong><small>${escapeHtml(percentileLabel(profile.foundation?.percentile) || "")}</small></div>
         <div><span>Conversion Profile</span><strong>${escapeHtml(profile.conversion?.label || "-")}</strong><small>${escapeHtml(percentileLabel(profile.conversion?.percentile) || "")}</small></div>
-        <div><span>Control Points Per Offensive Drive</span><strong>${formatNumber(metrics.control_production?.value, 2)}</strong><small>Sustainable scoring pressure across ${formatNumber(profile.offensive_drives, 0)} offensive drives</small></div>
-        <div><span>Control Points Allowed Per Defensive Drive</span><strong>${formatNumber(metrics.defensive_control_production_allowed?.value, 2)}</strong><small>Sustained pressure allowed across ${formatNumber(profile.defensive_drives, 0)} defensive drives · Lower is better</small></div>
+        <div><span>Control Pressure Per Offensive Drive</span><strong>${formatNumber(metrics.control_production?.value, 2)}</strong><small>Sustainable scoring pressure across ${formatNumber(profile.offensive_drives, 0)} offensive drives</small></div>
+        <div><span>Control Pressure Allowed Per Defensive Drive</span><strong>${formatNumber(metrics.defensive_control_production_allowed?.value, 2)}</strong><small>Sustained pressure allowed across ${formatNumber(profile.defensive_drives, 0)} defensive drives · Lower is better</small></div>
         <div><span>Creation Waste</span><strong>${formatPercent(profile.creation_waste)}</strong></div>
         <div><span>Finish Waste</span><strong>${formatPercent(profile.finish_waste)}</strong></div>
         <div><span>Talent Yield</span><strong>${escapeHtml(talentYield.label)}</strong><small>${escapeHtml(talentYield.value)}</small></div>
@@ -1079,8 +1079,8 @@ function diagnosticProfile(team) {
         <p><strong>ADV Schedule Rating:</strong> Raw opponent-strength context available at the frozen snapshot.</p>
         <p><strong>Control Foundation:</strong> Combined view of Control Creation and Control Denial.</p>
         <p><strong>Conversion Profile:</strong> Combined view of Control Finish and Control Drive Shutout Rate.</p>
-        <p><strong>Control Points Per Offensive Drive:</strong> ADV-derived sustainable scoring pressure spread across every offensive drive. It is not literal scoreboard points per drive. Rough guide: 3.1+ is elite, 2.4-3.0 strong, 1.5-2.3 average, under 1.5 limited.</p>
-        <p><strong>Control Points Allowed Per Defensive Drive:</strong> The lower-is-better defensive mirror. It estimates sustained opponent scoring pressure allowed across every defensive drive. Rough guide: under 1.2 is elite, 1.2-1.8 strong, 1.9-2.5 average, 2.6+ vulnerable.</p>
+        <p><strong>Control Pressure Per Offensive Drive:</strong> ADV-derived sustainable scoring pressure spread across every offensive drive. It is not literal scoreboard points per drive. Rough guide: 3.1+ is elite, 2.4-3.0 strong, 1.5-2.3 average, under 1.5 limited.</p>
+        <p><strong>Control Pressure Allowed Per Defensive Drive:</strong> The lower-is-better defensive mirror. It estimates sustained opponent scoring pressure allowed across every defensive drive. Rough guide: under 1.2 is elite, 1.2-1.8 strong, 1.9-2.5 average, 2.6+ vulnerable.</p>
         <p><strong>Creation Waste:</strong> Offensive drives that never become meaningful control.</p>
         <p><strong>Finish Waste:</strong> Meaningful control drives that do not produce points.</p>
         <p><strong>Talent Yield:</strong> Performance compared with roster expectation.</p>
@@ -1696,7 +1696,7 @@ function renderTeamAdvProfileView(intel = {}, driveConversion = {}, stats = {}, 
   ];
   const scoringPressureRows = [
     [
-      "Control Points Per Offensive Drive",
+      "Control Pressure Per Offensive Drive",
       decimal(view.control_production_rate, 2),
       [
         view.control_production_tier,
@@ -1706,7 +1706,7 @@ function renderTeamAdvProfileView(intel = {}, driveConversion = {}, stats = {}, 
       ].filter(Boolean).join(" · "),
     ],
     [
-      "Control Points Allowed Per Defensive Drive",
+      "Control Pressure Allowed Per Defensive Drive",
       decimal(view.defensive_control_production_allowed, 2),
       [
         view.defensive_control_production_allowed_tier,
@@ -1715,8 +1715,8 @@ function renderTeamAdvProfileView(intel = {}, driveConversion = {}, stats = {}, 
         "Lower is better",
       ].filter(Boolean).join(" · "),
     ],
-    ["Control Production", view.control_production_tier || "-", percentileLabel(view.control_production_percentile)],
-    ["Defensive Control Production Allowed", view.defensive_control_production_allowed_tier || "-", [percentileLabel(view.defensive_control_production_allowed_percentile), "Lower is better"].filter(Boolean).join(" · ")],
+    ["Control Pressure", view.control_production_tier || "-", percentileLabel(view.control_production_percentile)],
+    ["Control Pressure Allowed", view.defensive_control_production_allowed_tier || "-", [percentileLabel(view.defensive_control_production_allowed_percentile), "Lower is better"].filter(Boolean).join(" · ")],
   ];
   const conversionRows = [
     [
@@ -1829,12 +1829,12 @@ function renderPressureCompareWindow(view = {}, stats = {}, games = []) {
         <div class="pressure-compare-column">
           <span>CFP Identity</span>
           <div>
-            <strong>Control Points Per Offensive Drive</strong>
+            <strong>Control Pressure Per Offensive Drive</strong>
             <b>${decimal(cpo, 2)}</b>
             <small>${escapeHtml(cpoMeta || "Sustainable scoring pressure per possession")}</small>
           </div>
           <div>
-            <strong>Control Points Allowed Per Defensive Drive</strong>
+            <strong>Control Pressure Allowed Per Defensive Drive</strong>
             <b>${decimal(cpa, 2)}</b>
             <small>${escapeHtml(cpaMeta || "Sustainable pressure allowed per defensive possession")}</small>
           </div>
@@ -1954,7 +1954,12 @@ function productionSampleLabel(value, drives, denominator) {
 }
 
 function publicProfileSummary(value) {
-  return String(value || "").replaceAll("Finishing Resistance", "Control Drive Shutout Rate");
+  // Older frozen artifacts retain legacy display names; their values stay unchanged.
+  return String(value || "")
+    .replaceAll("Finishing Resistance", "Control Drive Shutout Rate")
+    .replaceAll("Defensive Control Production Allowed", "Control Pressure Allowed")
+    .replaceAll("Control Production", "Control Pressure")
+    .replaceAll("Control Points", "Control Pressure");
 }
 
 function scoreboardControlGapRead(value) {

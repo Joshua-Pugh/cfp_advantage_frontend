@@ -3647,9 +3647,9 @@ tbody tr.is-clickable {
   height: 34px;
   place-items: center;
   overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  background: #eef2ee;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   color: var(--green);
   font-size: 10px;
   font-weight: 900;
@@ -3658,20 +3658,20 @@ tbody tr.is-clickable {
 .hub-team-logo img,
 .team-logo img {
   position: absolute;
-  inset: 3px;
-  width: calc(100% - 6px);
-  height: calc(100% - 6px);
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
-  background: #eef2ee;
+  background: transparent;
 }
 
 .hub-team-logo.is-fallback,
 .team-logo.is-fallback,
 .score-team-logo.is-fallback {
-  border-radius: 7px;
-  border-color: #b9c8c0;
+  border: 1px solid #b9c8c0;
+  border-radius: 50%;
   background: #e8efeb;
-  box-shadow: inset 0 -3px 0 rgba(43, 102, 86, 0.08);
+  box-shadow: none;
   color: #234f43;
   letter-spacing: 0;
 }
@@ -3789,9 +3789,9 @@ tbody tr.is-clickable {
   height: 30px;
   place-items: center;
   overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  background: #eef2ee;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   color: var(--green);
   font-size: 9px;
   font-weight: 900;
@@ -3799,11 +3799,11 @@ tbody tr.is-clickable {
 
 .score-team-logo img {
   position: absolute;
-  inset: 3px;
-  width: calc(100% - 6px);
-  height: calc(100% - 6px);
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
-  background: #eef2ee;
+  background: transparent;
 }
 
 .official-score-card > p {
@@ -3893,7 +3893,7 @@ tbody tr.is-clickable {
 
 .featured-matchup-title .team-logo.is-fallback {
   border: 1px solid #b9c8c0;
-  border-radius: 7px;
+  border-radius: 50%;
   background: #e8efeb;
 }
 
@@ -4768,10 +4768,12 @@ body.terms-locked .app-shell {
   display: grid;
   gap: 10px;
   width: 100%;
+  height: auto;
+  min-width: 0;
   min-height: 138px;
   padding: 20px;
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 8px;
   background: #ffffff;
   color: var(--ink);
   text-align: left;
@@ -4783,10 +4785,15 @@ body.terms-locked .app-shell {
   transform: translateY(-1px);
 }
 
-.bracket-game-card span {
-  display: block;
+.bracket-game-card > .team-name-with-logo {
+  display: flex;
   font-size: 14px;
   line-height: 1.35;
+}
+
+.bracket-team-name {
+  min-width: 0;
+  overflow-wrap: break-word;
 }
 
 .bracket-game-card small {

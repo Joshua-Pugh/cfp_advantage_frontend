@@ -245,24 +245,14 @@ const METRIC_DISPLAY = {
 };
 
 const METRIC_SCALE_GUIDES = {
-  "Control Production Per Offensive Drive": {
+  "Control Pressure Per Offensive Drive": {
     title: "How to read it",
     text: "ADV-derived sustainable scoring pressure per offensive drive. It is not literal scoreboard points per drive.",
     scale: "Under 1.5 limited | 1.5-2.3 average | 2.4-3.0 strong | 3.1+ elite",
   },
-  "Defensive Control Production Allowed Per Defensive Drive": {
+  "Control Pressure Allowed Per Defensive Drive": {
     title: "How to read it",
     text: "ADV-derived sustained scoring pressure allowed per defensive drive. Lower is better.",
-    scale: "Under 1.2 elite | 1.2-1.8 strong | 1.9-2.5 average | 2.6+ vulnerable",
-  },
-  "Control Points Per Offensive Drive": {
-    title: "How to read it",
-    text: "ADV-derived sustainable scoring pressure per offensive drive. It blends how often control forms with how well those drives score.",
-    scale: "Under 1.5 limited | 1.5-2.3 average | 2.4-3.0 strong | 3.1+ elite",
-  },
-  "Control Points Allowed Per Defensive Drive": {
-    title: "How to read it",
-    text: "ADV-derived sustained scoring pressure allowed each time the defense takes the field. Lower is better.",
     scale: "Under 1.2 elite | 1.2-1.8 strong | 1.9-2.5 average | 2.6+ vulnerable",
   },
   "Control Finish Rate": {
@@ -806,8 +796,8 @@ function fullMatchupPreview(matchup) {
     ["Control Drive Shutout Rate", "rolling_finishing_resistance", (value) => formatPercent(value, 1)],
     ["Points Per Control Drive", "rolling_points_per_control_drive", (value) => weeklyNumber(value, 2)],
     ["Opponent Points Per Control Drive Allowed", "rolling_opp_points_per_control_allowed", (value) => weeklyNumber(value, 2)],
-    ["Control Production Per Offensive Drive", "rolling_control_production_rate", (value, stats) => `${weeklyNumber(value, 2)} across ${driveSample(stats.rolling_offensive_drives)}`],
-    ["Defensive Control Production Allowed Per Defensive Drive", "rolling_defensive_control_production_allowed", (value, stats) => `${weeklyNumber(value, 2)} across ${driveSample(stats.rolling_defensive_drives)}`],
+    ["Control Pressure Per Offensive Drive", "rolling_control_production_rate", (value, stats) => `${weeklyNumber(value, 2)} across ${driveSample(stats.rolling_offensive_drives)}`],
+    ["Control Pressure Allowed Per Defensive Drive", "rolling_defensive_control_production_allowed", (value, stats) => `${weeklyNumber(value, 2)} across ${driveSample(stats.rolling_defensive_drives)}`],
     ["Control Rate (CR)", "rolling_cr", (value) => formatPercent(value, 1)],
     ["Creation Waste", "rolling_creation_waste_rate", (value) => formatPercent(value, 1)],
     ["Finish Waste", "rolling_finish_waste_rate", (value) => formatPercent(value, 1)],
@@ -854,8 +844,8 @@ function fullMatchupPreview(matchup) {
     ["Control Denial", "control_denial"],
     ["Control Finish", "control_finish"],
     ["Control Drive Shutout Rate", "finishing_resistance"],
-    ["Control Production", "control_production"],
-    ["Defensive Control Production Allowed", "defensive_control_production_allowed"],
+    ["Control Pressure", "control_production"],
+    ["Control Pressure Allowed", "defensive_control_production_allowed"],
   ].map(([label, key]) => `
     <div class="weekly-profile-row profile-label-row">
       <span>${escapeHtml(label)}</span>
@@ -951,7 +941,7 @@ function fullMatchupPreview(matchup) {
         <p><b>Recent Form</b> describes the direction of recent ADV performance compared with the team's own season baseline.</p>
       </div>
       <h3>Control Framework Evidence</h3>
-      <p class="weekly-context-note">Creation and denial describe the foundation. Finish and Control Drive Shutout show conversion. Control Points Per Offensive Drive estimates sustainable scoring pressure created across every possession; Control Points Allowed Per Defensive Drive is the lower-is-better defensive mirror.</p>
+      <p class="weekly-context-note">Creation and denial describe the foundation. Finish and Control Drive Shutout show conversion. Control Pressure Per Offensive Drive estimates sustainable scoring pressure created across every possession; Control Pressure Allowed Per Defensive Drive is the lower-is-better defensive mirror.</p>
       ${hasFrameworkSample ? `
         <div class="weekly-profile-table matchup-preview-table">
           <div class="weekly-profile-row is-header">
