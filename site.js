@@ -2376,6 +2376,21 @@ function unofficialResultCard(result, logos) {
   `;
 }
 
+async function loadHomeUnofficialWeeklyPicks() {
+  const current = await api("/api/product-a/current-week?limit=8");
+  const season = Number(current.status?.season);
+  const week = Number(current.status?.selected_week);
+  if (!Number.isInteger(season) || season < 1 || !Number.isInteger(week) || week < 1) {
+    throw new Error("No published week is available for unofficial results.");
+  }
+  // The unpinned current-week feed removes past games; results need the entire frozen week.
+  const snapshot = await api(`/api/product-a/current-week?season=${season}&week=${week}&limit=150`);
+  if (!snapshot.weekly_snapshot_available || !snapshot.matchups?.length) {
+    throw new Error("The frozen weekly picks are temporarily unavailable.");
+  }
+  return snapshot;
+}
+
 async function loadHomeUnofficialResults() {
   const host = $("homeUnofficialResultsList");
   const label = $("homeUnofficialResultsLabel");
@@ -2383,7 +2398,7 @@ async function loadHomeUnofficialResults() {
 
   try {
     const [picksPayload, scoreResponse, logos] = await Promise.all([
-      api("/api/product-a/current-week?limit=150"),
+      loadHomeUnofficialWeeklyPicks(),
       fetch(`${API_BASE}/api/game-day/scoreboard?classification=fbs`, {
         cache: "no-store",
         headers: { "Cache-Control": "no-cache" },
@@ -2397,6 +2412,7 @@ async function loadHomeUnofficialResults() {
     const pickByGame = new Map(picks.map((pick) => [String(pick.game_id), pick]));
     const finals = (Array.isArray(scorePayload.games) ? scorePayload.games : [])
       .filter((game) => game.status === "completed" && pickByGame.has(String(game.game_id)))
+      .filter((game) => Number.isFinite(game.away_team?.points) && Number.isFinite(game.home_team?.points))
       .map((game) => {
         const pick = pickByGame.get(String(game.game_id));
         const awayScore = Number(game.away_team?.points);
@@ -2450,6 +2466,9 @@ async function loadHomeUnofficialResults() {
       : '<span class="home-unofficial-empty">Completed games will appear here as live finals become available.</span>';
   } catch (error) {
     console.error("CFP Advantage unofficial results failed:", error);
+    for (const id of ["homeUnofficialCompleted", "homeUnofficialModelRecord", "homeUnofficialAccuracy", "homeUnofficialMae"]) {
+      $(id).textContent = "-";
+    }
     host.innerHTML = '<span class="home-unofficial-empty">The live results feed is reconnecting. Certified records remain unchanged.</span>';
   }
 }
