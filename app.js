@@ -2075,7 +2075,8 @@ async function boot() {
   console.info("CFP Advantage API base:", API_BASE);
   console.info("CFP Advantage environment:", APP_ENVIRONMENT, "| static fallback enabled:", USE_STATIC_FALLBACK);
   if (els.loaderPanel) showStatus("Fetching Matchups...", "Preparing the weekly matchup workspace.", true);
-  if (els.currentMatchupsPanel && els.currentMatchupsLabel && els.currentMatchupsMessage) {
+  // Resolve the frozen week even when the featured cards live only on the homepage.
+  if (els.fullSlateTable || (els.currentMatchupsPanel && els.currentMatchupsLabel && els.currentMatchupsMessage)) {
     await loadCurrentMatchups();
   }
   await loadProductGuides();
