@@ -985,6 +985,22 @@ function fullMatchupPreview(matchup) {
 }
 
 
+function fullSlateProjectionMarkup(matchup) {
+  if (matchup.projection_unavailable) {
+    return `<strong>Not a certified pick</strong><em>No supported Product A projection is available for this matchup. Schedule only; excluded from model W/L and MAE.</em>`;
+  }
+  const estimate = `${escapeHtml(matchup.projected_winner || "-")} by ${formatProjectionMargin(matchup.projected_margin_abs)}`;
+  if (matchup.projection_limited) {
+    const isFcsBaseline = matchup.projection_limited_reason === "fbs_fcs_opponent_tier_baseline"
+      || matchup.source === "team_schedules_fbs_fcs_baseline";
+    const reason = isFcsBaseline
+      ? "FBS-FCS matchup: the FCS opponent is outside Product A's supported Control Framework scope."
+      : "This matchup does not have a supported full Product A projection.";
+    return `<strong>Not a certified pick</strong><em>${reason} Excluded from model W/L and MAE.</em><em>${isFcsBaseline ? "Historical opponent-tier estimate" : "Limited estimate"}: ${estimate}</em>`;
+  }
+  return `<em>${estimate} - ${escapeHtml(matchup.context_label || "Pregame Context")}</em>`;
+}
+
 function renderFullSlateTableInline() {
   if (!els.fullSlateTableContent) return;
   const search = String(els.fullSlateInlineSearch?.value || "").trim().toLowerCase();
@@ -1028,14 +1044,6 @@ function renderFullSlateTableInline() {
     matchup.projection_limited ? "is-limited-projection" : "",
   ].filter(Boolean).join(" ");
   
-  const projectionLine = (matchup) => {
-    if (matchup.projection_unavailable) {
-      return escapeHtml(matchup.context_note || "Schedule-only row. No ADV projection is published for this matchup.");
-    }
-    const prefix = matchup.projection_limited ? "Limited projection: " : "";
-    return `${prefix}${escapeHtml(matchup.projected_winner || "-")} by ${formatProjectionMargin(matchup.projected_margin_abs)} - ${escapeHtml(matchup.context_label || "Pregame Context")}`;
-  };
-  
   els.fullSlateTableContent.innerHTML = `
     <div class="full-slate-table">
       <div class="full-slate-table-header">
@@ -1056,7 +1064,7 @@ function renderFullSlateTableInline() {
           <div class="full-slate-table-cell">
             ${matchup.away_conference === matchup.home_conference ? escapeHtml(matchup.away_conference) : `${escapeHtml(matchup.away_conference)} vs ${escapeHtml(matchup.home_conference)}`}
           </div>
-          <div class="full-slate-table-cell"><em>${projectionLine(matchup)}</em></div>
+          <div class="full-slate-table-cell">${fullSlateProjectionMarkup(matchup)}</div>
           <div class="full-slate-row-actions">
             ${!matchup.projection_unavailable && !matchup.projection_limited ? `<button type="button" class="full-slate-analysis-button" data-full-slate-game="${escapeHtml(matchup.game_id)}">Full Analysis</button>` : ""}
             <button type="button" class="full-slate-live-button${state.selectedLiveBoardIds.includes(String(matchup.game_id)) ? " is-selected" : ""}" data-live-board-game="${escapeHtml(matchup.game_id)}" aria-pressed="${state.selectedLiveBoardIds.includes(String(matchup.game_id))}">${state.selectedLiveBoardIds.includes(String(matchup.game_id)) ? "On Live Board" : "Add to Live Board"}</button>
