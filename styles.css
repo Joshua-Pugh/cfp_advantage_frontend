@@ -303,6 +303,7 @@ select {
 }
 
 .home-unofficial-summary > div {
+  min-width: 0;
   padding: 10px;
   border: 1px solid var(--line);
   border-radius: 6px;
@@ -311,6 +312,7 @@ select {
 
 .home-unofficial-summary span {
   display: block;
+  overflow-wrap: break-word;
   color: var(--muted);
   font-size: 10px;
   font-weight: 900;
@@ -360,8 +362,11 @@ select {
 .unofficial-results-modal-card {
   position: relative;
   width: min(1100px, 100%);
+  min-width: 0;
   max-height: 90vh;
+  max-height: 90dvh;
   overflow: auto;
+  overscroll-behavior: contain;
   padding: 28px;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -375,7 +380,7 @@ select {
 
 .unofficial-results-modal-list {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
   gap: 10px;
   margin-top: 18px;
 }
@@ -392,10 +397,12 @@ select {
   color: var(--muted);
   font-size: 12px;
   font-weight: 900;
+  white-space: nowrap;
 }
 
 .home-unofficial-result {
   display: grid;
+  align-content: start;
   gap: 7px;
   min-width: 0;
   padding: 10px;
@@ -3675,6 +3682,22 @@ tbody tr.is-clickable {
   visibility: hidden;
 }
 
+.hub-team-logo > .team-logo-fallback,
+.team-logo > .team-logo-fallback,
+.score-team-logo > .team-logo-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  margin: 0;
+  color: inherit;
+  font-size: inherit;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+}
+
 .official-score-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -5467,6 +5490,69 @@ pre {
 }
 
 @media (max-width: 700px) {
+  .home-unofficial-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .unofficial-results-modal {
+    padding: 12px;
+  }
+
+  .unofficial-results-modal-card {
+    padding: 16px;
+    max-height: calc(100vh - 24px);
+    max-height: calc(100dvh - 24px);
+  }
+
+  .unofficial-results-modal-card h2 {
+    font-size: 20px;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+  }
+
+  .unofficial-results-modal-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .home-unofficial-scoreline {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .home-unofficial-scoreline strong {
+    font-size: 14px;
+    overflow-wrap: break-word;
+  }
+
+  .home-unofficial-scoreline em {
+    display: none;
+  }
+
+  .home-unofficial-actions > button {
+    width: 100%;
+    white-space: normal;
+  }
+
+  .unofficial-results-pagination {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
+    gap: 8px;
+    text-align: center;
+  }
+
+  .unofficial-results-pagination button {
+    width: 44px;
+    height: 44px;
+    min-width: 0;
+    padding: 0;
+    font-size: 18px;
+  }
+
+  .unofficial-results-pagination .pagination-label {
+    display: none;
+  }
+
   .home-unofficial-results-heading {
     display: grid;
     align-items: start;
