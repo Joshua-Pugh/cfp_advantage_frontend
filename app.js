@@ -333,6 +333,7 @@ const state = {
   currentMatchupQuery: "",
   fullSlateMatchups: [],
   fullSlateVisibleCount: FULL_SLATE_PAGE_SIZE,
+  fullSlateScoresById: {},
   teamLogos: {},
   selectedLiveBoardIds: [],
   hasRecap: false,
@@ -975,7 +976,54 @@ function fullMatchupPreview(matchup) {
 }
 
 
-function fullSlateProjectionMarkup(matchup) {
+function matchupDisplayWeek(matchup) {
+  const hasExplicitWeek = matchup.display_week !== null
+    && matchup.display_week !== undefined
+    && matchup.display_week !== "";
+  const explicit = hasExplicitWeek ? Number(matchup.display_week) : Number.NaN;
+  if (Number.isFinite(explicit)) return explicit;
+  const sourceWeek = Number(matchup.source_week ?? matchup.week);
+  const date = String(matchup.date || matchup.kickoff_at || "").slice(0, 10);
+  if (Number(matchup.season) === 2026 && sourceWeek === 1 && date.startsWith("2026-08-")) return 0;
+  return Number.isFinite(sourceWeek) ? sourceWeek : "-";
+}
+
+function fullSlateScore(matchup) {
+  return state.fullSlateScoresById[String(matchup.game_id)] || null;
+}
+
+function fullSlateTeamScore(game, side) {
+  const points = game?.[`${side}_team`]?.points;
+  return points === null || points === undefined || points === "" ? null : Number(points);
+}
+
+function fullSlateIsFinal(matchup) {
+  return fullSlateScore(matchup)?.status === "completed";
+}
+
+function fullSlateStatusMarkup(matchup) {
+  const game = fullSlateScore(matchup);
+  if (game?.status === "completed") {
+    return `<span class="full-slate-status-tag is-final">Final</span><span>${escapeHtml(matchupDateLabel(matchup))}</span>`;
+  }
+  if (game?.status === "in_progress") {
+    const period = game.period ? `Q${game.period}` : "Live";
+    return `<span class="full-slate-status-tag is-live">${escapeHtml(period)}</span><span>${escapeHtml(game.clock || "In progress")}</span>`;
+  }
+  return `<strong>${escapeHtml(matchupDateLabel(matchup))}</strong><span>Upcoming</span>`;
+}
+
+function fullSlateWinnerGradeMarkup(matchup, game) {
+  if (game?.status !== "completed" || matchup.projection_unavailable || matchup.projection_limited) return "";
+  const awayPoints = fullSlateTeamScore(game, "away");
+  const homePoints = fullSlateTeamScore(game, "home");
+  if (!Number.isFinite(awayPoints) || !Number.isFinite(homePoints) || awayPoints === homePoints) return "";
+  const actualWinner = homePoints > awayPoints ? matchup.home_team : matchup.away_team;
+  const correct = String(actualWinner) === String(matchup.projected_winner);
+  return `<span class="full-slate-winner-grade ${correct ? "is-correct" : "is-incorrect"}">Winner pick: ${correct ? "Correct" : "Incorrect"}</span>`;
+}
+
+function fullSlateProjectionMarkup(matchup, game = fullSlateScore(matchup)) {
   if (matchup.projection_unavailable) {
     return `<strong>Not a certified pick</strong><em>No supported Product A projection is available for this matchup. Schedule only; excluded from model W/L and MAE.</em>`;
   }
@@ -988,7 +1036,7 @@ function fullSlateProjectionMarkup(matchup) {
       : "This matchup does not have a supported full Product A projection.";
     return `<strong>Not a certified pick</strong><em>${reason} Excluded from model W/L and MAE.</em><em>${isFcsBaseline ? "Historical opponent-tier estimate" : "Limited estimate"}: ${estimate}</em>`;
   }
-  return `<em>${estimate} - ${escapeHtml(matchup.context_label || "Pregame Context")}</em>`;
+  return `<em>${estimate} - ${escapeHtml(matchup.context_label || "Pregame Context")}</em>${fullSlateWinnerGradeMarkup(matchup, game)}`;
 }
 
 function renderFullSlateTableInline() {
@@ -1015,7 +1063,14 @@ function renderFullSlateTableInline() {
     return searchTerms.some((term) => haystack.includes(term));
   });
 
-  const visibleRows = search ? rows : rows.slice(0, state.fullSlateVisibleCount);
+  const orderedRows = [...rows].sort((left, right) => {
+    const weekDifference = Number(matchupDisplayWeek(left)) - Number(matchupDisplayWeek(right));
+    if (weekDifference) return weekDifference;
+    const leftDate = new Date(left.kickoff_at || `${left.date || "9999-12-31"}T23:59:59`).getTime();
+    const rightDate = new Date(right.kickoff_at || `${right.date || "9999-12-31"}T23:59:59`).getTime();
+    return leftDate - rightDate || String(left.game_id).localeCompare(String(right.game_id));
+  });
+  const visibleRows = search ? orderedRows : orderedRows.slice(0, state.fullSlateVisibleCount);
   const hasMoreRows = !search && state.fullSlateVisibleCount < rows.length;
   
   if (!rows.length) {
@@ -1032,35 +1087,71 @@ function renderFullSlateTableInline() {
     "full-slate-table-row",
     matchup.projection_unavailable ? "is-schedule-only" : "",
     matchup.projection_limited ? "is-limited-projection" : "",
+    fullSlateIsFinal(matchup) ? "is-final" : "",
   ].filter(Boolean).join(" ");
+
+  const rowMarkup = (matchup) => {
+    const game = fullSlateScore(matchup);
+    const awayPoints = fullSlateTeamScore(game, "away");
+    const homePoints = fullSlateTeamScore(game, "home");
+    const final = game?.status === "completed";
+    return `
+      <article class="${rowClass(matchup)}">
+        <div class="full-slate-table-cell full-slate-status-cell">${fullSlateStatusMarkup(matchup)}</div>
+        <div class="full-slate-table-cell">
+          <strong>${matchupTeamLogoMarkup(matchup.away_team)}<span class="full-slate-team-name">${escapeHtml(matchup.away_team)}</span>${final && Number.isFinite(awayPoints) ? `<b class="full-slate-team-score">${awayPoints}</b>` : ""}</strong>
+          <span>vs</span>
+          <strong>${matchupTeamLogoMarkup(matchup.home_team)}<span class="full-slate-team-name">${escapeHtml(matchup.home_team)}</span>${final && Number.isFinite(homePoints) ? `<b class="full-slate-team-score">${homePoints}</b>` : ""}</strong>
+        </div>
+        <div class="full-slate-table-cell">
+          ${matchup.away_conference === matchup.home_conference ? escapeHtml(matchup.away_conference) : `${escapeHtml(matchup.away_conference)} vs ${escapeHtml(matchup.home_conference)}`}
+        </div>
+        <div class="full-slate-table-cell">${fullSlateProjectionMarkup(matchup, game)}</div>
+        <div class="full-slate-row-actions">
+          ${!matchup.projection_unavailable && !matchup.projection_limited ? `<button type="button" class="full-slate-analysis-button" data-full-slate-game="${escapeHtml(matchup.game_id)}">Full Analysis</button>` : ""}
+          ${!final ? `<button type="button" class="full-slate-live-button${state.selectedLiveBoardIds.includes(String(matchup.game_id)) ? " is-selected" : ""}" data-live-board-game="${escapeHtml(matchup.game_id)}" aria-pressed="${state.selectedLiveBoardIds.includes(String(matchup.game_id))}">${state.selectedLiveBoardIds.includes(String(matchup.game_id)) ? "On Live Board" : "Add to Live Board"}</button>` : `<span class="full-slate-final-note">Final score recorded</span>`}
+        </div>
+      </article>
+    `;
+  };
+
+  const groupedRows = visibleRows.reduce((groups, matchup) => {
+    const week = String(matchupDisplayWeek(matchup));
+    if (!groups.has(week)) groups.set(week, []);
+    groups.get(week).push(matchup);
+    return groups;
+  }, new Map());
+
+  const weekMarkup = [...groupedRows.entries()].map(([week, matchups]) => {
+    const finalCount = matchups.filter(fullSlateIsFinal).length;
+    const liveCount = matchups.filter((matchup) => fullSlateScore(matchup)?.status === "in_progress").length;
+    const upcomingCount = matchups.length - finalCount - liveCount;
+    const summary = [
+      finalCount ? `${finalCount} final${finalCount === 1 ? "" : "s"}` : "",
+      liveCount ? `${liveCount} live` : "",
+      upcomingCount ? `${upcomingCount} upcoming` : "",
+    ].filter(Boolean).join(" · ");
+    return `
+      <section class="full-slate-week-group" aria-labelledby="fullSlateWeek${escapeHtml(week)}">
+        <div class="full-slate-week-heading">
+          <strong id="fullSlateWeek${escapeHtml(week)}">Week ${escapeHtml(week)}</strong>
+          <span>${escapeHtml(summary)}</span>
+        </div>
+        ${matchups.map(rowMarkup).join("")}
+      </section>
+    `;
+  }).join("");
   
   els.fullSlateTableContent.innerHTML = `
     <div class="full-slate-table">
       <div class="full-slate-table-header">
-        <div>Week</div>
+        <div>Status</div>
         <div>Matchup</div>
         <div>Conference</div>
         <div>Projection</div>
-        <div>Live Board</div>
+        <div>Actions</div>
       </div>
-      ${visibleRows.map((matchup) => `
-        <article class="${rowClass(matchup)}">
-          <div class="full-slate-table-cell">Week ${escapeHtml(matchup.week || "-")}</div>
-          <div class="full-slate-table-cell">
-            <strong>${matchupTeamLogoMarkup(matchup.away_team)}${escapeHtml(matchup.away_team)}</strong>
-            <span>vs</span>
-            <strong>${matchupTeamLogoMarkup(matchup.home_team)}${escapeHtml(matchup.home_team)}</strong>
-          </div>
-          <div class="full-slate-table-cell">
-            ${matchup.away_conference === matchup.home_conference ? escapeHtml(matchup.away_conference) : `${escapeHtml(matchup.away_conference)} vs ${escapeHtml(matchup.home_conference)}`}
-          </div>
-          <div class="full-slate-table-cell">${fullSlateProjectionMarkup(matchup)}</div>
-          <div class="full-slate-row-actions">
-            ${!matchup.projection_unavailable && !matchup.projection_limited ? `<button type="button" class="full-slate-analysis-button" data-full-slate-game="${escapeHtml(matchup.game_id)}">Full Analysis</button>` : ""}
-            <button type="button" class="full-slate-live-button${state.selectedLiveBoardIds.includes(String(matchup.game_id)) ? " is-selected" : ""}" data-live-board-game="${escapeHtml(matchup.game_id)}" aria-pressed="${state.selectedLiveBoardIds.includes(String(matchup.game_id))}">${state.selectedLiveBoardIds.includes(String(matchup.game_id)) ? "On Live Board" : "Add to Live Board"}</button>
-          </div>
-        </article>
-      `).join("")}
+      ${weekMarkup}
     </div>
 
     ${hasMoreRows ? `
@@ -1103,12 +1194,21 @@ async function loadFullSlateTableData() {
     const query = state.currentMatchupQuery
     ? `?${state.currentMatchupQuery}&limit=150&include_schedule_only=true`
     : "?limit=150&include_schedule_only=true";
+    const scoreboardRequest = api("/api/game-day/scoreboard?classification=fbs").catch((error) => {
+      console.warn("Completed score enrichment is temporarily unavailable:", error);
+      return { games: [] };
+    });
     const [payload, logos] = await Promise.all([
       api(`/api/product-a/current-week${query}`),
       loadMatchupTeamLogos(),
     ]);
     state.teamLogos = logos;
-    state.fullSlateMatchups = payload.matchups || [];
+    state.fullSlateMatchups = (payload.matchups || []).map((matchup) => ({
+      ...matchup,
+      source_week: matchup.source_week ?? matchup.week,
+      display_week: matchupDisplayWeek(matchup),
+    }));
+    state.fullSlateScoresById = {};
     state.fullSlateVisibleCount = FULL_SLATE_PAGE_SIZE;
     syncLiveBoardSelection();
     if (els.fullSlateInlineSearch) els.fullSlateInlineSearch.value = "";
@@ -1116,6 +1216,12 @@ async function loadFullSlateTableData() {
     els.fullSlateTable.classList.remove("is-hidden");
     els.viewFullSlateButton.setAttribute("aria-expanded", "true");
     renderFullSlateTableInline();
+    scoreboardRequest.then((scoreboardPayload) => {
+      state.fullSlateScoresById = Object.fromEntries(
+        (scoreboardPayload.games || []).map((game) => [String(game.game_id), game])
+      );
+      renderFullSlateTableInline();
+    });
   } catch (error) {
     els.fullSlatePrompt.classList.remove("is-loading");
     if (promptTitle) promptTitle.textContent = "Weekly slate unavailable";

@@ -965,6 +965,32 @@ select {
   gap: 8px;
 }
 
+.full-slate-week-group {
+  display: grid;
+  gap: 8px;
+}
+
+.full-slate-week-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 14px 6px;
+  border-bottom: 1px solid var(--line);
+}
+
+.full-slate-week-heading strong {
+  color: var(--charcoal);
+  font-size: 18px;
+}
+
+.full-slate-week-heading span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
 .full-slate-table-header {
   display: grid;
   grid-template-columns: 70px minmax(220px, 1fr) 150px minmax(220px, 1fr) 140px;
@@ -998,6 +1024,11 @@ select {
 
 .full-slate-table-row:hover {
   background: var(--paper);
+}
+
+.full-slate-table-row.is-final {
+  border-left: 4px solid var(--green);
+  background: #f7faf8;
 }
 
 .full-slate-row-actions {
@@ -3682,6 +3713,73 @@ tbody tr.is-clickable {
   visibility: hidden;
 }
 
+.full-slate-status-cell {
+  align-items: flex-start;
+}
+
+.full-slate-status-tag {
+  display: inline-flex;
+  width: fit-content;
+  padding: 4px 7px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.full-slate-status-tag.is-final {
+  border-color: #9bbcaf;
+  background: #e9f2ed;
+  color: var(--green);
+}
+
+.full-slate-status-tag.is-live {
+  border-color: #b65c55;
+  background: #fff1ef;
+  color: #9d3f39;
+}
+
+.full-slate-team-name {
+  min-width: 0;
+  color: inherit !important;
+  font: inherit !important;
+  text-transform: none !important;
+}
+
+.full-slate-team-score {
+  margin-left: auto;
+  color: var(--charcoal);
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.full-slate-winner-grade {
+  display: inline-flex !important;
+  width: fit-content;
+  margin-top: 3px;
+  font-weight: 900;
+  text-transform: none !important;
+}
+
+.full-slate-winner-grade.is-correct {
+  color: var(--green);
+}
+
+.full-slate-winner-grade.is-incorrect {
+  color: #9d3f39;
+}
+
+.full-slate-final-note {
+  align-self: center;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+  text-align: center;
+}
+
 .hub-team-logo > .team-logo-fallback,
 .team-logo > .team-logo-fallback,
 .score-team-logo > .team-logo-fallback {
@@ -5474,6 +5572,15 @@ pre {
     gap: 8px;
     min-height: 0;
     padding: 10px;
+  }
+
+  .full-slate-week-heading {
+    padding: 14px 4px 6px;
+  }
+
+  .full-slate-status-cell {
+    flex-direction: row;
+    align-items: center;
   }
 
   .full-slate-row-actions {
