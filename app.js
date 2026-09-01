@@ -725,6 +725,19 @@ function matchupDateLabel(matchup) {
     : `Week ${matchup.week || 1}`;
 }
 
+function mergeScoreboardTeamLogos(scoreboardPayload) {
+  const logos = state.teamLogos || {};
+  (scoreboardPayload?.games || []).forEach((game) => {
+    [game.away_team, game.home_team].forEach((team) => {
+      const name = String(team?.name || "").trim().toLowerCase();
+      const teamId = Number(team?.team_id);
+      if (!name || !Number.isFinite(teamId)) return;
+      logos[name] = `https://cdn.collegefootballdata.com/logos/48/${teamId}.png`;
+    });
+  });
+  state.teamLogos = logos;
+}
+
 function renderCurrentMatchupCard(matchup) {
   const matchupDate = matchupDateLabel(matchup);
   
@@ -1217,6 +1230,7 @@ async function loadFullSlateTableData() {
     els.viewFullSlateButton.setAttribute("aria-expanded", "true");
     renderFullSlateTableInline();
     scoreboardRequest.then((scoreboardPayload) => {
+      mergeScoreboardTeamLogos(scoreboardPayload);
       state.fullSlateScoresById = Object.fromEntries(
         (scoreboardPayload.games || []).map((game) => [String(game.game_id), game])
       );
