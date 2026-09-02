@@ -779,10 +779,15 @@ select {
 }
 
 .live-board-selection > p,
-.live-board-empty {
+.live-board-empty,
+.live-board-limit {
   margin: 0;
   color: var(--muted);
   font-size: 12px;
+}
+
+.live-board-limit {
+  font-weight: 800;
 }
 
 .live-board-selection-list {

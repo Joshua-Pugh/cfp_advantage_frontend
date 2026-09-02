@@ -1121,6 +1121,10 @@ function renderFullSlateTableInline() {
     const awayPoints = fullSlateTeamScore(game, "away");
     const homePoints = fullSlateTeamScore(game, "home");
     const final = game?.status === "completed";
+    const gameId = String(matchup.game_id);
+    const isSelected = state.selectedLiveBoardIds.includes(gameId);
+    const liveBoardLimit = window.CFPAdvantageScoreboard?.maxSelectedGames || 5;
+    const selectionFull = !isSelected && state.selectedLiveBoardIds.length >= liveBoardLimit;
     return `
       <article class="${rowClass(matchup)}">
         <div class="full-slate-table-cell full-slate-status-cell">${fullSlateStatusMarkup(matchup)}</div>
@@ -1135,7 +1139,7 @@ function renderFullSlateTableInline() {
         <div class="full-slate-table-cell">${fullSlateProjectionMarkup(matchup, game)}</div>
         <div class="full-slate-row-actions">
           ${!matchup.projection_unavailable && !matchup.projection_limited ? `<button type="button" class="full-slate-analysis-button" data-full-slate-game="${escapeHtml(matchup.game_id)}">Full Analysis</button>` : ""}
-          ${!final ? `<button type="button" class="full-slate-live-button${state.selectedLiveBoardIds.includes(String(matchup.game_id)) ? " is-selected" : ""}" data-live-board-game="${escapeHtml(matchup.game_id)}" aria-pressed="${state.selectedLiveBoardIds.includes(String(matchup.game_id))}">${state.selectedLiveBoardIds.includes(String(matchup.game_id)) ? "On Live Board" : "Add to Live Board"}</button>` : `<span class="full-slate-final-note">Final score recorded</span>`}
+          ${!final ? `<button type="button" class="full-slate-live-button${isSelected ? " is-selected" : ""}" data-live-board-game="${escapeHtml(matchup.game_id)}" aria-pressed="${isSelected}" ${selectionFull ? "disabled" : ""}>${isSelected ? "On Live Board" : selectionFull ? "Live Board Full" : "Add to Live Board"}</button>` : `<span class="full-slate-final-note">Final score recorded</span>`}
         </div>
       </article>
     `;
@@ -1275,6 +1279,11 @@ function syncLiveBoardSelection() {
       state.selectedLiveBoardIds.includes(String(game.game_id))
     );
 
+    const selectionLimit = window.CFPAdvantageScoreboard?.maxSelectedGames || 5;
+    const limitMessage = selected.length >= selectionLimit
+      ? `<span class="live-board-limit">${selectionLimit}-game limit reached. Remove a game to add another.</span>`
+      : "";
+
     els.liveBoardSelectionList.innerHTML = selected.length
       ? selected.map((game) => {
           const hasProjection =
@@ -1324,7 +1333,7 @@ function syncLiveBoardSelection() {
               </button>
             </div>
           `;
-        }).join("")
+        }).join("") + limitMessage
       : '<span class="live-board-empty">No games selected yet.</span>';
   }
 

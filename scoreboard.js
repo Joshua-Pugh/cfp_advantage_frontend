@@ -17,6 +17,7 @@
     .toUpperCase();
 
   const selected = new Set();
+  const MAX_SELECTED_GAMES = 5;
   let activeHost = null;
   let activeGames = [];
   let activeLogos = {};
@@ -42,10 +43,12 @@
   function toggleSelection(gameId) {
     const id = String(gameId);
     if (selected.has(id)) selected.delete(id);
-    else selected.add(id);
+    else if (selected.size < MAX_SELECTED_GAMES) selected.add(id);
+    else return false;
     if (!selected.size) filterSelected = false;
     persistSelection();
     renderActiveScoreboard();
+    return true;
   }
 
   let logoCatalogPromise;
@@ -112,6 +115,9 @@
   function gameMarkup(game, logos) {
     const liveClass = game.status === "in_progress" ? " is-live" : "";
     const finalClass = game.status === "completed" ? " is-final" : "";
+    const gameId = String(game.game_id);
+    const isSelected = selected.has(gameId);
+    const selectionFull = !isSelected && selected.size >= MAX_SELECTED_GAMES;
     return `
       <article class="official-score-card${liveClass}${finalClass}">
         <div class="official-score-status">
@@ -123,7 +129,7 @@
           ${teamRow(game.home_team, logos, game.possession)}
         </div>
         ${game.situation ? `<p>${escapeHtml(game.situation)}</p>` : ""}
-        ${activeSelectable ? `<button type="button" class="score-select-button${selected.has(String(game.game_id)) ? " is-selected" : ""}" data-score-select="${escapeHtml(game.game_id)}" aria-pressed="${selected.has(String(game.game_id))}">${selected.has(String(game.game_id)) ? "Selected" : "Add to Live Board"}</button>` : ""}
+        ${activeSelectable ? `<button type="button" class="score-select-button${isSelected ? " is-selected" : ""}" data-score-select="${escapeHtml(game.game_id)}" aria-pressed="${isSelected}" ${selectionFull ? "disabled" : ""}>${isSelected ? "Selected" : selectionFull ? "Live Board Full" : "Add to Live Board"}</button>` : ""}
       </article>
     `;
   }
@@ -297,5 +303,6 @@ async function refreshScores() {
   load,
   refresh: refreshScores,
   selectedGameIds,
-  toggleSelection};
+  toggleSelection,
+  maxSelectedGames: MAX_SELECTED_GAMES};
 }());
