@@ -332,11 +332,20 @@ select {
   gap: 8px;
 }
 
-.home-unofficial-results-list .home-matchups-spinner {
+.home-unofficial-loading {
   grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 42px;
+  color: var(--muted);
+}
+
+.home-unofficial-loading .home-matchups-spinner {
   width: 24px;
   height: 24px;
-  margin: 4px auto;
+  margin: 0;
 }
 
 .home-unofficial-actions {

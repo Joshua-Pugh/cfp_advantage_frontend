@@ -2414,6 +2414,13 @@ async function loadHomeUnofficialResults() {
   const label = $("homeUnofficialResultsLabel");
   if (!host || !label) return;
 
+  host.innerHTML = `
+    <div class="home-unofficial-loading" role="status">
+      <span class="home-matchups-spinner" aria-hidden="true"></span>
+      <strong>Checking final scores</strong>
+    </div>
+  `;
+
   try {
     const [picksPayload, scoreResponse, logos] = await Promise.all([
       loadHomeUnofficialWeeklyPicks(),

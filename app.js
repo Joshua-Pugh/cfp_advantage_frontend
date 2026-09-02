@@ -15,7 +15,6 @@ const SHOW_DEV_TOOLS = IS_LOCAL_HOST || APP_CONFIG.ENABLE_DEV_TOOLS === true;
 const CACHE_PREFIX = `cfp_adv_api_cache:${APP_CONFIG.APP_VERSION || "dev"}:`;
 const CACHE_TTL_MS = 1000 * 60 * 20;
 const LIVE_CACHE_TTL_MS = 1000 * 60 * 3;
-const FULL_SLATE_PAGE_SIZE = 20;
 const apiMemoryCache = new Map();
 let matchupTeamLogoCatalogPromise = null;
 
@@ -332,7 +331,6 @@ const state = {
   currentMatchups: [],
   currentMatchupQuery: "",
   fullSlateMatchups: [],
-  fullSlateVisibleCount: FULL_SLATE_PAGE_SIZE,
   fullSlateScoresById: {},
   teamLogos: {},
   selectedLiveBoardIds: [],
@@ -429,7 +427,6 @@ const els = {
   loadLiveScoreboard: $("loadLiveScoreboard"),
   liveScoreboardEmbed: $("liveScoreboardEmbed"),
   liveScoreboardFrame: $("liveScoreboardFrame"),
-  viewFullSlateButton: $("viewFullSlateButton"),
   fullSlateTable: $("fullSlateTable"),
   fullSlateTableContent: $("fullSlateTableContent"),
   fullSlateInlineSearch: $("fullSlateInlineSearch"),
@@ -727,13 +724,27 @@ function matchupDateLabel(matchup) {
 
 function mergeScoreboardTeamLogos(scoreboardPayload) {
   const logos = state.teamLogos || {};
+  const matchupsById = new Map(
+    (state.fullSlateMatchups || []).map((matchup) => [String(matchup.game_id), matchup])
+  );
   (scoreboardPayload?.games || []).forEach((game) => {
+    const matchup = matchupsById.get(String(game.game_id));
     [game.away_team, game.home_team].forEach((team) => {
       const name = String(team?.name || "").trim().toLowerCase();
       const teamId = Number(team?.team_id);
       if (!name || !Number.isFinite(teamId)) return;
       logos[name] = `https://cdn.collegefootballdata.com/logos/48/${teamId}.png`;
     });
+    if (matchup) {
+      const awayTeamId = Number(game.away_team?.team_id);
+      const homeTeamId = Number(game.home_team?.team_id);
+      if (Number.isFinite(awayTeamId)) {
+        logos[String(matchup.away_team || "").trim().toLowerCase()] = `https://cdn.collegefootballdata.com/logos/48/${awayTeamId}.png`;
+      }
+      if (Number.isFinite(homeTeamId)) {
+        logos[String(matchup.home_team || "").trim().toLowerCase()] = `https://cdn.collegefootballdata.com/logos/48/${homeTeamId}.png`;
+      }
+    }
   });
   state.teamLogos = logos;
 }
@@ -1083,8 +1094,7 @@ function renderFullSlateTableInline() {
     const rightDate = new Date(right.kickoff_at || `${right.date || "9999-12-31"}T23:59:59`).getTime();
     return leftDate - rightDate || String(left.game_id).localeCompare(String(right.game_id));
   });
-  const visibleRows = search ? orderedRows : orderedRows.slice(0, state.fullSlateVisibleCount);
-  const hasMoreRows = !search && state.fullSlateVisibleCount < rows.length;
+  const visibleRows = orderedRows;
   
   if (!rows.length) {
     els.fullSlateTableContent.innerHTML = '<div class="empty-state compact">No matchups match that search.</div>';
@@ -1166,29 +1176,15 @@ function renderFullSlateTableInline() {
       </div>
       ${weekMarkup}
     </div>
-
-    ${hasMoreRows ? `
-      <div class="full-slate-load-more">
-        <button type="button" class="secondary-button" data-full-slate-load-more>
-          Load More Games
-        </button>
-        <span>Showing ${visibleRows.length} of ${rows.length} games</span>
-      </div>
-     ` : !search && rows.length > FULL_SLATE_PAGE_SIZE ? `
-      <div class="full-slate-load-more">
-        <span>Showing all ${rows.length} games</span>
-      </div>
-    ` : ""}
   `;
 }
 
 async function loadFullSlateTableData() {
-  if (!els.fullSlateTable || !els.fullSlateTableContent || !els.fullSlatePrompt || !els.viewFullSlateButton) return;
+  if (!els.fullSlateTable || !els.fullSlateTableContent || !els.fullSlatePrompt) return;
 
   if (state.fullSlateMatchups && state.fullSlateMatchups.length > 0) {
     els.fullSlateTable.classList.remove("is-hidden");
     els.fullSlatePrompt.classList.add("is-hidden");
-    els.viewFullSlateButton.setAttribute("aria-expanded", "true");
     renderFullSlateTableInline();
     return;
   }
@@ -1200,8 +1196,6 @@ async function loadFullSlateTableData() {
   els.fullSlatePrompt.classList.add("is-loading");
   if (promptTitle) promptTitle.textContent = "Loading this week's matchups...";
   if (promptText) promptText.textContent = "Checking the current weekly slate and loading the full game list.";
-  els.viewFullSlateButton.setAttribute("disabled", "disabled");
-  els.viewFullSlateButton.textContent = "Loading Full Game List...";
 
   try {
     const query = state.currentMatchupQuery
@@ -1211,42 +1205,31 @@ async function loadFullSlateTableData() {
       console.warn("Completed score enrichment is temporarily unavailable:", error);
       return { games: [] };
     });
-    const [payload, logos] = await Promise.all([
+    const [payload, logos, scoreboardPayload] = await Promise.all([
       api(`/api/product-a/current-week${query}`),
       loadMatchupTeamLogos(),
+      scoreboardRequest,
     ]);
-    state.teamLogos = logos;
+    state.teamLogos = { ...logos };
     state.fullSlateMatchups = (payload.matchups || []).map((matchup) => ({
       ...matchup,
       source_week: matchup.source_week ?? matchup.week,
       display_week: matchupDisplayWeek(matchup),
     }));
-    state.fullSlateScoresById = {};
-    state.fullSlateVisibleCount = FULL_SLATE_PAGE_SIZE;
+    mergeScoreboardTeamLogos(scoreboardPayload);
+    state.fullSlateScoresById = Object.fromEntries(
+      (scoreboardPayload.games || []).map((game) => [String(game.game_id), game])
+    );
     syncLiveBoardSelection();
     if (els.fullSlateInlineSearch) els.fullSlateInlineSearch.value = "";
     els.fullSlatePrompt.classList.add("is-hidden");
     els.fullSlateTable.classList.remove("is-hidden");
-    els.viewFullSlateButton.setAttribute("aria-expanded", "true");
     renderFullSlateTableInline();
-    scoreboardRequest.then((scoreboardPayload) => {
-      mergeScoreboardTeamLogos(scoreboardPayload);
-      state.fullSlateScoresById = Object.fromEntries(
-        (scoreboardPayload.games || []).map((game) => [String(game.game_id), game])
-      );
-      renderFullSlateTableInline();
-    });
   } catch (error) {
     els.fullSlatePrompt.classList.remove("is-loading");
     if (promptTitle) promptTitle.textContent = "Weekly slate unavailable";
     if (promptText) promptText.textContent = error.message || "The full slate could not be loaded right now.";
     els.fullSlateTable.classList.add("is-hidden");
-    els.viewFullSlateButton.textContent = "Try Loading Full Game List Again";
-    els.viewFullSlateButton.removeAttribute("disabled");
-  } finally {
-    if (!els.fullSlatePrompt.classList.contains("is-hidden") && !els.fullSlatePrompt.classList.contains("is-loading")) {
-      els.viewFullSlateButton.removeAttribute("disabled");
-    }
   }
 }
 
@@ -2251,17 +2234,9 @@ if (els.matchupRailNext) {
   els.matchupRailNext.addEventListener("click", () => scrollMatchupRail(1));
 }
 if (els.loadLiveScoreboard) els.loadLiveScoreboard.addEventListener("click", loadLiveScoreboard);
-if (els.viewFullSlateButton) els.viewFullSlateButton.addEventListener("click", loadFullSlateTableData);
 if (els.fullSlateInlineSearch) els.fullSlateInlineSearch.addEventListener("input", renderFullSlateTableInline);
 if (els.fullSlateTableContent) {
   els.fullSlateTableContent.addEventListener("click", (event) => {
-    const loadMoreButton = event.target.closest("[data-full-slate-load-more]");
-    if (loadMoreButton) {
-      state.fullSlateVisibleCount += FULL_SLATE_PAGE_SIZE;
-      renderFullSlateTableInline();
-      return;
-    }
-
     const liveBoardButton = event.target.closest("[data-live-board-game]");
     if (liveBoardButton) {
       window.CFPAdvantageScoreboard?.toggleSelection?.(liveBoardButton.dataset.liveBoardGame);
