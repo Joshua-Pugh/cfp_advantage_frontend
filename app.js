@@ -15,6 +15,7 @@ const SHOW_DEV_TOOLS = IS_LOCAL_HOST || APP_CONFIG.ENABLE_DEV_TOOLS === true;
 const CACHE_PREFIX = `cfp_adv_api_cache:${APP_CONFIG.APP_VERSION || "dev"}:`;
 const CACHE_TTL_MS = 1000 * 60 * 20;
 const LIVE_CACHE_TTL_MS = 1000 * 60 * 3;
+const FULL_SLATE_PAGE_SIZE = 20;
 const apiMemoryCache = new Map();
 let matchupTeamLogoCatalogPromise = null;
 
@@ -331,6 +332,7 @@ const state = {
   currentMatchups: [],
   currentMatchupQuery: "",
   fullSlateMatchups: [],
+  fullSlateVisibleCount: FULL_SLATE_PAGE_SIZE,
   fullSlateScoresById: {},
   teamLogos: {},
   selectedLiveBoardIds: [],
@@ -1094,7 +1096,8 @@ function renderFullSlateTableInline() {
     const rightDate = new Date(right.kickoff_at || `${right.date || "9999-12-31"}T23:59:59`).getTime();
     return leftDate - rightDate || String(left.game_id).localeCompare(String(right.game_id));
   });
-  const visibleRows = orderedRows;
+  const visibleRows = search ? orderedRows : orderedRows.slice(0, state.fullSlateVisibleCount);
+  const hasMoreRows = !search && state.fullSlateVisibleCount < orderedRows.length;
   
   if (!rows.length) {
     els.fullSlateTableContent.innerHTML = '<div class="empty-state compact">No matchups match that search.</div>';
@@ -1176,6 +1179,19 @@ function renderFullSlateTableInline() {
       </div>
       ${weekMarkup}
     </div>
+
+    ${hasMoreRows ? `
+      <div class="full-slate-load-more">
+        <button type="button" class="secondary-button" data-full-slate-load-more>
+          Load More Games
+        </button>
+        <span>Showing ${visibleRows.length} of ${orderedRows.length} games</span>
+      </div>
+    ` : !search && orderedRows.length > FULL_SLATE_PAGE_SIZE ? `
+      <div class="full-slate-load-more">
+        <span>Showing all ${orderedRows.length} games</span>
+      </div>
+    ` : ""}
   `;
 }
 
@@ -1220,6 +1236,7 @@ async function loadFullSlateTableData() {
     state.fullSlateScoresById = Object.fromEntries(
       (scoreboardPayload.games || []).map((game) => [String(game.game_id), game])
     );
+    state.fullSlateVisibleCount = FULL_SLATE_PAGE_SIZE;
     syncLiveBoardSelection();
     if (els.fullSlateInlineSearch) els.fullSlateInlineSearch.value = "";
     els.fullSlatePrompt.classList.add("is-hidden");
@@ -2237,6 +2254,13 @@ if (els.loadLiveScoreboard) els.loadLiveScoreboard.addEventListener("click", loa
 if (els.fullSlateInlineSearch) els.fullSlateInlineSearch.addEventListener("input", renderFullSlateTableInline);
 if (els.fullSlateTableContent) {
   els.fullSlateTableContent.addEventListener("click", (event) => {
+    const loadMoreButton = event.target.closest("[data-full-slate-load-more]");
+    if (loadMoreButton) {
+      state.fullSlateVisibleCount += FULL_SLATE_PAGE_SIZE;
+      renderFullSlateTableInline();
+      return;
+    }
+
     const liveBoardButton = event.target.closest("[data-live-board-game]");
     if (liveBoardButton) {
       window.CFPAdvantageScoreboard?.toggleSelection?.(liveBoardButton.dataset.liveBoardGame);
