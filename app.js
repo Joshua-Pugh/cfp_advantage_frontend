@@ -25,7 +25,7 @@ function matchupTeamInitials(team) {
 
 function loadMatchupTeamLogos() {
   if (!matchupTeamLogoCatalogPromise) {
-    matchupTeamLogoCatalogPromise = fetch("team-logos.json?v=4.0.71", { cache: "force-cache" })
+    matchupTeamLogoCatalogPromise = fetch("team-logos.json?v=4.0.72", { cache: "force-cache" })
       .then((response) => response.ok ? response.json() : { teams: {} })
       .then((payload) => payload.teams || {})
       .catch(() => ({}));
@@ -46,7 +46,36 @@ const TERMS_ACCEPTED_AT_KEY = "cfp_adv_terms_accepted_at";
 const DEFAULT_TERMS_VERSION = "2026-06-01-access-terms-v5";
 const TERMS_GATE_MESSAGE = "Before entering CFP Advantage, please review and accept the Terms of Use. CFP Advantage provides football intelligence and model-derived context for informational and educational purposes. It does not guarantee outcomes and is not betting, financial, or professional advice. Free site access is intended for users 13 and older. Purchases, donations, premium content, subscriptions, or other payment transactions are restricted to users 18 or older, or the age of majority in their jurisdiction, whichever is higher. This site uses browser localStorage to remember your terms acknowledgement and display preferences on this device. By accepting, you agree to the Terms, Privacy Policy, Refund Policy, and Disclaimer.";
 
+function installBrandAssets() {
+  if (!document.querySelector('link[data-cfp-favicon]')) {
+    const favicon = document.createElement("link");
+    favicon.rel = "icon";
+    favicon.type = "image/png";
+    favicon.href = "assets/adv-logo.png?v=1";
+    favicon.dataset.cfpFavicon = "true";
+    document.head.appendChild(favicon);
+
+    const touchIcon = document.createElement("link");
+    touchIcon.rel = "apple-touch-icon";
+    touchIcon.href = "assets/adv-logo.png?v=1";
+    touchIcon.dataset.cfpFavicon = "true";
+    document.head.appendChild(touchIcon);
+  }
+
+  const header = document.querySelector(".site-header, .topbar");
+  if (!header || header.querySelector(".site-brand-mark")) return;
+  const mark = document.createElement("img");
+  mark.className = "site-brand-mark";
+  mark.src = "assets/adv-logo.png?v=1";
+  mark.alt = "CFP Advantage";
+  mark.width = 80;
+  mark.height = 80;
+  const identity = header.classList.contains("topbar") ? header.querySelector(":scope > div") : header;
+  identity?.insertBefore(mark, identity.firstChild);
+}
+
 function setupSiteChrome() {
+  installBrandAssets();
   const nav = document.querySelector(".page-nav");
   if (nav) {
     nav.classList.add("primary-nav");

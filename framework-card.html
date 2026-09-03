@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Framework Card | CFP Advantage</title>
+    <link rel="icon" type="image/png" href="assets/adv-logo.png?v=1">
+    <link rel="apple-touch-icon" href="assets/adv-logo.png?v=1">
+    <link rel="stylesheet" href="styles.css?v=4.0.72">
+  </head>
+  <body data-page="framework-card">
+    <main class="app-shell framework-card-page">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">CFP ADVANTAGE</p>
+          <h1>Framework Card</h1>
+        </div>
+        <nav class="page-nav" aria-label="Site pages">
+          <a href="index.html">Home</a>
+          <a href="team.html">Teams</a>
+          <a href="matchups.html">Matchups</a>
+          <a href="bracket-room.html">Bracket Room</a>
+        </nav>
+      </header>
+
+      <section class="workspace-view static-page framework-card-workspace">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Contextual Football Profile</p>
+            <h2>Build A Team Framework Card</h2>
+            <p>Choose a team to turn its CFP metrics into one concise football identity.</p>
+          </div>
+          <button id="printFrameworkCard" class="secondary-button" type="button">Print or Save</button>
+        </div>
+        <div class="matchup-controls page-controls framework-card-controls">
+          <label><span>Season</span><select id="frameworkSeason"></select></label>
+          <label><span>Team</span><select id="frameworkTeam"></select></label>
+          <button id="loadFrameworkCard" type="button">Build Card</button>
+        </div>
+        <p id="frameworkCardStatus" class="page-status" aria-live="polite">Loading teams...</p>
+        <div id="frameworkCardMount" class="framework-card-mount">
+          <div class="empty-state">Choose a season and team.</div>
+        </div>
+      </section>
+    </main>
+
+    <script src="config.js?v=4.0.72"></script>
+    <script src="site.js?v=4.0.72"></script>
+    <script src="framework-card.js?v=4.0.72"></script>
+  </body>
+</html>

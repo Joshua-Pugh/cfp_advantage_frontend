@@ -21,7 +21,36 @@ const TERMS_ACCEPTED_AT_KEY = "cfp_adv_terms_accepted_at";
 const DEFAULT_TERMS_VERSION = "2026-06-01-access-terms-v5";
 const TERMS_GATE_MESSAGE = "CFP Advantage provides football intelligence and model-derived context for informational and educational purposes only. CFP Advantage does not guarantee outcomes and is not betting, financial, or professional advice. Free site access is intended for users 13 and older. Purchases, donations, premium content, subscriptions, or other payment transactions are restricted to users 18 or older, or the age of majority in their jurisdiction, whichever is higher. This site uses browser localStorage to remember your terms acknowledgement and display preferences on this device. By selecting Accept And Enter, you agree to the Terms of Use, Privacy Policy, Refund Policy, and Disclaimer.";
 
+function installBrandAssets() {
+  if (!document.querySelector('link[data-cfp-favicon]')) {
+    const favicon = document.createElement("link");
+    favicon.rel = "icon";
+    favicon.type = "image/png";
+    favicon.href = "assets/adv-logo.png?v=1";
+    favicon.dataset.cfpFavicon = "true";
+    document.head.appendChild(favicon);
+
+    const touchIcon = document.createElement("link");
+    touchIcon.rel = "apple-touch-icon";
+    touchIcon.href = "assets/adv-logo.png?v=1";
+    touchIcon.dataset.cfpFavicon = "true";
+    document.head.appendChild(touchIcon);
+  }
+
+  const header = document.querySelector(".site-header, .topbar");
+  if (!header || header.querySelector(".site-brand-mark")) return;
+  const mark = document.createElement("img");
+  mark.className = "site-brand-mark";
+  mark.src = "assets/adv-logo.png?v=1";
+  mark.alt = "CFP Advantage";
+  mark.width = 80;
+  mark.height = 80;
+  const identity = header.classList.contains("topbar") ? header.querySelector(":scope > div") : header;
+  identity?.insertBefore(mark, identity.firstChild);
+}
+
 function setupSiteChrome() {
+  installBrandAssets();
   const page = document.body.dataset.page || "";
   const primaryLinks = [
     ["home", "index.html", "Home"],
@@ -1804,13 +1833,18 @@ function renderTeamAdvProfileView(intel = {}, driveConversion = {}, stats = {}, 
   const pressureCompareHtml = renderPressureCompareWindow(view, stats, games);
   const summary = publicProfileSummary(view.contextual_profile_summary)
     || "This profile explains how the team creates control, finishes control, denies control, and produces complete stops after control forms.";
+  const cardTeam = window.__teamPageData?.team || "";
+  const frameworkCardUrl = `framework-card.html?season=${encodeURIComponent(season || "")}&team=${encodeURIComponent(cardTeam)}`;
   return `
     <div class="insight-panel">
       <p class="eyebrow">Contextual Football Profile</p>
       <h3>${escapeHtml(view.contextual_profile_label || "Season Identity")}</h3>
       <p class="interpretation">${escapeHtml(summary)}</p>
       <p class="team-reading-guide"><strong>How to read this:</strong> Start with ADV SRS for overall strength. Use Control Foundation and Pressure to see how that strength is produced, then use Finish and Scoreboard Control Gap to see whether it is translating into results.</p>
-      <a class="text-link" href="metrics.html">How CFP Advantage metrics work</a>
+      <div class="team-profile-actions">
+        <a class="secondary-action" href="${frameworkCardUrl}">Open Framework Card</a>
+        <a class="text-link" href="metrics.html">How CFP Advantage metrics work</a>
+      </div>
     </div>
     <div class="insight-panel">
       <p class="eyebrow">Team Identity</p>
@@ -2296,7 +2330,7 @@ function teamInitials(team) {
 
 async function loadTeamLogoCatalog() {
   if (!teamLogoCatalogPromise) {
-    teamLogoCatalogPromise = fetch("team-logos.json?v=4.0.71", { cache: "force-cache" })
+    teamLogoCatalogPromise = fetch("team-logos.json?v=4.0.72", { cache: "force-cache" })
       .then((response) => response.ok ? response.json() : { teams: {} })
       .then((payload) => payload.teams || {})
       .catch(() => ({}));
