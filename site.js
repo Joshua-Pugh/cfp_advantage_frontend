@@ -423,6 +423,40 @@ function metricHelpButton() {
   return `<button class="metric-help-toggle" type="button" aria-expanded="false">What do these mean?</button>`;
 }
 
+const METRIC_USE_GUIDES = {
+  "ADV Strength Rating (ADV SRS)": "Start here when comparing overall opponent-adjusted team strength.",
+  "ADV Rank": "Use this for national position; use the rating itself to judge the size of the gap.",
+  "Schedule Strength": "Use this as context for the competition faced, not as a standalone team-quality score.",
+  "Control Creation": "Use this to find offenses that consistently create meaningful advantage.",
+  "Control Denial": "Use this to find defenses that prevent opponents from creating meaningful advantage.",
+  "Control Rate (CR)": "Use this as a quick read of how consistently a team establishes control.",
+  "Control Foundation": "Use this to judge whether a team can both create and deny control.",
+  "Control Pressure Per Offensive Drive": "Use this to compare sustainable scoring pressure; higher is better.",
+  "Control Pressure Allowed Per Defensive Drive": "Use this to compare defensive resistance; lower is better.",
+  "Control Pressure": "Use this to grade the strength of sustainable offensive pressure.",
+  "Control Pressure Allowed": "Use this to spot defenses that limit sustained pressure; lower is better.",
+  "Control Finish Rate": "Use this to see whether control opportunities are being converted into points.",
+  "Control Drive Shutout Rate": "Use this to see how often the defense erases an opponent control drive.",
+  "Points Per Control Drive": "Use this to compare scoring output after meaningful control has been created.",
+  "TD Control Conversion": "Use this to separate touchdown finishers from teams settling for fewer points.",
+  "Finish Waste": "Use this to identify control opportunities that end without points; lower is better.",
+  "Scoreboard Control Gap": "Use this to check whether results are running ahead of or behind underlying control.",
+  "Recent Form": "Use this for direction of travel, not as a replacement for full-season strength.",
+  "Talent Yield": "Use this to see whether performance is exceeding or trailing roster expectations.",
+};
+
+function metricUseLabel(label) {
+  const help = METRIC_USE_GUIDES[label];
+  if (!help) return escapeHtml(label);
+  return `
+    <span class="metric-label-with-help">
+      ${escapeHtml(label)}
+      <button class="metric-use-tip" type="button" aria-label="${escapeHtml(`${label}: ${help}`)}">?</button>
+      <span class="metric-use-tooltip" role="tooltip">${escapeHtml(help)}</span>
+    </span>
+  `;
+}
+
 function escapeHtml(value) {
   return String(value ?? "")
     .replace(/&/g, "&amp;")
@@ -1347,7 +1381,7 @@ function renderTeamScheduleView(season, team, intel, record, games) {
       const resultClass = row.result_w_l === "W" ? "result-win" : row.result_w_l === "L" ? "result-loss" : "";
       const score = `${presentScore(row.team_score)}-${presentScore(row.opponent_score)}`;
       const opponent = String(row.opponent || row.opponent_name || "-");
-      const homeAway = row.is_home ? "vs" : "at";
+      const homeAway = row.is_neutral ? "vs" : row.is_home ? "vs" : "at";
       const dateStr = row.date ? String(row.date) : "";
       const neutralStr = row.is_neutral ? " | Neutral Site" : "";
       const rowStats = row.comparison_stats || {};
@@ -1368,7 +1402,11 @@ function renderTeamScheduleView(season, team, intel, record, games) {
         <article class="schedule-game">
           <div class="schedule-week">${escapeHtml(String(weekField))}</div>
           <div class="schedule-opponent">
-            <strong class="team-name-with-logo">${teamLogoMarkup(opponent, activeTeamLogos)}${homeAway} ${escapeHtml(opponent)}</strong>
+            <div class="schedule-matchup" aria-label="${escapeHtml(`${team} ${homeAway} ${opponent}`)}">
+              <span class="schedule-team team-name-with-logo">${teamLogoMarkup(team, activeTeamLogos)}<strong>${escapeHtml(team)}</strong></span>
+              <span class="schedule-versus">${escapeHtml(homeAway)}</span>
+              <span class="schedule-team team-name-with-logo">${teamLogoMarkup(opponent, activeTeamLogos)}<strong>${escapeHtml(opponent)}</strong></span>
+            </div>
             <span>${escapeHtml(dateStr)}${escapeHtml(neutralStr)}${escapeHtml(yardsStr)}</span>
           </div>
           <div class="schedule-score ${resultClass}">${escapeHtml(resultStr)} ${escapeHtml(score)}</div>
@@ -1737,6 +1775,7 @@ function renderTeamAdvProfileView(intel = {}, driveConversion = {}, stats = {}, 
       <p class="eyebrow">Contextual Football Profile</p>
       <h3>${escapeHtml(view.contextual_profile_label || "Season Identity")}</h3>
       <p class="interpretation">${escapeHtml(summary)}</p>
+      <p class="team-reading-guide"><strong>How to read this:</strong> Start with ADV SRS for overall strength. Use Control Foundation and Pressure to see how that strength is produced, then use Finish and Scoreboard Control Gap to see whether it is translating into results.</p>
       <a class="text-link" href="metrics.html">How CFP Advantage metrics work</a>
     </div>
     <div class="insight-panel">
@@ -1746,7 +1785,7 @@ function renderTeamAdvProfileView(intel = {}, driveConversion = {}, stats = {}, 
       <div class="summary-grid">
         ${controlFoundationRows.map(([label, value, note]) => `
           <div>
-            <span>${escapeHtml(label)}</span>
+            ${metricUseLabel(label)}
             <strong>${escapeHtml(value)}</strong>
             ${note ? `<small>${escapeHtml(note)}</small>` : ""}
           </div>
@@ -1760,7 +1799,7 @@ function renderTeamAdvProfileView(intel = {}, driveConversion = {}, stats = {}, 
       <div class="summary-grid">
         ${scoringPressureRows.map(([label, value, note]) => `
           <div>
-            <span>${escapeHtml(label)}</span>
+            ${metricUseLabel(label)}
             <strong>${escapeHtml(value)}</strong>
             ${note ? `<small>${escapeHtml(note)}</small>` : ""}
           </div>
@@ -1774,7 +1813,7 @@ function renderTeamAdvProfileView(intel = {}, driveConversion = {}, stats = {}, 
       <div class="summary-grid">
         ${conversionRows.map(([label, value, note]) => `
           <div>
-            <span>${escapeHtml(label)}</span>
+            ${metricUseLabel(label)}
             <strong>${escapeHtml(value)}</strong>
             ${note ? `<small>${escapeHtml(note)}</small>` : ""}
           </div>
@@ -1789,7 +1828,7 @@ function renderTeamAdvProfileView(intel = {}, driveConversion = {}, stats = {}, 
       <div class="summary-grid">
         ${outcomeRows.map(([label, value, note]) => `
           <div>
-            <span>${escapeHtml(label)}</span>
+            ${metricUseLabel(label)}
             <strong>${escapeHtml(value)}</strong>
             ${note ? `<small>${escapeHtml(note)}</small>` : ""}
           </div>
@@ -2186,7 +2225,7 @@ function teamInitials(team) {
 
 async function loadTeamLogoCatalog() {
   if (!teamLogoCatalogPromise) {
-    teamLogoCatalogPromise = fetch("team-logos.json?v=4.0.52", { cache: "force-cache" })
+    teamLogoCatalogPromise = fetch("team-logos.json?v=4.0.66", { cache: "force-cache" })
       .then((response) => response.ok ? response.json() : { teams: {} })
       .then((payload) => payload.teams || {})
       .catch(() => ({}));

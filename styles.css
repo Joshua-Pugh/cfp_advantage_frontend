@@ -2768,7 +2768,92 @@ select {
   gap: 4px;
 }
 
-.schedule-opponent span {
+.schedule-matchup {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+}
+
+.schedule-team {
+  min-width: 0;
+  font-size: 14px;
+}
+
+.schedule-team strong {
+  overflow-wrap: anywhere;
+}
+
+.schedule-versus {
+  flex: 0 0 auto;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.metric-label-with-help {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.metric-use-tip {
+  display: inline-grid;
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--green);
+  background: #fff;
+  cursor: help;
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.metric-use-tooltip {
+  position: absolute;
+  z-index: 30;
+  left: 0;
+  bottom: calc(100% + 8px);
+  width: max-content;
+  max-width: min(320px, 78vw);
+  padding: 7px 9px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  color: var(--ink);
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(13, 31, 24, 0.14);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.35;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition: opacity 120ms ease, transform 120ms ease;
+}
+
+.metric-use-tip:hover + .metric-use-tooltip,
+.metric-use-tip:focus + .metric-use-tooltip {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.team-reading-guide {
+  margin: 14px 0;
+  padding: 10px 12px;
+  border-left: 3px solid var(--green);
+  color: var(--muted);
+  background: var(--soft);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.schedule-opponent > span {
   color: var(--muted);
   font-size: 12px;
 }
@@ -5520,6 +5605,16 @@ pre {
 
   .schedule-game {
     grid-template-columns: 1fr auto;
+  }
+
+  .schedule-matchup {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 5px;
+  }
+
+  .schedule-versus {
+    padding-left: 46px;
   }
 
   .compact-stat-row {
