@@ -55,7 +55,8 @@ function setupSiteChrome() {
       <a href="about.html">About</a>
       <a href="live-2026.html">2026 Live</a>
       <a href="learn.html">Learn</a>
-      <button type="button" data-open-contact>Contact</button>
+      <a href="contact.html">Contact</a>
+      <a href="updates.html">Updates <span class="site-version">v1.1</span></a>
       <a class="support-link" data-support-link href="${DONATE_URL || `mailto:${SUPPORT_EMAIL}?subject=Support%20CFP%20Advantage`}">Support</a>
       <a href="metrics.html">Metrics Guide</a>
       <a href="news.html">News</a>
@@ -67,7 +68,7 @@ function setupSiteChrome() {
     <p class="footer-legal-notice">By using CFP Advantage, you acknowledge the <a href="legal.html#terms">Terms</a>, <a href="legal.html#privacy">Privacy Policy</a>, and <a href="legal.html#disclaimer">Disclaimer</a>.</p>
     <p class="footer-copyright">Copyright 2026 CFP Advantage. All rights reserved.</p>
   `;
-  installContactModal();
+  installMetricUseTooltips();
   configureSupportLinks();
   installSupportButton();
   installDeveloperRefreshControl();
@@ -451,10 +452,39 @@ function metricUseLabel(label) {
   return `
     <span class="metric-label-with-help">
       ${escapeHtml(label)}
-      <button class="metric-use-tip" type="button" aria-label="${escapeHtml(`${label}: ${help}`)}">?</button>
+      <button class="metric-use-tip" type="button" aria-label="${escapeHtml(`${label}: ${help}`)}" aria-expanded="false">?</button>
       <span class="metric-use-tooltip" role="tooltip">${escapeHtml(help)}</span>
     </span>
   `;
+}
+
+function installMetricUseTooltips() {
+  if (document.documentElement.dataset.metricTipsBound === "true") return;
+  const closeTips = (except = null) => {
+    document.querySelectorAll(".metric-label-with-help.is-open").forEach((wrapper) => {
+      if (wrapper === except) return;
+      wrapper.classList.remove("is-open");
+      wrapper.querySelector(".metric-use-tip")?.setAttribute("aria-expanded", "false");
+    });
+  };
+  document.addEventListener("click", (event) => {
+    const button = event.target.closest(".metric-use-tip");
+    if (!button) {
+      closeTips();
+      return;
+    }
+    event.preventDefault();
+    event.stopPropagation();
+    const wrapper = button.closest(".metric-label-with-help");
+    const shouldOpen = !wrapper.classList.contains("is-open");
+    closeTips(wrapper);
+    wrapper.classList.toggle("is-open", shouldOpen);
+    button.setAttribute("aria-expanded", String(shouldOpen));
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeTips();
+  });
+  document.documentElement.dataset.metricTipsBound = "true";
 }
 
 function escapeHtml(value) {
@@ -1293,6 +1323,7 @@ async function renderTeamPage() {
       profile.drive_conversion || profile.drive_conversion_context || {},
       stats,
       games,
+      season,
     );
 
     $("teamPageResult").innerHTML = `
@@ -1698,7 +1729,7 @@ function renderTeamStatsView(intel, stats, games = []) {
   `).join("");
 }
 
-function renderTeamAdvProfileView(intel = {}, driveConversion = {}, stats = {}, games = []) {
+function renderTeamAdvProfileView(intel = {}, driveConversion = {}, stats = {}, games = [], season = null) {
   const profile = contextualProfileValues(intel);
   const view = { ...intel, ...profile };
   if (numberOrNull(view.points_per_control_drive) === null) {
@@ -1714,6 +1745,9 @@ function renderTeamAdvProfileView(intel = {}, driveConversion = {}, stats = {}, 
   ) {
     view.control_production_rate = Number(view.control_creation_rate) * Number(view.points_per_control_drive);
   }
+  if (Number.isFinite(Number(season)) && Number(season) < 2016) {
+    return renderLimitedHistoricalProfile(view, driveConversion);
+  }
   const specialTeamsAdv = view.sp_adv_srs ?? view.sp_adv ?? view.special_teams_adv ?? view.raw_sp_adv_margin_avg;
   const dce = view.team_season_dce ?? view.dce ?? view.drive_conversion_efficiency;
   const talentYieldLabel = view.tyi_label || talentYieldLabelFromValue(view.talent_yield_index);
@@ -1721,7 +1755,7 @@ function renderTeamAdvProfileView(intel = {}, driveConversion = {}, stats = {}, 
   const outcomeRows = [
     ["ADV Strength Rating (ADV SRS)", decimal(view.adv_srs, 1)],
     ["ADV Rank", view.adv_srs_rank ? `#${view.adv_srs_rank}` : "-"],
-    ["Schedule Strength", `${decimal(view.adv_sos_percentile, 1)} percentile`],
+    ["Schedule Strength", numberOrNull(view.adv_sos_percentile) !== null ? `${decimal(view.adv_sos_percentile, 1)} percentile` : decimal(view.adv_sos, 1)],
     ["Scoreboard Control Gap", decimal(dce, 2)],
     ["Recent Form", recentFormLabel],
     ["Talent Yield", talentYieldLabel, decimal(view.talent_yield_index, 2)],
@@ -1729,7 +1763,7 @@ function renderTeamAdvProfileView(intel = {}, driveConversion = {}, stats = {}, 
   const controlFoundationRows = [
     ["Control Creation", view.control_creation_tier || "-", percentileLabel(view.control_creation_percentile)],
     ["Control Denial", view.control_denial_tier || "-", percentileLabel(view.control_denial_percentile)],
-    ["Control Rate (CR)", rate(view.cr ?? view.control_rate ?? (numberOrNull(view.control_rate_pct) !== null ? Number(view.control_rate_pct) / 100 : null)), "Share of possessions that become useful control opportunities"],
+    ["Control Rate (CR)", rate(view.CR ?? view.cr ?? view.control_rate ?? (numberOrNull(view.control_rate_pct) !== null ? Number(view.control_rate_pct) / 100 : null)), "Share of possessions that become useful control opportunities"],
     ["Control Foundation", view.control_foundation_tier || "-", percentileLabel(view.control_foundation_percentile)],
   ];
   const scoringPressureRows = [
@@ -2001,6 +2035,43 @@ function publicProfileSummary(value) {
     .replaceAll("Control Points", "Control Pressure");
 }
 
+function renderLimitedHistoricalProfile(view = {}, driveConversion = {}) {
+  const dce = view.team_season_dce ?? view.dce ?? view.drive_conversion_efficiency;
+  const cr = view.CR ?? view.cr ?? view.control_rate ?? (numberOrNull(view.control_rate_pct) !== null ? Number(view.control_rate_pct) / 100 : null);
+  const rows = [
+    ["ADV Strength Rating (ADV SRS)", decimal(view.adv_srs, 1)],
+    ["ADV Rank", view.adv_srs_rank ? `#${view.adv_srs_rank}` : "-"],
+    ["Schedule Strength", numberOrNull(view.adv_sos_percentile) !== null ? `${decimal(view.adv_sos_percentile, 1)} percentile` : decimal(view.adv_sos, 1)],
+    ["Control Rate (CR)", rate(cr)],
+    ["Scoreboard Control Gap", decimal(dce, 2)],
+    ["Control Finish Rate", rate(driveConversion.scoring_conversion_rate)],
+    ["Points Per Control Drive", decimal(driveConversion.points_per_control_drive, 2)],
+    ["TD Control Conversion", rate(driveConversion.td_conversion_rate)],
+  ];
+  return `
+    <div class="insight-panel historical-profile-notice">
+      <p class="eyebrow">Historical Coverage</p>
+      <h3>Limited 2015 Control Profile</h3>
+      <p class="interpretation">ADV strength, schedule context, Control Rate, and available drive-conversion measures are shown below. The validated full Contextual Football Profile begins in 2016, so Creation, Denial, and Pressure ratings are not available for this season.</p>
+      <p class="team-reading-guide"><strong>How to read this:</strong> Start with ADV SRS for overall opponent-adjusted strength, then use Control Rate and the conversion measures to see how often control formed and became points.</p>
+      <a class="text-link" href="metrics.html">Review metric definitions and historical coverage</a>
+    </div>
+    <div class="insight-panel">
+      <p class="eyebrow">Available 2015 Measures</p>
+      <h3>Season Control Snapshot</h3>
+      <div class="summary-grid historical-profile-grid">
+        ${rows.map(([label, value]) => `
+          <div>
+            ${metricUseLabel(label)}
+            <strong>${escapeHtml(value)}</strong>
+          </div>
+        `).join("")}
+      </div>
+      <p class="interpretation">${escapeHtml(scoreboardControlGapRead(dce))}</p>
+    </div>
+  `;
+}
+
 function scoreboardControlGapRead(value) {
   const gap = numberOrNull(value);
   if (gap === null) return "Scoreboard Control Gap is unavailable for this team-season.";
@@ -2225,7 +2296,7 @@ function teamInitials(team) {
 
 async function loadTeamLogoCatalog() {
   if (!teamLogoCatalogPromise) {
-    teamLogoCatalogPromise = fetch("team-logos.json?v=4.0.66", { cache: "force-cache" })
+    teamLogoCatalogPromise = fetch("team-logos.json?v=4.0.71", { cache: "force-cache" })
       .then((response) => response.ok ? response.json() : { teams: {} })
       .then((payload) => payload.teams || {})
       .catch(() => ({}));
@@ -3474,6 +3545,7 @@ async function boot() {
   const page = document.body.dataset.page;
   try {
     setupSiteChrome();
+    if (page === "contact") document.querySelector("[data-contact-form]")?.addEventListener("submit", submitContactForm);
     if (page === "home") {setupUnofficialResultsModal();}
     if (page === "metrics") await loadMetricPage();
     if (page === "historical") await loadHistoricalPage();

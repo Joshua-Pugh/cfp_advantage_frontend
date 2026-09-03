@@ -25,7 +25,7 @@ function matchupTeamInitials(team) {
 
 function loadMatchupTeamLogos() {
   if (!matchupTeamLogoCatalogPromise) {
-    matchupTeamLogoCatalogPromise = fetch("team-logos.json?v=4.0.52", { cache: "force-cache" })
+    matchupTeamLogoCatalogPromise = fetch("team-logos.json?v=4.0.71", { cache: "force-cache" })
       .then((response) => response.ok ? response.json() : { teams: {} })
       .then((payload) => payload.teams || {})
       .catch(() => ({}));
@@ -70,7 +70,8 @@ function setupSiteChrome() {
     <nav class="footer-links" aria-label="Reference and legal pages">
       <a href="about.html">About</a>
       <a href="live-2026.html">2026 Live</a>
-      <button type="button" data-open-contact>Contact</button>
+      <a href="contact.html">Contact</a>
+      <a href="updates.html">Updates <span class="site-version">v1.1</span></a>
       <a class="support-link" data-support-link href="${DONATE_URL || `mailto:${SUPPORT_EMAIL}?subject=Support%20CFP%20Advantage`}">Support</a>
       <a href="metrics.html">Metrics Guide</a>
       <a href="news.html">News</a>
@@ -83,7 +84,6 @@ function setupSiteChrome() {
     <p class="footer-copyright">Copyright 2026 CFP Advantage. All rights reserved.</p>
   `;
   shell.appendChild(footer);
-  installContactModal();
   configureSupportLinks();
   installSupportButton();
   installDeveloperRefreshControl();

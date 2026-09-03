@@ -1874,6 +1874,58 @@ select {
   color: var(--red);
 }
 
+.contact-page-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.7fr) minmax(360px, 1.3fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.contact-page-copy,
+.contact-page-form {
+  min-width: 0;
+}
+
+.contact-page-copy h2,
+.contact-page-form h2,
+.updates-page h2 {
+  margin: 4px 0 10px;
+}
+
+.contact-page-copy p,
+.updates-page p,
+.updates-page li {
+  color: var(--muted);
+  font-weight: 650;
+  line-height: 1.6;
+}
+
+.contact-page-form .primary-action {
+  justify-self: start;
+}
+
+.site-version {
+  margin-left: 3px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.release-list {
+  display: grid;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.release-note h3 {
+  margin: 4px 0 8px;
+}
+
+.release-note ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
 .dev-refresh-control {
   position: fixed;
   right: 14px;
@@ -1977,6 +2029,10 @@ select {
   border-radius: 8px;
   background: #fff;
   overflow: hidden;
+}
+
+.team-view-panel .summary-grid > div {
+  overflow: visible;
 }
 
 .summary-grid span {
@@ -2838,9 +2894,34 @@ select {
 }
 
 .metric-use-tip:hover + .metric-use-tooltip,
-.metric-use-tip:focus + .metric-use-tooltip {
+.metric-use-tip:focus-visible + .metric-use-tooltip,
+.metric-label-with-help.is-open .metric-use-tooltip {
   opacity: 1;
+  pointer-events: auto;
   transform: translateY(0);
+}
+
+@media (max-width: 700px) {
+  .contact-page-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-page-copy,
+  .contact-page-form {
+    padding: 16px;
+  }
+
+  .contact-page-form .primary-action {
+    width: 100%;
+  }
+
+  .metric-use-tooltip {
+    top: calc(100% + 8px);
+    bottom: auto;
+    width: min(280px, calc(100vw - 56px));
+    max-width: none;
+    transform: translateY(-4px);
+  }
 }
 
 .team-reading-guide {
