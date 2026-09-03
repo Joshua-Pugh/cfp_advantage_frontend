@@ -373,6 +373,10 @@ select {
   width: min(1600px, calc(100% - 32px));
 }
 
+body[data-page="framework-card"] .floating-support-link {
+  display: none;
+}
+
 .framework-card-workspace {
   overflow: visible;
 }

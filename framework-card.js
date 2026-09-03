@@ -36,7 +36,13 @@
 
   function percentile(value) {
     const parsed = number(value);
-    return parsed === null ? "No percentile" : `${parsed.toFixed(0)}th percentile`;
+    if (parsed === null) return "No percentile";
+    const rounded = Math.round(parsed);
+    const tens = rounded % 100;
+    const suffix = tens >= 11 && tens <= 13
+      ? "th"
+      : ({ 1: "st", 2: "nd", 3: "rd" }[rounded % 10] || "th");
+    return `${rounded}${suffix} percentile`;
   }
 
   function initials(team) {
