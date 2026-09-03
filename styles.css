@@ -726,39 +726,6 @@ body[data-page="framework-card"] .floating-support-link {
   }
 }
 
-@media print {
-  body {
-    background: #fff;
-  }
-
-  .framework-card-page {
-    width: 100%;
-    padding: 0;
-  }
-
-  .framework-card-page > .topbar,
-  .framework-card-workspace > .panel-heading,
-  .framework-card-controls,
-  .framework-card-workspace > .page-status,
-  .framework-card-page .site-footer,
-  .floating-support-link {
-    display: none !important;
-  }
-
-  .framework-card-workspace,
-  .framework-card-mount {
-    margin: 0;
-    padding: 0;
-    border: 0;
-  }
-
-  .adv-framework-card {
-    box-shadow: none;
-    print-color-adjust: exact;
-    -webkit-print-color-adjust: exact;
-  }
-}
-
 .home-unofficial-loading .home-matchups-spinner {
   width: 24px;
   height: 24px;

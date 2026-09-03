@@ -55,6 +55,88 @@
     return `<span class="${className} has-logo"><img src="${escapeHtml(url)}" alt="${escapeHtml(team)} logo" onerror="this.parentElement.classList.remove('has-logo');this.parentElement.classList.add('is-fallback');this.parentElement.textContent='${escapeHtml(initials(team))}'"></span>`;
   }
 
+  function dataUrl(blob) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => reject(new Error("A team logo could not be prepared for download"));
+      reader.readAsDataURL(blob);
+    });
+  }
+
+  async function inlineCardImages(card) {
+    const originals = [];
+    for (const image of card.querySelectorAll("img")) {
+      const source = image.currentSrc || image.src;
+      if (!source || new URL(source, window.location.href).origin === window.location.origin) continue;
+      const response = await fetch(`${apiBase}/api/assets/team-logo?url=${encodeURIComponent(source)}`);
+      if (!response.ok) throw new Error("The team logo could not be included in the PNG");
+      originals.push([image, image.src]);
+      image.src = await dataUrl(await response.blob());
+      if (image.decode) await image.decode().catch(() => undefined);
+    }
+    return () => originals.forEach(([image, source]) => { image.src = source; });
+  }
+
+  function downloadBlob(blob, filename) {
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+  function canvasBlob(canvas) {
+    return new Promise((resolve, reject) => {
+      canvas.toBlob((blob) => blob ? resolve(blob) : reject(new Error("The PNG could not be created")), "image/png");
+    });
+  }
+
+  function filenamePart(value) {
+    return String(value || "team").trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  }
+
+  async function downloadFrameworkCard() {
+    const button = $("downloadFrameworkCard");
+    const card = document.querySelector(".adv-framework-card");
+    if (!card || typeof window.html2canvas !== "function") {
+      $("frameworkCardStatus").textContent = "PNG download is not available yet.";
+      return;
+    }
+    button.disabled = true;
+    button.textContent = "Preparing PNG...";
+    $("frameworkCardStatus").textContent = "Preparing your PNG download...";
+    let restoreImages = () => undefined;
+    try {
+      restoreImages = await inlineCardImages(card);
+      const canvas = await window.html2canvas(card, {
+        backgroundColor: "#101820",
+        logging: false,
+        scale: 2,
+        useCORS: false,
+        windowWidth: 1440,
+        onclone: (documentClone) => {
+          const clonedCard = documentClone.querySelector(".adv-framework-card");
+          if (clonedCard) clonedCard.style.width = "1400px";
+        },
+      });
+      const team = $("frameworkTeam").value;
+      const season = $("frameworkSeason").value;
+      downloadBlob(await canvasBlob(canvas), `cfp-advantage-${season}-${filenamePart(team)}-framework.png`);
+      $("frameworkCardStatus").textContent = "PNG downloaded.";
+    } catch (error) {
+      console.error("Framework PNG download failed", error);
+      $("frameworkCardStatus").textContent = `PNG download failed: ${error.message}`;
+    } finally {
+      restoreImages();
+      button.disabled = false;
+      button.textContent = "Download PNG";
+    }
+  }
+
   function contextualValues(intel) {
     const nested = intel.contextual_profile_json;
     if (nested && typeof nested === "object" && !Array.isArray(nested)) return { ...intel, ...nested };
@@ -206,7 +288,7 @@
       await loadCard();
       $("frameworkSeason").addEventListener("change", async () => { await populateTeams(); await loadCard(); });
       $("loadFrameworkCard").addEventListener("click", loadCard);
-      $("printFrameworkCard").addEventListener("click", () => window.print());
+      $("downloadFrameworkCard").addEventListener("click", downloadFrameworkCard);
     } catch (error) {
       $("frameworkCardStatus").textContent = `Framework card unavailable: ${error.message}`;
     }
