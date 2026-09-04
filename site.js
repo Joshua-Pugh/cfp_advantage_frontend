@@ -26,13 +26,13 @@ function installBrandAssets() {
     const favicon = document.createElement("link");
     favicon.rel = "icon";
     favicon.type = "image/png";
-    favicon.href = "assets/adv-logo.png?v=1";
+    favicon.href = "assets/adv-logo.png?v=4.0.78";
     favicon.dataset.cfpFavicon = "true";
     document.head.appendChild(favicon);
 
     const touchIcon = document.createElement("link");
     touchIcon.rel = "apple-touch-icon";
-    touchIcon.href = "assets/adv-logo.png?v=1";
+    touchIcon.href = "assets/adv-logo.png?v=4.0.78";
     touchIcon.dataset.cfpFavicon = "true";
     document.head.appendChild(touchIcon);
   }
@@ -41,7 +41,7 @@ function installBrandAssets() {
   if (!header || header.querySelector(".site-brand-mark")) return;
   const mark = document.createElement("img");
   mark.className = "site-brand-mark";
-  mark.src = "assets/adv-logo.png?v=1";
+  mark.src = "assets/adv-logo.png?v=4.0.78";
   mark.alt = "CFP Advantage";
   mark.width = 80;
   mark.height = 80;

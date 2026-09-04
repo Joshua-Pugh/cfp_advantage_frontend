@@ -348,9 +348,11 @@ select {
   width: 72px;
   height: 72px;
   margin: 0 auto 10px;
+  padding: 5px;
   flex: 0 0 auto;
   object-fit: contain;
   object-position: center;
+  overflow: visible;
 }
 
 .site-header > .site-brand-mark {
@@ -425,9 +427,11 @@ body[data-page="framework-card"] .floating-support-link {
   aspect-ratio: 1;
   width: 96px;
   height: 96px;
+  padding: 5px;
   flex: 0 0 auto;
   object-fit: contain;
   object-position: center;
+  overflow: visible;
 }
 
 .adv-framework-title {

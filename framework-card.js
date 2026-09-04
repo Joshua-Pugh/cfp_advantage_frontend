@@ -251,7 +251,7 @@
     $("frameworkCardMount").innerHTML = `
       <article class="adv-framework-card" aria-label="${escapeHtml(`${displayName} ${season} Control Framework card`)}">
         <header class="adv-framework-header">
-          <div class="adv-framework-brand"><img src="assets/adv-logo.png?v=1" alt=""><span>CFP Advantage</span></div>
+          <div class="adv-framework-brand"><img src="assets/adv-logo.png?v=4.0.78" alt=""><span>CFP Advantage</span></div>
           <div class="adv-framework-title"><span>${escapeHtml(`${season} Contextual Football Profile`)}</span><h2>${escapeHtml(identity)}</h2><p>${escapeHtml(summary)}</p></div>
           <div class="adv-framework-team"><strong>${escapeHtml(displayName)}</strong></div>
         </header>
