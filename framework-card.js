@@ -2,7 +2,82 @@
   const config = window.CFP_ADV_CONFIG || {};
   const apiBase = (config.API_BASE_URL || "https://cfp-advantage-model-1.onrender.com").replace(/\/$/, "");
   const $ = (id) => document.getElementById(id);
-  let logos = {};
+  const TEAM_DISPLAY_NAMES = {
+    "air force": "Air Force Falcons",
+    "alabama": "Alabama Crimson Tide",
+    "arizona": "Arizona Wildcats",
+    "arizona state": "Arizona State Sun Devils",
+    "arkansas": "Arkansas Razorbacks",
+    "arkansas state": "Arkansas State Red Wolves",
+    "army": "Army Black Knights",
+    "auburn": "Auburn Tigers",
+    "baylor": "Baylor Bears",
+    "boise state": "Boise State Broncos",
+    "boston college": "Boston College Eagles",
+    "brigham young": "BYU Cougars",
+    "byu": "BYU Cougars",
+    "buffalo": "Buffalo Bulls",
+    "cal": "California Golden Bears",
+    "california": "California Golden Bears",
+    "clemson": "Clemson Tigers",
+    "colorado": "Colorado Buffaloes",
+    "duke": "Duke Blue Devils",
+    "florida": "Florida Gators",
+    "florida state": "Florida State Seminoles",
+    "georgia": "Georgia Bulldogs",
+    "georgia tech": "Georgia Tech Yellow Jackets",
+    "illinois": "Illinois Fighting Illini",
+    "indiana": "Indiana Hoosiers",
+    "iowa": "Iowa Hawkeyes",
+    "iowa state": "Iowa State Cyclones",
+    "kansas": "Kansas Jayhawks",
+    "kansas state": "Kansas State Wildcats",
+    "kentucky": "Kentucky Wildcats",
+    "louisville": "Louisville Cardinals",
+    "lsu": "LSU Tigers",
+    "miami": "Miami Hurricanes",
+    "michigan": "Michigan Wolverines",
+    "michigan state": "Michigan State Spartans",
+    "minnesota": "Minnesota Golden Gophers",
+    "mississippi": "Ole Miss Rebels",
+    "mississippi state": "Mississippi State Bulldogs",
+    "missouri": "Missouri Tigers",
+    "nc state": "NC State Wolfpack",
+    "nebraska": "Nebraska Cornhuskers",
+    "north carolina": "North Carolina Tar Heels",
+    "northwestern": "Northwestern Wildcats",
+    "notre dame": "Notre Dame Fighting Irish",
+    "ohio state": "Ohio State Buckeyes",
+    "oklahoma": "Oklahoma Sooners",
+    "oklahoma state": "Oklahoma State Cowboys",
+    "ole miss": "Ole Miss Rebels",
+    "oregon": "Oregon Ducks",
+    "oregon state": "Oregon State Beavers",
+    "penn state": "Penn State Nittany Lions",
+    "pittsburgh": "Pittsburgh Panthers",
+    "rutgers": "Rutgers Scarlet Knights",
+    "smu": "SMU Mustangs",
+    "south carolina": "South Carolina Gamecocks",
+    "stanford": "Stanford Cardinal",
+    "syracuse": "Syracuse Orange",
+    "tcu": "TCU Horned Frogs",
+    "tennessee": "Tennessee Volunteers",
+    "texas": "Texas Longhorns",
+    "texas a&m": "Texas A&M Aggies",
+    "texas tech": "Texas Tech Red Raiders",
+    "tulane": "Tulane Green Wave",
+    "ucla": "UCLA Bruins",
+    "usc": "USC Trojans",
+    "utah": "Utah Utes",
+    "vanderbilt": "Vanderbilt Commodores",
+    "virginia": "Virginia Cavaliers",
+    "virginia tech": "Virginia Tech Hokies",
+    "wake forest": "Wake Forest Demon Deacons",
+    "washington": "Washington Huskies",
+    "washington state": "Washington State Cougars",
+    "west virginia": "West Virginia Mountaineers",
+    "wisconsin": "Wisconsin Badgers",
+  };
 
   const escapeHtml = (value) => String(value ?? "")
     .replace(/&/g, "&amp;")
@@ -45,14 +120,9 @@
     return `${rounded}${suffix} percentile`;
   }
 
-  function initials(team) {
-    return String(team || "-").split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join("").toUpperCase();
-  }
-
-  function logoMarkup(team, className = "framework-team-logo") {
-    const url = logos[String(team || "").trim().toLowerCase()];
-    if (!url) return `<span class="${className} is-fallback">${escapeHtml(initials(team))}</span>`;
-    return `<span class="${className} has-logo"><img src="${escapeHtml(url)}" alt="${escapeHtml(team)} logo" onerror="this.parentElement.classList.remove('has-logo');this.parentElement.classList.add('is-fallback');this.parentElement.textContent='${escapeHtml(initials(team))}'"></span>`;
+  function displayTeamName(team) {
+    const name = String(team || "").trim();
+    return TEAM_DISPLAY_NAMES[name.toLowerCase()] || name;
   }
 
   function dataUrl(blob) {
@@ -164,6 +234,7 @@
   }
 
   function renderCard(season, team, profile, games) {
+    const displayName = displayTeamName(team);
     const intel = profile.intelligence || {};
     const stats = profile.comparison_stats || {};
     const drive = profile.drive_conversion || profile.drive_conversion_context || {};
@@ -178,11 +249,11 @@
     const summary = view.contextual_profile_summary || "A complete view of how this team creates, converts, and denies meaningful football control.";
 
     $("frameworkCardMount").innerHTML = `
-      <article class="adv-framework-card" aria-label="${escapeHtml(`${team} ${season} Control Framework card`)}">
+      <article class="adv-framework-card" aria-label="${escapeHtml(`${displayName} ${season} Control Framework card`)}">
         <header class="adv-framework-header">
           <div class="adv-framework-brand"><img src="assets/adv-logo.png?v=1" alt=""><span>CFP Advantage</span></div>
           <div class="adv-framework-title"><span>${escapeHtml(`${season} Contextual Football Profile`)}</span><h2>${escapeHtml(identity)}</h2><p>${escapeHtml(summary)}</p></div>
-          <div class="adv-framework-team">${logoMarkup(team)}<strong>${escapeHtml(team)}</strong></div>
+          <div class="adv-framework-team"><strong>${escapeHtml(displayName)}</strong></div>
         </header>
 
         <section class="adv-framework-section foundation-section">
@@ -276,11 +347,7 @@
     const preferredSeason = params.get("season") || "";
     const preferredTeam = params.get("team") || "";
     try {
-      const [seasonsPayload, logoPayload] = await Promise.all([
-        getJson("/api/seasons"),
-        fetch("team-logos.json?v=4.0.75").then((response) => response.ok ? response.json() : { teams: {} }),
-      ]);
-      logos = logoPayload.teams || {};
+      const seasonsPayload = await getJson("/api/seasons");
       const seasons = seasonsPayload.seasons || [];
       $("frameworkSeason").innerHTML = seasons.map((season) => `<option value="${season}">${season}</option>`).join("");
       $("frameworkSeason").value = seasons.map(String).includes(preferredSeason) ? preferredSeason : String(seasons[0] || "");

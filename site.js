@@ -2330,7 +2330,7 @@ function teamInitials(team) {
 
 async function loadTeamLogoCatalog() {
   if (!teamLogoCatalogPromise) {
-    teamLogoCatalogPromise = fetch("team-logos.json?v=4.0.75", { cache: "force-cache" })
+    teamLogoCatalogPromise = fetch("team-logos.json?v=4.0.76", { cache: "force-cache" })
       .then((response) => response.ok ? response.json() : { teams: {} })
       .then((payload) => payload.teams || {})
       .catch(() => ({}));

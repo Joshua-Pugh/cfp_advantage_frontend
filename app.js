@@ -25,7 +25,7 @@ function matchupTeamInitials(team) {
 
 function loadMatchupTeamLogos() {
   if (!matchupTeamLogoCatalogPromise) {
-    matchupTeamLogoCatalogPromise = fetch("team-logos.json?v=4.0.75", { cache: "force-cache" })
+    matchupTeamLogoCatalogPromise = fetch("team-logos.json?v=4.0.76", { cache: "force-cache" })
       .then((response) => response.ok ? response.json() : { teams: {} })
       .then((payload) => payload.teams || {})
       .catch(() => ({}));
