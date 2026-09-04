@@ -1,4 +1,4 @@
-const CONFIG = window.CFP_ADV_CONFIG || {};
+﻿const CONFIG = window.CFP_ADV_CONFIG || {};
 const IS_LOCAL_HOST = ["127.0.0.1", "localhost"].includes(window.location.hostname);
 const LOCAL_API_OVERRIDE = IS_LOCAL_HOST ? new URLSearchParams(window.location.search).get("api") : "";
 const API_BASE = (LOCAL_API_OVERRIDE || CONFIG.API_BASE_URL || "https://cfp-advantage-model-1.onrender.com").replace(/\/$/, "");
@@ -2330,7 +2330,7 @@ function teamInitials(team) {
 
 async function loadTeamLogoCatalog() {
   if (!teamLogoCatalogPromise) {
-    teamLogoCatalogPromise = fetch("team-logos.json?v=4.0.72", { cache: "force-cache" })
+    teamLogoCatalogPromise = fetch("team-logos.json?v=4.0.75", { cache: "force-cache" })
       .then((response) => response.ok ? response.json() : { teams: {} })
       .then((payload) => payload.teams || {})
       .catch(() => ({}));

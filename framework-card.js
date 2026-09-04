@@ -278,7 +278,7 @@
     try {
       const [seasonsPayload, logoPayload] = await Promise.all([
         getJson("/api/seasons"),
-        fetch("team-logos.json?v=4.0.72").then((response) => response.ok ? response.json() : { teams: {} }),
+        fetch("team-logos.json?v=4.0.75").then((response) => response.ok ? response.json() : { teams: {} }),
       ]);
       logos = logoPayload.teams || {};
       const seasons = seasonsPayload.seasons || [];
