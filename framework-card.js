@@ -225,6 +225,54 @@
     return `<div class="framework-metric"><span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong>${note ? `<small>${escapeHtml(note)}</small>` : ""}</div>`;
   }
 
+  function traitDefinitions(view, reference) {
+    const benchmarks = reference.traits || {};
+    return [
+      ["control_creation_percentile", "Control Creation", view.control_creation_rate, view.control_creation_tier, "percent"],
+      ["control_denial_percentile", "Control Denial", view.control_denial_rate, view.control_denial_tier, "percent"],
+      ["control_finish_percentile", "Control Finish", view.control_finish_rate, view.control_finish_tier, "percent"],
+      ["finishing_resistance_percentile", "Finishing Resistance", view.finishing_resistance_rate, view.finishing_resistance_tier, "percent"],
+      ["control_production_percentile", "Scoring Pressure", view.control_production_rate, view.control_production_tier, "decimal"],
+      ["defensive_control_production_allowed_percentile", "Pressure Suppression", view.defensive_control_production_allowed, view.defensive_control_production_allowed_tier, "decimal"],
+    ].map(([key, fallbackLabel, raw, tier, format]) => {
+      const benchmark = benchmarks[key] || {};
+      const value = number(view[key]);
+      return {
+        key,
+        label: benchmark.label || fallbackLabel,
+        percentile: value,
+        raw: format === "percent" ? percent(raw) : decimal(raw, 2),
+        tier: tier || "Not graded",
+        floor: number(benchmark.floor_p20),
+        median: number(benchmark.median),
+        translation: (reference.translations || {})[key] || "Relationship context is not available for this profile.",
+      };
+    });
+  }
+
+  function traitBar(trait) {
+    const value = trait.percentile;
+    const width = value === null ? 0 : Math.max(0, Math.min(100, value));
+    const clears = value !== null && trait.floor !== null && value >= trait.floor;
+    return `
+      <div class="framework-trait ${clears ? "clears-standard" : ""}">
+        <div class="framework-trait-copy"><strong>${escapeHtml(trait.label)}</strong><span>${escapeHtml(trait.raw)} · ${escapeHtml(trait.tier)}</span></div>
+        <div class="framework-trait-score"><b>${value === null ? "-" : Math.round(value)}</b><span>percentile</span></div>
+        <div class="framework-trait-track" aria-hidden="true"><i style="width:${width}%"></i>${trait.floor !== null ? `<em style="left:${trait.floor}%"></em>` : ""}</div>
+      </div>`;
+  }
+
+  function relationshipPanel(kicker, trait) {
+    if (!trait) return "";
+    return `
+      <div class="framework-relationship">
+        <span>${escapeHtml(kicker)}</span>
+        <h4>${escapeHtml(trait.label)} · ${trait.percentile === null ? "-" : `${Math.round(trait.percentile)}th percentile`}</h4>
+        <p>${escapeHtml(trait.translation)}</p>
+        <small>Population relationship, not a formula input or causal claim.</small>
+      </div>`;
+  }
+
   function scoredGames(games) {
     return games.filter((game) => number(game.team_score) !== null && number(game.opponent_score) !== null);
   }
@@ -233,7 +281,7 @@
     return values.length ? values.reduce((sum, value) => sum + value, 0) / values.length : null;
   }
 
-  function renderCard(season, team, profile, games) {
+  function renderCard(season, team, profile, games, reference = {}) {
     const displayName = displayTeamName(team);
     const intel = profile.intelligence || {};
     const stats = profile.comparison_stats || {};
@@ -246,68 +294,73 @@
     const pressureAllowed = view.defensive_control_production_allowed;
     const scoreboardGap = view.team_season_dce ?? view.dce ?? view.drive_conversion_efficiency;
     const identity = view.contextual_profile_label || "Contextual Football Profile";
-    const summary = view.contextual_profile_summary || "A complete view of how this team creates, converts, and denies meaningful football control.";
+    const traits = traitDefinitions(view, reference).filter((trait) => trait.percentile !== null);
+    const strongest = traits.length ? [...traits].sort((a, b) => b.percentile - a.percentile)[0] : null;
+    const limiting = traits.length ? [...traits].sort((a, b) => a.percentile - b.percentile)[0] : null;
+    const clears = traits.filter((trait) => trait.floor !== null && trait.percentile >= trait.floor).length;
+    const pressureDifferential = number(pressure) !== null && number(pressureAllowed) !== null ? number(pressure) - number(pressureAllowed) : null;
+    const scoreboardMargin = pointsFor !== null && pointsAgainst !== null ? pointsFor - pointsAgainst : null;
+    const diagnosis = strongest && limiting
+      ? `Built around ${strongest.label.toLowerCase()}; most vulnerable in ${limiting.label.toLowerCase()}.`
+      : "A possession-level view of how this team creates, converts, and denies meaningful control.";
+    const titleLabel = number(view.adv_srs_rank) === 1 ? "ADV Championship Favorite" : `ADV Strength Rank #${view.adv_srs_rank || "-"}`;
 
     $("frameworkCardMount").innerHTML = `
       <article class="adv-framework-card" aria-label="${escapeHtml(`${displayName} ${season} Control Framework card`)}">
         <header class="adv-framework-header">
           <div class="adv-framework-brand"><img src="assets/adv-logo.png?v=4.0.78" alt=""><span>CFP Advantage</span></div>
-          <div class="adv-framework-title"><span>${escapeHtml(`${season} Contextual Football Profile`)}</span><h2>${escapeHtml(identity)}</h2><p>${escapeHtml(summary)}</p></div>
+          <div class="adv-framework-title"><span>${escapeHtml(`${season} Contextual Football Profile`)}</span><h2>${escapeHtml(identity)}</h2><p>${escapeHtml(diagnosis)}</p></div>
           <div class="adv-framework-team"><strong>${escapeHtml(displayName)}</strong></div>
         </header>
 
-        <section class="adv-framework-section foundation-section">
-          <div class="framework-section-heading"><b>1</b><div><h3>Control Foundation</h3><p>Can this team create control and deny control?</p></div></div>
-          <div class="framework-section-grid foundation-grid">
-            ${metric("Control Creation", view.control_creation_tier || "-", percentile(view.control_creation_percentile))}
-            ${metric("Control Rate", percent(view.CR ?? view.cr ?? view.control_rate ?? view.control_rate_pct), "Share of possessions producing useful control")}
-            ${metric("Control Denial", view.control_denial_tier || "-", percentile(view.control_denial_percentile))}
-            ${metric("Foundation Grade", view.control_foundation_tier || "-", percentile(view.control_foundation_percentile))}
+        <section class="framework-diagnosis-band">
+          <div><span>Defining Advantage</span><strong>${escapeHtml(strongest ? strongest.label : "Not enough data")}</strong><small>${strongest ? percentile(strongest.percentile) : "Profile unavailable"}</small></div>
+          <div><span>Limiting Trait</span><strong>${escapeHtml(limiting ? limiting.label : "Not enough data")}</strong><small>${limiting ? percentile(limiting.percentile) : "Profile unavailable"}</small></div>
+          <div><span>Current ADV Read</span><strong>${escapeHtml(titleLabel)}</strong><small>${escapeHtml(`ADV SRS ${decimal(view.adv_srs, 1)}`)}</small></div>
+        </section>
+
+        <section class="adv-framework-section framework-shape-section">
+          <div class="framework-section-heading"><b>1</b><div><h3>Six-Trait Team Shape</h3><p>The full control path, shown on one comparable percentile scale.</p></div></div>
+          <div class="framework-trait-grid">
+            ${traits.map(traitBar).join("")}
           </div>
         </section>
 
-        <section class="adv-framework-section pressure-section">
-          <div class="framework-section-heading"><b>2</b><div><h3>Scoring Pressure</h3><p>How much sustainable scoring pressure does this team create or allow?</p></div></div>
-          <div class="framework-section-grid">
-            ${metric("Pressure Per Offensive Drive", decimal(pressure, 2), [view.control_production_tier, percentile(view.control_production_percentile)].filter(Boolean).join(" | "))}
-            ${metric("Pressure Allowed Per Defensive Drive", decimal(pressureAllowed, 2), [view.defensive_control_production_allowed_tier, percentile(view.defensive_control_production_allowed_percentile), "Lower is better"].filter(Boolean).join(" | "))}
-            ${metric("Offensive Drives", decimal(view.offensive_drives ?? drive.drives, 0), "Observed possessions")}
+        <section class="adv-framework-section">
+          <div class="framework-section-heading"><b>2</b><div><h3>Football Translation</h3><p>What the defining strength and weakness tend to look like in familiar statistics.</p></div></div>
+          <div class="framework-relationship-grid">
+            ${relationshipPanel("When this strength rises", strongest)}
+            ${relationshipPanel("When this constraint improves", limiting)}
           </div>
         </section>
 
-        <section class="adv-framework-section conversion-section">
-          <div class="framework-section-heading"><b>3</b><div><h3>Conversion Profile</h3><p>What happens once control exists?</p></div></div>
-          <div class="framework-section-grid framework-five-grid">
-            ${metric("Control Finish Rate", percent(view.control_finish_rate ?? drive.scoring_conversion_rate), percentile(view.control_finish_percentile))}
-            ${metric("Control Drive Shutout Rate", percent(view.finishing_resistance_rate), view.finishing_resistance_tier || "Lower is better")}
-            ${metric("Points Per Control Drive", decimal(drive.points_per_control_drive, 2), "Output once control exists")}
-            ${metric("TD Control Conversion", percent(drive.td_conversion_rate), "Touchdown finish")}
-            ${metric("Finish Waste", percent(view.finish_waste_rate), "Control drives producing no points")}
+        <section class="adv-framework-section framework-standard-section">
+          <div class="framework-section-heading"><b>3</b><div><h3>Historical Championship Shape</h3><p>Frozen 2016–2025 comparison. This does not change the model.</p></div></div>
+          <div class="framework-standard-read">
+            <strong>${clears} of ${traits.length}</strong>
+            <div><b>historical champion trait floors cleared</b><p>Gold markers show each champion P20 floor. This is a profile comparison, not championship odds.</p></div>
           </div>
         </section>
 
-        <section class="adv-framework-section compare-section">
-          <div class="framework-section-heading"><b>4</b><div><h3>Pressure vs Scoreboard</h3><p>Underlying repeatable pressure compared with actual scoring output.</p></div></div>
-          <div class="framework-compare-grid">
-            <div><h4>Underlying Pressure</h4>${metric("Offensive Pressure", decimal(pressure, 2))}${metric("Pressure Allowed", decimal(pressureAllowed, 2))}${metric("Creation Waste", percent(view.creation_waste_rate))}</div>
-            <span class="framework-versus">VS</span>
-            <div><h4>Scoreboard Output</h4>${metric("Points Per Game", decimal(pointsFor ?? stats.points_per_game, 1))}${metric("Points Allowed Per Game", decimal(pointsAgainst ?? stats.points_allowed_per_game, 1))}${metric("Points Per Drive", decimal(stats.points_per_drive, 2))}</div>
-          </div>
-        </section>
-
-        <section class="adv-framework-section outcome-section">
-          <div class="framework-section-heading"><b>5</b><div><h3>Outcome & Context</h3><p>How do the underlying football traits show up in results?</p></div></div>
-          <div class="framework-section-grid framework-six-grid">
-            ${metric("ADV SRS", decimal(view.adv_srs, 1), "Opponent-adjusted strength")}
-            ${metric("ADV Rank", view.adv_srs_rank ? `#${view.adv_srs_rank}` : "-")}
-            ${metric("Schedule Strength", percentile(view.adv_sos_percentile), decimal(view.adv_sos, 1))}
-            ${metric("Recent Form", view.recent_form_label || view.trajectory_bucket || "Not enough games")}
-            ${metric("Talent Yield", view.tyi_label || "-", decimal(view.talent_yield_index, 2))}
+        <section class="adv-framework-section">
+          <div class="framework-section-heading"><b>4</b><div><h3>Pressure vs Scoreboard</h3><p>Is actual scoring running ahead of or behind the underlying control profile?</p></div></div>
+          <div class="framework-reality-grid">
+            ${metric("Pressure Differential", decimal(pressureDifferential, 2), `${decimal(pressure, 2)} created · ${decimal(pressureAllowed, 2)} allowed`)}
+            ${metric("Average Score Margin", decimal(scoreboardMargin, 1), `${decimal(pointsFor ?? stats.points_per_game, 1)} for · ${decimal(pointsAgainst ?? stats.points_allowed_per_game, 1)} allowed`)}
             ${metric("Scoreboard Control Gap", decimal(scoreboardGap, 2), "Actual margin minus underlying control")}
+            ${metric("Points Per Control Drive", decimal(view.points_per_control_drive ?? drive.points_per_control_drive, 2), "Output once control exists")}
           </div>
         </section>
 
-        <footer class="adv-framework-footer"><span>College Football Intelligence</span><span>Evidence-Based Analysis</span><strong>Control What Matters</strong></footer>
+        <div class="framework-context-footer">
+          <span><b>ADV SRS</b>${decimal(view.adv_srs, 1)}</span>
+          <span><b>ADV Rank</b>${view.adv_srs_rank ? `#${view.adv_srs_rank}` : "-"}</span>
+          <span><b>Schedule Strength</b>${percentile(view.adv_sos_percentile)}</span>
+          <span><b>Sample</b>${finals.length || view.games || "-"} games · ${decimal(view.offensive_drives ?? drive.drives, 0)} drives</span>
+          <span><b>Reference</b>${escapeHtml(reference.version || "Unavailable")}</span>
+        </div>
+
+        <footer class="adv-framework-footer"><span>College Football Intelligence</span><span>Evidence-Based Analysis</span><strong>Control What Matters</strong><small>Descriptive team profile · not a game or title probability</small></footer>
       </article>
     `;
   }
@@ -327,11 +380,12 @@
     if (!season || !team) return;
     $("frameworkCardStatus").textContent = "Building framework card...";
     try {
-      const [profile, schedule] = await Promise.all([
+      const [profile, schedule, reference] = await Promise.all([
         getJson(`/api/team/${encodeURIComponent(season)}/${encodeURIComponent(team)}`),
         getJson(`/api/team/${encodeURIComponent(season)}/${encodeURIComponent(team)}/schedule?view=full`),
+        getJson("/api/product-a/framework-reference").catch(() => ({})),
       ]);
-      renderCard(season, team, profile, Array.isArray(schedule.schedule) ? schedule.schedule : []);
+      renderCard(season, team, profile, Array.isArray(schedule.schedule) ? schedule.schedule : [], reference);
       $("frameworkCardStatus").textContent = "Framework card ready.";
       const url = new URL(window.location.href);
       url.searchParams.set("season", season);
