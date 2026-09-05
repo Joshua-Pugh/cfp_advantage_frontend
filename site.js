@@ -466,7 +466,9 @@ const METRIC_USE_GUIDES = {
   "Control Pressure": "Use this to grade the strength of sustainable offensive pressure.",
   "Control Pressure Allowed": "Use this to spot defenses that limit sustained pressure; lower is better.",
   "Control Finish Rate": "Use this to see whether control opportunities are being converted into points.",
+  "Finishing Control": "Use this to see whether established control is consistently converted into points.",
   "Control Drive Shutout Rate": "Use this to see how often the defense erases an opponent control drive.",
+  "Finishing Resistance": "Use this to see how often the defense keeps an opponent's established control from becoming points.",
   "Points Per Control Drive": "Use this to compare scoring output after meaningful control has been created.",
   "TD Control Conversion": "Use this to separate touchdown finishers from teams settling for fewer points.",
   "Finish Waste": "Use this to identify control opportunities that end without points; lower is better.",
@@ -1323,10 +1325,11 @@ async function renderTeamPage() {
   }
   setStatus("Loading team profile...");
   try {
-    const [profile, schedule, logos] = await Promise.all([
+    const [profile, schedule, logos, frameworkReference] = await Promise.all([
       api(`/api/team/${encodeURIComponent(season)}/${encodeURIComponent(team)}`),
       api(`/api/team/${encodeURIComponent(season)}/${encodeURIComponent(team)}/schedule?view=full`),
       loadTeamLogoCatalog(),
+      api("/api/product-a/framework-reference").catch(() => ({})),
     ]);
     activeTeamLogos = logos;
     
@@ -1343,6 +1346,7 @@ async function renderTeamPage() {
       stats,
       record,
       games,
+      frameworkReference,
     };
 
     const scheduleHtml = renderTeamScheduleView(season, team, intel, record, games);
@@ -1353,6 +1357,7 @@ async function renderTeamPage() {
       stats,
       games,
       season,
+      frameworkReference,
     );
 
     $("teamPageResult").innerHTML = `
@@ -1758,7 +1763,45 @@ function renderTeamStatsView(intel, stats, games = []) {
   `).join("");
 }
 
-function renderTeamAdvProfileView(intel = {}, driveConversion = {}, stats = {}, games = [], season = null) {
+const TEAM_RELATIONSHIP_TRAITS = [
+  ["control_creation_percentile", "Control Creation"],
+  ["control_denial_percentile", "Control Denial"],
+  ["control_finish_percentile", "Finishing Control"],
+  ["finishing_resistance_percentile", "Finishing Resistance"],
+  ["control_production_percentile", "Scoring Pressure"],
+  ["defensive_control_production_allowed_percentile", "Pressure Suppression"],
+];
+
+function renderTeamRelationshipMap(view = {}, reference = {}) {
+  const translations = reference.translations || {};
+  const rows = TEAM_RELATIONSHIP_TRAITS
+    .map(([key, label]) => ({
+      key,
+      label,
+      percentile: numberOrNull(view[key]),
+      translation: translations[key],
+    }))
+    .filter((row) => row.percentile !== null && row.translation);
+  if (!rows.length) return "";
+  return `
+    <div class="insight-panel team-relationship-panel">
+      <p class="eyebrow">Metric Relationships</p>
+      <h3>What This Profile Looks Like In Football</h3>
+      <p class="guide-note">Familiar-stat differences observed between top- and bottom-quintile team seasons.</p>
+      <div class="team-relationship-map">
+        ${rows.map((row) => `
+          <div class="team-metric-relationship">
+            <div><strong>${escapeHtml(row.label)}</strong><b>${escapeHtml(percentileLabel(row.percentile))}</b></div>
+            <p>${escapeHtml(row.translation)}</p>
+          </div>
+        `).join("")}
+      </div>
+      <p class="relationship-guardrail">Population relationships; not formula inputs, game-level point adjustments, or causal estimates.</p>
+    </div>
+  `;
+}
+
+function renderTeamAdvProfileView(intel = {}, driveConversion = {}, stats = {}, games = [], season = null, frameworkReference = {}) {
   const profile = contextualProfileValues(intel);
   const view = { ...intel, ...profile };
   if (numberOrNull(view.points_per_control_drive) === null) {
@@ -1821,11 +1864,11 @@ function renderTeamAdvProfileView(intel = {}, driveConversion = {}, stats = {}, 
   ];
   const conversionRows = [
     [
-      "Control Finish Rate",
+      "Finishing Control",
       view.control_finish_tier || rate(driveConversion.scoring_conversion_rate),
       [percentileLabel(view.control_finish_percentile), conversionSampleLabel(driveConversion)].filter(Boolean).join(" · "),
     ],
-    ["Control Drive Shutout Rate", view.finishing_resistance_tier || "-", percentileLabel(view.finishing_resistance_percentile)],
+    ["Finishing Resistance", view.finishing_resistance_tier || "-", percentileLabel(view.finishing_resistance_percentile)],
     ["Points Per Control Drive", decimal(driveConversion.points_per_control_drive, 2), "Scoring output once meaningful control exists"],
     ["TD Control Conversion", rate(driveConversion.td_conversion_rate), ""],
     ["Finish Waste", rate(view.finish_waste_rate), "Control drives that produce no points"],
@@ -1888,6 +1931,7 @@ function renderTeamAdvProfileView(intel = {}, driveConversion = {}, stats = {}, 
         `).join("")}
       </div>
     </div>
+    ${renderTeamRelationshipMap(view, frameworkReference)}
     ${pressureCompareHtml}
     <div class="insight-panel">
       <p class="eyebrow">Outcome & Context</p>
@@ -2063,7 +2107,6 @@ function productionSampleLabel(value, drives, denominator) {
 function publicProfileSummary(value) {
   // Older frozen artifacts retain legacy display names; their values stay unchanged.
   return String(value || "")
-    .replaceAll("Finishing Resistance", "Control Drive Shutout Rate")
     .replaceAll("Defensive Control Production Allowed", "Control Pressure Allowed")
     .replaceAll("Control Production", "Control Pressure")
     .replaceAll("Control Points", "Control Pressure");

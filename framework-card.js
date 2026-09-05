@@ -1,6 +1,7 @@
 (() => {
   const config = window.CFP_ADV_CONFIG || {};
-  const apiBase = (config.API_BASE_URL || "https://cfp-advantage-model-1.onrender.com").replace(/\/$/, "");
+  const isLocalHost = ["127.0.0.1", "localhost"].includes(window.location.hostname);
+  const apiBase = (isLocalHost ? "http://127.0.0.1:8000" : (config.API_BASE_URL || "https://cfp-advantage-model-1.onrender.com")).replace(/\/$/, "");
   const $ = (id) => document.getElementById(id);
   const TEAM_DISPLAY_NAMES = {
     "air force": "Air Force Falcons",
@@ -120,6 +121,15 @@
     return `${rounded}${suffix} percentile`;
   }
 
+  function ordinal(value) {
+    const rounded = Math.round(Number(value));
+    const mod100 = rounded % 100;
+    const suffix = mod100 >= 11 && mod100 <= 13
+      ? "th"
+      : ({ 1: "st", 2: "nd", 3: "rd" }[rounded % 10] || "th");
+    return `${rounded}${suffix}`;
+  }
+
   function displayTeamName(team) {
     const name = String(team || "").trim();
     return TEAM_DISPLAY_NAMES[name.toLowerCase()] || name;
@@ -228,18 +238,19 @@
   function traitDefinitions(view, reference) {
     const benchmarks = reference.traits || {};
     return [
-      ["control_creation_percentile", "Control Creation", view.control_creation_rate, view.control_creation_tier, "percent"],
-      ["control_denial_percentile", "Control Denial", view.control_denial_rate, view.control_denial_tier, "percent"],
-      ["control_finish_percentile", "Control Finish", view.control_finish_rate, view.control_finish_tier, "percent"],
-      ["finishing_resistance_percentile", "Finishing Resistance", view.finishing_resistance_rate, view.finishing_resistance_tier, "percent"],
-      ["control_production_percentile", "Scoring Pressure", view.control_production_rate, view.control_production_tier, "decimal"],
-      ["defensive_control_production_allowed_percentile", "Pressure Suppression", view.defensive_control_production_allowed, view.defensive_control_production_allowed_tier, "decimal"],
-    ].map(([key, fallbackLabel, raw, tier, format]) => {
+      ["control_creation_percentile", "Create control", "Control Creation", view.control_creation_rate, view.control_creation_tier, "percent"],
+      ["control_denial_percentile", "Deny control", "Control Denial", view.control_denial_rate, view.control_denial_tier, "percent"],
+      ["control_finish_percentile", "Finish control", "Finishing Control", view.control_finish_rate, view.control_finish_tier, "percent"],
+      ["finishing_resistance_percentile", "Resist opponent finish", "Finishing Resistance", view.finishing_resistance_rate, view.finishing_resistance_tier, "percent"],
+      ["control_production_percentile", "Create scoring pressure", "Scoring Pressure", view.control_production_rate, view.control_production_tier, "decimal"],
+      ["defensive_control_production_allowed_percentile", "Suppress scoring pressure", "Pressure Suppression", view.defensive_control_production_allowed, view.defensive_control_production_allowed_tier, "decimal"],
+    ].map(([key, label, formalLabel, raw, tier, format]) => {
       const benchmark = benchmarks[key] || {};
       const value = number(view[key]);
       return {
         key,
-        label: benchmark.label || fallbackLabel,
+        label,
+        formalLabel,
         percentile: value,
         raw: format === "percent" ? percent(raw) : decimal(raw, 2),
         tier: tier || "Not graded",
@@ -248,6 +259,32 @@
         translation: (reference.translations || {})[key] || "Relationship context is not available for this profile.",
       };
     });
+  }
+
+  function profileDiagnosis(strongest, limiting) {
+    if (!strongest || !limiting) {
+      return "A possession-level view of how this team creates, converts, and denies meaningful control.";
+    }
+    if (strongest.key === "control_finish_percentile" && limiting.key === "finishing_resistance_percentile") {
+      return "Wins through strong drive finishing, but struggles to keep opponents from doing the same.";
+    }
+    const strength = {
+      control_creation_percentile: "Creates meaningful offensive control consistently",
+      control_denial_percentile: "Prevents opponents from establishing meaningful control",
+      control_finish_percentile: "Wins through strong drive finishing",
+      finishing_resistance_percentile: "Keeps opponents from finishing established control",
+      control_production_percentile: "Creates sustainable scoring pressure",
+      defensive_control_production_allowed_percentile: "Suppresses opponent scoring pressure",
+    }[strongest.key];
+    const vulnerability = {
+      control_creation_percentile: "struggles to create meaningful control consistently",
+      control_denial_percentile: "allows opponents to establish control too often",
+      control_finish_percentile: "leaves too much established control unfinished",
+      finishing_resistance_percentile: "struggles to stop opponents from finishing established control",
+      control_production_percentile: "does not create enough sustainable scoring pressure",
+      defensive_control_production_allowed_percentile: "allows opponents to sustain too much scoring pressure",
+    }[limiting.key];
+    return `${strength || `Leans on ${strongest.formalLabel.toLowerCase()}`}, but ${vulnerability || `is limited by ${limiting.formalLabel.toLowerCase()}`}.`;
   }
 
   function traitBar(trait) {
@@ -262,12 +299,15 @@
       </div>`;
   }
 
-  function relationshipPanel(kicker, trait) {
+  function relationshipPanel(trait, team, isConstraint = false) {
     if (!trait) return "";
+    const heading = isConstraint
+      ? `${trait.formalLabel} · ${team}: ${ordinal(trait.percentile)} percentile`
+      : `${trait.formalLabel} · ${ordinal(trait.percentile)} percentile`;
     return `
       <div class="framework-relationship">
-        <span>${escapeHtml(kicker)}</span>
-        <h4>${escapeHtml(trait.label)} · ${trait.percentile === null ? "-" : `${Math.round(trait.percentile)}th percentile`}</h4>
+        <span>${escapeHtml(`What strong ${trait.formalLabel} looks like`)}</span>
+        <h4>${escapeHtml(heading)}</h4>
         <p>${escapeHtml(trait.translation)}</p>
         <small>Population relationship, not a formula input or causal claim.</small>
       </div>`;
@@ -300,10 +340,8 @@
     const clears = traits.filter((trait) => trait.floor !== null && trait.percentile >= trait.floor).length;
     const pressureDifferential = number(pressure) !== null && number(pressureAllowed) !== null ? number(pressure) - number(pressureAllowed) : null;
     const scoreboardMargin = pointsFor !== null && pointsAgainst !== null ? pointsFor - pointsAgainst : null;
-    const diagnosis = strongest && limiting
-      ? `Built around ${strongest.label.toLowerCase()}; most vulnerable in ${limiting.label.toLowerCase()}.`
-      : "A possession-level view of how this team creates, converts, and denies meaningful control.";
-    const titleLabel = number(view.adv_srs_rank) === 1 ? "ADV Championship Favorite" : `ADV Strength Rank #${view.adv_srs_rank || "-"}`;
+    const diagnosis = profileDiagnosis(strongest, limiting);
+    const titleLabel = number(view.adv_srs_rank) === 1 ? "ADV Championship Favorite" : `#${view.adv_srs_rank || "-"} ADV Strength`;
 
     $("frameworkCardMount").innerHTML = `
       <article class="adv-framework-card" aria-label="${escapeHtml(`${displayName} ${season} Control Framework card`)}">
@@ -314,9 +352,9 @@
         </header>
 
         <section class="framework-diagnosis-band">
-          <div><span>Defining Advantage</span><strong>${escapeHtml(strongest ? strongest.label : "Not enough data")}</strong><small>${strongest ? percentile(strongest.percentile) : "Profile unavailable"}</small></div>
-          <div><span>Limiting Trait</span><strong>${escapeHtml(limiting ? limiting.label : "Not enough data")}</strong><small>${limiting ? percentile(limiting.percentile) : "Profile unavailable"}</small></div>
-          <div><span>Current ADV Read</span><strong>${escapeHtml(titleLabel)}</strong><small>${escapeHtml(`ADV SRS ${decimal(view.adv_srs, 1)}`)}</small></div>
+          <div><span>Primary Strength</span><strong>${escapeHtml(strongest ? strongest.formalLabel : "Not enough data")}</strong><small>${strongest ? percentile(strongest.percentile) : "Profile unavailable"}</small></div>
+          <div><span>Primary Vulnerability</span><strong>${escapeHtml(limiting ? limiting.formalLabel : "Not enough data")}</strong><small>${limiting ? percentile(limiting.percentile) : "Profile unavailable"}</small></div>
+          <div><span>Overall ADV Profile</span><strong>${escapeHtml(titleLabel)}</strong><small>${escapeHtml(`ADV SRS ${decimal(view.adv_srs, 1)}`)}</small></div>
         </section>
 
         <section class="adv-framework-section framework-shape-section">
@@ -329,26 +367,26 @@
         <section class="adv-framework-section">
           <div class="framework-section-heading"><b>2</b><div><h3>Football Translation</h3><p>What the defining strength and weakness tend to look like in familiar statistics.</p></div></div>
           <div class="framework-relationship-grid">
-            ${relationshipPanel("When this strength rises", strongest)}
-            ${relationshipPanel("When this constraint improves", limiting)}
+            ${relationshipPanel(strongest, displayName)}
+            ${relationshipPanel(limiting, displayName, true)}
           </div>
         </section>
 
         <section class="adv-framework-section framework-standard-section">
-          <div class="framework-section-heading"><b>3</b><div><h3>Historical Championship Shape</h3><p>Frozen 2016–2025 comparison. This does not change the model.</p></div></div>
+          <div class="framework-section-heading"><b>3</b><div><h3>Championship Profile Comparison</h3><p>Frozen 2016–2025 comparison. This does not change the model.</p></div></div>
           <div class="framework-standard-read">
-            <strong>${clears} of ${traits.length}</strong>
-            <div><b>historical champion trait floors cleared</b><p>Gold markers show each champion P20 floor. This is a profile comparison, not championship odds.</p></div>
+            <strong>${clears} / ${traits.length}</strong>
+            <div><b>championship-profile thresholds cleared</b><p>Gold markers show the 20th-percentile floor among 2016–2025 national champions. Profile comparison only, not championship odds.</p></div>
           </div>
         </section>
 
         <section class="adv-framework-section">
           <div class="framework-section-heading"><b>4</b><div><h3>Pressure vs Scoreboard</h3><p>Is actual scoring running ahead of or behind the underlying control profile?</p></div></div>
           <div class="framework-reality-grid">
-            ${metric("Pressure Differential", decimal(pressureDifferential, 2), `${decimal(pressure, 2)} created · ${decimal(pressureAllowed, 2)} allowed`)}
-            ${metric("Average Score Margin", decimal(scoreboardMargin, 1), `${decimal(pointsFor ?? stats.points_per_game, 1)} for · ${decimal(pointsAgainst ?? stats.points_allowed_per_game, 1)} allowed`)}
-            ${metric("Scoreboard Control Gap", decimal(scoreboardGap, 2), "Actual margin minus underlying control")}
-            ${metric("Points Per Control Drive", decimal(view.points_per_control_drive ?? drive.points_per_control_drive, 2), "Output once control exists")}
+            ${metric("Scoring Pressure Differential", decimal(pressureDifferential, 2), `${decimal(pressure, 2)} created · ${decimal(pressureAllowed, 2)} allowed`)}
+            ${metric("Average Scoring Margin", decimal(scoreboardMargin, 1), `${decimal(pointsFor ?? stats.points_per_game, 1)} scored · ${decimal(pointsAgainst ?? stats.points_allowed_per_game, 1)} allowed`)}
+            ${metric("Scoreboard vs Control", decimal(scoreboardGap, 2), "Actual margin relative to underlying control")}
+            ${metric("Points Per Control Drive", decimal(view.points_per_control_drive ?? drive.points_per_control_drive, 2), "Scoring output when control is established")}
           </div>
         </section>
 

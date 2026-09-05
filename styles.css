@@ -3573,6 +3573,69 @@ body[data-page="framework-card"] .floating-support-link {
   line-height: 1.5;
 }
 
+.team-relationship-panel {
+  display: grid;
+  gap: 12px;
+}
+
+.team-relationship-map {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+}
+
+.team-metric-relationship {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  padding: 16px 18px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.team-metric-relationship:nth-child(even) {
+  border-right: 0;
+}
+
+.team-metric-relationship > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.team-metric-relationship strong {
+  color: var(--ink);
+}
+
+.team-metric-relationship b {
+  color: var(--green);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.team-metric-relationship p,
+.relationship-guardrail {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.relationship-guardrail {
+  font-size: 11px;
+}
+
+@media (max-width: 720px) {
+  .team-relationship-map {
+    grid-template-columns: 1fr;
+  }
+
+  .team-metric-relationship {
+    border-right: 0;
+  }
+}
+
 .schedule-opponent > span {
   color: var(--muted);
   font-size: 12px;
