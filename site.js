@@ -2581,6 +2581,35 @@ function unofficialResultCard(result, logos) {
   `;
 }
 
+function normalizedScoreTeamName(value) {
+  return String(value || "")
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+function scoreTeamMatches(pickTeam, scoreTeam) {
+  const pickName = normalizedScoreTeamName(pickTeam);
+  const scoreName = normalizedScoreTeamName(scoreTeam);
+  if (!pickName || !scoreName) return false;
+  return pickName === scoreName
+    || scoreName.startsWith(`${pickName} `)
+    || pickName.startsWith(`${scoreName} `);
+}
+
+function scoresInPickOrientation(pick, game) {
+  const liveAway = game.away_team || {};
+  const liveHome = game.home_team || {};
+  const sourceIsReversed = scoreTeamMatches(pick.away_team, liveHome.name)
+    && scoreTeamMatches(pick.home_team, liveAway.name);
+
+  return sourceIsReversed
+    ? { awayScore: Number(liveHome.points), homeScore: Number(liveAway.points) }
+    : { awayScore: Number(liveAway.points), homeScore: Number(liveHome.points) };
+}
+
 async function loadHomeUnofficialWeeklyPicks() {
   const current = await api("/api/product-a/current-week?limit=8");
   const season = Number(current.status?.season);
@@ -2627,8 +2656,7 @@ async function loadHomeUnofficialResults() {
       .filter((game) => Number.isFinite(game.away_team?.points) && Number.isFinite(game.home_team?.points))
       .map((game) => {
         const pick = pickByGame.get(String(game.game_id));
-        const awayScore = Number(game.away_team?.points);
-        const homeScore = Number(game.home_team?.points);
+        const { awayScore, homeScore } = scoresInPickOrientation(pick, game);
         const actualWinner = awayScore === homeScore
           ? null
           : awayScore > homeScore ? pick.away_team : pick.home_team;
