@@ -3463,6 +3463,14 @@ body[data-page="framework-card"] .floating-support-link {
   gap: 4px;
 }
 
+.schedule-bye {
+  color: var(--muted);
+}
+
+.schedule-bye .schedule-opponent strong {
+  color: var(--ink);
+}
+
 .schedule-matchup {
   display: flex;
   align-items: center;

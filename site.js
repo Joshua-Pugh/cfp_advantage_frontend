@@ -1312,11 +1312,19 @@ async function loadTeamPage() {
 async function populateTeamPageTeams() {
   const season = $("teamSeasonSelect").value;
   if (!season) return;
-  const payload = await api(`/api/product-a/team-board?season=${encodeURIComponent(season)}&limit=300`);
-  const teams = (payload.teams || payload.rows || [])
-    .filter((row) => row.team)
-    .sort((left, right) => String(left.team).localeCompare(String(right.team)));
-  $("teamPageSelect").innerHTML = teams.map((team) => `<option value="${escapeHtml(team.team)}">${escapeHtml(team.team)}</option>`).join("");
+  const payload = await api(`/api/teams?season=${encodeURIComponent(season)}`);
+  const teams = (payload.team_options || [])
+    .filter((row) => {
+      const classification = String(row.identity?.classification || "").toLowerCase();
+      const tier = String(row.tier || "").toLowerCase();
+      return classification === "fbs" || tier === "power" || tier === "g5";
+    })
+    .sort((left, right) => String(left.full_name || left.name).localeCompare(String(right.full_name || right.name)));
+  $("teamPageSelect").innerHTML = teams.map((team) => {
+    const canonicalName = team.name || team.team;
+    const displayName = team.full_name || canonicalName;
+    return `<option value="${escapeHtml(canonicalName)}">${escapeHtml(displayName)}</option>`;
+  }).join("");
 }
 
 async function renderTeamPage() {
@@ -1442,10 +1450,24 @@ function renderTeamScheduleView(season, team, intel, record, games) {
   ];
 
   const scheduleSections = sections.map(([key, title]) => {
-    const items = Array.isArray(games) ? games.filter((row) => row.schedule_section === key) : [];
+    const sectionGames = Array.isArray(games) ? games.filter((row) => row.schedule_section === key) : [];
+    const items = key === "regular_season" ? withScheduleByes(sectionGames) : sectionGames;
     if (!items.length) return "";
     const gamesList = items.map((row) => {
       const weekField = row.display_week ?? row.week ?? row.week_number ?? row.week_num ?? "-";
+      if (row.is_bye) {
+        return `
+        <article class="schedule-game schedule-bye">
+          <div class="schedule-week">${escapeHtml(String(weekField))}</div>
+          <div class="schedule-opponent">
+            <strong>Bye Week</strong>
+            <span>No game scheduled</span>
+          </div>
+          <div class="schedule-score">Rest</div>
+          <div class="schedule-actions"></div>
+        </article>
+      `;
+      }
       const resultClass = row.result_w_l === "W" ? "result-win" : row.result_w_l === "L" ? "result-loss" : "";
       const score = `${presentScore(row.team_score)}-${presentScore(row.opponent_score)}`;
       const opponent = String(row.opponent || row.opponent_name || "-");
@@ -1500,6 +1522,35 @@ function renderTeamScheduleView(season, team, intel, record, games) {
       </div>
     </div>
   `;
+}
+
+function withScheduleByes(games = []) {
+  if (!Array.isArray(games) || games.length < 2) return games;
+  const weekNumber = (row) => {
+    const value = row.week ?? row.week_number ?? row.week_num ?? row.display_week;
+    const match = String(value ?? "").match(/\d+/);
+    return match ? Number(match[0]) : null;
+  };
+  const scheduledWeeks = new Set(games.map(weekNumber).filter(Number.isFinite));
+  if (scheduledWeeks.size < 2) return games;
+  const firstWeek = Math.min(...scheduledWeeks);
+  const lastWeek = Math.max(...scheduledWeeks);
+  const rows = [...games];
+  for (let week = firstWeek; week <= lastWeek; week += 1) {
+    if (!scheduledWeeks.has(week)) {
+      rows.push({
+        is_bye: true,
+        display_week: `Week ${week}`,
+        schedule_section: "regular_season",
+      });
+    }
+  }
+  return rows.sort((left, right) => {
+    const leftWeek = weekNumber(left);
+    const rightWeek = weekNumber(right);
+    if (leftWeek !== rightWeek) return (leftWeek ?? Number.MAX_SAFE_INTEGER) - (rightWeek ?? Number.MAX_SAFE_INTEGER);
+    return Number(left.game_order || 0) - Number(right.game_order || 0);
+  });
 }
 
 document.addEventListener("click", async (event) => {
