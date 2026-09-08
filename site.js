@@ -380,6 +380,9 @@ function formatNumber(value, digits = 1) {
 function formatProjectionMargin(value) {
   const number = Number(value);
   if (!Number.isFinite(number)) return "-";
+  if (number !== 0 && Math.abs(number) < 0.5) {
+    return `${number < 0 ? "-" : ""}0.5`;
+  }
   const rounded = Math.sign(number) * (Math.round((Math.abs(number) + Number.EPSILON) * 2) / 2);
   return rounded.toFixed(1);
 }
