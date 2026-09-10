@@ -1612,6 +1612,8 @@ function renderGameRecap(payload, compact = false) {
   const yards = payload.yards_context || {};
   const boxScore = payload.box_score || {};
   const conversion = payload.adv_drive_conversion || {};
+  const limitedScope = [boxScore.home, boxScore.away].some((stats) =>
+    stats && stats.is_fbs !== null && stats.is_fbs !== undefined && !truthyValue(stats.is_fbs));
   const title = `${game.away_team || "Away"} at ${game.home_team || "Home"}`;
   const score = `${presentScore(game.away_points)}-${presentScore(game.home_points)}`;
   return `
@@ -1626,13 +1628,17 @@ function renderGameRecap(payload, compact = false) {
       <div class="summary-grid recap-summary-grid">
         <div><span>Final Score</span><strong>${escapeHtml(score)}</strong></div>
         <div><span>Actual Winner</span><strong>${escapeHtml(control.actual_winner || "-")}</strong></div>
+        ${limitedScope ? "" : `
         <div><span>ADV Control Winner</span><strong>${escapeHtml(control.adv_control_winner || "-")}</strong></div>
         <div><span>ADV Deserved Margin</span><strong>${decimal(control.adv_deserved_margin_home, 1)}</strong></div>
         <div><span>Actual Margin</span><strong>${decimal(control.actual_margin_home, 1)}</strong></div>
         <div><span>Scoreboard vs ADV Gap</span><strong>${decimal(control.scoreboard_gap_home, 1)}</strong></div>
+        `}
       </div>
-      <p class="interpretation">${escapeHtml(control.summary || "Postgame control recap unavailable.")}</p>
-      ${renderModelMetricRecap(control, conversion)}
+      <p class="interpretation">${limitedScope
+        ? "Box-score recap: this game includes an opponent outside FBS model coverage. Available stats are derived from game play and drive data."
+        : escapeHtml(control.summary || "Postgame control recap unavailable.")}</p>
+      ${limitedScope ? "" : renderModelMetricRecap(control, conversion)}
       ${renderRecapBoxScore(game, yards, boxScore)}
     </article>
   `;
