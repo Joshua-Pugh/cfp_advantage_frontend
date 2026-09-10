@@ -1,4 +1,4 @@
-﻿const CONFIG = window.CFP_ADV_CONFIG || {};
+const CONFIG = window.CFP_ADV_CONFIG || {};
 const IS_LOCAL_HOST = ["127.0.0.1", "localhost"].includes(window.location.hostname);
 const LOCAL_API_OVERRIDE = IS_LOCAL_HOST ? new URLSearchParams(window.location.search).get("api") : "";
 const API_BASE = (LOCAL_API_OVERRIDE || CONFIG.API_BASE_URL || "https://cfp-advantage-model-1.onrender.com").replace(/\/$/, "");
@@ -1478,9 +1478,9 @@ function renderTeamScheduleView(season, team, intel, record, games) {
       const comparisonOpponentYards = numberOrNull(rowStats.def_pass_yards_allowed) !== null || numberOrNull(rowStats.def_rush_yards_allowed) !== null
         ? (numberOrNull(rowStats.def_pass_yards_allowed) || 0) + (numberOrNull(rowStats.def_rush_yards_allowed) || 0)
         : null;
-      const teamYards = row.team_total_yards ?? rowStats.total_yards;
-      const opponentYards = row.opponent_total_yards ?? comparisonOpponentYards;
-      const yardsStr = teamYards != null && opponentYards != null 
+      const teamYards = rowStats.total_yards ?? row.team_total_yards;
+      const opponentYards = comparisonOpponentYards ?? row.opponent_total_yards;
+      const yardsStr = isFiniteNumber(row.team_score) && isFiniteNumber(row.opponent_score) && teamYards != null && opponentYards != null
         ? ` | Yards ${String(Math.round(Number(teamYards)))}-${String(Math.round(Number(opponentYards)))}`
         : "";
       const resultStr = row.result_w_l ? String(row.result_w_l) : "-";
