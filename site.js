@@ -1690,7 +1690,7 @@ function renderRecapBoxScore(game, yards, boxScore = {}) {
     ["Sacks / TFL", `${whole(away.sacks_made)} / ${whole(away.tfl_made)}`, `${whole(home.sacks_made)} / ${whole(home.tfl_made)}`],
     ["Field Goals", fieldGoalLine(away), fieldGoalLine(home)],
     ["Punts", `${whole(away.punts)} for ${whole(away.punt_yards)} yds`, `${whole(home.punts)} for ${whole(home.punt_yards)} yds`],
-    ["Returns", `Kick ${whole(away.kick_return_yards)} | Punt ${whole(away.punt_return_yards)}`, `Kick ${whole(home.kick_return_yards)} | Punt ${whole(home.punt_return_yards)}`],
+    ["Returns", `Kick ${whole(away.kick_return_yards)} yds / ${whole(away.kick_return_tds)} TD | Punt ${whole(away.punt_return_yards)} yds / ${whole(away.punt_return_tds)} TD`, `Kick ${whole(home.kick_return_yards)} yds / ${whole(home.kick_return_tds)} TD | Punt ${whole(home.punt_return_yards)} yds / ${whole(home.punt_return_tds)} TD`],
   ];
   return `
     <section class="box-score-panel">
@@ -1804,7 +1804,7 @@ function renderTeamStatsView(intel, stats, games = []) {
         ["Turnover Margin", `Takeaways ${whole(takeaways)} | Giveaways ${whole(giveawayCount)} | Margin ${signed(turnoverMargin)}`],
         ["Field Goal Percentage (FG%)", fieldGoalLine(stats)],
         ["Punting Average", decimal(stats.punting_average, 1)],
-        ["Kick/Punt Return Yards", `Kick ${decimal(stats.kick_return_yards_per_game, 1)} / game | Punt ${decimal(stats.punt_return_yards_per_game, 1)} / game`],
+        ["Kick/Punt Returns", `Kick ${decimal(stats.kick_return_yards_per_game, 1)} yds/game, ${whole(stats.kick_return_tds)} TD | Punt ${decimal(stats.punt_return_yards_per_game, 1)} yds/game, ${whole(stats.punt_return_tds)} TD`],
         ["Penalties / Penalty Yards", `${whole(stats.penalties)} penalties / ${whole(stats.penalty_yards)} yards`],
       ],
     },
