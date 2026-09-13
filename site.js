@@ -396,6 +396,19 @@ function formatPercent(value, digits = 1) {
   return `${pct.toFixed(digits)}%`;
 }
 
+function formatCertifiedRefresh(value) {
+  const refreshed = value ? new Date(value) : null;
+  if (!refreshed || Number.isNaN(refreshed.getTime())) return "";
+  return refreshed.toLocaleString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    timeZoneName: "short",
+  });
+}
+
 function formatSignedPercentPoints(value, digits = 1) {
   if (value === null || value === undefined || value === "") return "-";
   const number = Number(value);
@@ -2613,9 +2626,12 @@ async function loadHomeProductStatus() {
       ? "Pending"
       : formatNumber(summary.margin_mae, 2);
     $("homeGradedPicks").textContent = String(graded);
-    note.textContent = graded
-      ? "Updated after the latest certified grading run."
-      : "Published before kickoff. Grading begins after certified finals.";
+    const refreshed = formatCertifiedRefresh(payload.updated_at_utc);
+    note.textContent = refreshed
+      ? `Last certified refresh: ${refreshed}.`
+      : graded
+        ? "Updated after the latest certified grading run."
+        : "Published before kickoff. Grading begins after certified finals.";
   } catch (error) {
     console.error("CFP Advantage home validation snapshot failed:", error);
     note.textContent = "The certified season snapshot is temporarily unavailable.";
@@ -3074,9 +3090,9 @@ async function loadSeasonTracker() {
         </article>
       `;
     }).join("") : '<div class="empty-state compact">No certified weekly receipts are available yet.</div>';
-    const updated = payload.updated_at_utc ? new Date(payload.updated_at_utc) : null;
-    $("seasonTrackerUpdated").textContent = updated && !Number.isNaN(updated.getTime())
-      ? `Last certified update: ${updated.toLocaleString()}. ${payload.update_policy || ""}`
+    const refreshed = formatCertifiedRefresh(payload.updated_at_utc);
+    $("seasonTrackerUpdated").textContent = refreshed
+      ? `Last certified refresh: ${refreshed}. ${payload.update_policy || ""}`
       : (payload.update_policy || "Updated after each certified weekly run.");
     status.textContent = graded ? "Certified season results are current." : "Week 1 picks are published and awaiting final scores.";
     status.className = "status-line ok";
