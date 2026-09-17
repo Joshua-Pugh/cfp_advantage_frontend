@@ -1,6 +1,6 @@
 window.CFP_ADV_CONFIG = {
   API_BASE_URL: "https://api.cfpadvantage.com",
-  APP_VERSION: "v4.0.84",
+  APP_VERSION: "v4.0.86",
   USE_STATIC_FALLBACK: false,
   ENVIRONMENT: "production",
   ENABLE_DEV_TOOLS: false,
