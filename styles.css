@@ -387,7 +387,7 @@ body[data-page="framework-card"] .floating-support-link {
 }
 
 .framework-card-controls {
-  grid-template-columns: minmax(140px, 220px) minmax(220px, 1fr) auto;
+  grid-template-columns: minmax(120px, 180px) minmax(220px, 1fr) minmax(240px, 1fr) auto;
 }
 
 .framework-card-mount {
@@ -4042,6 +4042,32 @@ select:disabled {
   color: var(--muted);
   font-weight: 700;
   line-height: 1.35;
+}
+
+.pressure-evidence {
+  margin-top: 4px;
+  padding: 12px;
+  border: 1px solid rgba(31, 91, 69, 0.2);
+  border-radius: 6px;
+  background: rgba(31, 91, 69, 0.055);
+}
+
+.pressure-evidence span {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.pressure-evidence p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.5;
 }
 
 .scoreboard-output {

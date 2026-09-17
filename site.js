@@ -1312,7 +1312,7 @@ async function loadNewsPage(targetId = "newsList", limit = 8, sliceResults = tru
 async function loadTeamPage() {
   setStatus("Loading teams...");
   const seasonsPayload = await api("/api/seasons");
-  const seasons = seasonsPayload.seasons || [];
+  const seasons = [...(seasonsPayload.seasons || [])].sort((a, b) => Number(b) - Number(a));
   const seasonSelect = $("teamSeasonSelect");
   seasonSelect.innerHTML = seasons.map((season) => `<option value="${season}">${season}</option>`).join("");
   seasonSelect.value = String(seasons[0] || "");
@@ -1897,9 +1897,12 @@ function renderTeamAdvProfileView(intel = {}, driveConversion = {}, stats = {}, 
   const dce = view.team_season_dce ?? view.dce ?? view.drive_conversion_efficiency;
   const talentYieldLabel = view.tyi_label || talentYieldLabelFromValue(view.talent_yield_index);
   const recentFormLabel = view.recent_form_label || trajectoryPublicLabel(view.trajectory_bucket);
+  const ratingSnapshotNote = numberOrNull(view.adv_rating_games_through) !== null
+    ? `Completed-prior-games snapshot through ${whole(view.adv_rating_games_through)} games${view.adv_rating_snapshot_week ? ` · entering Week ${whole(view.adv_rating_snapshot_week)}` : ""}`
+    : "";
   const outcomeRows = [
-    ["ADV Strength Rating (ADV SRS)", decimal(view.adv_srs, 1)],
-    ["ADV Rank", view.adv_srs_rank ? `#${view.adv_srs_rank}` : "-"],
+    ["ADV Strength Rating (ADV SRS)", decimal(view.adv_srs, 1), ratingSnapshotNote],
+    ["ADV Rank", view.adv_srs_rank ? `#${view.adv_srs_rank}` : "-", view.adv_srs_rank_population ? `Among ${whole(view.adv_srs_rank_population)} teams with an available in-season rating` : ""],
     ["Schedule Strength", numberOrNull(view.adv_sos_percentile) !== null ? `${decimal(view.adv_sos_percentile, 1)} percentile` : decimal(view.adv_sos, 1)],
     ["Scoreboard Control Gap", decimal(dce, 2)],
     ["Recent Form", recentFormLabel],
@@ -1946,7 +1949,7 @@ function renderTeamAdvProfileView(intel = {}, driveConversion = {}, stats = {}, 
     ["TD Control Conversion", rate(driveConversion.td_conversion_rate), ""],
     ["Finish Waste", rate(view.finish_waste_rate), "Control drives that produce no points"],
   ];
-  const pressureCompareHtml = renderPressureCompareWindow(view, stats, games);
+  const pressureCompareHtml = renderPressureCompareWindow(view, stats, games, frameworkReference);
   const summary = publicProfileSummary(view.contextual_profile_summary)
     || "This profile explains how the team creates control, finishes control, denies control, and produces complete stops after control forms.";
   const cardTeam = window.__teamPageData?.team || "";
@@ -2024,7 +2027,7 @@ function renderTeamAdvProfileView(intel = {}, driveConversion = {}, stats = {}, 
   `;
 }
 
-function renderPressureCompareWindow(view = {}, stats = {}, games = []) {
+function renderPressureCompareWindow(view = {}, stats = {}, games = [], frameworkReference = {}) {
   const scoredGames = (Array.isArray(games) ? games : [])
     .filter((game) => isFiniteNumber(game.team_score) && isFiniteNumber(game.opponent_score));
   const gamesPlayed = numberOrNull(stats.games) || numberOrNull(view.games) || scoredGames.length || null;
@@ -2044,6 +2047,9 @@ function renderPressureCompareWindow(view = {}, stats = {}, games = []) {
   const cpaTier = view.defensive_control_production_allowed_tier || pressureTier(cpa, true);
   const cpoMeta = [cpoTier, percentileLabel(view.control_production_percentile)].filter(Boolean).join(" · ");
   const cpaMeta = [cpaTier, percentileLabel(view.defensive_control_production_allowed_percentile), "Lower is better"].filter(Boolean).join(" · ");
+  const translations = frameworkReference.translations || {};
+  const pressureRelationship = translations.control_production_percentile || "";
+  const suppressionRelationship = translations.defensive_control_production_allowed_percentile || "";
 
   return `
     <div class="insight-panel pressure-compare-window">
@@ -2072,6 +2078,7 @@ function renderPressureCompareWindow(view = {}, stats = {}, games = []) {
             <b>${rate(creationWaste)}</b>
             <small>Possessions that do not become meaningful control</small>
           </div>
+          ${pressureRelationship ? `<aside class="pressure-evidence"><span>What strong pressure tends to change</span><p>${escapeHtml(pressureRelationship)}</p></aside>` : ""}
         </div>
         <div class="pressure-compare-column scoreboard-output">
           <span>Scoreboard Output</span>
@@ -2095,6 +2102,7 @@ function renderPressureCompareWindow(view = {}, stats = {}, games = []) {
             <b>${decimal(pointsPerDrive, 2)}</b>
             <small>Actual scoring efficiency per possession</small>
           </div>
+          ${suppressionRelationship ? `<aside class="pressure-evidence"><span>What strong suppression tends to change</span><p>${escapeHtml(suppressionRelationship)}</p></aside>` : ""}
         </div>
       </div>
       <p class="interpretation pressure-model-read">

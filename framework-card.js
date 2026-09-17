@@ -321,7 +321,7 @@
     return values.length ? values.reduce((sum, value) => sum + value, 0) / values.length : null;
   }
 
-  function renderCard(season, team, profile, games, reference = {}) {
+  function renderCard(season, team, profile, games, reference = {}, snapshotLabel = "") {
     const displayName = displayTeamName(team);
     const intel = profile.intelligence || {};
     const stats = profile.comparison_stats || {};
@@ -347,7 +347,7 @@
       <article class="adv-framework-card" aria-label="${escapeHtml(`${displayName} ${season} Control Framework card`)}">
         <header class="adv-framework-header">
           <div class="adv-framework-brand"><img src="assets/adv-logo.png?v=4.0.78" alt=""><span>CFP Advantage</span></div>
-          <div class="adv-framework-title"><span>${escapeHtml(`${season} Contextual Football Profile`)}</span><h2>${escapeHtml(identity)}</h2><p>${escapeHtml(diagnosis)}</p></div>
+          <div class="adv-framework-title"><span>${escapeHtml(snapshotLabel ? `${season} · ${snapshotLabel}` : `${season} Contextual Football Profile`)}</span><h2>${escapeHtml(identity)}</h2><p>${escapeHtml(diagnosis)}</p></div>
           <div class="adv-framework-team"><strong>${escapeHtml(displayName)}</strong></div>
         </header>
 
@@ -393,7 +393,7 @@
         <div class="framework-context-footer">
           <span><b>ADV SRS</b>${decimal(view.adv_srs, 1)}</span>
           <span><b>ADV Rank</b>${view.adv_srs_rank ? `#${view.adv_srs_rank}` : "-"}</span>
-          <span><b>Schedule Strength</b>${percentile(view.adv_sos_percentile)}</span>
+          <span><b>Schedule Strength</b>${number(view.adv_sos_percentile) !== null ? percentile(view.adv_sos_percentile) : decimal(view.adv_sos, 1)}</span>
           <span><b>Sample</b>${finals.length || view.games || "-"} games · ${decimal(view.offensive_drives ?? drive.drives, 0)} drives</span>
           <span><b>Reference</b>${escapeHtml(reference.version || "Unavailable")}</span>
         </div>
@@ -405,11 +405,28 @@
 
   async function populateTeams(preferredTeam = "") {
     const season = $("frameworkSeason").value;
-    const board = await getJson(`/api/product-a/team-board?season=${encodeURIComponent(season)}&limit=300`);
-    const teams = (board.teams || board.rows || []).filter((row) => row.team).sort((a, b) => String(a.team).localeCompare(String(b.team)));
-    $("frameworkTeam").innerHTML = teams.map((row) => `<option value="${escapeHtml(row.team)}">${escapeHtml(row.team)}</option>`).join("");
-    if (preferredTeam && teams.some((row) => row.team === preferredTeam)) $("frameworkTeam").value = preferredTeam;
-    else if (teams.length) $("frameworkTeam").value = teams[0].team;
+    const payload = await getJson(`/api/teams?season=${encodeURIComponent(season)}&tier=fbs`);
+    const teams = (payload.team_options || [])
+      .map((row) => typeof row === "string" ? { name: row, full_name: row } : row)
+      .filter((row) => row.name || row.team)
+      .sort((a, b) => String(a.full_name || a.name || a.team).localeCompare(String(b.full_name || b.name || b.team)));
+    $("frameworkTeam").innerHTML = teams.map((row) => {
+      const name = row.name || row.team;
+      return `<option value="${escapeHtml(name)}">${escapeHtml(row.full_name || displayTeamName(name))}</option>`;
+    }).join("");
+    if (preferredTeam && teams.some((row) => (row.name || row.team) === preferredTeam)) $("frameworkTeam").value = preferredTeam;
+    else if (teams.length) $("frameworkTeam").value = teams[0].name || teams[0].team;
+  }
+
+  function populateSnapshots(history, preferredSnapshot = "current") {
+    const snapshots = Array.isArray(history.snapshots) ? history.snapshots : [];
+    $("frameworkSnapshot").innerHTML = [
+      '<option value="current">Current season-to-date</option>',
+      ...snapshots.map((snapshot) => `<option value="${escapeHtml(snapshot.id)}">${escapeHtml(snapshot.label)}</option>`),
+    ].join("");
+    $("frameworkSnapshot").value = snapshots.some((snapshot) => snapshot.id === preferredSnapshot)
+      ? preferredSnapshot
+      : "current";
   }
 
   async function loadCard() {
@@ -418,12 +435,28 @@
     if (!season || !team) return;
     $("frameworkCardStatus").textContent = "Building framework card...";
     try {
-      const [profile, schedule, reference] = await Promise.all([
+      const preferredSnapshot = $("frameworkSnapshot").value || "current";
+      const [profile, schedule, reference, history] = await Promise.all([
         getJson(`/api/team/${encodeURIComponent(season)}/${encodeURIComponent(team)}`),
         getJson(`/api/team/${encodeURIComponent(season)}/${encodeURIComponent(team)}/schedule?view=full`),
         getJson("/api/product-a/framework-reference").catch(() => ({})),
+        getJson(`/api/product-a/framework-history?season=${encodeURIComponent(season)}&team=${encodeURIComponent(team)}`).catch(() => ({ snapshots: [] })),
       ]);
-      renderCard(season, team, profile, Array.isArray(schedule.schedule) ? schedule.schedule : [], reference);
+      populateSnapshots(history, preferredSnapshot);
+      const snapshot = (history.snapshots || []).find((item) => item.id === $("frameworkSnapshot").value);
+      const allGames = Array.isArray(schedule.schedule) ? schedule.schedule : [];
+      const snapshotGames = snapshot
+        ? allGames.filter((game) => String(game.date || "") < String(snapshot.date || ""))
+        : allGames;
+      const renderProfile = snapshot
+        ? {
+            ...profile,
+            intelligence: snapshot.intelligence || {},
+            comparison_stats: {},
+            drive_conversion: { points_per_control_drive: snapshot.intelligence?.points_per_control_drive },
+          }
+        : profile;
+      renderCard(season, team, renderProfile, snapshotGames, reference, snapshot?.label || "");
       $("frameworkCardStatus").textContent = "Framework card ready.";
       const url = new URL(window.location.href);
       url.searchParams.set("season", season);
@@ -440,12 +473,14 @@
     const preferredTeam = params.get("team") || "";
     try {
       const seasonsPayload = await getJson("/api/seasons");
-      const seasons = seasonsPayload.seasons || [];
+      const seasons = [...(seasonsPayload.seasons || [])].sort((a, b) => Number(b) - Number(a));
       $("frameworkSeason").innerHTML = seasons.map((season) => `<option value="${season}">${season}</option>`).join("");
       $("frameworkSeason").value = seasons.map(String).includes(preferredSeason) ? preferredSeason : String(seasons[0] || "");
       await populateTeams(preferredTeam);
       await loadCard();
-      $("frameworkSeason").addEventListener("change", async () => { await populateTeams(); await loadCard(); });
+      $("frameworkSeason").addEventListener("change", async () => { await populateTeams(); populateSnapshots({ snapshots: [] }); await loadCard(); });
+      $("frameworkTeam").addEventListener("change", async () => { populateSnapshots({ snapshots: [] }); await loadCard(); });
+      $("frameworkSnapshot").addEventListener("change", loadCard);
       $("loadFrameworkCard").addEventListener("click", loadCard);
       $("downloadFrameworkCard").addEventListener("click", downloadFrameworkCard);
     } catch (error) {
