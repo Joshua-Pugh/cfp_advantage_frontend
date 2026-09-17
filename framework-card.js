@@ -342,7 +342,12 @@
     const pressureDifferential = number(pressure) !== null && number(pressureAllowed) !== null ? number(pressure) - number(pressureAllowed) : null;
     const scoreboardMargin = pointsFor !== null && pointsAgainst !== null ? pointsFor - pointsAgainst : null;
     const diagnosis = profileDiagnosis(strongest, limiting);
-    const titleLabel = number(view.adv_srs_rank) === 1 ? "ADV Championship Favorite" : `#${view.adv_srs_rank || "-"} ADV Strength`;
+    const hasPregameRating = number(view.pregame_adv_rating) !== null;
+    const primaryRating = hasPregameRating ? view.pregame_adv_rating : view.adv_srs;
+    const primaryRank = hasPregameRating ? view.pregame_adv_rating_rank : view.adv_srs_rank;
+    const primaryLabel = hasPregameRating ? "Pregame ADV Rating" : "ADV SRS";
+    const primaryRankLabel = hasPregameRating ? "Pregame Rank" : "ADV Rank";
+    const titleLabel = number(primaryRank) === 1 ? "ADV Championship Favorite" : `#${primaryRank || "-"} ADV Strength`;
 
     $("frameworkCardMount").innerHTML = `
       <article class="adv-framework-card" aria-label="${escapeHtml(`${displayName} ${season} Control Framework card`)}">
@@ -355,7 +360,7 @@
         <section class="framework-diagnosis-band">
           <div><span>Primary Strength</span><strong>${escapeHtml(strongest ? strongest.formalLabel : "Not enough data")}</strong><small>${strongest ? percentile(strongest.percentile) : "Profile unavailable"}</small></div>
           <div><span>Primary Vulnerability</span><strong>${escapeHtml(limiting ? limiting.formalLabel : "Not enough data")}</strong><small>${limiting ? percentile(limiting.percentile) : "Profile unavailable"}</small></div>
-          <div><span>Overall ADV Profile</span><strong>${escapeHtml(titleLabel)}</strong><small>${escapeHtml(`ADV SRS ${decimal(view.adv_srs, 1)}`)}</small></div>
+          <div><span>Overall ADV Profile</span><strong>${escapeHtml(titleLabel)}</strong><small>${escapeHtml(`${primaryLabel} ${decimal(primaryRating, 1)}`)}</small></div>
         </section>
 
         <section class="adv-framework-section framework-shape-section">
@@ -392,8 +397,10 @@
         </section>
 
         <div class="framework-context-footer">
-          <span><b>ADV SRS</b>${decimal(view.adv_srs, 1)}</span>
-          <span><b>ADV Rank</b>${view.adv_srs_rank ? `#${view.adv_srs_rank}` : "-"}</span>
+          <span><b>${escapeHtml(primaryLabel)}</b>${decimal(primaryRating, 1)}</span>
+          <span><b>${escapeHtml(primaryRankLabel)}</b>${primaryRank ? `#${primaryRank}` : "-"}</span>
+          <span><b>Observed ADV SRS</b>${decimal(view.adv_srs, 1)}</span>
+          <span><b>Observed Rank</b>${view.adv_srs_rank ? `#${view.adv_srs_rank}` : "-"}</span>
           <span><b>Schedule Strength</b>${number(view.adv_sos_percentile) !== null ? percentile(view.adv_sos_percentile) : decimal(view.adv_sos, 1)}</span>
           <span><b>Sample</b>${finals.length || view.games || "-"} games · ${decimal(view.offensive_drives ?? drive.drives, 0)} drives</span>
           <span><b>Reference</b>${escapeHtml(reference.version || "Unavailable")}</span>

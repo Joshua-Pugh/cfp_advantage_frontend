@@ -1900,9 +1900,15 @@ function renderTeamAdvProfileView(intel = {}, driveConversion = {}, stats = {}, 
   const ratingSnapshotNote = numberOrNull(view.adv_rating_games_through) !== null
     ? `Completed-prior-games snapshot through ${whole(view.adv_rating_games_through)} games${view.adv_rating_snapshot_week ? ` · entering Week ${whole(view.adv_rating_snapshot_week)}` : ""}`
     : "";
+  const pregameRatingNote = [
+    ratingSnapshotNote,
+    "Blends the frozen preseason anchor with completed-season evidence",
+  ].filter(Boolean).join(" · ");
   const outcomeRows = [
-    ["ADV Strength Rating (ADV SRS)", decimal(view.adv_srs, 1), ratingSnapshotNote],
-    ["ADV Rank", view.adv_srs_rank ? `#${view.adv_srs_rank}` : "-", view.adv_srs_rank_population ? `Among ${whole(view.adv_srs_rank_population)} teams with an available in-season rating` : ""],
+    ["Pregame ADV Rating", decimal(view.pregame_adv_rating, 1), pregameRatingNote],
+    ["Pregame ADV Rank", view.pregame_adv_rating_rank ? `#${view.pregame_adv_rating_rank}` : "-", view.pregame_adv_rating_rank_population ? `Among ${whole(view.pregame_adv_rating_rank_population)} teams with an available pregame rating` : ""],
+    ["Observed ADV SRS", decimal(view.adv_srs, 1), ratingSnapshotNote],
+    ["Observed ADV SRS Rank", view.adv_srs_rank ? `#${view.adv_srs_rank}` : "-", view.adv_srs_rank_population ? `Among ${whole(view.adv_srs_rank_population)} teams with completed-season evidence` : ""],
     ["Schedule Strength", numberOrNull(view.adv_sos_percentile) !== null ? `${decimal(view.adv_sos_percentile, 1)} percentile` : decimal(view.adv_sos, 1)],
     ["Scoreboard Control Gap", decimal(dce, 2)],
     ["Recent Form", recentFormLabel],
@@ -1959,7 +1965,7 @@ function renderTeamAdvProfileView(intel = {}, driveConversion = {}, stats = {}, 
       <p class="eyebrow">Contextual Football Profile</p>
       <h3>${escapeHtml(view.contextual_profile_label || "Season Identity")}</h3>
       <p class="interpretation">${escapeHtml(summary)}</p>
-      <p class="team-reading-guide"><strong>How to read this:</strong> Start with ADV SRS for overall strength. Use Control Foundation and Pressure to see how that strength is produced, then use Finish and Scoreboard Control Gap to see whether it is translating into results.</p>
+      <p class="team-reading-guide"><strong>How to read this:</strong> Start with Pregame ADV Rating for the official strength view used before the next kickoff. Observed ADV SRS isolates completed-season evidence. Use Control Foundation and Pressure to see how that strength is produced, then use Finish and Scoreboard Control Gap to see whether it is translating into results.</p>
       <div class="team-profile-actions">
         <a class="secondary-action" href="${frameworkCardUrl}">Open Framework Card</a>
         <a class="text-link" href="metrics.html">How CFP Advantage metrics work</a>
