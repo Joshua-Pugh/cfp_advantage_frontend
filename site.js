@@ -734,23 +734,11 @@ function renderMetricCards(target, rows) {
     <article class="guide-card">
       <div class="guide-card-topline">
         <span>${escapeHtml(metric.group || "Metric")}</span>
-        ${metric.validation?.status ? `<em>${escapeHtml(metric.validation.status)}</em>` : ""}
       </div>
       <h4>${escapeHtml(publicMetricName(metric.name))}</h4>
       <p>${escapeHtml(publicMetricDescription(metric))}</p>
-      ${renderMetricValidation(metric.validation)}
     </article>
   `).join("");
-}
-
-function renderMetricValidation(validation) {
-  if (!validation) return "";
-  return `
-    <div class="metric-validation">
-      <strong>${escapeHtml(validation.label || "Tested")}</strong>
-      <p>${escapeHtml(validation.summary || "Historical testing available.")}</p>
-    </div>
-  `;
 }
 
 function renderComparisonStats(target, rows) {
