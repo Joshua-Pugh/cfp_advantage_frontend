@@ -814,6 +814,7 @@ function renderCurrentMatchupCard(matchup) {
           <span>Away</span>
           <span class="team-name-with-logo">
             ${matchupTeamLogoMarkup(matchup.away_team)}
+            ${window.CFPAdvantagePollRankings.badge(matchup.away_ap_rank)}
           </span>
         </div>
         <div>
@@ -824,6 +825,7 @@ function renderCurrentMatchupCard(matchup) {
           <span>Home</span>
           <span class="team-name-with-logo">
             ${matchupTeamLogoMarkup(matchup.home_team)}
+            ${window.CFPAdvantagePollRankings.badge(matchup.home_ap_rank)}
           </span>
         </div>
       </div>
@@ -917,7 +919,7 @@ function fullMatchupPreview(matchup) {
       <div class="panel-heading">
         <div>
           <p class="eyebrow">${escapeHtml(matchupDateLabel(matchup))}</p>
-          <h2>${escapeHtml(matchup.away_team)} at ${escapeHtml(matchup.home_team)}</h2>
+          <h2>${window.CFPAdvantagePollRankings.badge(matchup.away_ap_rank)}${escapeHtml(matchup.away_team)} at ${window.CFPAdvantagePollRankings.badge(matchup.home_ap_rank)}${escapeHtml(matchup.home_team)}</h2>
           <p class="panel-note">${escapeHtml(matchupContextNote(matchup))}</p>
         </div>
         <span class="framework-read-label">${escapeHtml(matchup.context_label || "Mixed Context")}</span>
@@ -1161,9 +1163,9 @@ function renderFullSlateTableInline() {
       <article class="${rowClass(matchup)}">
         <div class="full-slate-table-cell full-slate-status-cell">${fullSlateStatusMarkup(matchup)}</div>
         <div class="full-slate-table-cell">
-          <strong>${matchupTeamLogoMarkup(matchup.away_team)}<span class="full-slate-team-name">${escapeHtml(matchup.away_team)}</span>${final && Number.isFinite(awayPoints) ? `<b class="full-slate-team-score">${awayPoints}</b>` : ""}</strong>
+          <strong>${matchupTeamLogoMarkup(matchup.away_team)}${window.CFPAdvantagePollRankings.badge(matchup.away_ap_rank)}<span class="full-slate-team-name">${escapeHtml(matchup.away_team)}</span>${final && Number.isFinite(awayPoints) ? `<b class="full-slate-team-score">${awayPoints}</b>` : ""}</strong>
           <span>vs</span>
-          <strong>${matchupTeamLogoMarkup(matchup.home_team)}<span class="full-slate-team-name">${escapeHtml(matchup.home_team)}</span>${final && Number.isFinite(homePoints) ? `<b class="full-slate-team-score">${homePoints}</b>` : ""}</strong>
+          <strong>${matchupTeamLogoMarkup(matchup.home_team)}${window.CFPAdvantagePollRankings.badge(matchup.home_ap_rank)}<span class="full-slate-team-name">${escapeHtml(matchup.home_team)}</span>${final && Number.isFinite(homePoints) ? `<b class="full-slate-team-score">${homePoints}</b>` : ""}</strong>
         </div>
         <div class="full-slate-table-cell">
           ${matchup.away_conference === matchup.home_conference ? escapeHtml(matchup.away_conference) : `${escapeHtml(matchup.away_conference)} vs ${escapeHtml(matchup.home_conference)}`}

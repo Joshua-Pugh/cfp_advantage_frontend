@@ -6628,3 +6628,30 @@ pre {
     grid-template-columns: 1fr;
   }
 }
+
+
+.national-rank-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+  margin-right: 0.38em;
+  padding: 0.16em 0.46em;
+  border: 1px solid #b89020;
+  border-radius: 999px;
+  background: #fff8dc;
+  color: #5f4700;
+  font-size: 0.68rem;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.featured-matchup-title .national-rank-badge {
+  margin: 0;
+}
+
+.team-profile-brand strong .national-rank-badge {
+  vertical-align: 0.18em;
+}

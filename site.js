@@ -1387,7 +1387,7 @@ async function renderTeamPage() {
     $("teamPageResult").innerHTML = `
       <div class="team-profile-brand">
         ${teamLogoMarkup(team, activeTeamLogos)}
-        <div><span>${escapeHtml(season)} Team Profile</span><strong>${escapeHtml(team)}</strong></div>
+        <div><span>${escapeHtml(season)} Team Profile</span><strong>${window.CFPAdvantagePollRankings.badge(profile.national_ranking?.rank)}${escapeHtml(team)}</strong></div>
       </div>
       <div id="teamScheduleView" class="team-view-panel is-active">
         ${scheduleHtml}
@@ -2554,7 +2554,7 @@ function renderHomeMatchupCard(matchup, logos) {
       <div class="featured-matchup-title">
         <div>
           <span>Away</span>
-          <span class="team-name-with-logo">${homeMatchupLogoMarkup(matchup.away_team, logos)}</span>
+          <span class="team-name-with-logo">${homeMatchupLogoMarkup(matchup.away_team, logos)}${window.CFPAdvantagePollRankings.badge(matchup.away_ap_rank)}</span>
         </div>
         <div>
           <b>vs</b>
@@ -2562,7 +2562,7 @@ function renderHomeMatchupCard(matchup, logos) {
         </div>
         <div>
           <span>Home</span>
-          <span class="team-name-with-logo">${homeMatchupLogoMarkup(matchup.home_team, logos)}</span>
+          <span class="team-name-with-logo">${homeMatchupLogoMarkup(matchup.home_team, logos)}${window.CFPAdvantagePollRankings.badge(matchup.home_ap_rank)}</span>
         </div>
       </div>
       <div class="weekly-projection-strip">
@@ -2913,9 +2913,9 @@ function renderHubPick(matchup, logos) {
   return `
     <article class="hub-pick-row">
       <div class="hub-pick-teams">
-        <div>${teamLogoMarkup(matchup.away_team, logos)}<strong>${escapeHtml(matchup.away_team)}</strong></div>
+        <div>${teamLogoMarkup(matchup.away_team, logos)}${window.CFPAdvantagePollRankings.badge(matchup.away_ap_rank)}<strong>${escapeHtml(matchup.away_team)}</strong></div>
         <span>at</span>
-        <div>${teamLogoMarkup(matchup.home_team, logos)}<strong>${escapeHtml(matchup.home_team)}</strong></div>
+        <div>${teamLogoMarkup(matchup.home_team, logos)}${window.CFPAdvantagePollRankings.badge(matchup.home_ap_rank)}<strong>${escapeHtml(matchup.home_team)}</strong></div>
       </div>
       <div class="hub-pick-read">
         <span>${escapeHtml(date)}</span>
