@@ -63,7 +63,7 @@
       <section class="insight-panel season-tracker validation-deep-dive" aria-labelledby="season-tracker-heading">
         <div class="section-heading-row">
           <div>
-            <p class="eyebrow">2026 Live Accountability</p>
+            <p class="eyebrow">2026 Development Accountability</p>
             <h2 id="season-tracker-heading">Published Before Kickoff. Graded After The Final.</h2>
             <p>
               This tracker follows certified CFP Advantage picks through the season. It updates after
@@ -78,17 +78,17 @@
         <p id="seasonTrackerUpdated" class="guide-note"></p>
         <div class="accountability-proof">
           <div>
-            <p class="eyebrow">Historical Validation</p>
+            <p class="eyebrow">Historical Evidence</p>
             <h3>How The Model Earned Its Live Test</h3>
             <p>
-              Product A was tested chronologically before the 2026 season. The historical audit established
-              the projection baseline; the live tracker now shows how that frozen process performs on games
-              it has never seen.
+              Product A was tested chronologically before the 2026 season. Early live use exposed an
+              early-season opponent-adjustment problem that the original audit did not identify. The public
+              tracker still preserves every published pick, while current development releases are versioned.
             </p>
           </div>
           <div class="validation-grid">
             <article>
-              <span>Projection Stack</span>
+              <span>Previous Projection Stack</span>
               <strong>71.37%</strong>
               <small>Winner accuracy across 7,436 historical games</small>
             </article>
@@ -114,8 +114,8 @@
               <p>Chronological testing determined which ideas earned a place in Product A before the live season began.</p>
             </article>
             <article>
-              <h4>Live Proof</h4>
-              <p>Immutable weekly receipts preserve what the model published before kickoff and grade it only after final scores arrive.</p>
+              <h4>Development Proof</h4>
+              <p>Immutable weekly receipts preserve what each model version published before kickoff and grade it only after final scores arrive.</p>
             </article>
           </div>
           <div class="validation-actions">
@@ -185,29 +185,20 @@
         </article>
       </section>
 
-      <section class="insight-panel record-path-panel" aria-labelledby="record-path-heading">
+      <section class="insight-panel" aria-labelledby="record-path-heading">
         <div class="section-heading-row">
           <div>
             <p class="eyebrow">Record Paths</p>
-            <h2 id="record-path-heading">2026 Record Probability Board</h2>
+            <h2 id="record-path-heading">Record Probability Board Is Being Recalibrated</h2>
             <p>
-              View expected wins, most-likely records, current expected losses, upside paths,
-              and why the model is cautious on each team's schedule.
+              The prior record-path board used the retired preseason rating and margin translation.
+              It is temporarily unavailable while it is rebuilt on the current development model.
             </p>
           </div>
-          <label class="compact-select">
-            <span>Team</span>
-            <select id="recordTeamSelect" aria-label="Choose a team for 2026 record probability"></select>
-          </label>
         </div>
-        <div id="recordPathStatus" class="status-line">Loading 2026 record paths...</div>
-        <div id="recordPathSummary" class="summary-grid"></div>
-        <div id="recordPathDetail" class="record-path-detail"></div>
-        <div id="recordPathLeaderboard" class="record-path-leaderboard"></div>
         <p class="guide-note">
-          Record probabilities are derived from CFP Advantage game-level win probabilities across the full schedule.
-          Preseason paths use the immutable certified 2026 anchor and will update only through the documented weekly process.
-          Pac-12 flex-week teams are held out until the final matchup is set.
+          Completed results remain available on team pages. The development record-path board will return after
+          its inputs and calibration pass the same chronological checks as the corrected rating stack.
         </p>
       </section>
 
@@ -226,14 +217,14 @@
 
       <section class="insight-panel">
         <p class="eyebrow">Model Status</p>
-        <h2>The Preseason Baseline Is Certified</h2>
+        <h2>The 2026 Model Is In Active Development</h2>
         <p>
-          CFP Advantage has frozen its 2026 preseason strength baseline and published the opening-week
-          matchup receipt. Published picks are preserved before kickoff and cannot be rewritten after results arrive.
+          The original frozen validation was retired after an early-season rating defect was confirmed.
+          Published picks remain preserved before kickoff and cannot be rewritten after results arrive.
         </p>
         <p>
-          Team profiles will replace preseason expectations with observed 2026 evidence as games are completed.
-          Record paths and matchup context will follow the documented weekly refresh process.
+          Team ratings and future matchup margins now use a versioned development stack. Changes are tested
+          chronologically, documented, and applied only to future projections.
         </p>
       </section>
 
@@ -253,9 +244,9 @@
 
       <section class="insight-panel">
         <p class="eyebrow">Support CFP Advantage</p>
-        <h2>Free During The 2026 Validation Season</h2>
+        <h2>Free During The 2026 Development Season</h2>
         <p>
-          CFP Advantage is free to use during the 2026 validation season. If you've found
+          CFP Advantage is free to use during the 2026 development season. If you've found
           the platform helpful, your support helps cover hosting, data, compute, and
           continued research and development.
         </p>
@@ -1147,6 +1138,6 @@
 
     <script src="config.js?v=4.0.84"></script>
   <script src="scoreboard.js?v=4.0.77"></script>
-  <script src="site.js?v=4.0.84"></script>
+  <script src="site.js?v=4.0.86"></script>
   </body>
 </html>

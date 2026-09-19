@@ -1312,7 +1312,9 @@ async function loadNewsPage(targetId = "newsList", limit = 8, sliceResults = tru
 async function loadTeamPage() {
   setStatus("Loading teams...");
   const seasonsPayload = await api("/api/seasons");
-  const seasons = [...(seasonsPayload.seasons || [])].sort((a, b) => Number(b) - Number(a));
+  const seasons = [...(seasonsPayload.seasons || [])]
+    .filter((season) => Number(season) >= 2016 && Number(season) <= 2026)
+    .sort((a, b) => Number(b) - Number(a));
   const seasonSelect = $("teamSeasonSelect");
   seasonSelect.innerHTML = seasons.map((season) => `<option value="${season}">${season}</option>`).join("");
   seasonSelect.value = String(seasons[0] || "");
@@ -1890,9 +1892,6 @@ function renderTeamAdvProfileView(intel = {}, driveConversion = {}, stats = {}, 
   ) {
     view.control_production_rate = Number(view.control_creation_rate) * Number(view.points_per_control_drive);
   }
-  if (Number.isFinite(Number(season)) && Number(season) < 2016) {
-    return renderLimitedHistoricalProfile(view, driveConversion);
-  }
   const specialTeamsAdv = view.sp_adv_srs ?? view.sp_adv ?? view.special_teams_adv ?? view.raw_sp_adv_margin_avg;
   const dce = view.team_season_dce ?? view.dce ?? view.drive_conversion_efficiency;
   const talentYieldLabel = view.tyi_label || talentYieldLabelFromValue(view.talent_yield_index);
@@ -2197,43 +2196,6 @@ function publicProfileSummary(value) {
     .replaceAll("Defensive Control Production Allowed", "Control Pressure Allowed")
     .replaceAll("Control Production", "Control Pressure")
     .replaceAll("Control Points", "Control Pressure");
-}
-
-function renderLimitedHistoricalProfile(view = {}, driveConversion = {}) {
-  const dce = view.team_season_dce ?? view.dce ?? view.drive_conversion_efficiency;
-  const cr = view.CR ?? view.cr ?? view.control_rate ?? (numberOrNull(view.control_rate_pct) !== null ? Number(view.control_rate_pct) / 100 : null);
-  const rows = [
-    ["ADV Strength Rating (ADV SRS)", decimal(view.adv_srs, 1)],
-    ["ADV Rank", view.adv_srs_rank ? `#${view.adv_srs_rank}` : "-"],
-    ["Schedule Strength", numberOrNull(view.adv_sos_percentile) !== null ? `${decimal(view.adv_sos_percentile, 1)} percentile` : decimal(view.adv_sos, 1)],
-    ["Control Rate (CR)", rate(cr)],
-    ["Scoreboard Control Gap", decimal(dce, 2)],
-    ["Control Finish Rate", rate(driveConversion.scoring_conversion_rate)],
-    ["Points Per Control Drive", decimal(driveConversion.points_per_control_drive, 2)],
-    ["TD Control Conversion", rate(driveConversion.td_conversion_rate)],
-  ];
-  return `
-    <div class="insight-panel historical-profile-notice">
-      <p class="eyebrow">Historical Coverage</p>
-      <h3>Limited 2015 Control Profile</h3>
-      <p class="interpretation">ADV strength, schedule context, Control Rate, and available drive-conversion measures are shown below. The validated full Contextual Football Profile begins in 2016, so Creation, Denial, and Pressure ratings are not available for this season.</p>
-      <p class="team-reading-guide"><strong>How to read this:</strong> Start with ADV SRS for overall opponent-adjusted strength, then use Control Rate and the conversion measures to see how often control formed and became points.</p>
-      <a class="text-link" href="metrics.html">Review metric definitions and historical coverage</a>
-    </div>
-    <div class="insight-panel">
-      <p class="eyebrow">Available 2015 Measures</p>
-      <h3>Season Control Snapshot</h3>
-      <div class="summary-grid historical-profile-grid">
-        ${rows.map(([label, value]) => `
-          <div>
-            ${metricUseLabel(label)}
-            <strong>${escapeHtml(value)}</strong>
-          </div>
-        `).join("")}
-      </div>
-      <p class="interpretation">${escapeHtml(scoreboardControlGapRead(dce))}</p>
-    </div>
-  `;
 }
 
 function scoreboardControlGapRead(value) {
