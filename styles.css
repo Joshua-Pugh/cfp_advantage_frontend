@@ -5225,10 +5225,6 @@ tbody tr.is-clickable {
   gap: 16px;
 }
 
-.gridiron-report-panel {
-  border-left: 5px solid var(--green);
-}
-
 .report-archive-strip {
   display: grid;
   gap: 10px;
@@ -5276,14 +5272,6 @@ tbody tr.is-clickable {
 
 .text-button:hover {
   text-decoration: underline;
-}
-
-.gridiron-report-modal-card {
-  width: min(1040px, 100%);
-}
-
-.gridiron-report-modal-card .validation-table-wrap table {
-  min-width: 760px;
 }
 
 .validation-deep-dive > p {

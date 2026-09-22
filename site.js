@@ -83,7 +83,6 @@ function setupSiteChrome() {
     <nav class="footer-links" aria-label="Reference and legal pages">
       <a href="about.html">About</a>
       <a href="live-2026.html">2026 Live</a>
-      <a href="learn.html">Learn</a>
       <a href="contact.html">Contact</a>
       <a href="updates.html">Updates <span class="site-version">v1.1</span></a>
       <a class="support-link" data-support-link href="${DONATE_URL || `mailto:${SUPPORT_EMAIL}?subject=Support%20CFP%20Advantage`}">Support</a>
@@ -2979,7 +2978,6 @@ function installHubLiveScoreboard() {
 
 async function loadLive2026Page() {
   installValidationModal();
-  installGridironReportModal();
   installOffenseReportModal();
   await Promise.all([loadSeasonTracker(), loadHubGameDayCenter()]);
   const status = $("recordPathStatus");
@@ -3068,41 +3066,6 @@ async function loadSeasonTracker() {
     $("seasonTrackerWeeks").innerHTML = "";
     $("seasonTrackerUpdated").textContent = "Public timestamped receipts remain available in the validation repository.";
   }
-}
-
-function installGridironReportModal() {
-  const modal = document.querySelector("[data-gridiron-modal]");
-  if (!modal || modal.dataset.bound === "true") return;
-  document.querySelectorAll("[data-open-gridiron-report]").forEach((trigger) => {
-    trigger.addEventListener("click", openGridironReportModal);
-  });
-  document.querySelectorAll("[data-close-gridiron-report]").forEach((trigger) => {
-    trigger.addEventListener("click", closeGridironReportModal);
-  });
-  modal.addEventListener("click", (event) => {
-    if (event.target === modal) closeGridironReportModal();
-  });
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && !modal.classList.contains("is-hidden")) {
-      closeGridironReportModal();
-    }
-  });
-  modal.dataset.bound = "true";
-}
-
-function openGridironReportModal() {
-  const modal = document.querySelector("[data-gridiron-modal]");
-  if (!modal) return;
-  modal.classList.remove("is-hidden");
-  document.body.classList.add("modal-open");
-  modal.querySelector("[data-close-gridiron-report]")?.focus();
-}
-
-function closeGridironReportModal() {
-  const modal = document.querySelector("[data-gridiron-modal]");
-  if (!modal) return;
-  modal.classList.add("is-hidden");
-  document.body.classList.remove("modal-open");
 }
 
 function installOffenseReportModal() {
