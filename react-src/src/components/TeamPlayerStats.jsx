@@ -9,10 +9,14 @@ const LABELS = {
   "In 20": "IN 20",
 };
 
-function displayStat(value) {
+function displayStat(value, column) {
   if (value === null || value === undefined || value === "") return "-";
   const number = Number(value);
   if (!Number.isFinite(number)) return String(value);
+  if (column === "PCT") {
+    const percent = Math.abs(number) <= 1 ? number * 100 : number;
+    return `${percent.toFixed(1)}%`;
+  }
   return Number.isInteger(number) ? number.toLocaleString() : number.toFixed(1);
 }
 
@@ -41,7 +45,7 @@ export default function TeamPlayerStats({ season, team, teamName }) {
       <div className="player-stat-table-wrap">
         <table className="player-stat-table">
           <thead><tr><th>Player</th><th>Pos</th>{section.columns.map((column) => <th key={column}>{LABELS[column] || column}</th>)}</tr></thead>
-          <tbody>{section.players.map((player) => <tr key={`${section.key}-${player.player_id || player.player}`}><td>{player.player}</td><td>{player.position || "-"}</td>{section.columns.map((column) => <td key={column}>{displayStat(player.stats[column])}</td>)}</tr>)}</tbody>
+          <tbody>{section.players.map((player) => <tr key={`${section.key}-${player.player_id || player.player}`}><td>{player.player}</td><td>{player.position || "-"}</td>{section.columns.map((column) => <td key={column}>{displayStat(player.stats[column], column)}</td>)}</tr>)}</tbody>
         </table>
       </div>
     </section>)}
