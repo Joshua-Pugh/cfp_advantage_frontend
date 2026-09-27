@@ -458,7 +458,7 @@ function Team() {
                         teamIdentities={teamIdentities}
                       />
                     )}
-  
+
 
                     {activeTab === "stats" && (
                       <TeamStats
