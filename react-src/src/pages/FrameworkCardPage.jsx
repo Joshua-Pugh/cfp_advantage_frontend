@@ -54,9 +54,9 @@ function FrameworkCardPage() {
   async function fetchTeams(nextSeason, preferredTeam = "") {
     setLoadingTeams(true);
     try {
-      const board = await api(`/api/product-a/team-board?season=${encodeURIComponent(nextSeason)}&limit=300`);
-      const rows = (board.teams || board.rows || [])
-        .map((row) => ({ ...row, team: row.team || row.school || row.name }))
+      const payload = await api(`/api/teams?season=${encodeURIComponent(nextSeason)}&tier=fbs`);
+      const rows = (payload.team_options || payload.teams || payload.rows || [])
+        .map((row) => typeof row === "string" ? { team: row } : ({ ...row, team: row.team || row.school || row.name }))
         .filter((row) => row.team)
         .sort((a, b) => String(a.full_name || a.team).localeCompare(String(b.full_name || b.team)));
       setTeams(rows);
