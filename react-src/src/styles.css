@@ -9814,6 +9814,7 @@ pre {
 .player-stat-table tbody tr:last-child td { border-bottom: 0; }
 .player-stat-table td:first-child { color: var(--ink); font-weight: 850; }
 :root[data-theme="dark"] .player-stat-section { border-color: rgba(214,173,85,.24); }
+:root[data-theme="dark"] .player-stat-table th { background: #1d2c25; color: #d6dfda; }
 
 @media (max-width: 1180px) {
   .v2-live-scoreboard { grid-template-columns: 1fr; }
