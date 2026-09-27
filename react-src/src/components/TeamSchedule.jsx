@@ -119,6 +119,44 @@ function safeColor(value, fallback) {
   return fallback;
 }
 
+function rgbFromHex(color) {
+  const match = String(color || "").match(/^#([0-9a-f]{6})$/i);
+  if (!match) return null;
+  const value = Number.parseInt(match[1], 16);
+  return [(value >> 16) & 255, (value >> 8) & 255, value & 255];
+}
+
+function contrastRatio(color, background = "#142019") {
+  const luminance = (hex) => {
+    const rgb = rgbFromHex(hex);
+    if (!rgb) return 0;
+    const channels = rgb.map((value) => {
+      const normalized = value / 255;
+      return normalized <= 0.03928 ? normalized / 12.92 : ((normalized + 0.055) / 1.055) ** 2.4;
+    });
+    return 0.2126 * channels[0] + 0.7152 * channels[1] + 0.0722 * channels[2];
+  };
+  const first = luminance(color);
+  const second = luminance(background);
+  return (Math.max(first, second) + 0.05) / (Math.min(first, second) + 0.05);
+}
+
+function darkBarColor(primary, alternate, fallback) {
+  const base = safeColor(primary, fallback);
+  const secondary = safeColor(alternate, "");
+  const secondaryRgb = rgbFromHex(secondary);
+  const secondaryChroma = secondaryRgb ? Math.max(...secondaryRgb) - Math.min(...secondaryRgb) : 0;
+  if (contrastRatio(base) >= 3) return base;
+  if (secondaryRgb && secondaryChroma >= 24 && contrastRatio(secondary) >= 3) return secondary;
+  const rgb = rgbFromHex(base) || rgbFromHex(fallback);
+  for (const amount of [0.2, 0.35, 0.5, 0.65, 0.8]) {
+    const mixed = rgb.map((value) => Math.round(value + (255 - value) * amount));
+    const color = `#${mixed.map((value) => value.toString(16).padStart(2, "0")).join("")}`;
+    if (contrastRatio(color) >= 3) return color;
+  }
+  return "#f0d88a";
+}
+
 function numeric(value) {
   const parsed = Number(value);
   return Number.isFinite(parsed) ? parsed : null;
@@ -132,7 +170,7 @@ function conversionRate(stats, madeKey, attemptsKey, rateKey) {
   return attempts ? made / attempts : null;
 }
 
-function ComparisonBar({ label, awayValue, homeValue, awayLabel, homeLabel, awayColor, homeColor, lowerBetter = false }) {
+function ComparisonBar({ label, awayValue, homeValue, awayLabel, homeLabel, awayColor, homeColor, awayDarkColor, homeDarkColor, lowerBetter = false }) {
   const left = numeric(awayValue);
   const right = numeric(homeValue);
   const magnitude = Math.abs(left || 0) + Math.abs(right || 0);
@@ -142,7 +180,7 @@ function ComparisonBar({ label, awayValue, homeValue, awayLabel, homeLabel, away
   const homeWins = left !== null && right !== null && (lowerBetter ? right < left : right > left);
   return <div className="recap-comparison-row">
     <div className={`recap-comparison-values${awayWins ? " away-wins" : ""}${homeWins ? " home-wins" : ""}`}><strong>{awayLabel}</strong><span>{label}</span><strong>{homeLabel}</strong></div>
-    <div className="recap-comparison-bars"><i style={{ width: `${leftWidth}%`, background: awayColor }} /><i style={{ width: `${rightWidth}%`, background: homeColor }} /></div>
+    <div className="recap-comparison-bars"><i style={{ width: `${leftWidth}%`, "--recap-bar-color": awayColor, "--recap-bar-color-dark": awayDarkColor }} /><i style={{ width: `${rightWidth}%`, "--recap-bar-color": homeColor, "--recap-bar-color-dark": homeDarkColor }} /></div>
   </div>;
 }
 
@@ -160,6 +198,8 @@ function RecapBoxScore({ recap, displayName, teamIdentities }) {
   const homeIdentity = teamIdentities?.[game.home_team] || {};
   const awayColor = safeColor(awayIdentity.color, "#2e668f");
   const homeColor = safeColor(homeIdentity.color, "#8b3038");
+  const awayDarkColor = darkBarColor(awayIdentity.color, awayIdentity.alternate_color, "#5b9bd5");
+  const homeDarkColor = darkBarColor(homeIdentity.color, homeIdentity.alternate_color, "#d46a73");
   const thirdAway = conversionRate(away, "third_down_conversions", "third_down_attempts", "third_down_rate");
   const thirdHome = conversionRate(home, "third_down_conversions", "third_down_attempts", "third_down_rate");
   const rzAway = conversionRate(away, "red_zone_tds", "red_zone_trips", "red_zone_td_rate");
@@ -188,8 +228,8 @@ function RecapBoxScore({ recap, displayName, teamIdentities }) {
   return <div className="recap-detail">
     <div className="panel-heading recap-heading"><div><p className="eyebrow">{game.season || ""} Week {game.week || "-"}</p><h2>{awayName} at {homeName}</h2></div><span className="panel-note">{recapDate}</span></div>
     <div className="recap-scoreboard" aria-label="Final score"><div className="recap-away"><span>Away</span><strong>{awayName}</strong><b>{game.away_points ?? "-"}</b></div><p><span>Final</span><b>at</b></p><div className="recap-home"><span>Home</span><strong>{homeName}</strong><b>{game.home_points ?? "-"}</b></div></div>
-    <section className="recap-comparison-section"><div className="recap-comparison-header"><span style={{ color: awayColor }}>{awayName}</span><h3>Team Stats</h3><span style={{ color: homeColor }}>{homeName}</span></div>{regularRows.map(([label, awayValue, homeValue, awayLabel, homeLabel, lowerBetter]) => <ComparisonBar key={label} label={label} awayValue={awayValue} homeValue={homeValue} awayLabel={awayLabel} homeLabel={homeLabel} awayColor={awayColor} homeColor={homeColor} lowerBetter={lowerBetter} />)}<details className="recap-detail-stats"><summary>More box-score details</summary><div><span>Passing</span><strong>{passingLine(away)}</strong><strong>{passingLine(home)}</strong><span>Rushing</span><strong>{rushingLine(away)}</strong><strong>{rushingLine(home)}</strong><span>Possession</span><strong>{possessionLine(away)}</strong><strong>{possessionLine(home)}</strong><span>Penalties</span><strong>{penaltyLine(away)}</strong><strong>{penaltyLine(home)}</strong></div></details></section>
-    {awayHasAdv && homeHasAdv && advRows.length > 0 && <section className="recap-adv-section"><button type="button" onClick={() => setShowAdv((value) => !value)}>{showAdv ? "Hide ADV Game-Control Metrics" : "Show ADV Game-Control Metrics"}</button>{showAdv && <div className="recap-adv-content"><div className="recap-comparison-header"><span style={{ color: awayColor }}>{awayName}</span><h3>ADV Control</h3><span style={{ color: homeColor }}>{homeName}</span></div>{advRows.map(([label, awayValue, homeValue, awayLabel, homeLabel]) => <ComparisonBar key={label} label={label} awayValue={awayValue} homeValue={homeValue} awayLabel={awayLabel} homeLabel={homeLabel} awayColor={awayColor} homeColor={homeColor} />)}{recap.postgame_control?.summary && <div className="recap-control-note"><span>ADV Game-Control Read</span><p>{recap.postgame_control.summary}</p></div>}</div>}</section>}
+    <section className="recap-comparison-section"><div className="recap-comparison-header"><span>{awayName}</span><h3>Team Stats</h3><span>{homeName}</span></div>{regularRows.map(([label, awayValue, homeValue, awayLabel, homeLabel, lowerBetter]) => <ComparisonBar key={label} label={label} awayValue={awayValue} homeValue={homeValue} awayLabel={awayLabel} homeLabel={homeLabel} awayColor={awayColor} homeColor={homeColor} awayDarkColor={awayDarkColor} homeDarkColor={homeDarkColor} lowerBetter={lowerBetter} />)}<details className="recap-detail-stats"><summary>More box-score details</summary><div><span>Passing</span><strong>{passingLine(away)}</strong><strong>{passingLine(home)}</strong><span>Rushing</span><strong>{rushingLine(away)}</strong><strong>{rushingLine(home)}</strong><span>Possession</span><strong>{possessionLine(away)}</strong><strong>{possessionLine(home)}</strong><span>Penalties</span><strong>{penaltyLine(away)}</strong><strong>{penaltyLine(home)}</strong></div></details></section>
+    {awayHasAdv && homeHasAdv && advRows.length > 0 && <section className="recap-adv-section"><button type="button" onClick={() => setShowAdv((value) => !value)}>{showAdv ? "Hide ADV Game-Control Metrics" : "Show ADV Game-Control Metrics"}</button>{showAdv && <div className="recap-adv-content"><div className="recap-comparison-header"><span>{awayName}</span><h3>ADV Control</h3><span>{homeName}</span></div>{advRows.map(([label, awayValue, homeValue, awayLabel, homeLabel]) => <ComparisonBar key={label} label={label} awayValue={awayValue} homeValue={homeValue} awayLabel={awayLabel} homeLabel={homeLabel} awayColor={awayColor} homeColor={homeColor} awayDarkColor={awayDarkColor} homeDarkColor={homeDarkColor} />)}{recap.postgame_control?.summary && <div className="recap-control-note"><span>ADV Game-Control Read</span><p>{recap.postgame_control.summary}</p></div>}</div>}</section>}
   </div>;
 }
 

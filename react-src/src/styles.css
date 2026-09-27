@@ -9763,7 +9763,7 @@ pre {
 .recap-comparison-header, .recap-comparison-values { display: grid; grid-template-columns: minmax(0, 1fr) minmax(150px, .8fr) minmax(0, 1fr); align-items: center; gap: 14px; }
 .recap-comparison-header { padding: 15px 18px; border-bottom: 1px solid var(--recap-line); background: var(--recap-surface-strong); }
 .recap-comparison-header h3 { margin: 0; color: var(--recap-text); text-align: center; }
-.recap-comparison-header span { font-size: 12px; font-weight: 900; }
+.recap-comparison-header span { color: var(--recap-text); font-size: 12px; font-weight: 900; }
 .recap-comparison-header span:last-child { text-align: right; }
 .recap-comparison-row { padding: 13px 18px; border-bottom: 1px solid var(--recap-line); }
 .recap-comparison-values strong { color: var(--recap-text); font-size: 15px; }
@@ -9771,7 +9771,8 @@ pre {
 .recap-comparison-values span { color: var(--recap-muted); font-size: 12px; font-weight: 800; text-align: center; }
 .recap-comparison-values.away-wins strong:first-child, .recap-comparison-values.home-wins strong:last-child { font-size: 18px; }
 .recap-comparison-bars { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; align-items: center; margin-top: 8px; }
-.recap-comparison-bars i { display: block; height: 5px; opacity: .88; }
+.recap-comparison-bars i { display: block; height: 5px; background: var(--recap-bar-color); opacity: .94; }
+:root[data-theme="dark"] .recap-comparison-bars i { background: var(--recap-bar-color-dark); opacity: 1; }
 .recap-comparison-bars i:first-child { justify-self: end; border-radius: 3px 0 0 3px; }
 .recap-comparison-bars i:last-child { justify-self: start; border-radius: 0 3px 3px 0; }
 .recap-detail-stats summary { padding: 13px 18px; color: var(--recap-accent); font-size: 12px; font-weight: 900; cursor: pointer; }
@@ -9815,6 +9816,10 @@ pre {
 .player-stat-table td:first-child { color: var(--ink); font-weight: 850; }
 :root[data-theme="dark"] .player-stat-section { border-color: rgba(214,173,85,.24); }
 :root[data-theme="dark"] .player-stat-table th { background: #1d2c25; color: #d6dfda; }
+:root[data-theme="dark"] .player-stat-table tbody tr:hover td {
+  background: #24362c;
+  color: #fffdf6;
+}
 
 @media (max-width: 1180px) {
   .v2-live-scoreboard { grid-template-columns: 1fr; }

@@ -156,65 +156,73 @@ function Team() {
     loadTeams();
   }, [season]);
 
-  async function loadTeamProfile() {
-    if (!season || !team) return;
+  useEffect(() => {
+    if (!season || !team || loadingTeams) return undefined;
+    let cancelled = false;
 
-    try {
-      setLoadingProfile(true);
-      setError("");
+    async function loadTeamProfile() {
+      try {
+        setLoadingProfile(true);
+        setError("");
 
-      const [
-        profilePayload,
-        schedulePayload,
-        frameworkPayload,
-      ] = await Promise.all([
-        api(
-          `/api/team/${encodeURIComponent(
-            season
-          )}/${encodeURIComponent(team)}`
-        ),
+        const [
+          profilePayload,
+          schedulePayload,
+          frameworkPayload,
+        ] = await Promise.all([
+          api(
+            `/api/team/${encodeURIComponent(
+              season
+            )}/${encodeURIComponent(team)}`
+          ),
 
-        api(
-          `/api/team/${encodeURIComponent(
-            season
-          )}/${encodeURIComponent(
-            team
-          )}/schedule?view=full`
-        ),
+          api(
+            `/api/team/${encodeURIComponent(
+              season
+            )}/${encodeURIComponent(
+              team
+            )}/schedule?view=full`
+          ),
 
-        api(
-          "/api/product-a/framework-reference"
-        ).catch(() => ({})),
-      ]);
+          api(
+            "/api/product-a/framework-reference"
+          ).catch(() => ({})),
+        ]);
 
-      setProfile(profilePayload);
+        if (cancelled) return;
+        setProfile(profilePayload);
 
-      setSchedule(
-        Array.isArray(schedulePayload.schedule)
-          ? schedulePayload.schedule
-          : []
-      );
+        setSchedule(
+          Array.isArray(schedulePayload.schedule)
+            ? schedulePayload.schedule
+            : []
+        );
 
-      setFrameworkReference(
-        frameworkPayload || {}
-      );
+        setFrameworkReference(
+          frameworkPayload || {}
+        );
 
-      setActiveTab("schedule");
-    } catch (loadError) {
-      console.error(
-        "CFP Advantage team profile failed:",
-        loadError
-      );
+        setActiveTab("schedule");
+      } catch (loadError) {
+        if (cancelled) return;
+        console.error(
+          "CFP Advantage team profile failed:",
+          loadError
+        );
 
-      setError(
-        `The ${
-          teamIdentities[team]?.full_name || team
-        } team profile could not be loaded.`
-      );
-    } finally {
-      setLoadingProfile(false);
+        setError(
+          `The ${team} team profile could not be loaded.`
+        );
+      } finally {
+        if (!cancelled) setLoadingProfile(false);
+      }
     }
-  }
+
+    loadTeamProfile();
+    return () => {
+      cancelled = true;
+    };
+  }, [season, team, loadingTeams]);
 
   const intel =
     profile?.intelligence || {};
@@ -319,20 +327,6 @@ function Team() {
                 </select>
               </label>
 
-              <button
-                type="button"
-                className="primary-action"
-                disabled={
-                  loadingProfile ||
-                  loadingTeams ||
-                  !team
-                }
-                onClick={loadTeamProfile}
-              >
-                {loadingProfile
-                  ? "Loading..."
-                  : "Load Team"}
-              </button>
             </div>
 
             {error && (
@@ -343,11 +337,10 @@ function Team() {
 
             {!profile &&
               !loadingProfile &&
-              !error && (
+              !error &&
+              !team && (
                 <div className="empty-state">
-                  Choose a season and team,
-                  then load the Team Intelligence
-                  profile.
+                  No team is available for this season.
                 </div>
               )}
 
