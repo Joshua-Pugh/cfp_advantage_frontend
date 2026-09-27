@@ -1,0 +1,10 @@
+import { useState } from "react";
+import StandardPage from "../components/StandardPage";
+import { apiUrl } from "../lib/api";
+
+function ContactPage(){
+  const [status,setStatus]=useState(""); const [sending,setSending]=useState(false);
+  async function submit(event){event.preventDefault();setSending(true);setStatus("");const form=new FormData(event.currentTarget);try{const response=await fetch(apiUrl("/api/contact"),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(Object.fromEntries(form))});if(!response.ok)throw new Error();event.currentTarget.reset();setStatus("Message sent. Thank you.");}catch{setStatus("The form could not send right now. Email support@cfpadvantage.com instead.");}finally{setSending(false)}}
+  return <StandardPage><section className="contact-page-layout"><div className="insight-panel contact-page-copy"><p className="eyebrow">Get In Touch</p><h2>Help Us Keep Improving</h2><p>Found a display issue, have a metric question, or want to share feedback? Send the details and we will take a look.</p><p>Email <a className="text-link" href="mailto:support@cfpadvantage.com">support@cfpadvantage.com</a>.</p></div><div className="insight-panel contact-page-form"><p className="eyebrow">Send A Message</p><h2>Contact CFP Advantage</h2><form className="contact-form" onSubmit={submit}><label><span>Name</span><input name="name" autoComplete="name" maxLength="120" required /></label><label><span>Email</span><input name="email" type="email" autoComplete="email" maxLength="254" required /></label><label className="contact-honeypot" aria-hidden="true"><span>Website</span><input name="website" tabIndex="-1" autoComplete="off" /></label><label><span>Message</span><textarea name="message" rows="8" minLength="10" maxLength="4000" required /></label><p className="contact-status" aria-live="polite">{status}</p><button className="primary-action" disabled={sending} type="submit">{sending?"Sending...":"Send Message"}</button></form></div></section></StandardPage>
+}
+export default ContactPage;
