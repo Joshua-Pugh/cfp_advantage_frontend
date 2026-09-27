@@ -56,6 +56,7 @@ function FrameworkCardPage() {
     try {
       const board = await api(`/api/product-a/team-board?season=${encodeURIComponent(nextSeason)}&limit=300`);
       const rows = (board.teams || board.rows || [])
+        .map((row) => ({ ...row, team: row.team || row.school || row.name }))
         .filter((row) => row.team)
         .sort((a, b) => String(a.full_name || a.team).localeCompare(String(b.full_name || b.team)));
       setTeams(rows);
@@ -94,7 +95,7 @@ function FrameworkCardPage() {
       try {
         const seasonPayload = await api("/api/seasons");
         const availableSeasons = seasonPayload.seasons || [];
-        const initialSeason = availableSeasons.map(String).includes(requestedSeason) ? requestedSeason : String(availableSeasons[0] || "");
+        const initialSeason = availableSeasons.map(String).includes(requestedSeason) ? requestedSeason : String(availableSeasons[availableSeasons.length - 1] || "");
         setSeasons(availableSeasons);
         setSeason(initialSeason);
         const initialTeam = await fetchTeams(initialSeason, requestedTeam);

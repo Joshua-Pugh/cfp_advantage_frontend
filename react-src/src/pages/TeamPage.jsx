@@ -72,10 +72,9 @@ function Team() {
         setLogos(logoPayload.teams || {});
 
         const identityMap = Object.fromEntries(
-          (identityPayload.teams || []).map((identity) => [
-            identity.team,
-            identity,
-          ])
+          (identityPayload.teams || [])
+            .map((identity) => [identity.team || identity.school || identity.name, identity])
+            .filter(([name]) => name)
         );
 
         setTeamIdentities(identityMap);
@@ -459,7 +458,7 @@ function Team() {
                         teamIdentities={teamIdentities}
                       />
                     )}
-
+  
 
                     {activeTab === "stats" && (
                       <TeamStats

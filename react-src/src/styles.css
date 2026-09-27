@@ -9786,15 +9786,15 @@ pre {
 :root[data-theme="dark"] .matchup-list-actions button:hover, :root[data-theme="dark"] .live-scoreboard-toolbar button:hover { background: #44391d; }
 :root[data-theme="dark"] .matchup-list-actions button.is-selected { background: #8f6e20; color: #fffdf6; }
 
-/* Release polish: logos stay transparent, featured cards are quieter, and long pages breathe. */
+/* Release polish: logo tiles preserve dark marks, featured cards are quieter, and long pages breathe. */
 :root[data-theme="dark"] .team-logo.has-logo,
 :root[data-theme="dark"] .featured-matchup-card .team-logo.has-logo,
 :root[data-theme="dark"] .matchup-card .team-logo.has-logo,
 :root[data-theme="dark"] .current-matchups-panel .team-logo.has-logo,
 :root[data-theme="dark"] .matchup-list-team .team-logo.has-logo {
-  background: transparent;
-  border-color: transparent;
-  box-shadow: none;
+  background: #f5f7f4;
+  border-color: rgba(255, 255, 255, .28);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .28);
 }
 .featured-team-mark { min-height: 58px; gap: 3px; }
 .featured-team-mark .team-logo,

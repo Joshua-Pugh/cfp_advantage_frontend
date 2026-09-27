@@ -74,8 +74,7 @@ function MatchupConferenceContext({ matchup }) {
   const home = String(matchup.home_conference || "").trim();
   const same = away && home && away.toLowerCase() === home.toLowerCase();
   return <div className="matchup-list-context">
-    <span>{same ? "Conference Game" : "Non-Conference"}</span>
-    {same ? <TeamContextTags conference={away} /> : <div className="matchup-nonconference-tags"><TeamContextTags conference={away} /><b>Non-Conference</b><TeamContextTags conference={home} /></div>}
+    {same ? <><span>Conference Game</span><TeamContextTags conference={away} /></> : <div className="matchup-nonconference-tags"><TeamContextTags conference={away} /><b>Non-Conference</b><TeamContextTags conference={home} /></div>}
   </div>;
 }
 

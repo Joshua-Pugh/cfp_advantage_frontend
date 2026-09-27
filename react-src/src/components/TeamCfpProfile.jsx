@@ -81,7 +81,7 @@ function TeamCfpProfile({ season, team, teamName, identity = {}, intel = {}, sta
   const controlRate = view.CR ?? view.cr ?? view.control_rate ?? (numberOrNull(view.control_rate_pct) === null ? null : Number(view.control_rate_pct) / 100);
   const recentForm = view.recent_form_label || view.trajectory_bucket || "-";
   const talentYield = view.tyi_label || view.talent_yield_label || "-";
-  const cardUrl = `/frameworkcard?season=${encodeURIComponent(season)}&team=${encodeURIComponent(team)}`;
+  const cardUrl = `/framework-card?season=${encodeURIComponent(season)}&team=${encodeURIComponent(team)}`;
 
   return (
     <div className="regular-cfp-profile" style={teamPalette(identity)}>
