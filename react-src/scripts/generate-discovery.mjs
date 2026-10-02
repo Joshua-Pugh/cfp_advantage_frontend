@@ -262,6 +262,7 @@ export function publicDiscoveryPlugin() {
         methodology_url: `${SITE_URL}/metrics`,
         current_week_url: `${SITE_URL}/public-data/current-week.json`,
         teams_url: `${SITE_URL}/public-data/teams.json`,
+        metric_relationships_url: `${SITE_URL}/public-data/metric-relationships.json`,
         matchup_count: matchupIndex.length,
         team_count: teamIndex.length,
         contains_ats_recommendations: false,
@@ -276,7 +277,7 @@ export function publicDiscoveryPlugin() {
         ...matchupIndex.map((game) => writeFile(path.join(matchupDataDir, `${game.game_id}.json`), JSON.stringify({ generated_at: generatedAt, ...game }, null, 2), "utf8")),
       ]);
 
-      const normalRoutes = ["/", "/teams", "/matchups", "/bracket-room", "/about", "/live-2026", "/metrics", "/news", "/updates", "/contact", "/support", "/legal", "/framework-card"];
+      const normalRoutes = ["/", "/teams", "/matchups", "/bracket-room", "/about", "/live-2026", "/metrics", "/metric-relationships", "/news", "/updates", "/contact", "/support", "/legal", "/framework-card"];
       const sitemapUrls = [...normalRoutes.map((route) => `${SITE_URL}${route === "/" ? "/" : `${route}/`}`)];
       const dataLinks = [];
 
@@ -383,6 +384,53 @@ export function publicDiscoveryPlugin() {
         sitemapUrls.push(canonical);
       }
 
+      const relationshipDataUrl = `${SITE_URL}/public-data/metric-relationships.json`;
+      const relationshipData = JSON.parse(
+        await readFile(path.join(publicDataDir, "metric-relationships.json"), "utf8"),
+      );
+      const relationshipCanonical = `${SITE_URL}/metric-relationships/`;
+      const relationshipDescription = "Historical relationships between ADV control metrics and familiar football production, PPA, Success Rate, havoc, explosiveness, and result Elo.";
+      const strongestFacts = relationshipData.metrics.flatMap((metric) =>
+        metric.relationships
+          .filter((row) => row.pearson_r != null)
+          .sort((a, b) => Math.abs(b.pearson_r) - Math.abs(a.pearson_r))
+          .slice(0, 2)
+          .map((row) => [`${metric.label} vs ${row.label}`, `r ${Number(row.pearson_r).toFixed(3)} (${row.correlation_strength})`]),
+      );
+      const relationshipShell = crawlerShell({
+        heading: relationshipData.title,
+        intro: relationshipData.summary,
+        facts: [
+          ["Seasons", relationshipData.coverage.seasons.join("-")],
+          ["FBS Team-Games", relationshipData.coverage.fbs_vs_fbs_team_games],
+          ["Team-Seasons", relationshipData.coverage.team_seasons],
+          ["Study Version", relationshipData.study_version],
+          ["Generated At", relationshipData.generated_at_utc],
+          ...strongestFacts,
+        ],
+        links: [
+          ["Machine-readable relationship dataset", relationshipDataUrl],
+          ["Metric definitions", `${SITE_URL}/metrics`],
+          ["Team profiles", `${SITE_URL}/teams`],
+        ],
+      });
+      const relationshipJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "Dataset",
+        name: relationshipData.title,
+        description: relationshipDescription,
+        url: relationshipCanonical,
+        dateModified: relationshipData.generated_at_utc,
+        temporalCoverage: relationshipData.coverage.seasons.join("/"),
+        distribution: { "@type": "DataDownload", encodingFormat: "application/json", contentUrl: relationshipDataUrl },
+      };
+      await writeRoute(distDir, "/metric-relationships", injectCrawlerShell(replaceHead(baseHtml, {
+        title: "ADV Metric Relationships | CFP Advantage",
+        description: relationshipDescription,
+        canonical: relationshipCanonical,
+        jsonLd: relationshipJsonLd,
+      }), relationshipShell));
+
       const aiLandingCanonical = `${SITE_URL}/ai-data.html`;
       const aiLandingTitle = "Published Intelligence Feed | CFP Advantage";
       const aiLandingDescription = "Citation-ready public CFP Advantage team and matchup intelligence with season, week, scope, and update timestamps.";
@@ -402,6 +450,8 @@ export function publicDiscoveryPlugin() {
           ["Current-week matchups", `${SITE_URL}/public-data/current-week.json`],
           ["Team catalog", `${SITE_URL}/public-data/teams.json`],
           ["Metric definitions", `${SITE_URL}/metrics`],
+          ["ADV metric relationships", relationshipCanonical],
+          ["Metric relationships JSON", relationshipDataUrl],
         ],
       });
       const aiLandingJsonLd = {
@@ -415,6 +465,7 @@ export function publicDiscoveryPlugin() {
         distribution: [
           { "@type": "DataDownload", encodingFormat: "application/json", contentUrl: manifest.current_week_url },
           { "@type": "DataDownload", encodingFormat: "application/json", contentUrl: manifest.teams_url },
+          { "@type": "DataDownload", encodingFormat: "application/json", contentUrl: relationshipDataUrl },
         ],
       };
       await writeFile(path.join(distDir, "ai-data.html"), injectCrawlerShell(replaceHead(baseHtml, {
@@ -473,6 +524,8 @@ ${sitemapUrls.map((url) => `  <url><loc>${xmlEscape(url)}</loc><lastmod>${today}
 - [Current Week JSON](${manifest.current_week_url})
 - [Team Catalog JSON](${manifest.teams_url})
 - [Metric Definitions](${SITE_URL}/metrics)
+- [ADV Metric Relationships](${relationshipCanonical})
+- [Metric Relationships JSON](${relationshipDataUrl})
 - [Development Validation Status](${SITE_URL}/live-2026)
 - [Updates](${SITE_URL}/updates)
 
@@ -494,15 +547,17 @@ ${dataLinks.join("\n")}
 
 Generated: ${generatedAt}
 
-This directory is a bounded, machine-readable mirror of information already published on CFP Advantage. It contains public Product A team and matchup information only.
+This directory is a bounded, machine-readable mirror of information already published on CFP Advantage. It contains public Product A team, matchup, and curated metric-relationship information only.
 
 - Manifest: ./index.json
 - Current week: ./current-week.json
 - Team catalog: ./teams.json
 - Canonical definitions: ${SITE_URL}/metrics
+- Metric relationships: ${relationshipCanonical}
+- Metric relationships JSON: ${relationshipDataUrl}
 - Human-readable index: ${aiLandingCanonical}
 
-Cite canonical_url rather than the JSON URL when possible. Preserve season, week, generated_at, and scope. No file in this feed is an ATS recommendation or a disclosure of private formulas, weights, certification internals, or research outputs.
+Cite canonical_url rather than the JSON URL when possible. Preserve season, week, generated_at, and scope. No file in this feed is an ATS recommendation or a disclosure of private formulas, weights, certification internals, or private research outputs.
 `;
       await writeFile(path.join(publicDataDir, "README.md"), readme, "utf8");
 

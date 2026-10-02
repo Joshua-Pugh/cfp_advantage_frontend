@@ -1,0 +1,912 @@
+{
+  "comparison_matrix": {
+    "columns": [
+      {
+        "group": "Familiar production",
+        "key": "yards_per_play",
+        "label": "Yards/play"
+      },
+      {
+        "group": "Familiar production",
+        "key": "points_per_drive",
+        "label": "Points/drive"
+      },
+      {
+        "group": "Advanced efficiency",
+        "key": "off_ppa",
+        "label": "Offensive PPA"
+      },
+      {
+        "group": "Advanced efficiency",
+        "key": "off_success_rate",
+        "label": "Offensive Success Rate"
+      },
+      {
+        "group": "Advanced efficiency",
+        "key": "off_explosiveness",
+        "label": "Offensive explosiveness"
+      },
+      {
+        "group": "Advanced efficiency",
+        "key": "off_havoc_allowed_total",
+        "label": "Havoc allowed"
+      },
+      {
+        "group": "Familiar production",
+        "key": "yards_allowed_per_play",
+        "label": "Yards allowed/play"
+      },
+      {
+        "group": "Familiar production",
+        "key": "points_allowed_per_drive",
+        "label": "Points allowed/drive"
+      },
+      {
+        "group": "Advanced efficiency",
+        "key": "def_ppa_allowed",
+        "label": "Defensive PPA allowed"
+      },
+      {
+        "group": "Advanced efficiency",
+        "key": "def_success_rate_allowed",
+        "label": "Success Rate allowed"
+      },
+      {
+        "group": "Advanced efficiency",
+        "key": "def_explosiveness_allowed",
+        "label": "Explosiveness allowed"
+      },
+      {
+        "group": "Advanced efficiency",
+        "key": "def_havoc_total",
+        "label": "Defensive havoc"
+      },
+      {
+        "group": "Results benchmark",
+        "key": "season_end_result_elo",
+        "label": "Result Elo"
+      }
+    ],
+    "method": "Pearson correlation on FBS-vs-FBS team-season averages",
+    "note": "The comparison columns are not direct inputs to these ADV metrics. A strong relationship means the measures often recognize the same football quality; a value below 1.00 also shows that they are not identical measures.",
+    "rows": [
+      {
+        "key": "control_rate",
+        "label": "Control Rate",
+        "values": {
+          "def_explosiveness_allowed": 0.06987,
+          "def_havoc_total": 0.133527,
+          "def_ppa_allowed": -0.13662,
+          "def_success_rate_allowed": -0.149652,
+          "off_explosiveness": -0.033638,
+          "off_havoc_allowed_total": -0.310106,
+          "off_ppa": 0.853874,
+          "off_success_rate": 0.937944,
+          "points_allowed_per_drive": -0.191434,
+          "points_per_drive": 0.873547,
+          "season_end_result_elo": 0.615196,
+          "yards_allowed_per_play": -0.15418,
+          "yards_per_play": 0.793499
+        }
+      },
+      {
+        "key": "control_creation_rate",
+        "label": "Control Creation",
+        "values": {
+          "def_explosiveness_allowed": 0.089324,
+          "def_havoc_total": 0.14627,
+          "def_ppa_allowed": -0.157381,
+          "def_success_rate_allowed": -0.17883,
+          "off_explosiveness": 0.151391,
+          "off_havoc_allowed_total": -0.312118,
+          "off_ppa": 0.88986,
+          "off_success_rate": 0.864796,
+          "points_allowed_per_drive": -0.206753,
+          "points_per_drive": 0.921898,
+          "season_end_result_elo": 0.641633,
+          "yards_allowed_per_play": -0.174554,
+          "yards_per_play": 0.834645
+        }
+      },
+      {
+        "key": "control_denial_rate",
+        "label": "Control Denial",
+        "values": {
+          "def_explosiveness_allowed": -0.134704,
+          "def_havoc_total": 0.294106,
+          "def_ppa_allowed": -0.87719,
+          "def_success_rate_allowed": -0.824734,
+          "off_explosiveness": -0.15556,
+          "off_havoc_allowed_total": -0.186964,
+          "off_ppa": 0.169964,
+          "off_success_rate": 0.229023,
+          "points_allowed_per_drive": -0.907256,
+          "points_per_drive": 0.224626,
+          "season_end_result_elo": 0.653966,
+          "yards_allowed_per_play": -0.826521,
+          "yards_per_play": 0.172831
+        }
+      },
+      {
+        "key": "control_finish_rate",
+        "label": "Control Finish",
+        "values": {
+          "def_explosiveness_allowed": -0.012949,
+          "def_havoc_total": 0.13496,
+          "def_ppa_allowed": -0.212866,
+          "def_success_rate_allowed": -0.182629,
+          "off_explosiveness": 0.198336,
+          "off_havoc_allowed_total": -0.146087,
+          "off_ppa": 0.53784,
+          "off_success_rate": 0.473058,
+          "points_allowed_per_drive": -0.225812,
+          "points_per_drive": 0.587671,
+          "season_end_result_elo": 0.4592,
+          "yards_allowed_per_play": -0.21355,
+          "yards_per_play": 0.513678
+        }
+      },
+      {
+        "key": "finishing_resistance_rate",
+        "label": "Finishing Resistance",
+        "values": {
+          "def_explosiveness_allowed": -0.270694,
+          "def_havoc_total": 0.085776,
+          "def_ppa_allowed": -0.432171,
+          "def_success_rate_allowed": -0.294983,
+          "off_explosiveness": -0.067893,
+          "off_havoc_allowed_total": -0.11764,
+          "off_ppa": 0.085723,
+          "off_success_rate": 0.08468,
+          "points_allowed_per_drive": -0.499122,
+          "points_per_drive": 0.085433,
+          "season_end_result_elo": 0.294329,
+          "yards_allowed_per_play": -0.428608,
+          "yards_per_play": 0.06114
+        }
+      },
+      {
+        "key": "control_pressure",
+        "label": "Control Pressure",
+        "values": {
+          "def_explosiveness_allowed": 0.06771,
+          "def_havoc_total": 0.149253,
+          "def_ppa_allowed": -0.187866,
+          "def_success_rate_allowed": -0.193404,
+          "off_explosiveness": 0.234505,
+          "off_havoc_allowed_total": -0.318389,
+          "off_ppa": 0.926791,
+          "off_success_rate": 0.871937,
+          "points_allowed_per_drive": -0.228593,
+          "points_per_drive": 0.968416,
+          "season_end_result_elo": 0.678359,
+          "yards_allowed_per_play": -0.204543,
+          "yards_per_play": 0.878418
+        }
+      },
+      {
+        "key": "control_pressure_allowed",
+        "label": "Control Pressure Allowed",
+        "values": {
+          "def_explosiveness_allowed": 0.240216,
+          "def_havoc_total": -0.287461,
+          "def_ppa_allowed": 0.916495,
+          "def_success_rate_allowed": 0.815835,
+          "off_explosiveness": 0.151119,
+          "off_havoc_allowed_total": 0.193244,
+          "off_ppa": -0.185464,
+          "off_success_rate": -0.230153,
+          "points_allowed_per_drive": 0.964393,
+          "points_per_drive": -0.223951,
+          "season_end_result_elo": -0.667679,
+          "yards_allowed_per_play": 0.873934,
+          "yards_per_play": -0.174748
+        }
+      },
+      {
+        "key": "raw_adv_margin",
+        "label": "Raw ADV Margin",
+        "values": {
+          "def_explosiveness_allowed": -0.044196,
+          "def_havoc_total": 0.29061,
+          "def_ppa_allowed": -0.677113,
+          "def_success_rate_allowed": -0.647978,
+          "off_explosiveness": 0.011645,
+          "off_havoc_allowed_total": -0.338723,
+          "off_ppa": 0.702128,
+          "off_success_rate": 0.713156,
+          "points_allowed_per_drive": -0.737361,
+          "points_per_drive": 0.758541,
+          "season_end_result_elo": 0.860416,
+          "yards_allowed_per_play": -0.655688,
+          "yards_per_play": 0.665776
+        }
+      }
+    ]
+  },
+  "coverage": {
+    "canonical_team_games": 24600,
+    "fbs_vs_fbs_team_games": 16914,
+    "seasons": [
+      2015,
+      2026
+    ],
+    "team_seasons": 1437
+  },
+  "distinctiveness_evidence": {
+    "baseline": {
+      "label": "Established advanced-stat baseline",
+      "mae": 2.778,
+      "out_of_season_r2": 0.900452,
+      "team_seasons": 1436
+    },
+    "candidates": [
+      {
+        "key": "advanced_plus_foundation",
+        "label": "Advanced stats + Control foundation",
+        "mae": 2.214,
+        "mae_improvement": 0.563,
+        "out_of_season_r2": 0.936161,
+        "r2_gain": 0.035709,
+        "team_seasons": 1436
+      },
+      {
+        "key": "advanced_plus_pressure",
+        "label": "Advanced stats + Control Pressure",
+        "mae": 1.482,
+        "mae_improvement": 1.296,
+        "out_of_season_r2": 0.970561,
+        "r2_gain": 0.070109,
+        "team_seasons": 1436
+      },
+      {
+        "key": "advanced_plus_raw_adv",
+        "label": "Advanced stats + Raw ADV",
+        "mae": 1.462,
+        "mae_improvement": 1.316,
+        "out_of_season_r2": 0.972794,
+        "r2_gain": 0.072342,
+        "team_seasons": 1436
+      }
+    ],
+    "language": "Adding ADV information retained additional explanatory signal after PPA, Success Rate, explosiveness, stuff rate, points per opportunity, and havoc were already present. This is evidence that ADV is not merely a renamed copy of those measures. Because the test uses completed-season profiles, it is descriptive evidence rather than a prospective projection claim.",
+    "target": "same-season average score margin",
+    "validation": "held-out-season descriptive retention test"
+  },
+  "generated_at_utc": "2026-10-02T20:24:52.241948+00:00",
+  "interpretation": {
+    "correlation": "Correlation describes how two measures moved together in this historical population. It does not prove that either measure caused the other.",
+    "elo": "Result Elo is updated chronologically from wins and losses, regresses between seasons, and is shown only as a familiar descriptive benchmark. It is not an ADV input or an independent pregame validation target.",
+    "guardrails": [
+      "ADV formulas, ratings, and published projections are unchanged by this study.",
+      "Relationships describe populations; they do not establish causation or guarantee a matchup outcome.",
+      "Postgame ADV Deserved Margin is not presented as a pregame forecast."
+    ],
+    "response_bands": "The low and high groups are season-relative bottom and top quintiles. Their difference is descriptive, not a promised game result.",
+    "strength_scale": [
+      {
+        "label": "Very strong",
+        "minimum_absolute_r": 0.8
+      },
+      {
+        "label": "Strong",
+        "minimum_absolute_r": 0.6
+      },
+      {
+        "label": "Moderate",
+        "minimum_absolute_r": 0.4
+      },
+      {
+        "label": "Modest",
+        "minimum_absolute_r": 0.2
+      },
+      {
+        "label": "Weak",
+        "minimum_absolute_r": 0.0
+      }
+    ]
+  },
+  "metrics": [
+    {
+      "direction": "higher_is_better",
+      "key": "control_rate",
+      "label": "Control Rate",
+      "meaning": "How consistently a team wins meaningful play-level control events.",
+      "relationships": [
+        {
+          "bottom_quintile_mean": 5.028082,
+          "correlation_strength": "Strong",
+          "key": "yards_per_play",
+          "label": "Yards per play",
+          "pearson_r": 0.74172,
+          "team_seasons": 1575,
+          "top_minus_bottom": 1.572625,
+          "top_quintile_mean": 6.600707
+        },
+        {
+          "bottom_quintile_mean": 1.385765,
+          "correlation_strength": "Very strong",
+          "key": "points_per_drive",
+          "label": "Points per drive",
+          "pearson_r": 0.812262,
+          "team_seasons": 1575,
+          "top_minus_bottom": 1.31087,
+          "top_quintile_mean": 2.696635
+        },
+        {
+          "bottom_quintile_mean": 1439.96236,
+          "correlation_strength": "Strong",
+          "key": "season_end_result_elo",
+          "label": "Result Elo",
+          "pearson_r": 0.615196,
+          "team_seasons": 1437,
+          "top_minus_bottom": 117.522507,
+          "top_quintile_mean": 1557.484867
+        },
+        {
+          "bottom_quintile_mean": 0.064726,
+          "correlation_strength": "Very strong",
+          "key": "off_ppa",
+          "label": "Offensive PPA",
+          "pearson_r": 0.853874,
+          "team_seasons": 1437,
+          "top_minus_bottom": 0.212953,
+          "top_quintile_mean": 0.277678
+        },
+        {
+          "bottom_quintile_mean": 0.370616,
+          "correlation_strength": "Very strong",
+          "key": "off_success_rate",
+          "label": "Offensive Success Rate",
+          "pearson_r": 0.937944,
+          "team_seasons": 1437,
+          "top_minus_bottom": 0.115287,
+          "top_quintile_mean": 0.485903
+        }
+      ],
+      "responses": [
+        "yards_per_play",
+        "points_per_drive",
+        "off_success_rate",
+        "off_ppa",
+        "season_end_result_elo"
+      ],
+      "why": "It acts like a broad foundation signal: higher Control Rate usually travels with more efficient, repeatable offense."
+    },
+    {
+      "direction": "higher_is_better",
+      "key": "control_creation_rate",
+      "label": "Control Creation",
+      "meaning": "How often an offense builds a possession with meaningful control.",
+      "relationships": [
+        {
+          "bottom_quintile_mean": 5.015247,
+          "correlation_strength": "Strong",
+          "key": "yards_per_play",
+          "label": "Yards per play",
+          "pearson_r": 0.765037,
+          "team_seasons": 1575,
+          "top_minus_bottom": 1.657854,
+          "top_quintile_mean": 6.673101
+        },
+        {
+          "bottom_quintile_mean": 1.367,
+          "correlation_strength": "Very strong",
+          "key": "points_per_drive",
+          "label": "Points per drive",
+          "pearson_r": 0.853724,
+          "team_seasons": 1575,
+          "top_minus_bottom": 1.383977,
+          "top_quintile_mean": 2.750977
+        },
+        {
+          "bottom_quintile_mean": 1439.909578,
+          "correlation_strength": "Strong",
+          "key": "season_end_result_elo",
+          "label": "Result Elo",
+          "pearson_r": 0.641633,
+          "team_seasons": 1437,
+          "top_minus_bottom": 120.424761,
+          "top_quintile_mean": 1560.33434
+        },
+        {
+          "bottom_quintile_mean": 0.064734,
+          "correlation_strength": "Very strong",
+          "key": "off_ppa",
+          "label": "Offensive PPA",
+          "pearson_r": 0.88986,
+          "team_seasons": 1437,
+          "top_minus_bottom": 0.221632,
+          "top_quintile_mean": 0.286366
+        },
+        {
+          "bottom_quintile_mean": 0.377053,
+          "correlation_strength": "Very strong",
+          "key": "off_success_rate",
+          "label": "Offensive Success Rate",
+          "pearson_r": 0.864796,
+          "team_seasons": 1437,
+          "top_minus_bottom": 0.103399,
+          "top_quintile_mean": 0.480452
+        },
+        {
+          "bottom_quintile_mean": 0.175806,
+          "correlation_strength": "Modest",
+          "key": "off_havoc_allowed_total",
+          "label": "Havoc allowed",
+          "pearson_r": -0.312118,
+          "team_seasons": 1436,
+          "top_minus_bottom": -0.049175,
+          "top_quintile_mean": 0.126631
+        }
+      ],
+      "responses": [
+        "yards_per_play",
+        "points_per_drive",
+        "off_success_rate",
+        "off_ppa",
+        "off_havoc_allowed_total",
+        "season_end_result_elo"
+      ],
+      "why": "It separates offenses that repeatedly create useful drives from offenses living on isolated outcomes."
+    },
+    {
+      "direction": "higher_is_better",
+      "key": "control_denial_rate",
+      "label": "Control Denial",
+      "meaning": "How often a defense prevents an opponent from building meaningful control.",
+      "relationships": [
+        {
+          "bottom_quintile_mean": 6.648258,
+          "correlation_strength": "Strong",
+          "key": "yards_allowed_per_play",
+          "label": "Yards allowed per play",
+          "pearson_r": -0.743917,
+          "team_seasons": 1575,
+          "top_minus_bottom": -1.518561,
+          "top_quintile_mean": 5.129697
+        },
+        {
+          "bottom_quintile_mean": 2.735143,
+          "correlation_strength": "Very strong",
+          "key": "points_allowed_per_drive",
+          "label": "Points allowed per drive",
+          "pearson_r": -0.822685,
+          "team_seasons": 1575,
+          "top_minus_bottom": -1.279342,
+          "top_quintile_mean": 1.455801
+        },
+        {
+          "bottom_quintile_mean": 1440.353327,
+          "correlation_strength": "Strong",
+          "key": "season_end_result_elo",
+          "label": "Result Elo",
+          "pearson_r": 0.653966,
+          "team_seasons": 1437,
+          "top_minus_bottom": 125.382784,
+          "top_quintile_mean": 1565.736111
+        },
+        {
+          "bottom_quintile_mean": 0.26198,
+          "correlation_strength": "Very strong",
+          "key": "def_ppa_allowed",
+          "label": "Defensive PPA allowed",
+          "pearson_r": -0.87719,
+          "team_seasons": 1437,
+          "top_minus_bottom": -0.205116,
+          "top_quintile_mean": 0.056864
+        },
+        {
+          "bottom_quintile_mean": 0.467957,
+          "correlation_strength": "Very strong",
+          "key": "def_success_rate_allowed",
+          "label": "Success Rate allowed",
+          "pearson_r": -0.824734,
+          "team_seasons": 1437,
+          "top_minus_bottom": -0.096364,
+          "top_quintile_mean": 0.371594
+        },
+        {
+          "bottom_quintile_mean": 0.130688,
+          "correlation_strength": "Modest",
+          "key": "def_havoc_total",
+          "label": "Defensive havoc",
+          "pearson_r": 0.294106,
+          "team_seasons": 1436,
+          "top_minus_bottom": 0.04751,
+          "top_quintile_mean": 0.178198
+        }
+      ],
+      "responses": [
+        "yards_allowed_per_play",
+        "points_allowed_per_drive",
+        "def_success_rate_allowed",
+        "def_ppa_allowed",
+        "def_havoc_total",
+        "season_end_result_elo"
+      ],
+      "why": "Strong denial tends to suppress opponent efficiency while forcing more difficult scoring paths."
+    },
+    {
+      "direction": "higher_is_better",
+      "key": "control_finish_rate",
+      "label": "Control Finish",
+      "meaning": "How often an offense turns a created control drive into points.",
+      "relationships": [
+        {
+          "bottom_quintile_mean": 1.524366,
+          "correlation_strength": "Moderate",
+          "key": "points_per_drive",
+          "label": "Points per drive",
+          "pearson_r": 0.5386,
+          "team_seasons": 1575,
+          "top_minus_bottom": 0.917915,
+          "top_quintile_mean": 2.442281
+        },
+        {
+          "bottom_quintile_mean": 1448.272915,
+          "correlation_strength": "Moderate",
+          "key": "season_end_result_elo",
+          "label": "Result Elo",
+          "pearson_r": 0.4592,
+          "team_seasons": 1437,
+          "top_minus_bottom": 91.612524,
+          "top_quintile_mean": 1539.885439
+        },
+        {
+          "bottom_quintile_mean": 0.092837,
+          "correlation_strength": "Moderate",
+          "key": "off_ppa",
+          "label": "Offensive PPA",
+          "pearson_r": 0.53784,
+          "team_seasons": 1437,
+          "top_minus_bottom": 0.141405,
+          "top_quintile_mean": 0.234241
+        },
+        {
+          "bottom_quintile_mean": 0.395454,
+          "correlation_strength": "Moderate",
+          "key": "off_success_rate",
+          "label": "Offensive Success Rate",
+          "pearson_r": 0.473058,
+          "team_seasons": 1437,
+          "top_minus_bottom": 0.055972,
+          "top_quintile_mean": 0.451426
+        },
+        {
+          "bottom_quintile_mean": 3.116651,
+          "correlation_strength": "Moderate",
+          "key": "off_points_per_opportunity",
+          "label": "Points per opportunity",
+          "pearson_r": 0.581907,
+          "team_seasons": 1437,
+          "top_minus_bottom": 0.966843,
+          "top_quintile_mean": 4.083495
+        }
+      ],
+      "responses": [
+        "points_per_drive",
+        "off_points_per_opportunity",
+        "off_ppa",
+        "off_success_rate",
+        "season_end_result_elo"
+      ],
+      "why": "It describes conversion after control exists, a more volatile layer than creation itself."
+    },
+    {
+      "direction": "higher_is_better",
+      "key": "finishing_resistance_rate",
+      "label": "Finishing Resistance",
+      "meaning": "How often a defense keeps an opponent's control drive scoreless.",
+      "relationships": [
+        {
+          "bottom_quintile_mean": 2.392639,
+          "correlation_strength": "Moderate",
+          "key": "points_allowed_per_drive",
+          "label": "Points allowed per drive",
+          "pearson_r": -0.442318,
+          "team_seasons": 1575,
+          "top_minus_bottom": -0.740855,
+          "top_quintile_mean": 1.651784
+        },
+        {
+          "bottom_quintile_mean": 1473.569489,
+          "correlation_strength": "Modest",
+          "key": "season_end_result_elo",
+          "label": "Result Elo",
+          "pearson_r": 0.294329,
+          "team_seasons": 1437,
+          "top_minus_bottom": 58.252397,
+          "top_quintile_mean": 1531.821887
+        },
+        {
+          "bottom_quintile_mean": 0.203781,
+          "correlation_strength": "Moderate",
+          "key": "def_ppa_allowed",
+          "label": "Defensive PPA allowed",
+          "pearson_r": -0.432171,
+          "team_seasons": 1437,
+          "top_minus_bottom": -0.109657,
+          "top_quintile_mean": 0.094125
+        },
+        {
+          "bottom_quintile_mean": 0.435252,
+          "correlation_strength": "Modest",
+          "key": "def_success_rate_allowed",
+          "label": "Success Rate allowed",
+          "pearson_r": -0.294983,
+          "team_seasons": 1437,
+          "top_minus_bottom": -0.036434,
+          "top_quintile_mean": 0.398818
+        },
+        {
+          "bottom_quintile_mean": 3.894709,
+          "correlation_strength": "Moderate",
+          "key": "def_points_per_opportunity_allowed",
+          "label": "Points per opportunity allowed",
+          "pearson_r": -0.502627,
+          "team_seasons": 1437,
+          "top_minus_bottom": -0.801443,
+          "top_quintile_mean": 3.093267
+        }
+      ],
+      "responses": [
+        "points_allowed_per_drive",
+        "def_points_per_opportunity_allowed",
+        "def_ppa_allowed",
+        "def_success_rate_allowed",
+        "season_end_result_elo"
+      ],
+      "why": "It shows whether a defense can survive after the opponent has already created a strong possession."
+    },
+    {
+      "direction": "higher_is_better",
+      "key": "control_pressure",
+      "label": "Control Pressure",
+      "meaning": "Sustainable scoring pressure created per offensive drive.",
+      "relationships": [
+        {
+          "bottom_quintile_mean": 4.960574,
+          "correlation_strength": "Strong",
+          "key": "yards_per_play",
+          "label": "Yards per play",
+          "pearson_r": 0.795377,
+          "team_seasons": 1575,
+          "top_minus_bottom": 1.756345,
+          "top_quintile_mean": 6.716919
+        },
+        {
+          "bottom_quintile_mean": 1.323951,
+          "correlation_strength": "Very strong",
+          "key": "points_per_drive",
+          "label": "Points per drive",
+          "pearson_r": 0.898931,
+          "team_seasons": 1575,
+          "top_minus_bottom": 1.465775,
+          "top_quintile_mean": 2.789726
+        },
+        {
+          "bottom_quintile_mean": 1436.189848,
+          "correlation_strength": "Strong",
+          "key": "season_end_result_elo",
+          "label": "Result Elo",
+          "pearson_r": 0.678359,
+          "team_seasons": 1437,
+          "top_minus_bottom": 131.104944,
+          "top_quintile_mean": 1567.294793
+        },
+        {
+          "bottom_quintile_mean": 0.055721,
+          "correlation_strength": "Very strong",
+          "key": "off_ppa",
+          "label": "Offensive PPA",
+          "pearson_r": 0.926791,
+          "team_seasons": 1437,
+          "top_minus_bottom": 0.235606,
+          "top_quintile_mean": 0.291327
+        },
+        {
+          "bottom_quintile_mean": 0.375045,
+          "correlation_strength": "Very strong",
+          "key": "off_success_rate",
+          "label": "Offensive Success Rate",
+          "pearson_r": 0.871937,
+          "team_seasons": 1437,
+          "top_minus_bottom": 0.105203,
+          "top_quintile_mean": 0.480248
+        },
+        {
+          "bottom_quintile_mean": 0.176313,
+          "correlation_strength": "Modest",
+          "key": "off_havoc_allowed_total",
+          "label": "Havoc allowed",
+          "pearson_r": -0.318389,
+          "team_seasons": 1436,
+          "top_minus_bottom": -0.049853,
+          "top_quintile_mean": 0.12646
+        }
+      ],
+      "responses": [
+        "points_per_drive",
+        "yards_per_play",
+        "off_success_rate",
+        "off_ppa",
+        "off_havoc_allowed_total",
+        "season_end_result_elo"
+      ],
+      "why": "It joins creation and conversion, so it tracks scoreboard production more closely than either piece alone."
+    },
+    {
+      "direction": "lower_is_better",
+      "key": "control_pressure_allowed",
+      "label": "Control Pressure Allowed",
+      "meaning": "Sustainable scoring pressure conceded per defensive drive.",
+      "relationships": [
+        {
+          "bottom_quintile_mean": 5.074514,
+          "correlation_strength": "Strong",
+          "key": "yards_allowed_per_play",
+          "label": "Yards allowed per play",
+          "pearson_r": 0.791967,
+          "team_seasons": 1575,
+          "top_minus_bottom": 1.61506,
+          "top_quintile_mean": 6.689575
+        },
+        {
+          "bottom_quintile_mean": 1.407669,
+          "correlation_strength": "Very strong",
+          "key": "points_allowed_per_drive",
+          "label": "Points allowed per drive",
+          "pearson_r": 0.878442,
+          "team_seasons": 1575,
+          "top_minus_bottom": 1.383906,
+          "top_quintile_mean": 2.791575
+        },
+        {
+          "bottom_quintile_mean": 1564.984117,
+          "correlation_strength": "Strong",
+          "key": "season_end_result_elo",
+          "label": "Result Elo",
+          "pearson_r": -0.667679,
+          "team_seasons": 1437,
+          "top_minus_bottom": -126.36855,
+          "top_quintile_mean": 1438.615567
+        },
+        {
+          "bottom_quintile_mean": 0.050003,
+          "correlation_strength": "Very strong",
+          "key": "def_ppa_allowed",
+          "label": "Defensive PPA allowed",
+          "pearson_r": 0.916495,
+          "team_seasons": 1437,
+          "top_minus_bottom": 0.216365,
+          "top_quintile_mean": 0.266368
+        },
+        {
+          "bottom_quintile_mean": 0.37263,
+          "correlation_strength": "Very strong",
+          "key": "def_success_rate_allowed",
+          "label": "Success Rate allowed",
+          "pearson_r": 0.815835,
+          "team_seasons": 1437,
+          "top_minus_bottom": 0.093694,
+          "top_quintile_mean": 0.466325
+        },
+        {
+          "bottom_quintile_mean": 0.177594,
+          "correlation_strength": "Modest",
+          "key": "def_havoc_total",
+          "label": "Defensive havoc",
+          "pearson_r": -0.287461,
+          "team_seasons": 1436,
+          "top_minus_bottom": -0.044989,
+          "top_quintile_mean": 0.132605
+        }
+      ],
+      "responses": [
+        "points_allowed_per_drive",
+        "yards_allowed_per_play",
+        "def_success_rate_allowed",
+        "def_ppa_allowed",
+        "def_havoc_total",
+        "season_end_result_elo"
+      ],
+      "why": "Lower values identify defenses that limit both the creation and the payoff of opponent control."
+    },
+    {
+      "direction": "higher_is_better",
+      "key": "raw_adv_margin",
+      "label": "Raw ADV Margin",
+      "meaning": "Net underlying ADV performance earned in completed games.",
+      "relationships": [
+        {
+          "bottom_quintile_mean": -16.312268,
+          "correlation_strength": "Very strong",
+          "key": "score_margin",
+          "label": "Average score margin",
+          "pearson_r": 0.979288,
+          "team_seasons": 1437,
+          "top_minus_bottom": 30.600692,
+          "top_quintile_mean": 14.288424
+        },
+        {
+          "bottom_quintile_mean": 1416.762859,
+          "correlation_strength": "Very strong",
+          "key": "season_end_result_elo",
+          "label": "Result Elo",
+          "pearson_r": 0.860416,
+          "team_seasons": 1437,
+          "top_minus_bottom": 167.705995,
+          "top_quintile_mean": 1584.468855
+        },
+        {
+          "bottom_quintile_mean": 0.077759,
+          "correlation_strength": "Strong",
+          "key": "off_ppa",
+          "label": "Offensive PPA",
+          "pearson_r": 0.702128,
+          "team_seasons": 1437,
+          "top_minus_bottom": 0.181371,
+          "top_quintile_mean": 0.25913
+        },
+        {
+          "bottom_quintile_mean": 0.381977,
+          "correlation_strength": "Strong",
+          "key": "off_success_rate",
+          "label": "Offensive Success Rate",
+          "pearson_r": 0.713156,
+          "team_seasons": 1437,
+          "top_minus_bottom": 0.088584,
+          "top_quintile_mean": 0.470561
+        },
+        {
+          "bottom_quintile_mean": 0.24006,
+          "correlation_strength": "Strong",
+          "key": "def_ppa_allowed",
+          "label": "Defensive PPA allowed",
+          "pearson_r": -0.677113,
+          "team_seasons": 1437,
+          "top_minus_bottom": -0.159243,
+          "top_quintile_mean": 0.080816
+        },
+        {
+          "bottom_quintile_mean": 0.455813,
+          "correlation_strength": "Strong",
+          "key": "def_success_rate_allowed",
+          "label": "Success Rate allowed",
+          "pearson_r": -0.647978,
+          "team_seasons": 1437,
+          "top_minus_bottom": -0.072578,
+          "top_quintile_mean": 0.383235
+        }
+      ],
+      "responses": [
+        "score_margin",
+        "off_success_rate",
+        "off_ppa",
+        "def_success_rate_allowed",
+        "def_ppa_allowed",
+        "season_end_result_elo"
+      ],
+      "why": "It is the broad completed-game control result before any scoreboard-scale translation."
+    }
+  ],
+  "predictive_reality_check": {
+    "games": 6094,
+    "language": "ADV added a small amount of chronological out-of-sample information beyond the familiar-stat baseline. This is evidence of incremental context, not a claim of a large forecasting edge.",
+    "mae_improvement": 0.074,
+    "traditional_mae": 13.97,
+    "traditional_plus_adv_mae": 13.896,
+    "traditional_plus_adv_winner_accuracy": 0.690351,
+    "traditional_winner_accuracy": 0.687069,
+    "winner_accuracy_gain": 0.003282
+  },
+  "schema_version": "1.0",
+  "source": {
+    "artifact": "metric_relationships/manifest.json",
+    "sha256": "c641a3678c87bf550bd0025af706848a9d5fb030a59cf0db29a75761ad94c151"
+  },
+  "study_version": "cfp_advantage_metric_relationships_v2",
+  "summary": "How CFP Advantage control metrics move with familiar football production, established efficiency measures, and a result-only Elo benchmark.",
+  "title": "ADV Metric Relationships"
+}

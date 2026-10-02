@@ -58,9 +58,10 @@ function Footer() {
           <Link to="/about">About</Link>
           <Link to="/live-2026">2026 Live</Link>
           <Link to="/metrics">Metrics Guide</Link>
+          <Link to="/metric-relationships">Metric Relationships</Link>
           <Link to="/news">News</Link>
           <Link to="/updates">
-            Updates <span className="site-version">v1.1</span>
+            Updates <span className="site-version">v2.2</span>
           </Link>
         </nav>
       </div>

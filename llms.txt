@@ -7,6 +7,8 @@
 - [Current Week JSON](https://cfpadvantage.com/public-data/current-week.json)
 - [Team Catalog JSON](https://cfpadvantage.com/public-data/teams.json)
 - [Metric Definitions](https://cfpadvantage.com/metrics)
+- [ADV Metric Relationships](https://cfpadvantage.com/metric-relationships/)
+- [Metric Relationships JSON](https://cfpadvantage.com/public-data/metric-relationships.json)
 - [Development Validation Status](https://cfpadvantage.com/live-2026)
 - [Updates](https://cfpadvantage.com/updates)
 

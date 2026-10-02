@@ -16,6 +16,14 @@ const productAreas = [
     href: "/teams",
   },
   {
+    eyebrow: "Research Evidence",
+    title: "See What Moves With ADV",
+    description:
+      "Compare ADV control metrics with yards, scoring efficiency, PPA, Success Rate, havoc, explosiveness, and result Elo across the current historical study.",
+    linkText: "Explore Metric Relationships",
+    href: "/metric-relationships",
+  },
+  {
     eyebrow: "Bracket Room",
     title: "Title Path Intelligence",
     description:

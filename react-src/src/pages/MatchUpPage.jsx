@@ -6,6 +6,7 @@ import PageMetadata from "../components/PageMetadata";
 import StandardPage from "../components/StandardPage";
 import TeamLogo from "../components/TeamLogo";
 import TeamContextTags, { PollRankTag } from "../components/TeamContextTags";
+import UnofficialResults from "../components/UnofficialResults";
 import { formatPercent, formatProjectionMargin, matchupDateLabel } from "../lib/formatters";
 import { api } from "../lib/api";
 import { matchupPath } from "../lib/urls";
@@ -207,6 +208,9 @@ function MatchUpPage() {
       } : null}
     />
     <LiveScoreboard matchups={games} selectedIds={selectedLiveBoardIds} onToggle={toggleLiveBoard} onClear={() => setSelectedLiveBoardIds([])} />
+    <section className="matchup-unofficial-panel" aria-label="Current week provisional model results">
+      <UnofficialResults />
+    </section>
     <section className="full-slate-panel" id="full-slate"><div className="full-slate-panel-header"><div><p className="eyebrow">Current Week</p><h2>{status.label || "Matchup Intelligence"}</h2><p className="panel-note">Official pregame margins are frozen before kickoff. Open any supported game for the full Control Framework comparison.</p></div>{payload && <span className="framework-read-label">{games.length} Games</span>}</div><label className="full-slate-inline-search"><span>Find a team or matchup</span><input type="search" value={query} onChange={(event) => { setQuery(event.target.value); setVisibleCount(PAGE_SIZE); setLocalSelectedId(null); if (routeGameId) navigate("/matchups"); }} placeholder="Search the weekly slate" /></label>
       {!payload && !error && <div className="full-slate-empty"><LoadingDots text="Loading the certified weekly slate" /></div>}{error && <p className="status-line warn">{error}</p>}{payload && games.length === 0 && <div className="full-slate-empty"><strong>No weekly snapshot is available.</strong><p>{payload.weekly_snapshot_note || status.message}</p></div>}{payload && games.length > 0 && filteredGames.length === 0 && <div className="full-slate-empty"><strong>No matchups match that search.</strong></div>}
       {visibleGames.length > 0 && <div className="matchup-list"><div className="full-slate-table">{visibleGames.map((matchup) => { const id = String(matchup.game_id); const isSelected = id === selectedId; return <Fragment key={id}><MatchupRow matchup={matchup} logos={logos} selected={isSelected} boardSelected={selectedLiveBoardIds.includes(id)} boardFull={selectedLiveBoardIds.length >= LIVE_BOARD_LIMIT} onSelect={() => selectMatchup(id, isSelected)} onToggleBoard={() => toggleLiveBoard(id)} />{isSelected && selectedMatchup && <MatchupDetail matchup={selectedMatchup} onClose={() => { setLocalSelectedId(null); navigate("/matchups"); }} />}</Fragment>; })}</div>{!query.trim() && filteredGames.length > visibleGames.length && <div className="full-slate-load-more"><button className="secondary-action" type="button" onClick={() => setVisibleCount((count) => count + PAGE_SIZE)}>Load More Games</button><span>Showing {visibleGames.length} of {filteredGames.length} games</span></div>}{!query.trim() && filteredGames.length > PAGE_SIZE && filteredGames.length === visibleGames.length && <div className="full-slate-load-more"><span>Showing all {filteredGames.length} games</span></div>}</div>}

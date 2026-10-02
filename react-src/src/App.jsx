@@ -14,6 +14,7 @@ import Support from "./pages/SupportPage";
 import Legal from "./pages/LegalPage";
 import FrameworkCardPage from "./pages/FrameworkCardPage";
 import GiveawayPage from "./pages/GiveawayPage";
+import MetricRelationshipsPage from "./pages/MetricRelationshipsPage";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
       <Route path="/about" element={<About />} />
       <Route path="/live-2026" element={<Live2026 />} />
       <Route path="/metrics" element={<MetricsGuide />} />
+      <Route path="/metric-relationships" element={<MetricRelationshipsPage />} />
       <Route path="/news" element={<News />} />
       <Route path="/updates" element={<Updates />} />
       <Route path="/contact" element={<Contact />} />
@@ -42,6 +44,7 @@ function App() {
       <Route path="/bracket-room.html" element={<Navigate replace to="/bracket-room" />} />
       <Route path="/live-2026.html" element={<Navigate replace to="/live-2026" />} />
       <Route path="/metrics.html" element={<Navigate replace to="/metrics" />} />
+      <Route path="/metric-relationships.html" element={<Navigate replace to="/metric-relationships" />} />
       <Route path="/about.html" element={<Navigate replace to="/about" />} />
       <Route path="/news.html" element={<Navigate replace to="/news" />} />
       <Route path="/updates.html" element={<Navigate replace to="/updates" />} />
