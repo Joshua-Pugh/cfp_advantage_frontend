@@ -1,0 +1,95 @@
+{
+  "name": "CFP Advantage Public Model Record",
+  "generated_at": "2026-10-02T21:35:08.930Z",
+  "season": 2026,
+  "current_season": {
+    "scope": "2026 development validation",
+    "updated_at": "2026-09-27T15:14:01.460943+00:00",
+    "update_policy": "Updated after each certified weekly publish or grade run; this is not a live scoreboard.",
+    "summary": {
+      "games_published": 271,
+      "games_graded": 215,
+      "games_pending": 56,
+      "winner_accuracy": 0.804651,
+      "margin_mae": 12.504867
+    },
+    "weeks": [
+      {
+        "week": 1,
+        "published_at_utc": "2026-09-08T15:16:48.568751+00:00",
+        "run_label": "certified-internal-anchor-2026-v1",
+        "publication_status": "final-public",
+        "receipt_version": 2,
+        "games_published": 51,
+        "games_graded": 51,
+        "games_pending": 0,
+        "winner_accuracy": 0.843137,
+        "margin_mae": 15.375046
+      },
+      {
+        "week": 2,
+        "published_at_utc": "2026-09-08T16:19:51.259056+00:00",
+        "run_label": "corrected-week1-derived-inputs-2026-week2",
+        "publication_status": "final-public",
+        "receipt_version": 2,
+        "games_published": 49,
+        "games_graded": 49,
+        "games_pending": 0,
+        "winner_accuracy": 0.77551,
+        "margin_mae": 12.179673
+      },
+      {
+        "week": 3,
+        "published_at_utc": "2026-09-13T15:46:31.404165+00:00",
+        "run_label": "manual-sunday-2026-week-2-to-3",
+        "publication_status": "final-public",
+        "receipt_version": 1,
+        "games_published": 57,
+        "games_graded": 57,
+        "games_pending": 0,
+        "winner_accuracy": 0.824561,
+        "margin_mae": 9.714
+      },
+      {
+        "week": 4,
+        "published_at_utc": "2026-09-20T17:17:55.012913+00:00",
+        "run_label": "manual-sunday-2026-week-3-to-4",
+        "publication_status": "final-public",
+        "receipt_version": 1,
+        "games_published": 58,
+        "games_graded": 58,
+        "games_pending": 0,
+        "winner_accuracy": 0.775862,
+        "margin_mae": 12.998572
+      },
+      {
+        "week": 5,
+        "published_at_utc": "2026-09-27T15:14:01.460943+00:00",
+        "run_label": "manual-sunday-2026-week-4-to-5",
+        "publication_status": "final-public",
+        "receipt_version": 1,
+        "games_published": 56,
+        "games_graded": 0,
+        "games_pending": 56,
+        "winner_accuracy": null,
+        "margin_mae": null
+      }
+    ],
+    "specification_note": "The 2026 specification changed prospectively beginning with Week 4 after rating defects were identified. Weeks 1-3 remain preserved as originally published. Clean prospective validation restarts in 2027."
+  },
+  "historical_evidence": {
+    "scope": "Retained 2016-2025 final-stack historical audit",
+    "games": 7436,
+    "winner_accuracy": 0.7137,
+    "margin_mae": 13.37,
+    "margin_rmse": 16.85,
+    "limitation": "Historical retrospective evidence is not the same as an untouched prospective season."
+  },
+  "independent_review": {
+    "status": "No completed independent third-party validation",
+    "note": "The public receipt archive makes published weekly projections and grades auditable, but it remains first-party evidence unless an outside reviewer evaluates it."
+  },
+  "receipt_repository_url": "https://github.com/Joshua-Pugh/cfp-advantage-validation",
+  "canonical_url": "https://cfpadvantage.com/model-record/",
+  "contains_ats_recommendations": false
+}

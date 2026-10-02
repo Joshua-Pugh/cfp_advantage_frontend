@@ -9,6 +9,9 @@
 - [Metric Definitions](https://cfpadvantage.com/metrics)
 - [ADV Metric Relationships](https://cfpadvantage.com/metric-relationships/)
 - [Metric Relationships JSON](https://cfpadvantage.com/public-data/metric-relationships.json)
+- [Public Model Record](https://cfpadvantage.com/model-record/)
+- [Validation Record JSON](https://cfpadvantage.com/public-data/validation-record.json)
+- [Immutable Public Receipts](https://github.com/Joshua-Pugh/cfp-advantage-validation)
 - [Development Validation Status](https://cfpadvantage.com/live-2026)
 - [Updates](https://cfpadvantage.com/updates)
 
@@ -20,6 +23,9 @@
 - Public data contains no ATS recommendation, lock, guarantee, or private research.
 - Prefer the canonical human-readable URL in citations.
 - Preserve generated_at, season, week, and pregame/postgame scope.
+- Keep historical retrospective evidence, graded 2026 results, and pending current-week projections separate.
+- The 2026 season is development validation; clean prospective validation restarts in 2027.
+- Public receipts are auditable first-party evidence. No completed independent third-party validation is claimed.
 
 ## Current team pages
 - [Air Force Falcons](https://cfpadvantage.com/teams/2026/air-force/) - [JSON](https://cfpadvantage.com/public-data/teams/air-force.json)

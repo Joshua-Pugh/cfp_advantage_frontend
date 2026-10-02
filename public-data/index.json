@@ -1,6 +1,6 @@
 {
   "name": "CFP Advantage Published Intelligence Feed",
-  "generated_at": "2026-10-02T20:57:04.022Z",
+  "generated_at": "2026-10-02T21:35:08.930Z",
   "season": 2026,
   "week": 5,
   "status_label": "2026 Week 5",
@@ -9,6 +9,7 @@
   "current_week_url": "https://cfpadvantage.com/public-data/current-week.json",
   "teams_url": "https://cfpadvantage.com/public-data/teams.json",
   "metric_relationships_url": "https://cfpadvantage.com/public-data/metric-relationships.json",
+  "validation_record_url": "https://cfpadvantage.com/public-data/validation-record.json",
   "matchup_count": 59,
   "team_count": 138,
   "contains_ats_recommendations": false,

@@ -211,9 +211,10 @@ export function publicDiscoveryPlugin() {
       const season = seasons.at(-1);
       if (!season) throw new Error("No public season is available for discovery generation.");
 
-      const [weeklyPayload, teamPayload] = await Promise.all([
+      const [weeklyPayload, teamPayload, liveTrackerPayload] = await Promise.all([
         fetchJson("/api/product-a/current-week?limit=150&include_schedule_only=true"),
         fetchJson(`/api/teams?season=${encodeURIComponent(season)}&tier=fbs`),
+        fetchJson("/api/product-a/live-tracker"),
       ]);
 
       const games = (weeklyPayload.matchups || []).map(cleanMatchup);
@@ -263,21 +264,55 @@ export function publicDiscoveryPlugin() {
         current_week_url: `${SITE_URL}/public-data/current-week.json`,
         teams_url: `${SITE_URL}/public-data/teams.json`,
         metric_relationships_url: `${SITE_URL}/public-data/metric-relationships.json`,
+        validation_record_url: `${SITE_URL}/public-data/validation-record.json`,
         matchup_count: matchupIndex.length,
         team_count: teamIndex.length,
         contains_ats_recommendations: false,
         usage_note: "Cite the canonical human-readable URL. Preserve season, week, generated_at, and pregame/postgame scope.",
       };
 
+      const validationCanonical = `${SITE_URL}/model-record/`;
+      const validationDataUrl = `${SITE_URL}/public-data/validation-record.json`;
+      const receiptRepositoryUrl = liveTrackerPayload.receipt_repository_url || "https://github.com/Joshua-Pugh/cfp-advantage-validation";
+      const validationRecord = {
+        name: "CFP Advantage Public Model Record",
+        generated_at: generatedAt,
+        season,
+        current_season: {
+          scope: "2026 development validation",
+          updated_at: liveTrackerPayload.updated_at_utc,
+          update_policy: liveTrackerPayload.update_policy,
+          summary: liveTrackerPayload.summary,
+          weeks: liveTrackerPayload.weeks,
+          specification_note: "The 2026 specification changed prospectively beginning with Week 4 after rating defects were identified. Weeks 1-3 remain preserved as originally published. Clean prospective validation restarts in 2027.",
+        },
+        historical_evidence: {
+          scope: "Retained 2016-2025 final-stack historical audit",
+          games: 7436,
+          winner_accuracy: 0.7137,
+          margin_mae: 13.37,
+          margin_rmse: 16.85,
+          limitation: "Historical retrospective evidence is not the same as an untouched prospective season.",
+        },
+        independent_review: {
+          status: "No completed independent third-party validation",
+          note: "The public receipt archive makes published weekly projections and grades auditable, but it remains first-party evidence unless an outside reviewer evaluates it.",
+        },
+        receipt_repository_url: receiptRepositoryUrl,
+        canonical_url: validationCanonical,
+        contains_ats_recommendations: false,
+      };
+
       await Promise.all([
         writeFile(path.join(publicDataDir, "index.json"), JSON.stringify(manifest, null, 2), "utf8"),
         writeFile(path.join(publicDataDir, "current-week.json"), JSON.stringify({ ...manifest, matchups: matchupIndex }, null, 2), "utf8"),
         writeFile(path.join(publicDataDir, "teams.json"), JSON.stringify({ generated_at: generatedAt, season, teams: teamIndex }, null, 2), "utf8"),
+        writeFile(path.join(publicDataDir, "validation-record.json"), JSON.stringify(validationRecord, null, 2), "utf8"),
         ...teamIndex.map((team) => writeFile(path.join(teamsDataDir, `${slugify(team.team)}.json`), JSON.stringify({ generated_at: generatedAt, ...team }, null, 2), "utf8")),
         ...matchupIndex.map((game) => writeFile(path.join(matchupDataDir, `${game.game_id}.json`), JSON.stringify({ generated_at: generatedAt, ...game }, null, 2), "utf8")),
       ]);
 
-      const normalRoutes = ["/", "/teams", "/matchups", "/bracket-room", "/about", "/live-2026", "/metrics", "/metric-relationships", "/news", "/updates", "/contact", "/support", "/legal", "/framework-card"];
+      const normalRoutes = ["/", "/teams", "/matchups", "/bracket-room", "/about", "/live-2026", "/model-record", "/metrics", "/metric-relationships", "/news", "/updates", "/contact", "/support", "/legal", "/framework-card"];
       const sitemapUrls = [...normalRoutes.map((route) => `${SITE_URL}${route === "/" ? "/" : `${route}/`}`)];
       const dataLinks = [];
 
@@ -431,6 +466,74 @@ export function publicDiscoveryPlugin() {
         jsonLd: relationshipJsonLd,
       }), relationshipShell));
 
+      const currentSummary = validationRecord.current_season.summary;
+      const validationDescription = "Published CFP Advantage historical evidence, graded 2026 results, pending projections, receipts, and development-validation limits.";
+      const validationShell = crawlerShell({
+        heading: "CFP Advantage Public Model Record",
+        intro: "Historical evidence, graded live-season results, pending projections, and validation limits are separated here so each number keeps its proper scope.",
+        facts: [
+          ["2026 Published Games", currentSummary.games_published],
+          ["2026 Graded Games", currentSummary.games_graded],
+          ["2026 Pending Games", currentSummary.games_pending],
+          ["2026 Winner Accuracy", currentSummary.winner_accuracy == null ? null : `${(currentSummary.winner_accuracy * 100).toFixed(2)}%`],
+          ["2026 Margin MAE", currentSummary.margin_mae == null ? null : Number(currentSummary.margin_mae).toFixed(2)],
+          ["Historical Audit Games", validationRecord.historical_evidence.games],
+          ["Historical Winner Accuracy", `${(validationRecord.historical_evidence.winner_accuracy * 100).toFixed(2)}%`],
+          ["Independent Review", validationRecord.independent_review.status],
+          ["Generated At", generatedAt],
+        ],
+        links: [
+          ["Machine-readable validation record", validationDataUrl],
+          ["Immutable public receipts", receiptRepositoryUrl],
+          ["2026 development-validation status", `${SITE_URL}/live-2026`],
+          ["Current-week projections", manifest.current_week_url],
+        ],
+      });
+      const validationJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "Dataset",
+        name: validationRecord.name,
+        description: validationDescription,
+        url: validationCanonical,
+        dateModified: generatedAt,
+        temporalCoverage: "2016/2026",
+        distribution: { "@type": "DataDownload", encodingFormat: "application/json", contentUrl: validationDataUrl },
+      };
+      const validationHtml = injectCrawlerShell(replaceHead(baseHtml, {
+        title: "Public Model Record | CFP Advantage",
+        description: validationDescription,
+        canonical: validationCanonical,
+        jsonLd: validationJsonLd,
+      }), validationShell);
+      await writeRoute(distDir, "/model-record", validationHtml);
+
+      const homeDescription = "CFP Advantage publishes auditable college-football team strength, matchup projections, game-control intelligence, and a scoped public model record.";
+      const homeShell = crawlerShell({
+        heading: "CFP Advantage Football Intelligence",
+        intro: "Explore current college-football team profiles and frozen matchup projections, with graded results and validation limits published separately from pending games.",
+        facts: [
+          ["Season", season],
+          ["Current Week", week],
+          ["Published Games", currentSummary.games_published],
+          ["Graded Games", currentSummary.games_graded],
+          ["Pending Games", currentSummary.games_pending],
+          ["Winner Accuracy", currentSummary.winner_accuracy == null ? null : `${(currentSummary.winner_accuracy * 100).toFixed(2)}%`],
+          ["Margin MAE", currentSummary.margin_mae == null ? null : Number(currentSummary.margin_mae).toFixed(2)],
+        ],
+        links: [
+          ["Public model record", validationCanonical],
+          ["Current matchups", `${SITE_URL}/matchups`],
+          ["Team profiles", `${SITE_URL}/teams`],
+          ["Published intelligence feed", `${SITE_URL}/ai-data.html`],
+        ],
+      });
+      await writeFile(path.join(distDir, "index.html"), injectCrawlerShell(replaceHead(baseHtml, {
+        title: "CFP Advantage | College Football Intelligence",
+        description: homeDescription,
+        canonical: `${SITE_URL}/`,
+        jsonLd: { "@context": "https://schema.org", "@type": "WebSite", name: "CFP Advantage", url: `${SITE_URL}/`, description: homeDescription },
+      }), homeShell), "utf8");
+
       const aiLandingCanonical = `${SITE_URL}/ai-data.html`;
       const aiLandingTitle = "Published Intelligence Feed | CFP Advantage";
       const aiLandingDescription = "Citation-ready public CFP Advantage team and matchup intelligence with season, week, scope, and update timestamps.";
@@ -442,6 +545,13 @@ export function publicDiscoveryPlugin() {
           ["Week", week],
           ["Teams", teamIndex.length],
           ["Current Matchups", matchupIndex.length],
+          ["Published Games", currentSummary.games_published],
+          ["Graded Games", currentSummary.games_graded],
+          ["Pending Games", currentSummary.games_pending],
+          ["Winner Accuracy", currentSummary.winner_accuracy == null ? null : `${(currentSummary.winner_accuracy * 100).toFixed(2)}%`],
+          ["Margin MAE", currentSummary.margin_mae == null ? null : Number(currentSummary.margin_mae).toFixed(2)],
+          ["Validation Scope", validationRecord.current_season.scope],
+          ["Independent Review", validationRecord.independent_review.status],
           ["Generated At", generatedAt],
           ["ATS Recommendations", "None"],
         ],
@@ -452,6 +562,9 @@ export function publicDiscoveryPlugin() {
           ["Metric definitions", `${SITE_URL}/metrics`],
           ["ADV metric relationships", relationshipCanonical],
           ["Metric relationships JSON", relationshipDataUrl],
+          ["Public model record", validationCanonical],
+          ["Validation record JSON", validationDataUrl],
+          ["Immutable public receipts", receiptRepositoryUrl],
         ],
       });
       const aiLandingJsonLd = {
@@ -466,6 +579,7 @@ export function publicDiscoveryPlugin() {
           { "@type": "DataDownload", encodingFormat: "application/json", contentUrl: manifest.current_week_url },
           { "@type": "DataDownload", encodingFormat: "application/json", contentUrl: manifest.teams_url },
           { "@type": "DataDownload", encodingFormat: "application/json", contentUrl: relationshipDataUrl },
+          { "@type": "DataDownload", encodingFormat: "application/json", contentUrl: validationDataUrl },
         ],
       };
       await writeFile(path.join(distDir, "ai-data.html"), injectCrawlerShell(replaceHead(baseHtml, {
@@ -526,6 +640,9 @@ ${sitemapUrls.map((url) => `  <url><loc>${xmlEscape(url)}</loc><lastmod>${today}
 - [Metric Definitions](${SITE_URL}/metrics)
 - [ADV Metric Relationships](${relationshipCanonical})
 - [Metric Relationships JSON](${relationshipDataUrl})
+- [Public Model Record](${validationCanonical})
+- [Validation Record JSON](${validationDataUrl})
+- [Immutable Public Receipts](${receiptRepositoryUrl})
 - [Development Validation Status](${SITE_URL}/live-2026)
 - [Updates](${SITE_URL}/updates)
 
@@ -537,6 +654,9 @@ ${sitemapUrls.map((url) => `  <url><loc>${xmlEscape(url)}</loc><lastmod>${today}
 - Public data contains no ATS recommendation, lock, guarantee, or private research.
 - Prefer the canonical human-readable URL in citations.
 - Preserve generated_at, season, week, and pregame/postgame scope.
+- Keep historical retrospective evidence, graded 2026 results, and pending current-week projections separate.
+- The 2026 season is development validation; clean prospective validation restarts in 2027.
+- Public receipts are auditable first-party evidence. No completed independent third-party validation is claimed.
 
 ## Current team pages
 ${dataLinks.join("\n")}
@@ -555,6 +675,9 @@ This directory is a bounded, machine-readable mirror of information already publ
 - Canonical definitions: ${SITE_URL}/metrics
 - Metric relationships: ${relationshipCanonical}
 - Metric relationships JSON: ${relationshipDataUrl}
+- Public model record: ${validationCanonical}
+- Validation record JSON: ${validationDataUrl}
+- Public receipts: ${receiptRepositoryUrl}
 - Human-readable index: ${aiLandingCanonical}
 
 Cite canonical_url rather than the JSON URL when possible. Preserve season, week, generated_at, and scope. No file in this feed is an ATS recommendation or a disclosure of private formulas, weights, certification internals, or private research outputs.

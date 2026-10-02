@@ -24,6 +24,14 @@ const productAreas = [
     href: "/metric-relationships",
   },
   {
+    eyebrow: "Public Evidence",
+    title: "Review The Model Record",
+    description:
+      "Separate historical evidence, graded 2026 results, pending projections, immutable receipts, and validation limits in one auditable view.",
+    linkText: "Open Model Record",
+    href: "/model-record",
+  },
+  {
     eyebrow: "Bracket Room",
     title: "Title Path Intelligence",
     description:
