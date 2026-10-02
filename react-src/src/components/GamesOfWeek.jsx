@@ -130,16 +130,12 @@ function GamesOfWeek() {
 
       <div className="home-matchup-guide">
         <p>
-          <strong>Projection Closeness</strong>{" "}
-          A higher percentage means the game is
-          projected to finish closer. It does not
-          measure confidence in the model lean.
+          <strong>Start with the football read.</strong>{" "}
+          Each card tells you who ADV favors, why, and the clearest reason the game could turn.
         </p>
 
         <p>
-          Early-season outlooks blend the certified prior
-          with completed current-season evidence. The prior
-          fades as the live sample grows.
+          Open the full matchup board when you want the ratings, Control Framework, recent form, talent context, and familiar stats behind the pick.
         </p>
       </div>
 

@@ -10,6 +10,7 @@ import UnofficialResults from "../components/UnofficialResults";
 import { formatPercent, formatProjectionMargin, matchupDateLabel } from "../lib/formatters";
 import { api } from "../lib/api";
 import { matchupPath } from "../lib/urls";
+import { matchupNarrative, plainAdvantage } from "../lib/matchupNarrative";
 
 const PAGE_SIZE = 20;
 const LIVE_BOARD_LIMIT = 5;
@@ -61,11 +62,13 @@ function TeamContext({ context, name, rank }) {
 
 function MatchupDetail({ matchup, onClose }) {
   const limited = matchup.projection_limited || matchup.projection_unavailable;
+  const narrative = matchupNarrative(matchup);
   return <section className="insight-panel matchup-preview-detail matchup-inline-detail" aria-label="Selected matchup analysis">
-    <div className="panel-heading matchup-detail-heading"><div><p className="eyebrow">Matchup Analysis</p><h2><span className="matchup-heading-team"><PollRankTag rank={matchup.away_ap_rank} />{matchup.away_full_name || matchup.away_team}</span> at <span className="matchup-heading-team"><PollRankTag rank={matchup.home_ap_rank} />{matchup.home_full_name || matchup.home_team}</span></h2><MatchupConferenceContext matchup={matchup} /><p>{matchup.date} · {matchup.game_type || "College Football"}</p></div><button className="secondary-action" type="button" onClick={onClose}>Close Analysis</button></div>
+    <div className="panel-heading matchup-detail-heading"><div><p className="eyebrow">Full Breakdown</p><h2><span className="matchup-heading-team"><PollRankTag rank={matchup.away_ap_rank} />{matchup.away_full_name || matchup.away_team}</span> at <span className="matchup-heading-team"><PollRankTag rank={matchup.home_ap_rank} />{matchup.home_full_name || matchup.home_team}</span></h2><MatchupConferenceContext matchup={matchup} /><p>{matchup.date} · {matchup.game_type || "College Football"}</p></div><button className="secondary-action" type="button" onClick={onClose}>Close Breakdown</button></div>
     <div className="matchup-preview-summary"><div><span>Model Lean</span><strong>{matchup.projected_winner_full_name || "Not Published"}</strong></div><div><span>Projected Margin</span><strong>{matchup.projected_margin_abs == null ? "-" : `By ${formatProjectionMargin(matchup.projected_margin_abs)}`}</strong></div><div><span>Matchup Conviction</span><strong>{matchup.matchup_conviction?.label || "-"}</strong></div><div><span>Projection Closeness</span><strong>{formatPercent(matchup.projection_closeness, 0)}</strong></div></div>
+    <div className="matchup-casual-summary"><div><span>Why ADV leans this way</span><p>{narrative.why}</p></div><div><span>What could change the game</span><p>{narrative.risk}</p></div></div>
     <div className="matchup-story-panel"><div className="matchup-story-heading"><h3>{matchup.context_label || "Pregame Context"}</h3><p>{matchup.context_note}</p></div>{matchup.matchup_conviction?.note && <p>{matchup.matchup_conviction.note}</p>}</div>
-    {limited ? <div className="matchup-limited-note"><strong>Limited opponent coverage</strong><p>This matchup uses the labeled opponent-tier view. A full two-team ADV and Control Framework comparison is not published when one side is outside supported FBS coverage.</p></div> : <><div className="matchup-advantages-grid">{[matchup.away_team, matchup.home_team].map((team) => <article key={team}><span>{team} advantages</span><ul>{advantagesFor(matchup, team).map((item) => <li key={item}>{item}</li>)}</ul></article>)}</div><div className="matchup-context-columns"><TeamContext context={matchup.away_context} name={matchup.away_full_name || matchup.away_team} rank={matchup.away_ap_rank} /><TeamContext context={matchup.home_context} name={matchup.home_full_name || matchup.home_team} rank={matchup.home_ap_rank} /></div><div className="advanced-reading-guide"><strong>How to read the context</strong><p>Recent Form compares a team with its own season baseline. Talent Yield compares current performance with roster expectation. Both explain the matchup and do not override the published model margin.</p></div></>}
+    {limited ? <div className="matchup-limited-note"><strong>Limited opponent coverage</strong><p>This matchup uses the labeled opponent-tier view. A full two-team ADV and Control Framework comparison is not published when one side is outside supported FBS coverage.</p></div> : <><div className="matchup-advantages-grid">{[matchup.away_team, matchup.home_team].map((team) => <article key={team}><span>{team} advantages</span><ul>{advantagesFor(matchup, team).map((item) => <li key={item}><strong>{plainAdvantage(item)}</strong><small>{item}</small></li>)}</ul></article>)}</div><div className="matchup-context-columns"><TeamContext context={matchup.away_context} name={matchup.away_full_name || matchup.away_team} rank={matchup.away_ap_rank} /><TeamContext context={matchup.home_context} name={matchup.home_full_name || matchup.home_team} rank={matchup.home_ap_rank} /></div><div className="advanced-reading-guide"><strong>How to read the context</strong><p>Recent Form compares a team with its own season baseline. Talent Yield compares current performance with roster expectation. Both explain the matchup and do not override the published model margin.</p></div></>}
   </section>;
 }
 
@@ -86,12 +89,13 @@ function MatchupRow({ matchup, logos, selected, boardSelected, boardFull, onSele
   const awayName = matchup.away_full_name || matchup.away_team;
   const homeName = matchup.home_full_name || matchup.home_team;
   const modelRead = matchup.projected_winner_full_name ? `${matchup.projected_winner_full_name} by ${formatProjectionMargin(matchup.projected_margin_abs)}` : "Not a certified pick";
+  const narrative = matchupNarrative(matchup);
   return <article className={`matchup-list-row${selected ? " is-selected" : ""}`}>
     <div className="matchup-list-date"><span>Date</span><strong>{matchupDateLabel(matchup)}</strong><small>Upcoming</small></div>
     <div className="matchup-list-teams"><MatchupTeamLine team={matchup.away_team} fullName={awayName} rank={matchup.away_ap_rank} conference={matchup.away_conference} logos={logos} /><span>vs</span><MatchupTeamLine team={matchup.home_team} fullName={homeName} rank={matchup.home_ap_rank} conference={matchup.home_conference} logos={logos} /></div>
     <MatchupConferenceContext matchup={matchup} />
-    <div className="matchup-list-read"><span>Model Read</span><strong>{modelRead}</strong><small>{matchup.context_label || "Pregame Context"}</small></div>
-    <div className="matchup-list-actions">{!matchup.projection_unavailable && <button type="button" onClick={onSelect}>{selected ? "Close Analysis" : "Full Analysis"}</button>}<button className={boardSelected ? "is-selected" : ""} type="button" onClick={onToggleBoard} disabled={!boardSelected && boardFull}>{boardSelected ? "On Live Board" : boardFull ? "Live Board Full" : "Add to Live Board"}</button></div>
+    <div className="matchup-list-read"><span>ADV Pick</span><strong>{modelRead}</strong><p><b>Why:</b> {narrative.why}</p><p><b>Risk:</b> {narrative.risk}</p><small>{narrative.conviction}</small></div>
+    <div className="matchup-list-actions">{!matchup.projection_unavailable && <button type="button" onClick={onSelect}>{selected ? "Close Breakdown" : "Full Breakdown"}</button>}<button className={boardSelected ? "is-selected" : ""} type="button" onClick={onToggleBoard} disabled={!boardSelected && boardFull}>{boardSelected ? "On Live Board" : boardFull ? "Live Board Full" : "Add to Live Board"}</button></div>
   </article>;
 }
 

@@ -9851,6 +9851,8 @@ pre {
 .matchup-list-date, .matchup-list-context, .matchup-list-read { display: grid; gap: 5px; }
 .matchup-list-date span, .matchup-list-context span, .matchup-list-read span { color: var(--muted); font-size: 10px; font-weight: 900; text-transform: uppercase; }
 .matchup-list-date small, .matchup-list-read small { color: var(--muted); font-size: 10px; font-weight: 700; }
+.matchup-list-read p { margin: 2px 0; color: var(--muted); font-size: 11px; line-height: 1.45; }
+.matchup-list-read p b { color: var(--ink); font-size: 10px; }
 .matchup-list-teams { display: grid; gap: 5px; }
 .matchup-list-teams > span { margin-left: 47px; color: var(--muted); font-size: 10px; font-weight: 900; text-transform: uppercase; }
 .matchup-list-team { display: grid; grid-template-columns: 38px minmax(0, 1fr); align-items: center; gap: 10px; }
@@ -9865,6 +9867,19 @@ pre {
 .matchup-list-actions { display: grid; gap: 8px; }
 .matchup-list-actions button { width: 100%; min-height: 42px; border: 1px solid #376b56; border-radius: 7px; background: #f2f7f4; color: var(--green); font: inherit; font-size: 11px; font-weight: 900; cursor: pointer; }
 .matchup-list-actions button.is-selected { background: var(--green); color: white; }
+
+.matchup-quick-read { display: grid; gap: 8px; padding-top: 12px; border-top: 1px solid var(--line); }
+.matchup-quick-read p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.5; }
+.matchup-quick-read span { display: block; margin-bottom: 2px; color: var(--green); font-size: 9px; font-weight: 900; letter-spacing: .04em; text-transform: uppercase; }
+.matchup-casual-summary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 14px 0; }
+.matchup-casual-summary > div { padding: 16px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); }
+.matchup-casual-summary span { color: var(--green); font-size: 10px; font-weight: 900; text-transform: uppercase; }
+.matchup-casual-summary p { margin: 7px 0 0; line-height: 1.55; }
+.matchup-advantages-grid li strong, .matchup-advantages-grid li small { display: block; }
+.matchup-advantages-grid li strong { color: var(--ink); font-size: 12px; line-height: 1.4; }
+.matchup-advantages-grid li small { margin-top: 2px; color: var(--muted); font-size: 9px; font-weight: 800; }
+:root[data-theme="dark"] .matchup-casual-summary > div { background: #101c17; border-color: rgba(214,173,85,.26); }
+:root[data-theme="dark"] .matchup-quick-read span, :root[data-theme="dark"] .matchup-casual-summary span { color: var(--gold-bright); }
 
 .recap-scoreboard > div:first-child { text-align: left; }
 .recap-scoreboard > div:first-child > span { text-align: left; }
@@ -9942,6 +9957,7 @@ pre {
   .matchup-list-row { grid-template-columns: 72px minmax(0, 1fr); }
   .matchup-list-date { align-self: start; }
   .matchup-list-read, .matchup-list-actions { grid-column: 1 / -1; }
+  .matchup-casual-summary { grid-template-columns: 1fr; }
   .matchup-list-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .recap-comparison-header { grid-template-columns: 1fr auto 1fr; }
   .recap-detail-stats > div { grid-template-columns: 1fr; }

@@ -1,6 +1,6 @@
 # CFP Advantage Published Intelligence Feed
 
-Generated: 2026-10-02T21:35:08.930Z
+Generated: 2026-10-02T22:09:28.951Z
 
 This directory is a bounded, machine-readable mirror of information already published on CFP Advantage. It contains public Product A team, matchup, and curated metric-relationship information only.
 

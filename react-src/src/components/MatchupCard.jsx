@@ -7,8 +7,10 @@ import {
   matchupDateLabel,
   shortConferenceTag,
 } from "../lib/formatters";
+import { matchupNarrative } from "../lib/matchupNarrative";
 
 function MatchupCard({ matchup, logos }) {
+  const narrative = matchupNarrative(matchup);
   const awayName = matchup.away_full_name || matchup.away_team;
   const homeName = matchup.home_full_name || matchup.home_team;
   const awayConference = String(
@@ -121,6 +123,11 @@ function MatchupCard({ matchup, logos }) {
             )}
           </strong>
         </div>
+      </div>
+
+      <div className="matchup-quick-read">
+        <p><span>Why this pick</span>{narrative.why}</p>
+        <p><span>What could change it</span>{narrative.risk}</p>
       </div>
     </article>
   );
