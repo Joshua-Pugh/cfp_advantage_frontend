@@ -52,8 +52,8 @@ function Home() {
           </p>
 
           <div className="hero-actions">
-            <a className="primary-action" href="/live-2026">
-              Open 2026 Season Hub
+            <a className="primary-action" href="/model-record">
+              View Public Model Record
             </a>
 
             <a className="secondary-action" href="/teams">

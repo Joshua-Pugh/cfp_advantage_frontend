@@ -88,7 +88,7 @@ function ModelRecordPage() {
         <section className="relationship-guardrail">
           <strong>Reading rule</strong>
           <p>Do not combine pending games with graded accuracy. Do not present retrospective historical results as an untouched prospective season. Cite the season, week, update time, and evidence scope.</p>
-          <a href={DATA_URL}>Download the machine-readable validation record</a>
+          <a href={DATA_URL} download="cfp-advantage-validation-record.json">Download the machine-readable validation record</a>
         </section>
       </>}
     </StandardPage>

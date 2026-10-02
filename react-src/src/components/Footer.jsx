@@ -56,13 +56,12 @@ function Footer() {
 
         <nav className="footer-links">
           <Link to="/about">About</Link>
-          <Link to="/live-2026">2026 Live</Link>
           <Link to="/metrics">Metrics Guide</Link>
           <Link to="/metric-relationships">Metric Relationships</Link>
           <Link to="/model-record">Model Record</Link>
           <Link to="/news">News</Link>
           <Link to="/updates">
-            Updates <span className="site-version">v2.4</span>
+            Updates <span className="site-version">v2.5</span>
           </Link>
         </nav>
       </div>

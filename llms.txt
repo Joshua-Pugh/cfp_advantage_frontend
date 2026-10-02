@@ -12,7 +12,7 @@
 - [Public Model Record](https://cfpadvantage.com/model-record/)
 - [Validation Record JSON](https://cfpadvantage.com/public-data/validation-record.json)
 - [Immutable Public Receipts](https://github.com/Joshua-Pugh/cfp-advantage-validation)
-- [Development Validation Status](https://cfpadvantage.com/live-2026)
+- [Public Model Record](https://cfpadvantage.com/model-record)
 - [Updates](https://cfpadvantage.com/updates)
 
 ## Interpretation rules

@@ -5,7 +5,6 @@ import Teams from "./pages/TeamPage";
 import Matchups from "./pages/MatchUpPage";
 import BracketRoom from "./pages/BracketRoomPage";
 import About from "./pages/AboutPage";
-import Live2026 from "./pages/Live2026Page";
 import MetricsGuide from "./pages/MetricsGuidePage";
 import News from "./pages/NewsPage";
 import Updates from "./pages/UpdatesPage";
@@ -29,7 +28,7 @@ function App() {
       <Route path="/bracket-room" element={<BracketRoom />} />
       <Route path="/probability-board" element={<Navigate replace to="/bracket-room" />} />
       <Route path="/about" element={<About />} />
-      <Route path="/live-2026" element={<Live2026 />} />
+      <Route path="/live-2026" element={<Navigate replace to="/model-record" />} />
       <Route path="/metrics" element={<MetricsGuide />} />
       <Route path="/metric-relationships" element={<MetricRelationshipsPage />} />
       <Route path="/model-record" element={<ModelRecordPage />} />
@@ -44,7 +43,7 @@ function App() {
       <Route path="/team.html" element={<Navigate replace to="/teams" />} />
       <Route path="/matchups.html" element={<Navigate replace to="/matchups" />} />
       <Route path="/bracket-room.html" element={<Navigate replace to="/bracket-room" />} />
-      <Route path="/live-2026.html" element={<Navigate replace to="/live-2026" />} />
+      <Route path="/live-2026.html" element={<Navigate replace to="/model-record" />} />
       <Route path="/metrics.html" element={<Navigate replace to="/metrics" />} />
       <Route path="/metric-relationships.html" element={<Navigate replace to="/metric-relationships" />} />
       <Route path="/model-record.html" element={<Navigate replace to="/model-record" />} />

@@ -198,7 +198,7 @@ function MetricRelationshipsPage() {
         <section className="relationship-guardrail">
           <strong>Research boundaries</strong>
           <ul>{data.interpretation.guardrails.map((guardrail) => <li key={guardrail}>{guardrail}</li>)}</ul>
-          <a href={DATA_URL}>Download the machine-readable public dataset</a>
+          <a href={DATA_URL} download="cfp-advantage-metric-relationships.json">Download the machine-readable public dataset</a>
         </section>
       </>}
     </StandardPage>

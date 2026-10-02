@@ -312,7 +312,7 @@ export function publicDiscoveryPlugin() {
         ...matchupIndex.map((game) => writeFile(path.join(matchupDataDir, `${game.game_id}.json`), JSON.stringify({ generated_at: generatedAt, ...game }, null, 2), "utf8")),
       ]);
 
-      const normalRoutes = ["/", "/teams", "/matchups", "/bracket-room", "/about", "/live-2026", "/model-record", "/metrics", "/metric-relationships", "/news", "/updates", "/contact", "/support", "/legal", "/framework-card"];
+      const normalRoutes = ["/", "/teams", "/matchups", "/bracket-room", "/about", "/model-record", "/metrics", "/metric-relationships", "/news", "/updates", "/contact", "/support", "/legal", "/framework-card"];
       const sitemapUrls = [...normalRoutes.map((route) => `${SITE_URL}${route === "/" ? "/" : `${route}/`}`)];
       const dataLinks = [];
 
@@ -485,7 +485,7 @@ export function publicDiscoveryPlugin() {
         links: [
           ["Machine-readable validation record", validationDataUrl],
           ["Immutable public receipts", receiptRepositoryUrl],
-          ["2026 development-validation status", `${SITE_URL}/live-2026`],
+          ["2026 public model record", `${SITE_URL}/model-record`],
           ["Current-week projections", manifest.current_week_url],
         ],
       });
@@ -643,7 +643,7 @@ ${sitemapUrls.map((url) => `  <url><loc>${xmlEscape(url)}</loc><lastmod>${today}
 - [Public Model Record](${validationCanonical})
 - [Validation Record JSON](${validationDataUrl})
 - [Immutable Public Receipts](${receiptRepositoryUrl})
-- [Development Validation Status](${SITE_URL}/live-2026)
+- [Public Model Record](${SITE_URL}/model-record)
 - [Updates](${SITE_URL}/updates)
 
 ## Interpretation rules

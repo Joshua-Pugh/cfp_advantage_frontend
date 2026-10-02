@@ -6,7 +6,6 @@ import PageMetadata from "../components/PageMetadata";
 import StandardPage from "../components/StandardPage";
 import TeamLogo from "../components/TeamLogo";
 import TeamContextTags, { PollRankTag } from "../components/TeamContextTags";
-import UnofficialResults from "../components/UnofficialResults";
 import { formatPercent, formatProjectionMargin, matchupDateLabel } from "../lib/formatters";
 import { api } from "../lib/api";
 import { matchupPath } from "../lib/urls";
@@ -14,6 +13,17 @@ import { matchupNarrative, plainAdvantage } from "../lib/matchupNarrative";
 
 const PAGE_SIZE = 20;
 const LIVE_BOARD_LIMIT = 5;
+
+function matchupSortTime(matchup) {
+  const parsed = new Date(matchup?.kickoff_at || matchup?.start_date || matchup?.date || "");
+  return Number.isNaN(parsed.getTime()) ? Number.MAX_SAFE_INTEGER : parsed.getTime();
+}
+
+function matchupDateHeading(matchup) {
+  const parsed = new Date(matchup?.kickoff_at || matchup?.start_date || matchup?.date || "");
+  if (Number.isNaN(parsed.getTime())) return matchupDateLabel(matchup);
+  return parsed.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", timeZone: "America/New_York" });
+}
 
 function number(value, digits = 1) {
   const parsed = Number(value);
@@ -85,16 +95,27 @@ function MatchupConferenceContext({ matchup }) {
   </div>;
 }
 
-function MatchupRow({ matchup, logos, selected, boardSelected, boardFull, onSelect, onToggleBoard }) {
+function MatchupRow({ matchup, score, logos, selected, boardSelected, boardFull, onSelect, onToggleBoard }) {
   const awayName = matchup.away_full_name || matchup.away_team;
   const homeName = matchup.home_full_name || matchup.home_team;
   const modelRead = matchup.projected_winner_full_name ? `${matchup.projected_winner_full_name} by ${formatProjectionMargin(matchup.projected_margin_abs)}` : "Not a certified pick";
   const narrative = matchupNarrative(matchup);
+  const isComplete = score?.status === "completed";
+  const isLive = score?.status === "in_progress";
+  const awayScore = score?.away_team?.points;
+  const homeScore = score?.home_team?.points;
+  const pickedWinner = matchup.projected_winner_full_name || matchup.projected_winner;
+  const actualWinner = isComplete && Number.isFinite(awayScore) && Number.isFinite(homeScore)
+    ? (awayScore > homeScore ? score?.away_team?.name : score?.home_team?.name)
+    : null;
+  const pickCorrect = actualWinner && pickedWinner
+    ? actualWinner.toLowerCase().includes(String(pickedWinner).toLowerCase()) || String(pickedWinner).toLowerCase().includes(actualWinner.toLowerCase())
+    : null;
   return <article className={`matchup-list-row${selected ? " is-selected" : ""}`}>
-    <div className="matchup-list-date"><span>Date</span><strong>{matchupDateLabel(matchup)}</strong><small>Upcoming</small></div>
+    <div className="matchup-list-date"><span>Date</span><strong>{matchupDateLabel(matchup)}</strong><small className={isComplete ? "is-complete" : isLive ? "is-live" : ""}>{isComplete ? "Complete" : isLive ? "Live" : "Upcoming"}</small></div>
     <div className="matchup-list-teams"><MatchupTeamLine team={matchup.away_team} fullName={awayName} rank={matchup.away_ap_rank} conference={matchup.away_conference} logos={logos} /><span>vs</span><MatchupTeamLine team={matchup.home_team} fullName={homeName} rank={matchup.home_ap_rank} conference={matchup.home_conference} logos={logos} /></div>
     <MatchupConferenceContext matchup={matchup} />
-    <div className="matchup-list-read"><span>ADV Pick</span><strong>{modelRead}</strong><p><b>Why:</b> {narrative.why}</p><p><b>Risk:</b> {narrative.risk}</p><small>{narrative.conviction}</small></div>
+    <div className={`matchup-list-read${isComplete ? " is-complete" : ""}`}><span>{isComplete ? "Final Result" : "ADV Pick"}</span>{isComplete ? <><strong>{score.away_team?.name || awayName} {awayScore} · {score.home_team?.name || homeName} {homeScore}</strong><p><b>Frozen ADV pick:</b> {modelRead}</p>{pickCorrect != null && <small>{pickCorrect ? "Unofficial model win" : "Unofficial model loss"}</small>}</> : <><strong>{modelRead}</strong><p><b>Why:</b> {narrative.why}</p><p><b>Risk:</b> {narrative.risk}</p><small>{narrative.conviction}</small></> }</div>
     <div className="matchup-list-actions">{!matchup.projection_unavailable && <button type="button" onClick={onSelect}>{selected ? "Close Breakdown" : "Full Breakdown"}</button>}<button className={boardSelected ? "is-selected" : ""} type="button" onClick={onToggleBoard} disabled={!boardSelected && boardFull}>{boardSelected ? "On Live Board" : boardFull ? "Live Board Full" : "Add to Live Board"}</button></div>
   </article>;
 }
@@ -120,17 +141,21 @@ function SelectedBoardRow({ id, game, matchup, onToggle }) {
   return <article className="selected-board-row"><div><strong>{away} <span>at</span> {home}</strong><small>ADV Pick · {pick}</small></div><button type="button" onClick={() => onToggle(id)}>Remove</button></article>;
 }
 
-function LiveScoreboard({ matchups, selectedIds, onToggle, onClear }) {
+function LiveScoreboard({ matchups, selectedIds, onToggle, onClear, onGamesLoaded }) {
   const [games, setGames] = useState([]);
   const [expanded, setExpanded] = useState(true);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  async function loadScores() { try { setLoading(true); setError(""); const payload = await api("/api/game-day/scoreboard?classification=fbs"); setGames(Array.isArray(payload.games) ? payload.games : []); } catch (loadError) { console.error("CFP Advantage live scoreboard failed:", loadError); setError("Live scores are temporarily unavailable."); } finally { setLoading(false); } }
+  async function loadScores() { try { setLoading(true); setError(""); const payload = await api("/api/game-day/scoreboard?classification=fbs"); const nextGames = Array.isArray(payload.games) ? payload.games : []; setGames(nextGames); onGamesLoaded(nextGames); } catch (loadError) { console.error("CFP Advantage live scoreboard failed:", loadError); setError("Live scores are temporarily unavailable."); } finally { setLoading(false); } }
   useEffect(() => {
     let active = true;
     api("/api/game-day/scoreboard?classification=fbs")
       .then((payload) => {
-        if (active) setGames(Array.isArray(payload.games) ? payload.games : []);
+        if (active) {
+          const nextGames = Array.isArray(payload.games) ? payload.games : [];
+          setGames(nextGames);
+          onGamesLoaded(nextGames);
+        }
       })
       .catch((loadError) => {
         if (!active) return;
@@ -141,7 +166,7 @@ function LiveScoreboard({ matchups, selectedIds, onToggle, onClear }) {
         if (active) setLoading(false);
       });
     return () => { active = false; };
-  }, []);
+  }, [onGamesLoaded]);
   const scoresById = useMemo(() => Object.fromEntries(games.map((game) => [String(game.game_id), game])), [games]);
   const matchupsById = useMemo(() => Object.fromEntries(matchups.map((game) => [String(game.game_id), game])), [matchups]);
   const selectedGames = selectedIds.map((id) => ({ game: scoresById[id], matchup: matchupsById[id], id })).filter((item) => item.game || item.matchup);
@@ -159,11 +184,13 @@ function MatchUpPage() {
   const [logos, setLogos] = useState({});
   const [localSelectedId, setLocalSelectedId] = useState(null);
   const [selectedLiveBoardIds, setSelectedLiveBoardIds] = useState([]);
+  const [scoreGames, setScoreGames] = useState([]);
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [query, setQuery] = useState("");
   const [error, setError] = useState("");
   useEffect(() => { Promise.all([api("/api/product-a/current-week?limit=150&include_schedule_only=true"), fetch("/team-logos.json").then((response) => response.ok ? response.json() : { teams: {} })]).then(([weekly, logoPayload]) => { setPayload(weekly); setLogos(logoPayload.teams || {}); }).catch((loadError) => { console.error("CFP Advantage matchup board failed:", loadError); setError("The weekly matchup board is temporarily unavailable."); }); }, []);
-  const games = useMemo(() => payload?.matchups || [], [payload]);
+  const games = useMemo(() => [...(payload?.matchups || [])].sort((left, right) => matchupSortTime(left) - matchupSortTime(right) || String(left.away_full_name || left.away_team).localeCompare(String(right.away_full_name || right.away_team))), [payload]);
+  const scoresById = useMemo(() => Object.fromEntries(scoreGames.map((game) => [String(game.game_id), game])), [scoreGames]);
   const filteredGames = useMemo(() => { const needle = query.trim().toLowerCase(); if (!needle) return games; return games.filter((game) => [game.away_team, game.away_full_name, game.home_team, game.home_full_name, game.game_type].some((value) => String(value || "").toLowerCase().includes(needle))); }, [games, query]);
   const routeGameIndex = routeGameId ? games.findIndex((game) => String(game.game_id) === String(routeGameId)) : -1;
   const selectedId = routeGameIndex >= 0 ? String(routeGameId) : localSelectedId;
@@ -211,13 +238,10 @@ function MatchUpPage() {
         homeTeam: { "@type": "SportsTeam", name: selectedMatchup.home_full_name || selectedMatchup.home_team },
       } : null}
     />
-    <LiveScoreboard matchups={games} selectedIds={selectedLiveBoardIds} onToggle={toggleLiveBoard} onClear={() => setSelectedLiveBoardIds([])} />
-    <section className="matchup-unofficial-panel" aria-label="Current week provisional model results">
-      <UnofficialResults />
-    </section>
-    <section className="full-slate-panel" id="full-slate"><div className="full-slate-panel-header"><div><p className="eyebrow">Current Week</p><h2>{status.label || "Matchup Intelligence"}</h2><p className="panel-note">Official pregame margins are frozen before kickoff. Open any supported game for the full Control Framework comparison.</p></div>{payload && <span className="framework-read-label">{games.length} Games</span>}</div><label className="full-slate-inline-search"><span>Find a team or matchup</span><input type="search" value={query} onChange={(event) => { setQuery(event.target.value); setVisibleCount(PAGE_SIZE); setLocalSelectedId(null); if (routeGameId) navigate("/matchups"); }} placeholder="Search the weekly slate" /></label>
+    <LiveScoreboard matchups={games} selectedIds={selectedLiveBoardIds} onToggle={toggleLiveBoard} onClear={() => setSelectedLiveBoardIds([])} onGamesLoaded={setScoreGames} />
+    <section className="full-slate-panel" id="full-slate"><div className="full-slate-panel-header"><div><p className="eyebrow">Current Week</p><h2>{status.label || "Matchup Intelligence"}</h2><p className="panel-note">Games are ordered by kickoff time. Completed games show their provisional result in the original matchup card; frozen picks and certified grades remain unchanged.</p></div>{payload && <span className="framework-read-label">{games.length} Games</span>}</div><label className="full-slate-inline-search"><span>Find a team or matchup</span><input type="search" value={query} onChange={(event) => { setQuery(event.target.value); setVisibleCount(PAGE_SIZE); setLocalSelectedId(null); if (routeGameId) navigate("/matchups"); }} placeholder="Search the weekly slate" /></label>
       {!payload && !error && <div className="full-slate-empty"><LoadingDots text="Loading the certified weekly slate" /></div>}{error && <p className="status-line warn">{error}</p>}{payload && games.length === 0 && <div className="full-slate-empty"><strong>No weekly snapshot is available.</strong><p>{payload.weekly_snapshot_note || status.message}</p></div>}{payload && games.length > 0 && filteredGames.length === 0 && <div className="full-slate-empty"><strong>No matchups match that search.</strong></div>}
-      {visibleGames.length > 0 && <div className="matchup-list"><div className="full-slate-table">{visibleGames.map((matchup) => { const id = String(matchup.game_id); const isSelected = id === selectedId; return <Fragment key={id}><MatchupRow matchup={matchup} logos={logos} selected={isSelected} boardSelected={selectedLiveBoardIds.includes(id)} boardFull={selectedLiveBoardIds.length >= LIVE_BOARD_LIMIT} onSelect={() => selectMatchup(id, isSelected)} onToggleBoard={() => toggleLiveBoard(id)} />{isSelected && selectedMatchup && <MatchupDetail matchup={selectedMatchup} onClose={() => { setLocalSelectedId(null); navigate("/matchups"); }} />}</Fragment>; })}</div>{!query.trim() && filteredGames.length > visibleGames.length && <div className="full-slate-load-more"><button className="secondary-action" type="button" onClick={() => setVisibleCount((count) => count + PAGE_SIZE)}>Load More Games</button><span>Showing {visibleGames.length} of {filteredGames.length} games</span></div>}{!query.trim() && filteredGames.length > PAGE_SIZE && filteredGames.length === visibleGames.length && <div className="full-slate-load-more"><span>Showing all {filteredGames.length} games</span></div>}</div>}
+      {visibleGames.length > 0 && <div className="matchup-list"><div className="full-slate-table">{visibleGames.map((matchup, index) => { const id = String(matchup.game_id); const isSelected = id === selectedId; const dateHeading = matchupDateHeading(matchup); const priorDateHeading = index > 0 ? matchupDateHeading(visibleGames[index - 1]) : null; return <Fragment key={id}>{dateHeading !== priorDateHeading && <h3 className="matchup-date-divider">{dateHeading}</h3>}<MatchupRow matchup={matchup} score={scoresById[id]} logos={logos} selected={isSelected} boardSelected={selectedLiveBoardIds.includes(id)} boardFull={selectedLiveBoardIds.length >= LIVE_BOARD_LIMIT} onSelect={() => selectMatchup(id, isSelected)} onToggleBoard={() => toggleLiveBoard(id)} />{isSelected && selectedMatchup && <MatchupDetail matchup={selectedMatchup} onClose={() => { setLocalSelectedId(null); navigate("/matchups"); }} />}</Fragment>; })}</div>{!query.trim() && filteredGames.length > visibleGames.length && <div className="full-slate-load-more"><button className="secondary-action" type="button" onClick={() => setVisibleCount((count) => count + PAGE_SIZE)}>Load More Games</button><span>Showing {visibleGames.length} of {filteredGames.length} games</span></div>}{!query.trim() && filteredGames.length > PAGE_SIZE && filteredGames.length === visibleGames.length && <div className="full-slate-load-more"><span>Showing all {filteredGames.length} games</span></div>}</div>}
     </section>
   </StandardPage>;
 }
