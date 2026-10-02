@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "SMU",
+  "full_name": "SMU Mustangs",
+  "season": 2026,
+  "conference": "ACC",
+  "classification": "fbs",
+  "tier": "power",
+  "record": "3-1",
+  "points_for": 148,
+  "points_against": 99,
+  "average_score_margin": 12.25,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 96.174202,
+    "adv_schedule_strength": 53.367921,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": 0.593918037180936,
+    "talent_yield_label": "Above Expectation",
+    "control_creation": 0.490975,
+    "control_finish": 0.880596,
+    "control_denial": 0.703647,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 542.8,
+      "yards_per_play": 7.84,
+      "points_per_drive": 2.7,
+      "rush_yards_per_game": 151.8,
+      "pass_yards_per_game": 391,
+      "turnover_margin": -4
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/smu/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/smu.json"
+}

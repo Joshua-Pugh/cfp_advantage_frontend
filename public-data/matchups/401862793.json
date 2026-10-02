@@ -1,0 +1,37 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "game_id": "401862793",
+  "season": 2026,
+  "week": 5,
+  "date": "2026-10-03",
+  "kickoff_at": "2026-10-03T19:30:00.000Z",
+  "game_type": "Non-Conference",
+  "away_team": "Samford",
+  "away_full_name": "Samford",
+  "away_conference": "Southern",
+  "away_ap_rank": 0,
+  "home_team": "UAB",
+  "home_full_name": "UAB Blazers",
+  "home_conference": "American Athletic",
+  "home_ap_rank": 0,
+  "projected_winner": "UAB Blazers",
+  "projected_margin": 25.3,
+  "projection_closeness": 0,
+  "context_label": "Opponent-Tier Baseline",
+  "context_note": "Limited projection using historical FBS-vs-FCS margin baselines by team tier. No full ADV or Control Framework read is published for the FCS opponent.",
+  "matchup_conviction": {
+    "label": "Baseline Only",
+    "note": "This is a baseline projection without a complete supported Control Framework read.",
+    "historical_model_win_rate": 0.688,
+    "framework_support": null
+  },
+  "key_advantages": {
+    "UAB": [],
+    "Samford": []
+  },
+  "away_profile": null,
+  "home_profile": null,
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401862793/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401862793.json"
+}

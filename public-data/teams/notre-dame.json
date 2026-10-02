@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Notre Dame",
+  "full_name": "Notre Dame Fighting Irish",
+  "season": 2026,
+  "conference": "FBS Independents",
+  "classification": "fbs",
+  "tier": "power",
+  "record": "4-0",
+  "points_for": 169,
+  "points_against": 33,
+  "average_score_margin": 34,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 129.864956,
+    "adv_schedule_strength": 53.970954,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is comparatively stable without a material slope.",
+    "talent_yield": 0.4509441792423512,
+    "talent_yield_label": "Above Expectation",
+    "control_creation": 0.62912,
+    "control_finish": 0.895338,
+    "control_denial": 0.655707,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 418.8,
+      "yards_per_play": 6.73,
+      "points_per_drive": 3.61,
+      "rush_yards_per_game": 143.5,
+      "pass_yards_per_game": 275.2,
+      "turnover_margin": 6
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/notre-dame/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/notre-dame.json"
+}

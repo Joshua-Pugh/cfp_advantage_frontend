@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "South Carolina",
+  "full_name": "South Carolina Gamecocks",
+  "season": 2026,
+  "conference": "SEC",
+  "classification": "fbs",
+  "tier": "power",
+  "record": "2-2",
+  "points_for": 154,
+  "points_against": 99,
+  "average_score_margin": 13.75,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 72.824081,
+    "adv_schedule_strength": 52.862347,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -0.829816537271491,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.498952,
+    "control_finish": 0.894959,
+    "control_denial": 0.58789,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 484.5,
+      "yards_per_play": 6.8,
+      "points_per_drive": 3.04,
+      "rush_yards_per_game": 254.2,
+      "pass_yards_per_game": 230.2,
+      "turnover_margin": -4
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/south-carolina/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/south-carolina.json"
+}

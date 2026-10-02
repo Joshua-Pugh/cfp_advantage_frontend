@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Western Kentucky",
+  "full_name": "Western Kentucky Hilltoppers",
+  "season": 2026,
+  "conference": "Conference USA",
+  "classification": "fbs",
+  "tier": "g5",
+  "record": "1-3",
+  "points_for": 86,
+  "points_against": 164,
+  "average_score_margin": -19.5,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 11.717885,
+    "adv_schedule_strength": 40.54609,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": -0.48412543680798703,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.327096,
+    "control_finish": 0.822676,
+    "control_denial": 0.616245,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 348.5,
+      "yards_per_play": 5.09,
+      "points_per_drive": 1.81,
+      "rush_yards_per_game": 134.8,
+      "pass_yards_per_game": 213.8,
+      "turnover_margin": -3
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/western-kentucky/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/western-kentucky.json"
+}

@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Akron",
+  "full_name": "Akron Zips",
+  "season": 2026,
+  "conference": "Mid-American",
+  "classification": "fbs",
+  "tier": "g5",
+  "record": "1-3",
+  "points_for": 78,
+  "points_against": 127,
+  "average_score_margin": -12.25,
+  "current_pregame_profile": {
+    "pregame_adv_rating": -0.151011,
+    "adv_schedule_strength": 23.508427,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -0.6429266470173651,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.351653,
+    "control_finish": 0.684835,
+    "control_denial": 0.719453,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 337.2,
+      "yards_per_play": 5.31,
+      "points_per_drive": 1.7,
+      "rush_yards_per_game": 132.8,
+      "pass_yards_per_game": 204.5,
+      "turnover_margin": -4
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/akron/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/akron.json"
+}

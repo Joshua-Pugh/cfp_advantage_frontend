@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Missouri",
+  "full_name": "Missouri Tigers",
+  "season": 2026,
+  "conference": "SEC",
+  "classification": "fbs",
+  "tier": "power",
+  "record": "3-1",
+  "points_for": 143,
+  "points_against": 83,
+  "average_score_margin": 15,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 79.973005,
+    "adv_schedule_strength": 22.563506,
+    "games_before_target": 4,
+    "recent_form": "Declining",
+    "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+    "talent_yield": -0.24707436944284367,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.47337,
+    "control_finish": 0.834904,
+    "control_denial": 0.346906,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 418.2,
+      "yards_per_play": 6.27,
+      "points_per_drive": 2.86,
+      "rush_yards_per_game": 158.8,
+      "pass_yards_per_game": 259.5,
+      "turnover_margin": 4
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/missouri/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/missouri.json"
+}

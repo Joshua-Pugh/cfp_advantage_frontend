@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Memphis",
+  "full_name": "Memphis Tigers",
+  "season": 2026,
+  "conference": "American Athletic",
+  "classification": "fbs",
+  "tier": "g5",
+  "record": "3-1",
+  "points_for": 134,
+  "points_against": 104,
+  "average_score_margin": 7.5,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 69.472759,
+    "adv_schedule_strength": 45.187359,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": 0.30316116628553946,
+    "talent_yield_label": "Above Expectation",
+    "control_creation": 0.509707,
+    "control_finish": 0.885726,
+    "control_denial": 0.706794,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 501.8,
+      "yards_per_play": 8.13,
+      "points_per_drive": 2.75,
+      "rush_yards_per_game": 239.2,
+      "pass_yards_per_game": 262.5,
+      "turnover_margin": -1
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/memphis/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/memphis.json"
+}

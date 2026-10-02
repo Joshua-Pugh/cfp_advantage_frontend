@@ -1,11 +1,14 @@
 import { Fragment, useEffect, useMemo, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 import LoadingDots from "../components/LoadingDots";
+import PageMetadata from "../components/PageMetadata";
 import StandardPage from "../components/StandardPage";
 import TeamLogo from "../components/TeamLogo";
 import TeamContextTags, { PollRankTag } from "../components/TeamContextTags";
 import { formatPercent, formatProjectionMargin, matchupDateLabel } from "../lib/formatters";
 import { api } from "../lib/api";
+import { matchupPath } from "../lib/urls";
 
 const PAGE_SIZE = 20;
 const LIVE_BOARD_LIMIT = 5;
@@ -145,9 +148,11 @@ function LiveScoreboard({ matchups, selectedIds, onToggle, onClear }) {
 }
 
 function MatchUpPage() {
+  const navigate = useNavigate();
+  const { gameId: routeGameId } = useParams();
   const [payload, setPayload] = useState(null);
   const [logos, setLogos] = useState({});
-  const [selectedId, setSelectedId] = useState(null);
+  const [localSelectedId, setLocalSelectedId] = useState(null);
   const [selectedLiveBoardIds, setSelectedLiveBoardIds] = useState([]);
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const [query, setQuery] = useState("");
@@ -155,15 +160,56 @@ function MatchUpPage() {
   useEffect(() => { Promise.all([api("/api/product-a/current-week?limit=150&include_schedule_only=true"), fetch("/team-logos.json").then((response) => response.ok ? response.json() : { teams: {} })]).then(([weekly, logoPayload]) => { setPayload(weekly); setLogos(logoPayload.teams || {}); }).catch((loadError) => { console.error("CFP Advantage matchup board failed:", loadError); setError("The weekly matchup board is temporarily unavailable."); }); }, []);
   const games = useMemo(() => payload?.matchups || [], [payload]);
   const filteredGames = useMemo(() => { const needle = query.trim().toLowerCase(); if (!needle) return games; return games.filter((game) => [game.away_team, game.away_full_name, game.home_team, game.home_full_name, game.game_type].some((value) => String(value || "").toLowerCase().includes(needle))); }, [games, query]);
-  const visibleGames = query.trim() ? filteredGames : filteredGames.slice(0, visibleCount);
+  const routeGameIndex = routeGameId ? games.findIndex((game) => String(game.game_id) === String(routeGameId)) : -1;
+  const selectedId = routeGameIndex >= 0 ? String(routeGameId) : localSelectedId;
+  const effectiveVisibleCount = routeGameIndex >= 0 ? Math.max(visibleCount, routeGameIndex + 1) : visibleCount;
+  const visibleGames = query.trim() ? filteredGames : filteredGames.slice(0, effectiveVisibleCount);
   const selectedMatchup = games.find((game) => String(game.game_id) === selectedId);
   const status = payload?.status || {};
+
+  useEffect(() => {
+    if (payload && routeGameId && routeGameIndex < 0) {
+      navigate("/matchups", { replace: true });
+    }
+  }, [navigate, payload, routeGameId, routeGameIndex]);
+
+  function selectMatchup(id, isSelected) {
+    if (isSelected) {
+      setLocalSelectedId(null);
+      navigate("/matchups");
+      return;
+    }
+    setLocalSelectedId(id);
+    navigate(matchupPath(id));
+  }
   function toggleLiveBoard(gameId) { const id = String(gameId); setSelectedLiveBoardIds((current) => current.includes(id) ? current.filter((value) => value !== id) : current.length < LIVE_BOARD_LIMIT ? [...current, id] : current); }
+  const metadataTitle = selectedMatchup
+    ? `${selectedMatchup.away_full_name || selectedMatchup.away_team} at ${selectedMatchup.home_full_name || selectedMatchup.home_team} | CFP Advantage`
+    : "College Football Matchups | CFP Advantage";
+  const metadataDescription = selectedMatchup
+    ? `Pregame CFP Advantage matchup context and published model margin for ${selectedMatchup.away_full_name || selectedMatchup.away_team} at ${selectedMatchup.home_full_name || selectedMatchup.home_team}.`
+    : "Current college football matchup projections and Control Framework context from CFP Advantage.";
+
   return <StandardPage className="matchup-page-shell">
+    <PageMetadata
+      title={metadataTitle}
+      description={metadataDescription}
+      path={selectedMatchup ? matchupPath(selectedMatchup.game_id) : "/matchups"}
+      structuredData={selectedMatchup ? {
+        "@context": "https://schema.org",
+        "@type": "SportsEvent",
+        name: `${selectedMatchup.away_full_name || selectedMatchup.away_team} at ${selectedMatchup.home_full_name || selectedMatchup.home_team}`,
+        sport: "College Football",
+        startDate: selectedMatchup.kickoff_at || selectedMatchup.date,
+        url: `https://cfpadvantage.com${matchupPath(selectedMatchup.game_id)}`,
+        awayTeam: { "@type": "SportsTeam", name: selectedMatchup.away_full_name || selectedMatchup.away_team },
+        homeTeam: { "@type": "SportsTeam", name: selectedMatchup.home_full_name || selectedMatchup.home_team },
+      } : null}
+    />
     <LiveScoreboard matchups={games} selectedIds={selectedLiveBoardIds} onToggle={toggleLiveBoard} onClear={() => setSelectedLiveBoardIds([])} />
-    <section className="full-slate-panel" id="full-slate"><div className="full-slate-panel-header"><div><p className="eyebrow">Current Week</p><h2>{status.label || "Matchup Intelligence"}</h2><p className="panel-note">Official pregame margins are frozen before kickoff. Open any supported game for the full Control Framework comparison.</p></div>{payload && <span className="framework-read-label">{games.length} Games</span>}</div><label className="full-slate-inline-search"><span>Find a team or matchup</span><input type="search" value={query} onChange={(event) => { setQuery(event.target.value); setVisibleCount(PAGE_SIZE); setSelectedId(null); }} placeholder="Search the weekly slate" /></label>
+    <section className="full-slate-panel" id="full-slate"><div className="full-slate-panel-header"><div><p className="eyebrow">Current Week</p><h2>{status.label || "Matchup Intelligence"}</h2><p className="panel-note">Official pregame margins are frozen before kickoff. Open any supported game for the full Control Framework comparison.</p></div>{payload && <span className="framework-read-label">{games.length} Games</span>}</div><label className="full-slate-inline-search"><span>Find a team or matchup</span><input type="search" value={query} onChange={(event) => { setQuery(event.target.value); setVisibleCount(PAGE_SIZE); setLocalSelectedId(null); if (routeGameId) navigate("/matchups"); }} placeholder="Search the weekly slate" /></label>
       {!payload && !error && <div className="full-slate-empty"><LoadingDots text="Loading the certified weekly slate" /></div>}{error && <p className="status-line warn">{error}</p>}{payload && games.length === 0 && <div className="full-slate-empty"><strong>No weekly snapshot is available.</strong><p>{payload.weekly_snapshot_note || status.message}</p></div>}{payload && games.length > 0 && filteredGames.length === 0 && <div className="full-slate-empty"><strong>No matchups match that search.</strong></div>}
-      {visibleGames.length > 0 && <div className="matchup-list"><div className="full-slate-table">{visibleGames.map((matchup) => { const id = String(matchup.game_id); const isSelected = id === selectedId; return <Fragment key={id}><MatchupRow matchup={matchup} logos={logos} selected={isSelected} boardSelected={selectedLiveBoardIds.includes(id)} boardFull={selectedLiveBoardIds.length >= LIVE_BOARD_LIMIT} onSelect={() => setSelectedId(isSelected ? null : id)} onToggleBoard={() => toggleLiveBoard(id)} />{isSelected && selectedMatchup && <MatchupDetail matchup={selectedMatchup} onClose={() => setSelectedId(null)} />}</Fragment>; })}</div>{!query.trim() && filteredGames.length > visibleGames.length && <div className="full-slate-load-more"><button className="secondary-action" type="button" onClick={() => setVisibleCount((count) => count + PAGE_SIZE)}>Load More Games</button><span>Showing {visibleGames.length} of {filteredGames.length} games</span></div>}{!query.trim() && filteredGames.length > PAGE_SIZE && filteredGames.length === visibleGames.length && <div className="full-slate-load-more"><span>Showing all {filteredGames.length} games</span></div>}</div>}
+      {visibleGames.length > 0 && <div className="matchup-list"><div className="full-slate-table">{visibleGames.map((matchup) => { const id = String(matchup.game_id); const isSelected = id === selectedId; return <Fragment key={id}><MatchupRow matchup={matchup} logos={logos} selected={isSelected} boardSelected={selectedLiveBoardIds.includes(id)} boardFull={selectedLiveBoardIds.length >= LIVE_BOARD_LIMIT} onSelect={() => selectMatchup(id, isSelected)} onToggleBoard={() => toggleLiveBoard(id)} />{isSelected && selectedMatchup && <MatchupDetail matchup={selectedMatchup} onClose={() => { setLocalSelectedId(null); navigate("/matchups"); }} />}</Fragment>; })}</div>{!query.trim() && filteredGames.length > visibleGames.length && <div className="full-slate-load-more"><button className="secondary-action" type="button" onClick={() => setVisibleCount((count) => count + PAGE_SIZE)}>Load More Games</button><span>Showing {visibleGames.length} of {filteredGames.length} games</span></div>}{!query.trim() && filteredGames.length > PAGE_SIZE && filteredGames.length === visibleGames.length && <div className="full-slate-load-more"><span>Showing all {filteredGames.length} games</span></div>}</div>}
     </section>
   </StandardPage>;
 }

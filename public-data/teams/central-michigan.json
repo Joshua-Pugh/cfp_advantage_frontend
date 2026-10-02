@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Central Michigan",
+  "full_name": "Central Michigan Chippewas",
+  "season": 2026,
+  "conference": "Mid-American",
+  "classification": "fbs",
+  "tier": "g5",
+  "record": "2-2",
+  "points_for": 47,
+  "points_against": 110,
+  "average_score_margin": -15.75,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 8.53956,
+    "adv_schedule_strength": 28.99191,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -0.5722460622503486,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.27408,
+    "control_finish": 0.793497,
+    "control_denial": 0.629454,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 247,
+      "yards_per_play": 4.43,
+      "points_per_drive": 1.15,
+      "rush_yards_per_game": 178,
+      "pass_yards_per_game": 69,
+      "turnover_margin": 1
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/central-michigan/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/central-michigan.json"
+}

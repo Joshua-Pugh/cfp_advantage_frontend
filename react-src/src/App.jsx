@@ -20,7 +20,10 @@ function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/teams" element={<Teams />} />
+      <Route path="/teams/:season" element={<Teams />} />
+      <Route path="/teams/:season/:teamSlug" element={<Teams />} />
       <Route path="/matchups" element={<Matchups />} />
+      <Route path="/matchups/:gameId" element={<Matchups />} />
       <Route path="/bracket-room" element={<BracketRoom />} />
       <Route path="/probability-board" element={<Navigate replace to="/bracket-room" />} />
       <Route path="/about" element={<About />} />

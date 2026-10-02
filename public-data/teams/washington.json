@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Washington",
+  "full_name": "Washington Huskies",
+  "season": 2026,
+  "conference": "Big Ten",
+  "classification": "fbs",
+  "tier": "power",
+  "record": "3-1",
+  "points_for": 112,
+  "points_against": 67,
+  "average_score_margin": 11.25,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 81.196172,
+    "adv_schedule_strength": 26.466997,
+    "games_before_target": 4,
+    "recent_form": "Declining",
+    "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+    "talent_yield": -0.007425204432513599,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.430778,
+    "control_finish": 0.899836,
+    "control_denial": 0.40264,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 395.5,
+      "yards_per_play": 6.3,
+      "points_per_drive": 2.33,
+      "rush_yards_per_game": 109.2,
+      "pass_yards_per_game": 286.2,
+      "turnover_margin": 5
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/washington/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/washington.json"
+}

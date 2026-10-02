@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Cincinnati",
+  "full_name": "Cincinnati Bearcats",
+  "season": 2026,
+  "conference": "Big 12",
+  "classification": "fbs",
+  "tier": "power",
+  "record": "4-0",
+  "points_for": 162,
+  "points_against": 82,
+  "average_score_margin": 20,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 75.573959,
+    "adv_schedule_strength": 39.25497,
+    "games_before_target": 4,
+    "recent_form": "Declining",
+    "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+    "talent_yield": 0.7337407133849715,
+    "talent_yield_label": "Above Expectation",
+    "control_creation": 0.481072,
+    "control_finish": 0.966484,
+    "control_denial": 0.471845,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 479.8,
+      "yards_per_play": 7.27,
+      "points_per_drive": 3.38,
+      "rush_yards_per_game": 269.8,
+      "pass_yards_per_game": 210,
+      "turnover_margin": 4
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/cincinnati/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/cincinnati.json"
+}

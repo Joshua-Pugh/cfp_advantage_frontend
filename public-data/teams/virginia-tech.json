@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Virginia Tech",
+  "full_name": "Virginia Tech Hokies",
+  "season": 2026,
+  "conference": "ACC",
+  "classification": "fbs",
+  "tier": "power",
+  "record": "4-0",
+  "points_for": 173,
+  "points_against": 64,
+  "average_score_margin": 27.25,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 60.973542,
+    "adv_schedule_strength": 0.506247,
+    "games_before_target": 4,
+    "recent_form": "Declining",
+    "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+    "talent_yield": -0.6164231249493337,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.520843,
+    "control_finish": 0.869455,
+    "control_denial": 0.440809,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 464,
+      "yards_per_play": 6.05,
+      "points_per_drive": 3.09,
+      "rush_yards_per_game": 179.2,
+      "pass_yards_per_game": 284.8,
+      "turnover_margin": 2
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/virginia-tech/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/virginia-tech.json"
+}

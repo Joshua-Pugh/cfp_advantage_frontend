@@ -1,0 +1,88 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "game_id": "401871049",
+  "season": 2026,
+  "week": 5,
+  "date": "2026-10-02",
+  "kickoff_at": "2026-10-02T00:00:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "Western Kentucky",
+  "away_full_name": "Western Kentucky Hilltoppers",
+  "away_conference": "Conference USA",
+  "away_ap_rank": 0,
+  "home_team": "New Mexico State",
+  "home_full_name": "New Mexico State Aggies",
+  "home_conference": "Conference USA",
+  "home_ap_rank": 0,
+  "projected_winner": "Western Kentucky Hilltoppers",
+  "projected_margin": 1.6,
+  "projection_closeness": 0.9238,
+  "context_label": "Expected/Observed Blend",
+  "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+  "matchup_conviction": {
+    "label": "Context Pushback",
+    "note": "The baseline has a lean, but stable Control Framework traits point to meaningful matchup resistance.",
+    "historical_model_win_rate": 0.525,
+    "framework_support": {
+      "strength": "Framework Conflicts",
+      "support_components": 0,
+      "conflict_components": 4
+    }
+  },
+  "key_advantages": {
+    "New Mexico State": [
+      "Stronger Control Creation",
+      "Stronger Control Denial",
+      "Limits Control Pressure better"
+    ],
+    "Western Kentucky": [
+      "Higher overall ADV strength",
+      "Stronger schedule context"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 11.717885,
+    "adv_schedule_strength": 40.54609,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": -0.48412543680798703,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.327096,
+    "control_finish": 0.822676,
+    "control_denial": 0.616245,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 348.5,
+      "yards_per_play": 5.09,
+      "points_per_drive": 1.81,
+      "rush_yards_per_game": 134.8,
+      "pass_yards_per_game": 213.8,
+      "turnover_margin": -3
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": -3.619186,
+    "adv_schedule_strength": 16.31567,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -0.30098006373572317,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.370184,
+    "control_finish": 0.825399,
+    "control_denial": 0.673826,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 421.2,
+      "yards_per_play": 6.48,
+      "points_per_drive": 1.76,
+      "rush_yards_per_game": 144,
+      "pass_yards_per_game": 277.2,
+      "turnover_margin": -2
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401871049/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401871049.json"
+}

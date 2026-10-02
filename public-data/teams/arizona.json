@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Arizona",
+  "full_name": "Arizona Wildcats",
+  "season": 2026,
+  "conference": "Big 12",
+  "classification": "fbs",
+  "tier": "power",
+  "record": "3-1",
+  "points_for": 128,
+  "points_against": 76,
+  "average_score_margin": 13,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 79.612278,
+    "adv_schedule_strength": 33.512324,
+    "games_before_target": 4,
+    "recent_form": "Declining",
+    "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+    "talent_yield": 0.3438847429069075,
+    "talent_yield_label": "Above Expectation",
+    "control_creation": 0.518918,
+    "control_finish": 0.774896,
+    "control_denial": 0.546595,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 425.5,
+      "yards_per_play": 6.33,
+      "points_per_drive": 2.63,
+      "rush_yards_per_game": 133.5,
+      "pass_yards_per_game": 292,
+      "turnover_margin": -4
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/arizona/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/arizona.json"
+}

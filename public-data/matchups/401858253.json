@@ -1,0 +1,89 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "game_id": "401858253",
+  "season": 2026,
+  "week": 5,
+  "date": "2026-10-03",
+  "kickoff_at": "2026-10-03T19:30:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "Virginia",
+  "away_full_name": "Virginia Cavaliers",
+  "away_conference": "ACC",
+  "away_ap_rank": 0,
+  "home_team": "Florida State",
+  "home_full_name": "Florida State Seminoles",
+  "home_conference": "ACC",
+  "home_ap_rank": 0,
+  "projected_winner": "Florida State Seminoles",
+  "projected_margin": 4.12,
+  "projection_closeness": 0.8037,
+  "context_label": "Expected/Observed Blend",
+  "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+  "matchup_conviction": {
+    "label": "Context Pushback",
+    "note": "The baseline has a lean, but stable Control Framework traits point to meaningful matchup resistance.",
+    "historical_model_win_rate": 0.606,
+    "framework_support": {
+      "strength": "Framework Leans Against",
+      "support_components": 0,
+      "conflict_components": 3
+    }
+  },
+  "key_advantages": {
+    "Florida State": [
+      "More efficient Control Finish",
+      "Higher Control Drive Shutout Rate",
+      "Stronger schedule context"
+    ],
+    "Virginia": [
+      "More consistent Control Rate",
+      "Stronger Control Denial",
+      "Limits Control Pressure better"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 70.21328,
+    "adv_schedule_strength": 16.651918,
+    "games_before_target": 4,
+    "recent_form": "Declining",
+    "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+    "talent_yield": 0.0826385976575782,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.479927,
+    "control_finish": 0.92755,
+    "control_denial": 0.558123,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 449,
+      "yards_per_play": 6.37,
+      "points_per_drive": 3.16,
+      "rush_yards_per_game": 196.2,
+      "pass_yards_per_game": 252.8,
+      "turnover_margin": 5
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 73.957193,
+    "adv_schedule_strength": 52.442542,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": -0.41784571301969686,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.463003,
+    "control_finish": 0.960511,
+    "control_denial": 0.530749,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 411,
+      "yards_per_play": 6.71,
+      "points_per_drive": 2.98,
+      "rush_yards_per_game": 174,
+      "pass_yards_per_game": 237,
+      "turnover_margin": -2
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401858253/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401858253.json"
+}

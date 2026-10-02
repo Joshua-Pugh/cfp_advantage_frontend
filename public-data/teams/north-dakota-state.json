@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "North Dakota State",
+  "full_name": "North Dakota State Bison",
+  "season": 2026,
+  "conference": "Mountain West",
+  "classification": "fbs",
+  "tier": "g5",
+  "record": "4-0",
+  "points_for": 140,
+  "points_against": 49,
+  "average_score_margin": 22.75,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 55.746737,
+    "adv_schedule_strength": -7.880072,
+    "games_before_target": 4,
+    "recent_form": "Declining",
+    "recent_form_note": "Recent ADV has declined with manageable volatility.",
+    "talent_yield": 1.1347116554381598,
+    "talent_yield_label": "Well Above Expectation",
+    "control_creation": 0.439024,
+    "control_finish": 0.888889,
+    "control_denial": 0.675,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 371.5,
+      "yards_per_play": 5.85,
+      "points_per_drive": 3.24,
+      "rush_yards_per_game": 159.5,
+      "pass_yards_per_game": 212,
+      "turnover_margin": 8
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/north-dakota-state/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/north-dakota-state.json"
+}

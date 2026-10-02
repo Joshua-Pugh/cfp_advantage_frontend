@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Arizona State",
+  "full_name": "Arizona State Sun Devils",
+  "season": 2026,
+  "conference": "Big 12",
+  "classification": "fbs",
+  "tier": "power",
+  "record": "2-1",
+  "points_for": 114,
+  "points_against": 72,
+  "average_score_margin": 14,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 67.357215,
+    "adv_schedule_strength": 29.627878,
+    "games_before_target": 3,
+    "recent_form": "Declining",
+    "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+    "talent_yield": -0.06464809090657575,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.470279,
+    "control_finish": 0.82886,
+    "control_denial": 0.6275,
+    "comparison_stats": {
+      "games_available": 3,
+      "yards_per_game": 429.7,
+      "yards_per_play": 6.64,
+      "points_per_drive": 2.5,
+      "rush_yards_per_game": 169,
+      "pass_yards_per_game": 260.7,
+      "turnover_margin": 1
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/arizona-state/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/arizona-state.json"
+}

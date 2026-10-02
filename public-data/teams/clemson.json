@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Clemson",
+  "full_name": "Clemson Tigers",
+  "season": 2026,
+  "conference": "ACC",
+  "classification": "fbs",
+  "tier": "power",
+  "record": "3-1",
+  "points_for": 84,
+  "points_against": 88,
+  "average_score_margin": -1,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 88.831492,
+    "adv_schedule_strength": 68.741622,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": -0.3336104133923674,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.37136,
+    "control_finish": 0.702782,
+    "control_denial": 0.419746,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 315,
+      "yards_per_play": 5.06,
+      "points_per_drive": 1.51,
+      "rush_yards_per_game": 156.8,
+      "pass_yards_per_game": 158.2,
+      "turnover_margin": -2
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/clemson/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/clemson.json"
+}

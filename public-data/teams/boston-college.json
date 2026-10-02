@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Boston College",
+  "full_name": "Boston College Eagles",
+  "season": 2026,
+  "conference": "ACC",
+  "classification": "fbs",
+  "tier": "power",
+  "record": "2-2",
+  "points_for": 79,
+  "points_against": 92,
+  "average_score_margin": -3.25,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 31.09124,
+    "adv_schedule_strength": 30.796674,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV has improved with manageable volatility.",
+    "talent_yield": -0.7985364481936849,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.311072,
+    "control_finish": 0.847706,
+    "control_denial": 0.508189,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 352.5,
+      "yards_per_play": 5.64,
+      "points_per_drive": 1.6,
+      "rush_yards_per_game": 162.5,
+      "pass_yards_per_game": 190,
+      "turnover_margin": -2
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/boston-college/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/boston-college.json"
+}

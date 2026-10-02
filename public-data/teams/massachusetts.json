@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Massachusetts",
+  "full_name": "Massachusetts Minutemen",
+  "season": 2026,
+  "conference": "Mid-American",
+  "classification": "fbs",
+  "tier": "g5",
+  "record": "4-0",
+  "points_for": 145,
+  "points_against": 51,
+  "average_score_margin": 23.5,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 24.483049,
+    "adv_schedule_strength": -21.499997,
+    "games_before_target": 4,
+    "recent_form": "Declining",
+    "recent_form_note": "Recent ADV has declined with manageable volatility.",
+    "talent_yield": -0.0724507279840293,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.39913,
+    "control_finish": 0.86857,
+    "control_denial": 0.58772,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 353.8,
+      "yards_per_play": 6.64,
+      "points_per_drive": 2.82,
+      "rush_yards_per_game": 197.5,
+      "pass_yards_per_game": 156.2,
+      "turnover_margin": 8
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/massachusetts/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/massachusetts.json"
+}

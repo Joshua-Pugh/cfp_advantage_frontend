@@ -1,0 +1,91 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "game_id": "401858246",
+  "season": 2026,
+  "week": 5,
+  "date": "2026-10-03",
+  "kickoff_at": "2026-10-03T16:00:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "Boston College",
+  "away_full_name": "Boston College Eagles",
+  "away_conference": "ACC",
+  "away_ap_rank": 0,
+  "home_team": "SMU",
+  "home_full_name": "SMU Mustangs",
+  "home_conference": "ACC",
+  "home_ap_rank": 21,
+  "projected_winner": "SMU Mustangs",
+  "projected_margin": 22.52,
+  "projection_closeness": 0,
+  "context_label": "Expected/Observed Blend",
+  "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+  "matchup_conviction": {
+    "label": "Strong Separation",
+    "note": "Large baseline separation with non-conflicting matchup context. Historically, this game shape has been much harder to overturn.",
+    "historical_model_win_rate": 0.907,
+    "framework_support": {
+      "strength": "Framework Strongly Supports",
+      "support_components": 5,
+      "conflict_components": 0
+    }
+  },
+  "key_advantages": {
+    "SMU": [
+      "Stronger Control Creation",
+      "More consistent Control Rate",
+      "More efficient Control Finish",
+      "Stronger Control Denial",
+      "Higher Control Drive Shutout Rate",
+      "Higher overall ADV strength",
+      "Stronger schedule context",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ],
+    "Boston College": []
+  },
+  "away_profile": {
+    "pregame_adv_rating": 31.09124,
+    "adv_schedule_strength": 30.796674,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV has improved with manageable volatility.",
+    "talent_yield": -0.7985364481936849,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.311072,
+    "control_finish": 0.847706,
+    "control_denial": 0.508189,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 352.5,
+      "yards_per_play": 5.64,
+      "points_per_drive": 1.6,
+      "rush_yards_per_game": 162.5,
+      "pass_yards_per_game": 190,
+      "turnover_margin": -2
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 96.174202,
+    "adv_schedule_strength": 53.367921,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": 0.593918037180936,
+    "talent_yield_label": "Above Expectation",
+    "control_creation": 0.490975,
+    "control_finish": 0.880596,
+    "control_denial": 0.703647,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 542.8,
+      "yards_per_play": 7.84,
+      "points_per_drive": 2.7,
+      "rush_yards_per_game": 151.8,
+      "pass_yards_per_game": 391,
+      "turnover_margin": -4
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401858246/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401858246.json"
+}

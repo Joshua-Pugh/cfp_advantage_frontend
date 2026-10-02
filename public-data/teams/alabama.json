@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Alabama",
+  "full_name": "Alabama Crimson Tide",
+  "season": 2026,
+  "conference": "SEC",
+  "classification": "fbs",
+  "tier": "power",
+  "record": "4-0",
+  "points_for": 192,
+  "points_against": 81,
+  "average_score_margin": 27.75,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 139.915252,
+    "adv_schedule_strength": 70.744821,
+    "games_before_target": 4,
+    "recent_form": "Declining",
+    "recent_form_note": "Recent ADV has declined with manageable volatility.",
+    "talent_yield": 0.5543654191694016,
+    "talent_yield_label": "Above Expectation",
+    "control_creation": 0.621153,
+    "control_finish": 0.877437,
+    "control_denial": 0.462257,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 471.2,
+      "yards_per_play": 7.09,
+      "points_per_drive": 3.49,
+      "rush_yards_per_game": 191.5,
+      "pass_yards_per_game": 279.8,
+      "turnover_margin": 5
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/alabama/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/alabama.json"
+}

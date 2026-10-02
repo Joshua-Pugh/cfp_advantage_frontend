@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Indiana",
+  "full_name": "Indiana Hoosiers",
+  "season": 2026,
+  "conference": "Big Ten",
+  "classification": "fbs",
+  "tier": "power",
+  "record": "4-0",
+  "points_for": 174,
+  "points_against": 39,
+  "average_score_margin": 33.75,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 92.371411,
+    "adv_schedule_strength": 13.494181,
+    "games_before_target": 4,
+    "recent_form": "Declining",
+    "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+    "talent_yield": 0.505615883860275,
+    "talent_yield_label": "Above Expectation",
+    "control_creation": 0.660351,
+    "control_finish": 0.922815,
+    "control_denial": 0.515721,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 463.2,
+      "yards_per_play": 7.72,
+      "points_per_drive": 3.51,
+      "rush_yards_per_game": 235.5,
+      "pass_yards_per_game": 227.8,
+      "turnover_margin": 3
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/indiana/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/indiana.json"
+}

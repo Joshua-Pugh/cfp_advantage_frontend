@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import LoadingDots from "../components/LoadingDots";
+import PageMetadata from "../components/PageMetadata";
 import TeamLogo from "../components/TeamLogo";
 import TeamContextTags from "../components/TeamContextTags";
 import TeamSchedule from "../components/TeamSchedule";
@@ -11,13 +13,16 @@ import TeamPlayerStats from "../components/TeamPlayerStats";
 import TeamCfpProfile from "../components/TeamCfpProfile";
 
 import { api } from "../lib/api";
+import { slugifyTeam, teamProfilePath } from "../lib/urls";
 
 function Team() {
+  const navigate = useNavigate();
+  const { season: routeSeason, teamSlug: routeTeamSlug } = useParams();
   const [seasons, setSeasons] = useState([]);
   const [season, setSeason] = useState("");
 
   const [teams, setTeams] = useState([]);
-  const [team, setTeam] = useState("");
+  const [fallbackTeam, setFallbackTeam] = useState("");
   const [teamIdentities, setTeamIdentities] = useState({});
 
   const [logos, setLogos] = useState({});
@@ -33,6 +38,9 @@ function Team() {
   const [loadingProfile, setLoadingProfile] = useState(false);
 
   const [error, setError] = useState("");
+
+  const routeTeam = teams.find((row) => slugifyTeam(row.team) === routeTeamSlug);
+  const team = routeTeam?.team || fallbackTeam;
 
   useEffect(() => {
     async function loadPage() {
@@ -66,7 +74,9 @@ function Team() {
         setSeasons(availableSeasons);
 
         if (availableSeasons.length) {
-          setSeason(String(availableSeasons[availableSeasons.length - 1]));
+          const requestedSeason = String(routeSeason || "");
+          const fallbackSeason = String(availableSeasons[availableSeasons.length - 1]);
+          setSeason(availableSeasons.map(String).includes(requestedSeason) ? requestedSeason : fallbackSeason);
         }
 
         setLogos(logoPayload.teams || {});
@@ -93,7 +103,7 @@ function Team() {
     }
 
     loadPage();
-  }, []);
+  }, [routeSeason]);
 
   useEffect(() => {
     if (!season) return;
@@ -103,7 +113,7 @@ function Team() {
         setLoadingTeams(true);
         setError("");
 
-        setTeam("");
+        setFallbackTeam("");
         setTeams([]);
         setProfile(null);
         setSchedule([]);
@@ -137,7 +147,7 @@ function Team() {
         setTeams(rows);
 
         if (rows.length) {
-          setTeam(rows[0].team);
+          setFallbackTeam(rows[0].team);
         }
       } catch (loadError) {
         console.error(
@@ -155,6 +165,18 @@ function Team() {
 
     loadTeams();
   }, [season]);
+
+  useEffect(() => {
+    if (teams.length && routeTeamSlug && !routeTeam && fallbackTeam) {
+      navigate(teamProfilePath(season, fallbackTeam), { replace: true });
+    }
+  }, [fallbackTeam, navigate, routeTeam, routeTeamSlug, season, teams.length]);
+
+  useEffect(() => {
+    if (season && team && !routeTeamSlug) {
+      navigate(teamProfilePath(season, team), { replace: true });
+    }
+  }, [navigate, routeTeamSlug, season, team]);
 
   useEffect(() => {
     if (!season || !team || loadingTeams) return undefined;
@@ -245,6 +267,18 @@ function Team() {
 
   return (
     <main className="app-shell">
+      <PageMetadata
+        title={selectedTeamName ? `${selectedTeamName} ${season} Team Profile | CFP Advantage` : "Team Intelligence | CFP Advantage"}
+        description={selectedTeamName ? `Explore ${selectedTeamName} ${season} results, schedule context, and CFP Advantage football-control intelligence.` : "Explore college football team profiles and CFP Advantage football-control intelligence."}
+        path={season && team ? teamProfilePath(season, team) : "/teams"}
+        structuredData={selectedTeamName ? {
+          "@context": "https://schema.org",
+          "@type": "SportsTeam",
+          name: selectedTeamName,
+          sport: "College Football",
+          url: `https://cfpadvantage.com${teamProfilePath(season, team)}`,
+        } : null}
+      />
       <Header />
 
       <section className="workspace-view static-page team-page">
@@ -277,11 +311,11 @@ function Team() {
 
                 <select
                   value={season}
-                  onChange={(event) =>
-                    setSeason(
-                      event.target.value
-                    )
-                  }
+                  onChange={(event) => {
+                    const nextSeason = event.target.value;
+                    setSeason(nextSeason);
+                    navigate(`/teams/${encodeURIComponent(nextSeason)}`);
+                  }}
                 >
                   {seasons.map((value) => (
                     <option
@@ -300,11 +334,11 @@ function Team() {
                 <select
                   value={team}
                   disabled={loadingTeams}
-                  onChange={(event) =>
-                    setTeam(
-                      event.target.value
-                    )
-                  }
+                  onChange={(event) => {
+                    const nextTeam = event.target.value;
+                    setFallbackTeam(nextTeam);
+                    navigate(teamProfilePath(season, nextTeam));
+                  }}
                 >
                   {loadingTeams ? (
                     <option>

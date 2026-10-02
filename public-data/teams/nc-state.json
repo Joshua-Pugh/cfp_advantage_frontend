@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "NC State",
+  "full_name": "NC State Wolfpack",
+  "season": 2026,
+  "conference": "ACC",
+  "classification": "fbs",
+  "tier": "power",
+  "record": "2-2",
+  "points_for": 153,
+  "points_against": 100,
+  "average_score_margin": 13.25,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 59.443858,
+    "adv_schedule_strength": 35.144289,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": -0.5911371568431788,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.45764,
+    "control_finish": 0.97823,
+    "control_denial": 0.500899,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 440.2,
+      "yards_per_play": 6.43,
+      "points_per_drive": 3.12,
+      "rush_yards_per_game": 214.8,
+      "pass_yards_per_game": 225.5,
+      "turnover_margin": -1
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/nc-state/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/nc-state.json"
+}

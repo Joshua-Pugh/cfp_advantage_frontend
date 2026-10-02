@@ -1,0 +1,90 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "game_id": "401856709",
+  "season": 2026,
+  "week": 5,
+  "date": "2026-10-03",
+  "kickoff_at": "2026-10-03T20:15:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "Kentucky",
+  "away_full_name": "Kentucky Wildcats",
+  "away_conference": "SEC",
+  "away_ap_rank": 24,
+  "home_team": "South Carolina",
+  "home_full_name": "South Carolina Gamecocks",
+  "home_conference": "SEC",
+  "home_ap_rank": 0,
+  "projected_winner": "Kentucky Wildcats",
+  "projected_margin": 3.12,
+  "projection_closeness": 0.8515,
+  "context_label": "Expected/Observed Blend",
+  "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+  "matchup_conviction": {
+    "label": "Context Pushback",
+    "note": "The baseline has a lean, but stable Control Framework traits point to meaningful matchup resistance.",
+    "historical_model_win_rate": 0.525,
+    "framework_support": {
+      "strength": "Framework Conflicts",
+      "support_components": 0,
+      "conflict_components": 4
+    }
+  },
+  "key_advantages": {
+    "South Carolina": [
+      "Stronger Control Creation",
+      "Stronger Control Denial",
+      "Higher Control Drive Shutout Rate",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ],
+    "Kentucky": [
+      "Higher overall ADV strength",
+      "Stronger schedule context"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 93.216912,
+    "adv_schedule_strength": 75.359588,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": 0.18763258678935268,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.415476,
+    "control_finish": 0.888957,
+    "control_denial": 0.498941,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 426.5,
+      "yards_per_play": 7.11,
+      "points_per_drive": 2.79,
+      "rush_yards_per_game": 207.8,
+      "pass_yards_per_game": 218.8,
+      "turnover_margin": 2
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 72.824081,
+    "adv_schedule_strength": 52.862347,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -0.829816537271491,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.498952,
+    "control_finish": 0.894959,
+    "control_denial": 0.58789,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 484.5,
+      "yards_per_play": 6.8,
+      "points_per_drive": 3.04,
+      "rush_yards_per_game": 254.2,
+      "pass_yards_per_game": 230.2,
+      "turnover_margin": -4
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401856709/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401856709.json"
+}

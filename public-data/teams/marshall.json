@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Marshall",
+  "full_name": "Marshall Thundering Herd",
+  "season": 2026,
+  "conference": "Sun Belt",
+  "classification": "fbs",
+  "tier": "g5",
+  "record": "3-1",
+  "points_for": 94,
+  "points_against": 130,
+  "average_score_margin": -9,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 29.39224,
+    "adv_schedule_strength": 26.616937,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": 0.13857147554322957,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.420634,
+    "control_finish": 0.785045,
+    "control_denial": 0.546017,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 378,
+      "yards_per_play": 6,
+      "points_per_drive": 1.78,
+      "rush_yards_per_game": 151.8,
+      "pass_yards_per_game": 226.2,
+      "turnover_margin": -4
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/marshall/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/marshall.json"
+}

@@ -1,0 +1,84 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "game_id": "401862791",
+  "season": 2026,
+  "week": 5,
+  "date": "2026-10-03",
+  "kickoff_at": "2026-10-03T16:00:00.000Z",
+  "game_type": "Non-Conference",
+  "away_team": "Navy",
+  "away_full_name": "Navy Midshipmen",
+  "away_conference": "American Athletic",
+  "away_ap_rank": 0,
+  "home_team": "Air Force",
+  "home_full_name": "Air Force Falcons",
+  "home_conference": "Mountain West",
+  "home_ap_rank": 0,
+  "projected_winner": "Air Force Falcons",
+  "projected_margin": 2.57,
+  "projection_closeness": 0.8775,
+  "context_label": "Expected/Observed Blend",
+  "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+  "matchup_conviction": {
+    "label": "Fragile Edge",
+    "note": "CFP Advantage has a lean, but this sits in a historical range where modest edges have been easier to overturn.",
+    "historical_model_win_rate": 0.613,
+    "framework_support": {
+      "strength": "Mixed / Neutral",
+      "support_components": 1,
+      "conflict_components": 0
+    }
+  },
+  "key_advantages": {
+    "Air Force": [
+      "More efficient Control Finish",
+      "Higher Control Drive Shutout Rate"
+    ],
+    "Navy": []
+  },
+  "away_profile": {
+    "pregame_adv_rating": 15.495132,
+    "adv_schedule_strength": 7.745601,
+    "games_before_target": 3,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": 2.1530428631565517,
+    "talent_yield_label": "Well Above Expectation",
+    "control_creation": 0.518289,
+    "control_finish": 0.826498,
+    "control_denial": 0.493067,
+    "comparison_stats": {
+      "games_available": 3,
+      "yards_per_game": 427,
+      "yards_per_play": 6.34,
+      "points_per_drive": 2.81,
+      "rush_yards_per_game": 336.3,
+      "pass_yards_per_game": 90.7,
+      "turnover_margin": -2
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 14.070733,
+    "adv_schedule_strength": 8.700942,
+    "games_before_target": 3,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": 2.9932426922746727,
+    "talent_yield_label": "Well Above Expectation",
+    "control_creation": 0.522242,
+    "control_finish": 0.866859,
+    "control_denial": 0.474997,
+    "comparison_stats": {
+      "games_available": 3,
+      "yards_per_game": 430.3,
+      "yards_per_play": 5.69,
+      "points_per_drive": 3.94,
+      "rush_yards_per_game": 333.7,
+      "pass_yards_per_game": 96.7,
+      "turnover_margin": 1
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401862791/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401862791.json"
+}

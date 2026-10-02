@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "UCF",
+  "full_name": "UCF Knights",
+  "season": 2026,
+  "conference": "Big 12",
+  "classification": "fbs",
+  "tier": "power",
+  "record": "3-1",
+  "points_for": 145,
+  "points_against": 61,
+  "average_score_margin": 21,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 66.491044,
+    "adv_schedule_strength": 32.563371,
+    "games_before_target": 4,
+    "recent_form": "Declining",
+    "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+    "talent_yield": 0.3169668657483369,
+    "talent_yield_label": "Above Expectation",
+    "control_creation": 0.452609,
+    "control_finish": 0.928061,
+    "control_denial": 0.328228,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 364.5,
+      "yards_per_play": 6.66,
+      "points_per_drive": 2.96,
+      "rush_yards_per_game": 205.5,
+      "pass_yards_per_game": 159,
+      "turnover_margin": 5
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/ucf/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/ucf.json"
+}

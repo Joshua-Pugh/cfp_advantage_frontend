@@ -1,0 +1,88 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "game_id": "401858245",
+  "season": 2026,
+  "week": 5,
+  "date": "2026-10-02",
+  "kickoff_at": "2026-10-02T23:00:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "Pittsburgh",
+  "away_full_name": "Pittsburgh Panthers",
+  "away_conference": "ACC",
+  "away_ap_rank": 0,
+  "home_team": "Virginia Tech",
+  "home_full_name": "Virginia Tech Hokies",
+  "home_conference": "ACC",
+  "home_ap_rank": 0,
+  "projected_winner": "Pittsburgh Panthers",
+  "projected_margin": 3.07,
+  "projection_closeness": 0.8536,
+  "context_label": "Expected/Observed Blend",
+  "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+  "matchup_conviction": {
+    "label": "Fragile Edge",
+    "note": "CFP Advantage has a lean, but this sits in a historical range where modest edges have been easier to overturn.",
+    "historical_model_win_rate": 0.613,
+    "framework_support": {
+      "strength": "Framework Strongly Supports",
+      "support_components": 4,
+      "conflict_components": 1
+    }
+  },
+  "key_advantages": {
+    "Virginia Tech": [],
+    "Pittsburgh": [
+      "Stronger Control Creation",
+      "Stronger Control Denial",
+      "Higher overall ADV strength",
+      "Stronger schedule context",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 81.21953,
+    "adv_schedule_strength": 27.099156,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": 0.6758153438750871,
+    "talent_yield_label": "Above Expectation",
+    "control_creation": 0.546799,
+    "control_finish": 0.889232,
+    "control_denial": 0.481301,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 516.2,
+      "yards_per_play": 7.17,
+      "points_per_drive": 3.37,
+      "rush_yards_per_game": 177,
+      "pass_yards_per_game": 339.2,
+      "turnover_margin": 1
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 60.973542,
+    "adv_schedule_strength": 0.506247,
+    "games_before_target": 4,
+    "recent_form": "Declining",
+    "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+    "talent_yield": -0.6164231249493337,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.520843,
+    "control_finish": 0.869455,
+    "control_denial": 0.440809,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 464,
+      "yards_per_play": 6.05,
+      "points_per_drive": 3.09,
+      "rush_yards_per_game": 179.2,
+      "pass_yards_per_game": 284.8,
+      "turnover_margin": 2
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401858245/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401858245.json"
+}

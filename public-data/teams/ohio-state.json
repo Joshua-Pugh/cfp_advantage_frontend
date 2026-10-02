@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Ohio State",
+  "full_name": "Ohio State Buckeyes",
+  "season": 2026,
+  "conference": "Big Ten",
+  "classification": "fbs",
+  "tier": "power",
+  "record": "3-1",
+  "points_for": 180,
+  "points_against": 49,
+  "average_score_margin": 32.75,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 126.574661,
+    "adv_schedule_strength": 58.501572,
+    "games_before_target": 4,
+    "recent_form": "Declining",
+    "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+    "talent_yield": 0.26784630552434274,
+    "talent_yield_label": "Above Expectation",
+    "control_creation": 0.567309,
+    "control_finish": 0.912655,
+    "control_denial": 0.562666,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 522,
+      "yards_per_play": 7.76,
+      "points_per_drive": 3.91,
+      "rush_yards_per_game": 156.8,
+      "pass_yards_per_game": 365.2,
+      "turnover_margin": 2
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/ohio-state/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/ohio-state.json"
+}

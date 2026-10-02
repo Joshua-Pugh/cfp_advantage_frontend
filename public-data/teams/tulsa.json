@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Tulsa",
+  "full_name": "Tulsa Golden Hurricane",
+  "season": 2026,
+  "conference": "American Athletic",
+  "classification": "fbs",
+  "tier": "g5",
+  "record": "3-1",
+  "points_for": 95,
+  "points_against": 61,
+  "average_score_margin": 8.5,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 37.254509,
+    "adv_schedule_strength": 31.568376,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -0.3567722376241492,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.37031,
+    "control_finish": 0.76885,
+    "control_denial": 0.467,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 350,
+      "yards_per_play": 5.56,
+      "points_per_drive": 1.91,
+      "rush_yards_per_game": 180.5,
+      "pass_yards_per_game": 169.5,
+      "turnover_margin": 1
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/tulsa/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/tulsa.json"
+}

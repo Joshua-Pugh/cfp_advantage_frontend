@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Wisconsin",
+  "full_name": "Wisconsin Badgers",
+  "season": 2026,
+  "conference": "Big Ten",
+  "classification": "fbs",
+  "tier": "power",
+  "record": "3-1",
+  "points_for": 127,
+  "points_against": 80,
+  "average_score_margin": 11.75,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 78.751459,
+    "adv_schedule_strength": 49.713885,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": -0.07855506605496365,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.420247,
+    "control_finish": 0.82186,
+    "control_denial": 0.53378,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 379.5,
+      "yards_per_play": 6.33,
+      "points_per_drive": 2.4,
+      "rush_yards_per_game": 132.5,
+      "pass_yards_per_game": 247,
+      "turnover_margin": -2
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/wisconsin/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/wisconsin.json"
+}

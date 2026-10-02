@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Wake Forest",
+  "full_name": "Wake Forest Demon Deacons",
+  "season": 2026,
+  "conference": "ACC",
+  "classification": "fbs",
+  "tier": "power",
+  "record": "3-1",
+  "points_for": 126,
+  "points_against": 112,
+  "average_score_margin": 3.5,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 58.231501,
+    "adv_schedule_strength": 56.931483,
+    "games_before_target": 4,
+    "recent_form": "Declining",
+    "recent_form_note": "Recent ADV has declined with manageable volatility.",
+    "talent_yield": -0.033317626630051014,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.480895,
+    "control_finish": 0.930245,
+    "control_denial": 0.626587,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 428.5,
+      "yards_per_play": 6.72,
+      "points_per_drive": 2.98,
+      "rush_yards_per_game": 149,
+      "pass_yards_per_game": 279.5,
+      "turnover_margin": 0
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/wake-forest/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/wake-forest.json"
+}

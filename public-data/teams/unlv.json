@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "UNLV",
+  "full_name": "UNLV Rebels",
+  "season": 2026,
+  "conference": "Mountain West",
+  "classification": "fbs",
+  "tier": "g5",
+  "record": "2-2",
+  "points_for": 86,
+  "points_against": 87,
+  "average_score_margin": -0.25,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 45.964058,
+    "adv_schedule_strength": 30.991503,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": -0.47866927391051967,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.361257,
+    "control_finish": 0.726647,
+    "control_denial": 0.665355,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 413.2,
+      "yards_per_play": 6.1,
+      "points_per_drive": 1.6,
+      "rush_yards_per_game": 185.8,
+      "pass_yards_per_game": 227.5,
+      "turnover_margin": 2
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/unlv/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/unlv.json"
+}

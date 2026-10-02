@@ -1,0 +1,28 @@
+# CFP Advantage public discovery policy
+# Search and user-requested AI retrieval are welcome. Model training is not authorized.
+User-agent: *
+Content-signal: search=yes, ai-input=yes, ai-train=no, use=reference
+Allow: /
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: Applebot-Extended
+Disallow: /
+
+User-agent: meta-externalagent
+Disallow: /
+
+Sitemap: https://cfpadvantage.com/sitemap.xml

@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { copyFileSync } from "node:fs";
+import { publicDiscoveryPlugin } from "./scripts/generate-discovery.mjs";
 
 export default defineConfig({
   plugins: [
@@ -11,6 +12,7 @@ export default defineConfig({
         copyFileSync("dist/index.html", "dist/404.html");
       },
     },
+    publicDiscoveryPlugin(),
   ],
 
   server: {

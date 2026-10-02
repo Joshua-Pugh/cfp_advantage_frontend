@@ -1,0 +1,89 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "game_id": "401858247",
+  "season": 2026,
+  "week": 5,
+  "date": "2026-10-03",
+  "kickoff_at": "2026-10-03T19:30:00.000Z",
+  "game_type": "Non-Conference",
+  "away_team": "California",
+  "away_full_name": "California Golden Bears",
+  "away_conference": "ACC",
+  "away_ap_rank": 0,
+  "home_team": "UNLV",
+  "home_full_name": "UNLV Rebels",
+  "home_conference": "Mountain West",
+  "home_ap_rank": 0,
+  "projected_winner": "UNLV Rebels",
+  "projected_margin": 4.92,
+  "projection_closeness": 0.7658,
+  "context_label": "Expected/Observed Blend",
+  "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+  "matchup_conviction": {
+    "label": "Fragile Edge",
+    "note": "CFP Advantage has a lean, but this sits in a historical range where modest edges have been easier to overturn.",
+    "historical_model_win_rate": 0.613,
+    "framework_support": {
+      "strength": "Mixed / Neutral",
+      "support_components": 1,
+      "conflict_components": 2
+    }
+  },
+  "key_advantages": {
+    "UNLV": [
+      "Stronger Control Creation",
+      "Higher overall ADV strength"
+    ],
+    "California": [
+      "More efficient Control Finish",
+      "Higher Control Drive Shutout Rate",
+      "Stronger schedule context",
+      "Limits Control Pressure better"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 39.566564,
+    "adv_schedule_strength": 41.428512,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": -1.0185162912573218,
+    "talent_yield_label": "Well Below Expectation",
+    "control_creation": 0.326079,
+    "control_finish": 0.919252,
+    "control_denial": 0.651513,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 381.5,
+      "yards_per_play": 5.61,
+      "points_per_drive": 1.91,
+      "rush_yards_per_game": 103.8,
+      "pass_yards_per_game": 277.8,
+      "turnover_margin": 2
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 45.964058,
+    "adv_schedule_strength": 30.991503,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": -0.47866927391051967,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.361257,
+    "control_finish": 0.726647,
+    "control_denial": 0.665355,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 413.2,
+      "yards_per_play": 6.1,
+      "points_per_drive": 1.6,
+      "rush_yards_per_game": 185.8,
+      "pass_yards_per_game": 227.5,
+      "turnover_margin": 2
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401858247/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401858247.json"
+}

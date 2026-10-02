@@ -1,0 +1,92 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "game_id": "401864515",
+  "season": 2026,
+  "week": 5,
+  "date": "2026-10-03",
+  "kickoff_at": "2026-10-03T19:30:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "Wyoming",
+  "away_full_name": "Wyoming Cowboys",
+  "away_conference": "Mountain West",
+  "away_ap_rank": 0,
+  "home_team": "North Dakota State",
+  "home_full_name": "North Dakota State Bison",
+  "home_conference": "Mountain West",
+  "home_ap_rank": 0,
+  "projected_winner": "North Dakota State Bison",
+  "projected_margin": 15.9,
+  "projection_closeness": 0.2431,
+  "context_label": "Expected/Observed Blend",
+  "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+  "matchup_conviction": {
+    "label": "Strong Separation",
+    "note": "Large baseline separation with non-conflicting matchup context. Historically, this game shape has been much harder to overturn.",
+    "historical_model_win_rate": 0.836,
+    "framework_support": {
+      "strength": "Framework Strongly Supports",
+      "support_components": 5,
+      "conflict_components": 0
+    }
+  },
+  "key_advantages": {
+    "North Dakota State": [
+      "Stronger Control Creation",
+      "More consistent Control Rate",
+      "More efficient Control Finish",
+      "Stronger Control Denial",
+      "Higher Control Drive Shutout Rate",
+      "Higher overall ADV strength",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ],
+    "Wyoming": [
+      "Stronger schedule context"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 12.763305,
+    "adv_schedule_strength": 9.508183,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": -0.4774530791645152,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.313282,
+    "control_finish": 0.836945,
+    "control_denial": 0.580776,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 325.5,
+      "yards_per_play": 5.76,
+      "points_per_drive": 1.77,
+      "rush_yards_per_game": 161.5,
+      "pass_yards_per_game": 164,
+      "turnover_margin": -4
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 55.746737,
+    "adv_schedule_strength": -7.880072,
+    "games_before_target": 4,
+    "recent_form": "Declining",
+    "recent_form_note": "Recent ADV has declined with manageable volatility.",
+    "talent_yield": 1.1347116554381598,
+    "talent_yield_label": "Well Above Expectation",
+    "control_creation": 0.439024,
+    "control_finish": 0.888889,
+    "control_denial": 0.675,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 371.5,
+      "yards_per_play": 5.85,
+      "points_per_drive": 3.24,
+      "rush_yards_per_game": 159.5,
+      "pass_yards_per_game": 212,
+      "turnover_margin": 8
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401864515/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401864515.json"
+}

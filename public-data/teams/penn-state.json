@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Penn State",
+  "full_name": "Penn State Nittany Lions",
+  "season": 2026,
+  "conference": "Big Ten",
+  "classification": "fbs",
+  "tier": "power",
+  "record": "3-1",
+  "points_for": 147,
+  "points_against": 46,
+  "average_score_margin": 25.25,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 92.572092,
+    "adv_schedule_strength": 28.706537,
+    "games_before_target": 4,
+    "recent_form": "Declining",
+    "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+    "talent_yield": 0.3484497684580464,
+    "talent_yield_label": "Above Expectation",
+    "control_creation": 0.470082,
+    "control_finish": 0.940929,
+    "control_denial": 0.464438,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 414.5,
+      "yards_per_play": 6.23,
+      "points_per_drive": 2.71,
+      "rush_yards_per_game": 174.2,
+      "pass_yards_per_game": 240.2,
+      "turnover_margin": 7
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/penn-state/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/penn-state.json"
+}

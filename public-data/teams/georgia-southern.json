@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Georgia Southern",
+  "full_name": "Georgia Southern Eagles",
+  "season": 2026,
+  "conference": "Sun Belt",
+  "classification": "fbs",
+  "tier": "g5",
+  "record": "1-3",
+  "points_for": 93,
+  "points_against": 95,
+  "average_score_margin": -0.5,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 39.262939,
+    "adv_schedule_strength": 39.766096,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -0.39918192180823076,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.364812,
+    "control_finish": 0.866108,
+    "control_denial": 0.619366,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 379.2,
+      "yards_per_play": 5.44,
+      "points_per_drive": 1.93,
+      "rush_yards_per_game": 110,
+      "pass_yards_per_game": 269.2,
+      "turnover_margin": 1
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/georgia-southern/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/georgia-southern.json"
+}

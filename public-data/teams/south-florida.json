@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "South Florida",
+  "full_name": "South Florida Bulls",
+  "season": 2026,
+  "conference": "American Athletic",
+  "classification": "fbs",
+  "tier": "g5",
+  "record": "4-0",
+  "points_for": 120,
+  "points_against": 56,
+  "average_score_margin": 16,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 55.392303,
+    "adv_schedule_strength": 5.911254,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is comparatively stable without a material slope.",
+    "talent_yield": -0.4122102108180458,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.499585,
+    "control_finish": 0.857213,
+    "control_denial": 0.625403,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 356.8,
+      "yards_per_play": 6.31,
+      "points_per_drive": 2.86,
+      "rush_yards_per_game": 177.8,
+      "pass_yards_per_game": 179,
+      "turnover_margin": 3
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/south-florida/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/south-florida.json"
+}

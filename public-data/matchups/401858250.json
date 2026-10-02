@@ -1,0 +1,91 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "game_id": "401858250",
+  "season": 2026,
+  "week": 5,
+  "date": "2026-10-03",
+  "kickoff_at": "2026-10-03T16:00:00.000Z",
+  "game_type": "Non-Conference",
+  "away_team": "Notre Dame",
+  "away_full_name": "Notre Dame Fighting Irish",
+  "away_conference": "FBS Independents",
+  "away_ap_rank": 3,
+  "home_team": "North Carolina",
+  "home_full_name": "North Carolina Tar Heels",
+  "home_conference": "ACC",
+  "home_ap_rank": 0,
+  "projected_winner": "Notre Dame Fighting Irish",
+  "projected_margin": 14.96,
+  "projection_closeness": 0.2877,
+  "context_label": "Expected/Observed Blend",
+  "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+  "matchup_conviction": {
+    "label": "Strong Separation",
+    "note": "Large baseline separation with non-conflicting matchup context. Historically, this game shape has been much harder to overturn.",
+    "historical_model_win_rate": 0.836,
+    "framework_support": {
+      "strength": "Framework Strongly Supports",
+      "support_components": 5,
+      "conflict_components": 0
+    }
+  },
+  "key_advantages": {
+    "North Carolina": [
+      "More efficient Control Finish",
+      "Higher Control Drive Shutout Rate"
+    ],
+    "Notre Dame": [
+      "Stronger Control Creation",
+      "More consistent Control Rate",
+      "Stronger Control Denial",
+      "Higher overall ADV strength",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 129.864956,
+    "adv_schedule_strength": 53.970954,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is comparatively stable without a material slope.",
+    "talent_yield": 0.4509441792423512,
+    "talent_yield_label": "Above Expectation",
+    "control_creation": 0.62912,
+    "control_finish": 0.895338,
+    "control_denial": 0.655707,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 418.8,
+      "yards_per_play": 6.73,
+      "points_per_drive": 3.61,
+      "rush_yards_per_game": 143.5,
+      "pass_yards_per_game": 275.2,
+      "turnover_margin": 6
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 70.006831,
+    "adv_schedule_strength": 55.4431,
+    "games_before_target": 3,
+    "recent_form": "Declining",
+    "recent_form_note": "Recent ADV has declined with manageable volatility.",
+    "talent_yield": -0.2741843411581616,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.358507,
+    "control_finish": 0.934571,
+    "control_denial": 0.428063,
+    "comparison_stats": {
+      "games_available": 3,
+      "yards_per_game": 358.3,
+      "yards_per_play": 6.11,
+      "points_per_drive": 2.19,
+      "rush_yards_per_game": 150.3,
+      "pass_yards_per_game": 208,
+      "turnover_margin": 0
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401858250/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401858250.json"
+}

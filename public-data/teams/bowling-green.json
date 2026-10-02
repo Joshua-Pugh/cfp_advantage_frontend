@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Bowling Green",
+  "full_name": "Bowling Green Falcons",
+  "season": 2026,
+  "conference": "Mid-American",
+  "classification": "fbs",
+  "tier": "g5",
+  "record": "0-4",
+  "points_for": 33,
+  "points_against": 145,
+  "average_score_margin": -28,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 29.64133,
+    "adv_schedule_strength": 71.964821,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -0.140650152784203,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.300663,
+    "control_finish": 0.535987,
+    "control_denial": 0.55994,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 234.2,
+      "yards_per_play": 4.22,
+      "points_per_drive": 0.73,
+      "rush_yards_per_game": 90,
+      "pass_yards_per_game": 144.2,
+      "turnover_margin": -2
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/bowling-green/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/bowling-green.json"
+}

@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Liberty",
+  "full_name": "Liberty Flames",
+  "season": 2026,
+  "conference": "Conference USA",
+  "classification": "fbs",
+  "tier": "g5",
+  "record": "3-1",
+  "points_for": 122,
+  "points_against": 75,
+  "average_score_margin": 11.75,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 59.31331,
+    "adv_schedule_strength": 20.975733,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": 0.11792415549029008,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.514566,
+    "control_finish": 0.839154,
+    "control_denial": 0.636211,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 412,
+      "yards_per_play": 6.57,
+      "points_per_drive": 2.38,
+      "rush_yards_per_game": 190.5,
+      "pass_yards_per_game": 221.5,
+      "turnover_margin": 1
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/liberty/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/liberty.json"
+}

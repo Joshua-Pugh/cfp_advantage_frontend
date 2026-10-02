@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Texas A&M",
+  "full_name": "Texas A&M Aggies",
+  "season": 2026,
+  "conference": "SEC",
+  "classification": "fbs",
+  "tier": "power",
+  "record": "2-2",
+  "points_for": 125,
+  "points_against": 86,
+  "average_score_margin": 9.75,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 89.779945,
+    "adv_schedule_strength": 76.431564,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -0.6286732985710854,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.381696,
+    "control_finish": 0.845769,
+    "control_denial": 0.605455,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 344.8,
+      "yards_per_play": 4.82,
+      "points_per_drive": 2.12,
+      "rush_yards_per_game": 154,
+      "pass_yards_per_game": 190.8,
+      "turnover_margin": -3
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/texas-a-and-m/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/texas-a-and-m.json"
+}

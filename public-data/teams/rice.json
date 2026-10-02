@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Rice",
+  "full_name": "Rice Owls",
+  "season": 2026,
+  "conference": "American Athletic",
+  "classification": "fbs",
+  "tier": "g5",
+  "record": "1-3",
+  "points_for": 76,
+  "points_against": 121,
+  "average_score_margin": -11.25,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 26.782458,
+    "adv_schedule_strength": 37.777532,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -0.3701022213922484,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.362415,
+    "control_finish": 0.801638,
+    "control_denial": 0.599252,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 356.5,
+      "yards_per_play": 5.87,
+      "points_per_drive": 1.68,
+      "rush_yards_per_game": 270,
+      "pass_yards_per_game": 86.5,
+      "turnover_margin": -5
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/rice/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/rice.json"
+}

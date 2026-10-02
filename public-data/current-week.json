@@ -1,0 +1,5132 @@
+{
+  "name": "CFP Advantage Published Intelligence Feed",
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "season": 2026,
+  "week": 5,
+  "status_label": "2026 Week 5",
+  "scope": "Public Product A football intelligence",
+  "methodology_url": "https://cfpadvantage.com/metrics",
+  "current_week_url": "https://cfpadvantage.com/public-data/current-week.json",
+  "teams_url": "https://cfpadvantage.com/public-data/teams.json",
+  "matchup_count": 59,
+  "team_count": 138,
+  "contains_ats_recommendations": false,
+  "usage_note": "Cite the canonical human-readable URL. Preserve season, week, generated_at, and pregame/postgame scope.",
+  "matchups": [
+    {
+      "game_id": "401858245",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-02",
+      "kickoff_at": "2026-10-02T23:00:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Pittsburgh",
+      "away_full_name": "Pittsburgh Panthers",
+      "away_conference": "ACC",
+      "away_ap_rank": 0,
+      "home_team": "Virginia Tech",
+      "home_full_name": "Virginia Tech Hokies",
+      "home_conference": "ACC",
+      "home_ap_rank": 0,
+      "projected_winner": "Pittsburgh Panthers",
+      "projected_margin": 3.07,
+      "projection_closeness": 0.8536,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Fragile Edge",
+        "note": "CFP Advantage has a lean, but this sits in a historical range where modest edges have been easier to overturn.",
+        "historical_model_win_rate": 0.613,
+        "framework_support": {
+          "strength": "Framework Strongly Supports",
+          "support_components": 4,
+          "conflict_components": 1
+        }
+      },
+      "key_advantages": {
+        "Virginia Tech": [],
+        "Pittsburgh": [
+          "Stronger Control Creation",
+          "Stronger Control Denial",
+          "Higher overall ADV strength",
+          "Stronger schedule context",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 81.21953,
+        "adv_schedule_strength": 27.099156,
+        "games_before_target": 4,
+        "recent_form": "Improving",
+        "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+        "talent_yield": 0.6758153438750871,
+        "talent_yield_label": "Above Expectation",
+        "control_creation": 0.546799,
+        "control_finish": 0.889232,
+        "control_denial": 0.481301,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 516.2,
+          "yards_per_play": 7.17,
+          "points_per_drive": 3.37,
+          "rush_yards_per_game": 177,
+          "pass_yards_per_game": 339.2,
+          "turnover_margin": 1
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 60.973542,
+        "adv_schedule_strength": 0.506247,
+        "games_before_target": 4,
+        "recent_form": "Declining",
+        "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+        "talent_yield": -0.6164231249493337,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.520843,
+        "control_finish": 0.869455,
+        "control_denial": 0.440809,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 464,
+          "yards_per_play": 6.05,
+          "points_per_drive": 3.09,
+          "rush_yards_per_game": 179.2,
+          "pass_yards_per_game": 284.8,
+          "turnover_margin": 2
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401858245/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401858245.json"
+    },
+    {
+      "game_id": "401862786",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-02",
+      "kickoff_at": "2026-10-02T01:00:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "North Texas",
+      "away_full_name": "North Texas Mean Green",
+      "away_conference": "American Athletic",
+      "away_ap_rank": 0,
+      "home_team": "Tulsa",
+      "home_full_name": "Tulsa Golden Hurricane",
+      "home_conference": "American Athletic",
+      "home_ap_rank": 0,
+      "projected_winner": "Tulsa Golden Hurricane",
+      "projected_margin": 0.99,
+      "projection_closeness": 0.9527,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Context Pushback",
+        "note": "The baseline has a lean, but stable Control Framework traits point to meaningful matchup resistance.",
+        "historical_model_win_rate": 0.525,
+        "framework_support": {
+          "strength": "Framework Conflicts",
+          "support_components": 0,
+          "conflict_components": 5
+        }
+      },
+      "key_advantages": {
+        "Tulsa": [],
+        "North Texas": [
+          "Stronger Control Creation",
+          "More consistent Control Rate",
+          "More efficient Control Finish",
+          "Stronger Control Denial",
+          "Higher Control Drive Shutout Rate",
+          "Higher overall ADV strength",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 43.94062,
+        "adv_schedule_strength": 29.077677,
+        "games_before_target": 4,
+        "recent_form": "Improving",
+        "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+        "talent_yield": -0.1669609469079987,
+        "talent_yield_label": "Near Expectation",
+        "control_creation": 0.55379,
+        "control_finish": 0.912225,
+        "control_denial": 0.609706,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 521.2,
+          "yards_per_play": 7.34,
+          "points_per_drive": 3.31,
+          "rush_yards_per_game": 172.5,
+          "pass_yards_per_game": 348.8,
+          "turnover_margin": 3
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 37.254509,
+        "adv_schedule_strength": 31.568376,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": -0.3567722376241492,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.37031,
+        "control_finish": 0.76885,
+        "control_denial": 0.467,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 350,
+          "yards_per_play": 5.56,
+          "points_per_drive": 1.91,
+          "rush_yards_per_game": 180.5,
+          "pass_yards_per_game": 169.5,
+          "turnover_margin": 1
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401862786/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401862786.json"
+    },
+    {
+      "game_id": "401871049",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-02",
+      "kickoff_at": "2026-10-02T00:00:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Western Kentucky",
+      "away_full_name": "Western Kentucky Hilltoppers",
+      "away_conference": "Conference USA",
+      "away_ap_rank": 0,
+      "home_team": "New Mexico State",
+      "home_full_name": "New Mexico State Aggies",
+      "home_conference": "Conference USA",
+      "home_ap_rank": 0,
+      "projected_winner": "Western Kentucky Hilltoppers",
+      "projected_margin": 1.6,
+      "projection_closeness": 0.9238,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Context Pushback",
+        "note": "The baseline has a lean, but stable Control Framework traits point to meaningful matchup resistance.",
+        "historical_model_win_rate": 0.525,
+        "framework_support": {
+          "strength": "Framework Conflicts",
+          "support_components": 0,
+          "conflict_components": 4
+        }
+      },
+      "key_advantages": {
+        "New Mexico State": [
+          "Stronger Control Creation",
+          "Stronger Control Denial",
+          "Limits Control Pressure better"
+        ],
+        "Western Kentucky": [
+          "Higher overall ADV strength",
+          "Stronger schedule context"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 11.717885,
+        "adv_schedule_strength": 40.54609,
+        "games_before_target": 4,
+        "recent_form": "Improving",
+        "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+        "talent_yield": -0.48412543680798703,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.327096,
+        "control_finish": 0.822676,
+        "control_denial": 0.616245,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 348.5,
+          "yards_per_play": 5.09,
+          "points_per_drive": 1.81,
+          "rush_yards_per_game": 134.8,
+          "pass_yards_per_game": 213.8,
+          "turnover_margin": -3
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": -3.619186,
+        "adv_schedule_strength": 16.31567,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": -0.30098006373572317,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.370184,
+        "control_finish": 0.825399,
+        "control_denial": 0.673826,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 421.2,
+          "yards_per_play": 6.48,
+          "points_per_drive": 1.76,
+          "rush_yards_per_game": 144,
+          "pass_yards_per_game": 277.2,
+          "turnover_margin": -2
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401871049/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401871049.json"
+    },
+    {
+      "game_id": "401871050",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-02",
+      "kickoff_at": "2026-10-02T23:00:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Liberty",
+      "away_full_name": "Liberty Flames",
+      "away_conference": "Conference USA",
+      "away_ap_rank": 0,
+      "home_team": "Delaware",
+      "home_full_name": "Delaware Blue Hens",
+      "home_conference": "Conference USA",
+      "home_ap_rank": 0,
+      "projected_winner": "Liberty Flames",
+      "projected_margin": 10.45,
+      "projection_closeness": 0.5026,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Supported Edge",
+        "note": "The matchup shape supports the lean with meaningful but not overwhelming separation.",
+        "historical_model_win_rate": 0.723,
+        "framework_support": {
+          "strength": "Framework Strongly Supports",
+          "support_components": 5,
+          "conflict_components": 0
+        }
+      },
+      "key_advantages": {
+        "Delaware": [],
+        "Liberty": [
+          "Stronger Control Creation",
+          "More consistent Control Rate",
+          "More efficient Control Finish",
+          "Stronger Control Denial",
+          "Higher Control Drive Shutout Rate",
+          "Higher overall ADV strength",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 59.31331,
+        "adv_schedule_strength": 20.975733,
+        "games_before_target": 4,
+        "recent_form": "Improving",
+        "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+        "talent_yield": 0.11792415549029008,
+        "talent_yield_label": "Near Expectation",
+        "control_creation": 0.514566,
+        "control_finish": 0.839154,
+        "control_denial": 0.636211,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 412,
+          "yards_per_play": 6.57,
+          "points_per_drive": 2.38,
+          "rush_yards_per_game": 190.5,
+          "pass_yards_per_game": 221.5,
+          "turnover_margin": 1
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 14.494862,
+        "adv_schedule_strength": 23.837591,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": 0.7414109654222907,
+        "talent_yield_label": "Above Expectation",
+        "control_creation": 0.37751,
+        "control_finish": 0.737153,
+        "control_denial": 0.475983,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 363,
+          "yards_per_play": 5.67,
+          "points_per_drive": 1.3,
+          "rush_yards_per_game": 106.2,
+          "pass_yards_per_game": 256.8,
+          "turnover_margin": 0
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401871050/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401871050.json"
+    },
+    {
+      "game_id": "401856705",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T16:45:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Vanderbilt",
+      "away_full_name": "Vanderbilt Commodores",
+      "away_conference": "SEC",
+      "away_ap_rank": 0,
+      "home_team": "Georgia",
+      "home_full_name": "Georgia Bulldogs",
+      "home_conference": "SEC",
+      "home_ap_rank": 2,
+      "projected_winner": "Georgia Bulldogs",
+      "projected_margin": 17.53,
+      "projection_closeness": 0.1653,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Strong Separation",
+        "note": "Large baseline separation with non-conflicting matchup context. Historically, this game shape has been much harder to overturn.",
+        "historical_model_win_rate": 0.836,
+        "framework_support": {
+          "strength": "Framework Strongly Supports",
+          "support_components": 5,
+          "conflict_components": 0
+        }
+      },
+      "key_advantages": {
+        "Georgia": [
+          "Stronger Control Creation",
+          "More consistent Control Rate",
+          "More efficient Control Finish",
+          "Stronger Control Denial",
+          "Higher Control Drive Shutout Rate",
+          "Higher overall ADV strength",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ],
+        "Vanderbilt": [
+          "Stronger schedule context"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 70.014407,
+        "adv_schedule_strength": 46.958922,
+        "games_before_target": 4,
+        "recent_form": "Declining",
+        "recent_form_note": "Recent ADV has declined with manageable volatility.",
+        "talent_yield": -0.05308147994647017,
+        "talent_yield_label": "Near Expectation",
+        "control_creation": 0.411954,
+        "control_finish": 0.83717,
+        "control_denial": 0.482004,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 364.5,
+          "yards_per_play": 5.63,
+          "points_per_drive": 2.07,
+          "rush_yards_per_game": 133,
+          "pass_yards_per_game": 231.5,
+          "turnover_margin": 1
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 118.446059,
+        "adv_schedule_strength": 24.089064,
+        "games_before_target": 4,
+        "recent_form": "Declining",
+        "recent_form_note": "Recent ADV has declined with manageable volatility.",
+        "talent_yield": -0.10859979914851059,
+        "talent_yield_label": "Near Expectation",
+        "control_creation": 0.531893,
+        "control_finish": 0.947001,
+        "control_denial": 0.633227,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 477,
+          "yards_per_play": 8.26,
+          "points_per_drive": 3.67,
+          "rush_yards_per_game": 219,
+          "pass_yards_per_game": 258,
+          "turnover_margin": 3
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401856705/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401856705.json"
+    },
+    {
+      "game_id": "401856706",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T23:45:00.000Z",
+      "game_type": "Non-Conference",
+      "away_team": "McNeese",
+      "away_full_name": "McNeese",
+      "away_conference": "Southland",
+      "away_ap_rank": 0,
+      "home_team": "LSU",
+      "home_full_name": "LSU Tigers",
+      "home_conference": "SEC",
+      "home_ap_rank": 11,
+      "projected_winner": "LSU Tigers",
+      "projected_margin": 35.4,
+      "projection_closeness": 0,
+      "context_label": "Opponent-Tier Baseline",
+      "context_note": "Limited projection using historical FBS-vs-FCS margin baselines by team tier. No full ADV or Control Framework read is published for the FCS opponent.",
+      "matchup_conviction": {
+        "label": "Baseline Only",
+        "note": "This is a baseline projection without a complete supported Control Framework read.",
+        "historical_model_win_rate": 0.688,
+        "framework_support": null
+      },
+      "key_advantages": {
+        "LSU": [],
+        "McNeese": []
+      },
+      "away_profile": null,
+      "home_profile": null,
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401856706/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401856706.json"
+    },
+    {
+      "game_id": "401856707",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T16:00:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Alabama",
+      "away_full_name": "Alabama Crimson Tide",
+      "away_conference": "SEC",
+      "away_ap_rank": 7,
+      "home_team": "Mississippi State",
+      "home_full_name": "Mississippi State Bulldogs",
+      "home_conference": "SEC",
+      "home_ap_rank": 16,
+      "projected_winner": "Alabama Crimson Tide",
+      "projected_margin": 9.25,
+      "projection_closeness": 0.5594,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Supported Edge",
+        "note": "The matchup shape supports the lean with meaningful but not overwhelming separation.",
+        "historical_model_win_rate": 0.723,
+        "framework_support": {
+          "strength": "Framework Strongly Supports",
+          "support_components": 4,
+          "conflict_components": 0
+        }
+      },
+      "key_advantages": {
+        "Mississippi State": [
+          "More efficient Control Finish",
+          "Higher Control Drive Shutout Rate"
+        ],
+        "Alabama": [
+          "Stronger Control Creation",
+          "More consistent Control Rate",
+          "Stronger Control Denial",
+          "Higher overall ADV strength",
+          "Stronger schedule context",
+          "Limits Control Pressure better"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 139.915252,
+        "adv_schedule_strength": 70.744821,
+        "games_before_target": 4,
+        "recent_form": "Declining",
+        "recent_form_note": "Recent ADV has declined with manageable volatility.",
+        "talent_yield": 0.5543654191694016,
+        "talent_yield_label": "Above Expectation",
+        "control_creation": 0.621153,
+        "control_finish": 0.877437,
+        "control_denial": 0.462257,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 471.2,
+          "yards_per_play": 7.09,
+          "points_per_drive": 3.49,
+          "rush_yards_per_game": 191.5,
+          "pass_yards_per_game": 279.8,
+          "turnover_margin": 5
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 99.069967,
+        "adv_schedule_strength": 57.232458,
+        "games_before_target": 4,
+        "recent_form": "Declining",
+        "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+        "talent_yield": 0.3121263423229791,
+        "talent_yield_label": "Above Expectation",
+        "control_creation": 0.557713,
+        "control_finish": 0.944776,
+        "control_denial": 0.379435,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 536,
+          "yards_per_play": 7.55,
+          "points_per_drive": 3.81,
+          "rush_yards_per_game": 220,
+          "pass_yards_per_game": 316,
+          "turnover_margin": 0
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401856707/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401856707.json"
+    },
+    {
+      "game_id": "401856708",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T19:30:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Florida",
+      "away_full_name": "Florida Gators",
+      "away_conference": "SEC",
+      "away_ap_rank": 8,
+      "home_team": "Missouri",
+      "home_full_name": "Missouri Tigers",
+      "home_conference": "SEC",
+      "home_ap_rank": 25,
+      "projected_winner": "Florida Gators",
+      "projected_margin": 4.73,
+      "projection_closeness": 0.7748,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Fragile Edge",
+        "note": "CFP Advantage has a lean, but this sits in a historical range where modest edges have been easier to overturn.",
+        "historical_model_win_rate": 0.613,
+        "framework_support": {
+          "strength": "Framework Strongly Supports",
+          "support_components": 5,
+          "conflict_components": 0
+        }
+      },
+      "key_advantages": {
+        "Missouri": [],
+        "Florida": [
+          "Stronger Control Creation",
+          "More consistent Control Rate",
+          "More efficient Control Finish",
+          "Stronger Control Denial",
+          "Higher Control Drive Shutout Rate",
+          "Higher overall ADV strength",
+          "Stronger schedule context",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 105.737484,
+        "adv_schedule_strength": 44.294275,
+        "games_before_target": 4,
+        "recent_form": "Declining",
+        "recent_form_note": "Recent ADV has declined with manageable volatility.",
+        "talent_yield": 0.3114744627982209,
+        "talent_yield_label": "Above Expectation",
+        "control_creation": 0.65765,
+        "control_finish": 0.909344,
+        "control_denial": 0.53695,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 532,
+          "yards_per_play": 7.6,
+          "points_per_drive": 4.47,
+          "rush_yards_per_game": 259,
+          "pass_yards_per_game": 273,
+          "turnover_margin": 4
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 79.973005,
+        "adv_schedule_strength": 22.563506,
+        "games_before_target": 4,
+        "recent_form": "Declining",
+        "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+        "talent_yield": -0.24707436944284367,
+        "talent_yield_label": "Near Expectation",
+        "control_creation": 0.47337,
+        "control_finish": 0.834904,
+        "control_denial": 0.346906,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 418.2,
+          "yards_per_play": 6.27,
+          "points_per_drive": 2.86,
+          "rush_yards_per_game": 158.8,
+          "pass_yards_per_game": 259.5,
+          "turnover_margin": 4
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401856708/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401856708.json"
+    },
+    {
+      "game_id": "401856709",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T20:15:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Kentucky",
+      "away_full_name": "Kentucky Wildcats",
+      "away_conference": "SEC",
+      "away_ap_rank": 24,
+      "home_team": "South Carolina",
+      "home_full_name": "South Carolina Gamecocks",
+      "home_conference": "SEC",
+      "home_ap_rank": 0,
+      "projected_winner": "Kentucky Wildcats",
+      "projected_margin": 3.12,
+      "projection_closeness": 0.8515,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Context Pushback",
+        "note": "The baseline has a lean, but stable Control Framework traits point to meaningful matchup resistance.",
+        "historical_model_win_rate": 0.525,
+        "framework_support": {
+          "strength": "Framework Conflicts",
+          "support_components": 0,
+          "conflict_components": 4
+        }
+      },
+      "key_advantages": {
+        "South Carolina": [
+          "Stronger Control Creation",
+          "Stronger Control Denial",
+          "Higher Control Drive Shutout Rate",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ],
+        "Kentucky": [
+          "Higher overall ADV strength",
+          "Stronger schedule context"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 93.216912,
+        "adv_schedule_strength": 75.359588,
+        "games_before_target": 4,
+        "recent_form": "Improving",
+        "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+        "talent_yield": 0.18763258678935268,
+        "talent_yield_label": "Near Expectation",
+        "control_creation": 0.415476,
+        "control_finish": 0.888957,
+        "control_denial": 0.498941,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 426.5,
+          "yards_per_play": 7.11,
+          "points_per_drive": 2.79,
+          "rush_yards_per_game": 207.8,
+          "pass_yards_per_game": 218.8,
+          "turnover_margin": 2
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 72.824081,
+        "adv_schedule_strength": 52.862347,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": -0.829816537271491,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.498952,
+        "control_finish": 0.894959,
+        "control_denial": 0.58789,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 484.5,
+          "yards_per_play": 6.8,
+          "points_per_drive": 3.04,
+          "rush_yards_per_game": 254.2,
+          "pass_yards_per_game": 230.2,
+          "turnover_margin": -4
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401856709/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401856709.json"
+    },
+    {
+      "game_id": "401856710",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T19:30:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Auburn",
+      "away_full_name": "Auburn Tigers",
+      "away_conference": "SEC",
+      "away_ap_rank": 0,
+      "home_team": "Tennessee",
+      "home_full_name": "Tennessee Volunteers",
+      "home_conference": "SEC",
+      "home_ap_rank": 17,
+      "projected_winner": "Tennessee Volunteers",
+      "projected_margin": 7.33,
+      "projection_closeness": 0.6509,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Supported Edge",
+        "note": "The matchup shape supports the lean with meaningful but not overwhelming separation.",
+        "historical_model_win_rate": 0.723,
+        "framework_support": {
+          "strength": "Framework Supports",
+          "support_components": 3,
+          "conflict_components": 1
+        }
+      },
+      "key_advantages": {
+        "Tennessee": [
+          "More consistent Control Rate",
+          "More efficient Control Finish",
+          "Higher Control Drive Shutout Rate",
+          "Higher overall ADV strength",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ],
+        "Auburn": [
+          "Stronger Control Denial",
+          "Stronger schedule context"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 85.272269,
+        "adv_schedule_strength": 63.895857,
+        "games_before_target": 4,
+        "recent_form": "Declining",
+        "recent_form_note": "Recent ADV has declined with manageable volatility.",
+        "talent_yield": -0.3545260733381309,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.4561,
+        "control_finish": 0.775782,
+        "control_denial": 0.578793,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 405,
+          "yards_per_play": 5.77,
+          "points_per_drive": 2.31,
+          "rush_yards_per_game": 174,
+          "pass_yards_per_game": 231,
+          "turnover_margin": 0
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 99.71174,
+        "adv_schedule_strength": 51.706387,
+        "games_before_target": 4,
+        "recent_form": "Declining",
+        "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+        "talent_yield": -0.20184497100278476,
+        "talent_yield_label": "Near Expectation",
+        "control_creation": 0.459824,
+        "control_finish": 0.974339,
+        "control_denial": 0.549933,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 443.8,
+          "yards_per_play": 6.41,
+          "points_per_drive": 3.11,
+          "rush_yards_per_game": 246,
+          "pass_yards_per_game": 197.8,
+          "turnover_margin": 1
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401856710/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401856710.json"
+    },
+    {
+      "game_id": "401856711",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T23:00:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Arkansas",
+      "away_full_name": "Arkansas Razorbacks",
+      "away_conference": "SEC",
+      "away_ap_rank": 0,
+      "home_team": "Texas A&M",
+      "home_full_name": "Texas A&M Aggies",
+      "home_conference": "SEC",
+      "home_ap_rank": 0,
+      "projected_winner": "Texas A&M Aggies",
+      "projected_margin": 13.1,
+      "projection_closeness": 0.3762,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Context Pushback",
+        "note": "The baseline has a lean, but stable Control Framework traits point to meaningful matchup resistance.",
+        "historical_model_win_rate": 0.606,
+        "framework_support": {
+          "strength": "Framework Leans Against",
+          "support_components": 1,
+          "conflict_components": 2
+        }
+      },
+      "key_advantages": {
+        "Texas A&M": [
+          "Higher overall ADV strength",
+          "Stronger schedule context",
+          "Limits Control Pressure better"
+        ],
+        "Arkansas": [
+          "Stronger Control Creation"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 56.112905,
+        "adv_schedule_strength": 56.523652,
+        "games_before_target": 4,
+        "recent_form": "Improving",
+        "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+        "talent_yield": -0.5789418641152461,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.427421,
+        "control_finish": 0.844067,
+        "control_denial": 0.608583,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 370.5,
+          "yards_per_play": 4.97,
+          "points_per_drive": 2,
+          "rush_yards_per_game": 90,
+          "pass_yards_per_game": 280.5,
+          "turnover_margin": -1
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 89.779945,
+        "adv_schedule_strength": 76.431564,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": -0.6286732985710854,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.381696,
+        "control_finish": 0.845769,
+        "control_denial": 0.605455,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 344.8,
+          "yards_per_play": 4.82,
+          "points_per_drive": 2.12,
+          "rush_yards_per_game": 154,
+          "pass_yards_per_game": 190.8,
+          "turnover_margin": -3
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401856711/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401856711.json"
+    },
+    {
+      "game_id": "401856807",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T16:00:00.000Z",
+      "game_type": "Non-Conference",
+      "away_team": "Middle Tennessee",
+      "away_full_name": "Middle Tennessee Blue Raiders",
+      "away_conference": "Conference USA",
+      "away_ap_rank": 0,
+      "home_team": "Kansas",
+      "home_full_name": "Kansas Jayhawks",
+      "home_conference": "Big 12",
+      "home_ap_rank": 0,
+      "projected_winner": "Kansas Jayhawks",
+      "projected_margin": 17.23,
+      "projection_closeness": 0.1796,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Context Pushback",
+        "note": "The baseline has a lean, but stable Control Framework traits point to meaningful matchup resistance.",
+        "historical_model_win_rate": 0.606,
+        "framework_support": {
+          "strength": "Framework Leans Against",
+          "support_components": 1,
+          "conflict_components": 3
+        }
+      },
+      "key_advantages": {
+        "Kansas": [
+          "More consistent Control Rate",
+          "Higher overall ADV strength",
+          "Stronger schedule context"
+        ],
+        "Middle Tennessee": [
+          "Stronger Control Creation",
+          "Stronger Control Denial",
+          "Limits Control Pressure better"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 8.652483,
+        "adv_schedule_strength": 8.123923,
+        "games_before_target": 4,
+        "recent_form": "Declining",
+        "recent_form_note": "Recent ADV has declined with manageable volatility.",
+        "talent_yield": -0.973913810013445,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.400681,
+        "control_finish": 0.902637,
+        "control_denial": 0.657078,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 342,
+          "yards_per_play": 5.72,
+          "points_per_drive": 2.82,
+          "rush_yards_per_game": 133.2,
+          "pass_yards_per_game": 208.8,
+          "turnover_margin": 5
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 56.078388,
+        "adv_schedule_strength": 34.49634,
+        "games_before_target": 3,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": -0.24144183762512658,
+        "talent_yield_label": "Near Expectation",
+        "control_creation": 0.377642,
+        "control_finish": 0.895569,
+        "control_denial": 0.562035,
+        "comparison_stats": {
+          "games_available": 3,
+          "yards_per_game": 435.7,
+          "yards_per_play": 6.19,
+          "points_per_drive": 1.97,
+          "rush_yards_per_game": 186,
+          "pass_yards_per_game": 249.7,
+          "turnover_margin": -4
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401856807/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401856807.json"
+    },
+    {
+      "game_id": "401856818",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T23:00:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "BYU",
+      "away_full_name": "BYU Cougars",
+      "away_conference": "Big 12",
+      "away_ap_rank": 10,
+      "home_team": "TCU",
+      "home_full_name": "TCU Horned Frogs",
+      "home_conference": "Big 12",
+      "home_ap_rank": 0,
+      "projected_winner": "BYU Cougars",
+      "projected_margin": 1.82,
+      "projection_closeness": 0.9131,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Fragile Edge",
+        "note": "CFP Advantage has a lean, but this sits in a historical range where modest edges have been easier to overturn.",
+        "historical_model_win_rate": 0.66,
+        "framework_support": {
+          "strength": "Framework Strongly Supports",
+          "support_components": 5,
+          "conflict_components": 0
+        }
+      },
+      "key_advantages": {
+        "TCU": [],
+        "BYU": [
+          "Stronger Control Creation",
+          "More consistent Control Rate",
+          "More efficient Control Finish",
+          "Stronger Control Denial",
+          "Higher Control Drive Shutout Rate",
+          "Higher overall ADV strength",
+          "Stronger schedule context",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 80.037623,
+        "adv_schedule_strength": 33.818635,
+        "games_before_target": 3,
+        "recent_form": "Declining",
+        "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+        "talent_yield": 1.5479458565889082,
+        "talent_yield_label": "Well Above Expectation",
+        "control_creation": 0.557135,
+        "control_finish": 0.897034,
+        "control_denial": 0.574588,
+        "comparison_stats": {
+          "games_available": 3,
+          "yards_per_game": 481.7,
+          "yards_per_play": 7.94,
+          "points_per_drive": 3.79,
+          "rush_yards_per_game": 262.7,
+          "pass_yards_per_game": 219,
+          "turnover_margin": 4
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 63.954907,
+        "adv_schedule_strength": 25.420353,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": -0.24844393929227243,
+        "talent_yield_label": "Near Expectation",
+        "control_creation": 0.45763,
+        "control_finish": 0.813436,
+        "control_denial": 0.416279,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 442,
+          "yards_per_play": 6.62,
+          "points_per_drive": 2.39,
+          "rush_yards_per_game": 143,
+          "pass_yards_per_game": 299,
+          "turnover_margin": -1
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401856818/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401856818.json"
+    },
+    {
+      "game_id": "401856819",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T16:00:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "UCF",
+      "away_full_name": "UCF Knights",
+      "away_conference": "Big 12",
+      "away_ap_rank": 0,
+      "home_team": "Houston",
+      "home_full_name": "Houston Cougars",
+      "home_conference": "Big 12",
+      "home_ap_rank": 20,
+      "projected_winner": "Houston Cougars",
+      "projected_margin": 4.88,
+      "projection_closeness": 0.7674,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Fragile Edge",
+        "note": "CFP Advantage has a lean, but this sits in a historical range where modest edges have been easier to overturn.",
+        "historical_model_win_rate": 0.613,
+        "framework_support": {
+          "strength": "Framework Strongly Supports",
+          "support_components": 5,
+          "conflict_components": 0
+        }
+      },
+      "key_advantages": {
+        "Houston": [
+          "Stronger Control Creation",
+          "More consistent Control Rate",
+          "Stronger Control Denial",
+          "Higher overall ADV strength",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ],
+        "UCF": [
+          "More efficient Control Finish",
+          "Higher Control Drive Shutout Rate"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 66.491044,
+        "adv_schedule_strength": 32.563371,
+        "games_before_target": 4,
+        "recent_form": "Declining",
+        "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+        "talent_yield": 0.3169668657483369,
+        "talent_yield_label": "Above Expectation",
+        "control_creation": 0.452609,
+        "control_finish": 0.928061,
+        "control_denial": 0.328228,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 364.5,
+          "yards_per_play": 6.66,
+          "points_per_drive": 2.96,
+          "rush_yards_per_game": 205.5,
+          "pass_yards_per_game": 159,
+          "turnover_margin": 5
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 72.769828,
+        "adv_schedule_strength": 27.937938,
+        "games_before_target": 4,
+        "recent_form": "Declining",
+        "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+        "talent_yield": 0.17494266369713773,
+        "talent_yield_label": "Near Expectation",
+        "control_creation": 0.656275,
+        "control_finish": 0.866304,
+        "control_denial": 0.553311,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 505.2,
+          "yards_per_play": 7.46,
+          "points_per_drive": 4.26,
+          "rush_yards_per_game": 247,
+          "pass_yards_per_game": 258.2,
+          "turnover_margin": 3
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401856819/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401856819.json"
+    },
+    {
+      "game_id": "401856821",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T23:30:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Texas Tech",
+      "away_full_name": "Texas Tech Red Raiders",
+      "away_conference": "Big 12",
+      "away_ap_rank": 12,
+      "home_team": "Colorado",
+      "home_full_name": "Colorado Buffaloes",
+      "home_conference": "Big 12",
+      "home_ap_rank": 0,
+      "projected_winner": "Texas Tech Red Raiders",
+      "projected_margin": 9.66,
+      "projection_closeness": 0.5401,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Supported Edge",
+        "note": "The matchup shape supports the lean with meaningful but not overwhelming separation.",
+        "historical_model_win_rate": 0.723,
+        "framework_support": {
+          "strength": "Framework Strongly Supports",
+          "support_components": 5,
+          "conflict_components": 0
+        }
+      },
+      "key_advantages": {
+        "Colorado": [],
+        "Texas Tech": [
+          "Stronger Control Creation",
+          "More consistent Control Rate",
+          "More efficient Control Finish",
+          "Stronger Control Denial",
+          "Higher Control Drive Shutout Rate",
+          "Higher overall ADV strength",
+          "Stronger schedule context",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 93.759867,
+        "adv_schedule_strength": 52.817019,
+        "games_before_target": 4,
+        "recent_form": "Declining",
+        "recent_form_note": "Recent ADV has declined with manageable volatility.",
+        "talent_yield": 0.4540968227515877,
+        "talent_yield_label": "Above Expectation",
+        "control_creation": 0.428621,
+        "control_finish": 0.866547,
+        "control_denial": 0.6799,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 422.2,
+          "yards_per_play": 6.28,
+          "points_per_drive": 2.57,
+          "rush_yards_per_game": 178,
+          "pass_yards_per_game": 244.2,
+          "turnover_margin": 0
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 51.565922,
+        "adv_schedule_strength": 47.596913,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": -0.5100785713547495,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.335427,
+        "control_finish": 0.838906,
+        "control_denial": 0.589403,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 405.2,
+          "yards_per_play": 5.71,
+          "points_per_drive": 1.69,
+          "rush_yards_per_game": 161.8,
+          "pass_yards_per_game": 243.5,
+          "turnover_margin": 0
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401856821/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401856821.json"
+    },
+    {
+      "game_id": "401856822",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T16:00:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "West Virginia",
+      "away_full_name": "West Virginia Mountaineers",
+      "away_conference": "Big 12",
+      "away_ap_rank": 0,
+      "home_team": "Iowa State",
+      "home_full_name": "Iowa State Cyclones",
+      "home_conference": "Big 12",
+      "home_ap_rank": 0,
+      "projected_winner": "Iowa State Cyclones",
+      "projected_margin": 6.44,
+      "projection_closeness": 0.6931,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Context Pushback",
+        "note": "The baseline has a lean, but stable Control Framework traits point to meaningful matchup resistance.",
+        "historical_model_win_rate": 0.525,
+        "framework_support": {
+          "strength": "Framework Conflicts",
+          "support_components": 0,
+          "conflict_components": 5
+        }
+      },
+      "key_advantages": {
+        "Iowa State": [
+          "More efficient Control Finish",
+          "Higher Control Drive Shutout Rate",
+          "Higher overall ADV strength",
+          "Stronger schedule context"
+        ],
+        "West Virginia": [
+          "Stronger Control Creation",
+          "More consistent Control Rate",
+          "Stronger Control Denial",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 67.20515,
+        "adv_schedule_strength": 38.080713,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": -0.10071543438667319,
+        "talent_yield_label": "Near Expectation",
+        "control_creation": 0.494756,
+        "control_finish": 0.871431,
+        "control_denial": 0.60306,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 466,
+          "yards_per_play": 6.41,
+          "points_per_drive": 2.9,
+          "rush_yards_per_game": 299.8,
+          "pass_yards_per_game": 166.2,
+          "turnover_margin": 1
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 78.688281,
+        "adv_schedule_strength": 51.126906,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": 0.5423248616473987,
+        "talent_yield_label": "Above Expectation",
+        "control_creation": 0.395474,
+        "control_finish": 0.926204,
+        "control_denial": 0.518938,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 340.5,
+          "yards_per_play": 5.77,
+          "points_per_drive": 2.19,
+          "rush_yards_per_game": 179.8,
+          "pass_yards_per_game": 160.8,
+          "turnover_margin": 3
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401856822/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401856822.json"
+    },
+    {
+      "game_id": "401858246",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T16:00:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Boston College",
+      "away_full_name": "Boston College Eagles",
+      "away_conference": "ACC",
+      "away_ap_rank": 0,
+      "home_team": "SMU",
+      "home_full_name": "SMU Mustangs",
+      "home_conference": "ACC",
+      "home_ap_rank": 21,
+      "projected_winner": "SMU Mustangs",
+      "projected_margin": 22.52,
+      "projection_closeness": 0,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Strong Separation",
+        "note": "Large baseline separation with non-conflicting matchup context. Historically, this game shape has been much harder to overturn.",
+        "historical_model_win_rate": 0.907,
+        "framework_support": {
+          "strength": "Framework Strongly Supports",
+          "support_components": 5,
+          "conflict_components": 0
+        }
+      },
+      "key_advantages": {
+        "SMU": [
+          "Stronger Control Creation",
+          "More consistent Control Rate",
+          "More efficient Control Finish",
+          "Stronger Control Denial",
+          "Higher Control Drive Shutout Rate",
+          "Higher overall ADV strength",
+          "Stronger schedule context",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ],
+        "Boston College": []
+      },
+      "away_profile": {
+        "pregame_adv_rating": 31.09124,
+        "adv_schedule_strength": 30.796674,
+        "games_before_target": 4,
+        "recent_form": "Improving",
+        "recent_form_note": "Recent ADV has improved with manageable volatility.",
+        "talent_yield": -0.7985364481936849,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.311072,
+        "control_finish": 0.847706,
+        "control_denial": 0.508189,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 352.5,
+          "yards_per_play": 5.64,
+          "points_per_drive": 1.6,
+          "rush_yards_per_game": 162.5,
+          "pass_yards_per_game": 190,
+          "turnover_margin": -2
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 96.174202,
+        "adv_schedule_strength": 53.367921,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": 0.593918037180936,
+        "talent_yield_label": "Above Expectation",
+        "control_creation": 0.490975,
+        "control_finish": 0.880596,
+        "control_denial": 0.703647,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 542.8,
+          "yards_per_play": 7.84,
+          "points_per_drive": 2.7,
+          "rush_yards_per_game": 151.8,
+          "pass_yards_per_game": 391,
+          "turnover_margin": -4
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401858246/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401858246.json"
+    },
+    {
+      "game_id": "401858247",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T19:30:00.000Z",
+      "game_type": "Non-Conference",
+      "away_team": "California",
+      "away_full_name": "California Golden Bears",
+      "away_conference": "ACC",
+      "away_ap_rank": 0,
+      "home_team": "UNLV",
+      "home_full_name": "UNLV Rebels",
+      "home_conference": "Mountain West",
+      "home_ap_rank": 0,
+      "projected_winner": "UNLV Rebels",
+      "projected_margin": 4.92,
+      "projection_closeness": 0.7658,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Fragile Edge",
+        "note": "CFP Advantage has a lean, but this sits in a historical range where modest edges have been easier to overturn.",
+        "historical_model_win_rate": 0.613,
+        "framework_support": {
+          "strength": "Mixed / Neutral",
+          "support_components": 1,
+          "conflict_components": 2
+        }
+      },
+      "key_advantages": {
+        "UNLV": [
+          "Stronger Control Creation",
+          "Higher overall ADV strength"
+        ],
+        "California": [
+          "More efficient Control Finish",
+          "Higher Control Drive Shutout Rate",
+          "Stronger schedule context",
+          "Limits Control Pressure better"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 39.566564,
+        "adv_schedule_strength": 41.428512,
+        "games_before_target": 4,
+        "recent_form": "Improving",
+        "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+        "talent_yield": -1.0185162912573218,
+        "talent_yield_label": "Well Below Expectation",
+        "control_creation": 0.326079,
+        "control_finish": 0.919252,
+        "control_denial": 0.651513,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 381.5,
+          "yards_per_play": 5.61,
+          "points_per_drive": 1.91,
+          "rush_yards_per_game": 103.8,
+          "pass_yards_per_game": 277.8,
+          "turnover_margin": 2
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 45.964058,
+        "adv_schedule_strength": 30.991503,
+        "games_before_target": 4,
+        "recent_form": "Improving",
+        "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+        "talent_yield": -0.47866927391051967,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.361257,
+        "control_finish": 0.726647,
+        "control_denial": 0.665355,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 413.2,
+          "yards_per_play": 6.1,
+          "points_per_drive": 1.6,
+          "rush_yards_per_game": 185.8,
+          "pass_yards_per_game": 227.5,
+          "turnover_margin": 2
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401858247/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401858247.json"
+    },
+    {
+      "game_id": "401858248",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T19:30:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Louisville",
+      "away_full_name": "Louisville Cardinals",
+      "away_conference": "ACC",
+      "away_ap_rank": 0,
+      "home_team": "NC State",
+      "home_full_name": "NC State Wolfpack",
+      "home_conference": "ACC",
+      "home_ap_rank": 0,
+      "projected_winner": "Louisville Cardinals",
+      "projected_margin": 5.35,
+      "projection_closeness": 0.7451,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Fragile Edge",
+        "note": "CFP Advantage has a lean, but this sits in a historical range where modest edges have been easier to overturn.",
+        "historical_model_win_rate": 0.613,
+        "framework_support": {
+          "strength": "Framework Supports",
+          "support_components": 2,
+          "conflict_components": 0
+        }
+      },
+      "key_advantages": {
+        "NC State": [
+          "More efficient Control Finish",
+          "Higher Control Drive Shutout Rate"
+        ],
+        "Louisville": [
+          "Stronger Control Creation",
+          "Stronger Control Denial",
+          "Higher overall ADV strength",
+          "Stronger schedule context"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 87.284917,
+        "adv_schedule_strength": 60.9218,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": 0.46992891299118095,
+        "talent_yield_label": "Above Expectation",
+        "control_creation": 0.501711,
+        "control_finish": 0.948173,
+        "control_denial": 0.559344,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 495.8,
+          "yards_per_play": 7.51,
+          "points_per_drive": 3.12,
+          "rush_yards_per_game": 196.2,
+          "pass_yards_per_game": 299.5,
+          "turnover_margin": 5
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 59.443858,
+        "adv_schedule_strength": 35.144289,
+        "games_before_target": 4,
+        "recent_form": "Improving",
+        "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+        "talent_yield": -0.5911371568431788,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.45764,
+        "control_finish": 0.97823,
+        "control_denial": 0.500899,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 440.2,
+          "yards_per_play": 6.43,
+          "points_per_drive": 3.12,
+          "rush_yards_per_game": 214.8,
+          "pass_yards_per_game": 225.5,
+          "turnover_margin": -1
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401858248/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401858248.json"
+    },
+    {
+      "game_id": "401858249",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T23:30:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Miami",
+      "away_full_name": "Miami Hurricanes",
+      "away_conference": "ACC",
+      "away_ap_rank": 4,
+      "home_team": "Clemson",
+      "home_full_name": "Clemson Tigers",
+      "home_conference": "ACC",
+      "home_ap_rank": 0,
+      "projected_winner": "Clemson Tigers",
+      "projected_margin": 0.34,
+      "projection_closeness": 0.9836,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Context Pushback",
+        "note": "The baseline has a lean, but stable Control Framework traits point to meaningful matchup resistance.",
+        "historical_model_win_rate": 0.525,
+        "framework_support": {
+          "strength": "Framework Conflicts",
+          "support_components": 0,
+          "conflict_components": 5
+        }
+      },
+      "key_advantages": {
+        "Clemson": [
+          "Stronger schedule context"
+        ],
+        "Miami": [
+          "Stronger Control Creation",
+          "More consistent Control Rate",
+          "More efficient Control Finish",
+          "Stronger Control Denial",
+          "Higher Control Drive Shutout Rate",
+          "Higher overall ADV strength",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 97.681792,
+        "adv_schedule_strength": 8.250241,
+        "games_before_target": 4,
+        "recent_form": "Declining",
+        "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+        "talent_yield": -0.21583468109095416,
+        "talent_yield_label": "Near Expectation",
+        "control_creation": 0.617292,
+        "control_finish": 0.90822,
+        "control_denial": 0.658677,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 583.8,
+          "yards_per_play": 8.58,
+          "points_per_drive": 4.48,
+          "rush_yards_per_game": 226.8,
+          "pass_yards_per_game": 357,
+          "turnover_margin": 0
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 88.831492,
+        "adv_schedule_strength": 68.741622,
+        "games_before_target": 4,
+        "recent_form": "Improving",
+        "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+        "talent_yield": -0.3336104133923674,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.37136,
+        "control_finish": 0.702782,
+        "control_denial": 0.419746,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 315,
+          "yards_per_play": 5.06,
+          "points_per_drive": 1.51,
+          "rush_yards_per_game": 156.8,
+          "pass_yards_per_game": 158.2,
+          "turnover_margin": -2
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401858249/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401858249.json"
+    },
+    {
+      "game_id": "401858250",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T16:00:00.000Z",
+      "game_type": "Non-Conference",
+      "away_team": "Notre Dame",
+      "away_full_name": "Notre Dame Fighting Irish",
+      "away_conference": "FBS Independents",
+      "away_ap_rank": 3,
+      "home_team": "North Carolina",
+      "home_full_name": "North Carolina Tar Heels",
+      "home_conference": "ACC",
+      "home_ap_rank": 0,
+      "projected_winner": "Notre Dame Fighting Irish",
+      "projected_margin": 14.96,
+      "projection_closeness": 0.2877,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Strong Separation",
+        "note": "Large baseline separation with non-conflicting matchup context. Historically, this game shape has been much harder to overturn.",
+        "historical_model_win_rate": 0.836,
+        "framework_support": {
+          "strength": "Framework Strongly Supports",
+          "support_components": 5,
+          "conflict_components": 0
+        }
+      },
+      "key_advantages": {
+        "North Carolina": [
+          "More efficient Control Finish",
+          "Higher Control Drive Shutout Rate"
+        ],
+        "Notre Dame": [
+          "Stronger Control Creation",
+          "More consistent Control Rate",
+          "Stronger Control Denial",
+          "Higher overall ADV strength",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 129.864956,
+        "adv_schedule_strength": 53.970954,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is comparatively stable without a material slope.",
+        "talent_yield": 0.4509441792423512,
+        "talent_yield_label": "Above Expectation",
+        "control_creation": 0.62912,
+        "control_finish": 0.895338,
+        "control_denial": 0.655707,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 418.8,
+          "yards_per_play": 6.73,
+          "points_per_drive": 3.61,
+          "rush_yards_per_game": 143.5,
+          "pass_yards_per_game": 275.2,
+          "turnover_margin": 6
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 70.006831,
+        "adv_schedule_strength": 55.4431,
+        "games_before_target": 3,
+        "recent_form": "Declining",
+        "recent_form_note": "Recent ADV has declined with manageable volatility.",
+        "talent_yield": -0.2741843411581616,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.358507,
+        "control_finish": 0.934571,
+        "control_denial": 0.428063,
+        "comparison_stats": {
+          "games_available": 3,
+          "yards_per_game": 358.3,
+          "yards_per_play": 6.11,
+          "points_per_drive": 2.19,
+          "rush_yards_per_game": 150.3,
+          "pass_yards_per_game": 208,
+          "turnover_margin": 0
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401858250/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401858250.json"
+    },
+    {
+      "game_id": "401858251",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T16:00:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Stanford",
+      "away_full_name": "Stanford Cardinal",
+      "away_conference": "ACC",
+      "away_ap_rank": 0,
+      "home_team": "Wake Forest",
+      "home_full_name": "Wake Forest Demon Deacons",
+      "home_conference": "ACC",
+      "home_ap_rank": 0,
+      "projected_winner": "Wake Forest Demon Deacons",
+      "projected_margin": 6.68,
+      "projection_closeness": 0.682,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Fragile Edge",
+        "note": "CFP Advantage has a lean, but this sits in a historical range where modest edges have been easier to overturn.",
+        "historical_model_win_rate": 0.613,
+        "framework_support": {
+          "strength": "Framework Strongly Supports",
+          "support_components": 5,
+          "conflict_components": 0
+        }
+      },
+      "key_advantages": {
+        "Wake Forest": [
+          "Stronger Control Creation",
+          "More consistent Control Rate",
+          "More efficient Control Finish",
+          "Stronger Control Denial",
+          "Higher Control Drive Shutout Rate",
+          "Higher overall ADV strength",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ],
+        "Stanford": [
+          "Stronger schedule context"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 45.968003,
+        "adv_schedule_strength": 65.382274,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": -0.6791140409021199,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.360919,
+        "control_finish": 0.781833,
+        "control_denial": 0.495951,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 377,
+          "yards_per_play": 5.67,
+          "points_per_drive": 1.98,
+          "rush_yards_per_game": 103.8,
+          "pass_yards_per_game": 273.2,
+          "turnover_margin": 5
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 58.231501,
+        "adv_schedule_strength": 56.931483,
+        "games_before_target": 4,
+        "recent_form": "Declining",
+        "recent_form_note": "Recent ADV has declined with manageable volatility.",
+        "talent_yield": -0.033317626630051014,
+        "talent_yield_label": "Near Expectation",
+        "control_creation": 0.480895,
+        "control_finish": 0.930245,
+        "control_denial": 0.626587,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 428.5,
+          "yards_per_play": 6.72,
+          "points_per_drive": 2.98,
+          "rush_yards_per_game": 149,
+          "pass_yards_per_game": 279.5,
+          "turnover_margin": 0
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401858251/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401858251.json"
+    },
+    {
+      "game_id": "401858252",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T16:00:00.000Z",
+      "game_type": "Non-Conference",
+      "away_team": "Syracuse",
+      "away_full_name": "Syracuse Orange",
+      "away_conference": "ACC",
+      "away_ap_rank": 0,
+      "home_team": "UConn",
+      "home_full_name": "UConn Huskies",
+      "home_conference": "FBS Independents",
+      "home_ap_rank": 0,
+      "projected_winner": "Syracuse Orange",
+      "projected_margin": 3.35,
+      "projection_closeness": 0.8403,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Context Pushback",
+        "note": "The baseline has a lean, but stable Control Framework traits point to meaningful matchup resistance.",
+        "historical_model_win_rate": 0.606,
+        "framework_support": {
+          "strength": "Framework Leans Against",
+          "support_components": 0,
+          "conflict_components": 3
+        }
+      },
+      "key_advantages": {
+        "UConn": [
+          "Stronger Control Creation",
+          "More efficient Control Finish",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ],
+        "Syracuse": [
+          "Higher overall ADV strength",
+          "Stronger schedule context"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 57.13263,
+        "adv_schedule_strength": 34.015265,
+        "games_before_target": 3,
+        "recent_form": "Declining",
+        "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+        "talent_yield": -0.6238307018833489,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.39416,
+        "control_finish": 0.870362,
+        "control_denial": 0.587565,
+        "comparison_stats": {
+          "games_available": 3,
+          "yards_per_game": 439.3,
+          "yards_per_play": 5.63,
+          "points_per_drive": 2.89,
+          "rush_yards_per_game": 172.3,
+          "pass_yards_per_game": 267,
+          "turnover_margin": -1
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 35.952966,
+        "adv_schedule_strength": 20.354416,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": -0.5220231912877465,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.415422,
+        "control_finish": 0.942845,
+        "control_denial": 0.587756,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 427.5,
+          "yards_per_play": 6.81,
+          "points_per_drive": 2.67,
+          "rush_yards_per_game": 188.5,
+          "pass_yards_per_game": 239,
+          "turnover_margin": -2
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401858252/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401858252.json"
+    },
+    {
+      "game_id": "401858253",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T19:30:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Virginia",
+      "away_full_name": "Virginia Cavaliers",
+      "away_conference": "ACC",
+      "away_ap_rank": 0,
+      "home_team": "Florida State",
+      "home_full_name": "Florida State Seminoles",
+      "home_conference": "ACC",
+      "home_ap_rank": 0,
+      "projected_winner": "Florida State Seminoles",
+      "projected_margin": 4.12,
+      "projection_closeness": 0.8037,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Context Pushback",
+        "note": "The baseline has a lean, but stable Control Framework traits point to meaningful matchup resistance.",
+        "historical_model_win_rate": 0.606,
+        "framework_support": {
+          "strength": "Framework Leans Against",
+          "support_components": 0,
+          "conflict_components": 3
+        }
+      },
+      "key_advantages": {
+        "Florida State": [
+          "More efficient Control Finish",
+          "Higher Control Drive Shutout Rate",
+          "Stronger schedule context"
+        ],
+        "Virginia": [
+          "More consistent Control Rate",
+          "Stronger Control Denial",
+          "Limits Control Pressure better"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 70.21328,
+        "adv_schedule_strength": 16.651918,
+        "games_before_target": 4,
+        "recent_form": "Declining",
+        "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+        "talent_yield": 0.0826385976575782,
+        "talent_yield_label": "Near Expectation",
+        "control_creation": 0.479927,
+        "control_finish": 0.92755,
+        "control_denial": 0.558123,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 449,
+          "yards_per_play": 6.37,
+          "points_per_drive": 3.16,
+          "rush_yards_per_game": 196.2,
+          "pass_yards_per_game": 252.8,
+          "turnover_margin": 5
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 73.957193,
+        "adv_schedule_strength": 52.442542,
+        "games_before_target": 4,
+        "recent_form": "Improving",
+        "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+        "talent_yield": -0.41784571301969686,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.463003,
+        "control_finish": 0.960511,
+        "control_denial": 0.530749,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 411,
+          "yards_per_play": 6.71,
+          "points_per_drive": 2.98,
+          "rush_yards_per_game": 174,
+          "pass_yards_per_game": 237,
+          "turnover_margin": -2
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401858253/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401858253.json"
+    },
+    {
+      "game_id": "401858472",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T20:15:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Purdue",
+      "away_full_name": "Purdue Boilermakers",
+      "away_conference": "Big Ten",
+      "away_ap_rank": 0,
+      "home_team": "Illinois",
+      "home_full_name": "Illinois Fighting Illini",
+      "home_conference": "Big Ten",
+      "home_ap_rank": 0,
+      "projected_winner": "Illinois Fighting Illini",
+      "projected_margin": 11.5,
+      "projection_closeness": 0.4524,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Supported Edge",
+        "note": "The matchup shape supports the lean with meaningful but not overwhelming separation.",
+        "historical_model_win_rate": 0.723,
+        "framework_support": {
+          "strength": "Framework Strongly Supports",
+          "support_components": 5,
+          "conflict_components": 0
+        }
+      },
+      "key_advantages": {
+        "Illinois": [
+          "Stronger Control Creation",
+          "More consistent Control Rate",
+          "More efficient Control Finish",
+          "Stronger Control Denial",
+          "Higher Control Drive Shutout Rate",
+          "Higher overall ADV strength",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ],
+        "Purdue": []
+      },
+      "away_profile": {
+        "pregame_adv_rating": 42.910235,
+        "adv_schedule_strength": 59.398796,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": -0.6243912230473687,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.443993,
+        "control_finish": 0.798822,
+        "control_denial": 0.455417,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 424.8,
+          "yards_per_play": 6.11,
+          "points_per_drive": 3.78,
+          "rush_yards_per_game": 106.5,
+          "pass_yards_per_game": 318.2,
+          "turnover_margin": -1
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 71.244254,
+        "adv_schedule_strength": 63.555942,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": 0.1177424666308659,
+        "talent_yield_label": "Near Expectation",
+        "control_creation": 0.5361,
+        "control_finish": 0.863305,
+        "control_denial": 0.537208,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 421.2,
+          "yards_per_play": 7.05,
+          "points_per_drive": 3.21,
+          "rush_yards_per_game": 165.5,
+          "pass_yards_per_game": 255.8,
+          "turnover_margin": 0
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401858472/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401858472.json"
+    },
+    {
+      "game_id": "401858473",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T19:30:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Ohio State",
+      "away_full_name": "Ohio State Buckeyes",
+      "away_conference": "Big Ten",
+      "away_ap_rank": 5,
+      "home_team": "Iowa",
+      "home_full_name": "Iowa Hawkeyes",
+      "home_conference": "Big Ten",
+      "home_ap_rank": 14,
+      "projected_winner": "Ohio State Buckeyes",
+      "projected_margin": 7.62,
+      "projection_closeness": 0.637,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Supported Edge",
+        "note": "The matchup shape supports the lean with meaningful but not overwhelming separation.",
+        "historical_model_win_rate": 0.723,
+        "framework_support": {
+          "strength": "Framework Strongly Supports",
+          "support_components": 5,
+          "conflict_components": 0
+        }
+      },
+      "key_advantages": {
+        "Iowa": [],
+        "Ohio State": [
+          "Stronger Control Creation",
+          "More consistent Control Rate",
+          "More efficient Control Finish",
+          "Stronger Control Denial",
+          "Higher Control Drive Shutout Rate",
+          "Higher overall ADV strength",
+          "Stronger schedule context",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 126.574661,
+        "adv_schedule_strength": 58.501572,
+        "games_before_target": 4,
+        "recent_form": "Declining",
+        "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+        "talent_yield": 0.26784630552434274,
+        "talent_yield_label": "Above Expectation",
+        "control_creation": 0.567309,
+        "control_finish": 0.912655,
+        "control_denial": 0.562666,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 522,
+          "yards_per_play": 7.76,
+          "points_per_drive": 3.91,
+          "rush_yards_per_game": 156.8,
+          "pass_yards_per_game": 365.2,
+          "turnover_margin": 2
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 91.164656,
+        "adv_schedule_strength": 45.197455,
+        "games_before_target": 4,
+        "recent_form": "Declining",
+        "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+        "talent_yield": 0.6002444593197369,
+        "talent_yield_label": "Above Expectation",
+        "control_creation": 0.470232,
+        "control_finish": 0.867301,
+        "control_denial": 0.480108,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 428.5,
+          "yards_per_play": 6.59,
+          "points_per_drive": 2.58,
+          "rush_yards_per_game": 215.5,
+          "pass_yards_per_game": 213,
+          "turnover_margin": 4
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401858473/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401858473.json"
+    },
+    {
+      "game_id": "401858474",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T16:00:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Michigan",
+      "away_full_name": "Michigan Wolverines",
+      "away_conference": "Big Ten",
+      "away_ap_rank": 0,
+      "home_team": "Minnesota",
+      "home_full_name": "Minnesota Golden Gophers",
+      "home_conference": "Big Ten",
+      "home_ap_rank": 0,
+      "projected_winner": "Michigan Wolverines",
+      "projected_margin": 5.42,
+      "projection_closeness": 0.7418,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Context Pushback",
+        "note": "The baseline has a lean, but stable Control Framework traits point to meaningful matchup resistance.",
+        "historical_model_win_rate": 0.525,
+        "framework_support": {
+          "strength": "Framework Conflicts",
+          "support_components": 0,
+          "conflict_components": 5
+        }
+      },
+      "key_advantages": {
+        "Minnesota": [
+          "Stronger Control Creation",
+          "More consistent Control Rate",
+          "Stronger Control Denial",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ],
+        "Michigan": [
+          "More efficient Control Finish",
+          "Higher Control Drive Shutout Rate",
+          "Higher overall ADV strength",
+          "Stronger schedule context"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 98.088279,
+        "adv_schedule_strength": 58.737595,
+        "games_before_target": 4,
+        "recent_form": "Improving",
+        "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+        "talent_yield": -0.16268249882057506,
+        "talent_yield_label": "Near Expectation",
+        "control_creation": 0.354117,
+        "control_finish": 0.908592,
+        "control_denial": 0.55321,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 347.8,
+          "yards_per_play": 5.82,
+          "points_per_drive": 2.24,
+          "rush_yards_per_game": 145.5,
+          "pass_yards_per_game": 202.2,
+          "turnover_margin": -1
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 70.012349,
+        "adv_schedule_strength": 35.906032,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": -0.16501846049199087,
+        "talent_yield_label": "Near Expectation",
+        "control_creation": 0.463036,
+        "control_finish": 0.886086,
+        "control_denial": 0.661369,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 379,
+          "yards_per_play": 5.88,
+          "points_per_drive": 2.28,
+          "rush_yards_per_game": 122.2,
+          "pass_yards_per_game": 256.8,
+          "turnover_margin": 0
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401858474/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401858474.json"
+    },
+    {
+      "game_id": "401858475",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T20:00:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Maryland",
+      "away_full_name": "Maryland Terrapins",
+      "away_conference": "Big Ten",
+      "away_ap_rank": 0,
+      "home_team": "Nebraska",
+      "home_full_name": "Nebraska Cornhuskers",
+      "home_conference": "Big Ten",
+      "home_ap_rank": 0,
+      "projected_winner": "Nebraska Cornhuskers",
+      "projected_margin": 16.88,
+      "projection_closeness": 0.1964,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Strong Separation",
+        "note": "Large baseline separation with non-conflicting matchup context. Historically, this game shape has been much harder to overturn.",
+        "historical_model_win_rate": 0.836,
+        "framework_support": {
+          "strength": "Framework Strongly Supports",
+          "support_components": 5,
+          "conflict_components": 0
+        }
+      },
+      "key_advantages": {
+        "Nebraska": [
+          "Stronger Control Creation",
+          "More consistent Control Rate",
+          "Stronger Control Denial",
+          "Higher Control Drive Shutout Rate",
+          "Higher overall ADV strength",
+          "Stronger schedule context",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ],
+        "Maryland": []
+      },
+      "away_profile": {
+        "pregame_adv_rating": 50.841891,
+        "adv_schedule_strength": 24.808408,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": -0.503819553250567,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.41651,
+        "control_finish": 0.858885,
+        "control_denial": 0.406016,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 438,
+          "yards_per_play": 6.08,
+          "points_per_drive": 2.39,
+          "rush_yards_per_game": 149.8,
+          "pass_yards_per_game": 288.2,
+          "turnover_margin": 1
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 97.092498,
+        "adv_schedule_strength": 42.893759,
+        "games_before_target": 4,
+        "recent_form": "Declining",
+        "recent_form_note": "Recent ADV has declined with manageable volatility.",
+        "talent_yield": 0.3092450883630282,
+        "talent_yield_label": "Above Expectation",
+        "control_creation": 0.602876,
+        "control_finish": 0.875595,
+        "control_denial": 0.576259,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 478.2,
+          "yards_per_play": 6.96,
+          "points_per_drive": 3.86,
+          "rush_yards_per_game": 234,
+          "pass_yards_per_game": 244.2,
+          "turnover_margin": 3
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401858475/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401858475.json"
+    },
+    {
+      "game_id": "401858476",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T00:00:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Penn State",
+      "away_full_name": "Penn State Nittany Lions",
+      "away_conference": "Big Ten",
+      "away_ap_rank": 0,
+      "home_team": "Northwestern",
+      "home_full_name": "Northwestern Wildcats",
+      "home_conference": "Big Ten",
+      "home_ap_rank": 0,
+      "projected_winner": "Penn State Nittany Lions",
+      "projected_margin": 5.19,
+      "projection_closeness": 0.7526,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Fragile Edge",
+        "note": "CFP Advantage has a lean, but this sits in a historical range where modest edges have been easier to overturn.",
+        "historical_model_win_rate": 0.613,
+        "framework_support": {
+          "strength": "Mixed / Neutral",
+          "support_components": 2,
+          "conflict_components": 1
+        }
+      },
+      "key_advantages": {
+        "Northwestern": [
+          "Stronger Control Denial",
+          "Stronger schedule context"
+        ],
+        "Penn State": [
+          "More efficient Control Finish",
+          "Higher Control Drive Shutout Rate",
+          "Higher overall ADV strength",
+          "Creates more Control Pressure"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 92.572092,
+        "adv_schedule_strength": 28.706537,
+        "games_before_target": 4,
+        "recent_form": "Declining",
+        "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+        "talent_yield": 0.3484497684580464,
+        "talent_yield_label": "Above Expectation",
+        "control_creation": 0.470082,
+        "control_finish": 0.940929,
+        "control_denial": 0.464438,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 414.5,
+          "yards_per_play": 6.23,
+          "points_per_drive": 2.71,
+          "rush_yards_per_game": 174.2,
+          "pass_yards_per_game": 240.2,
+          "turnover_margin": 7
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 65.256218,
+        "adv_schedule_strength": 55.660044,
+        "games_before_target": 3,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": 0.2521206340166745,
+        "talent_yield_label": "Above Expectation",
+        "control_creation": 0.480379,
+        "control_finish": 0.821544,
+        "control_denial": 0.552581,
+        "comparison_stats": {
+          "games_available": 3,
+          "yards_per_game": 409,
+          "yards_per_play": 6.78,
+          "points_per_drive": 2.76,
+          "rush_yards_per_game": 143.7,
+          "pass_yards_per_game": 265.3,
+          "turnover_margin": 4
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401858476/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401858476.json"
+    },
+    {
+      "game_id": "401858478",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T23:30:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Washington",
+      "away_full_name": "Washington Huskies",
+      "away_conference": "Big Ten",
+      "away_ap_rank": 0,
+      "home_team": "USC",
+      "home_full_name": "USC Trojans",
+      "home_conference": "Big Ten",
+      "home_ap_rank": 18,
+      "projected_winner": "USC Trojans",
+      "projected_margin": 5.19,
+      "projection_closeness": 0.7531,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Fragile Edge",
+        "note": "CFP Advantage has a lean, but this sits in a historical range where modest edges have been easier to overturn.",
+        "historical_model_win_rate": 0.613,
+        "framework_support": {
+          "strength": "Framework Strongly Supports",
+          "support_components": 5,
+          "conflict_components": 0
+        }
+      },
+      "key_advantages": {
+        "USC": [
+          "Stronger Control Creation",
+          "More consistent Control Rate",
+          "Stronger Control Denial",
+          "Higher overall ADV strength",
+          "Stronger schedule context",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ],
+        "Washington": [
+          "More efficient Control Finish",
+          "Higher Control Drive Shutout Rate"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 81.196172,
+        "adv_schedule_strength": 26.466997,
+        "games_before_target": 4,
+        "recent_form": "Declining",
+        "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+        "talent_yield": -0.007425204432513599,
+        "talent_yield_label": "Near Expectation",
+        "control_creation": 0.430778,
+        "control_finish": 0.899836,
+        "control_denial": 0.40264,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 395.5,
+          "yards_per_play": 6.3,
+          "points_per_drive": 2.33,
+          "rush_yards_per_game": 109.2,
+          "pass_yards_per_game": 286.2,
+          "turnover_margin": 5
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 88.47995,
+        "adv_schedule_strength": 53.836507,
+        "games_before_target": 5,
+        "recent_form": "Stable, Below Baseline",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": -0.5573713775958008,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.653061,
+        "control_finish": 0.84375,
+        "control_denial": 0.583333,
+        "comparison_stats": {
+          "games_available": 5,
+          "yards_per_game": 485.6,
+          "yards_per_play": 6.92,
+          "points_per_drive": 4.45,
+          "rush_yards_per_game": 163.2,
+          "pass_yards_per_game": 322.4,
+          "turnover_margin": -2
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401858478/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401858478.json"
+    },
+    {
+      "game_id": "401858479",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T16:30:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Michigan State",
+      "away_full_name": "Michigan State Spartans",
+      "away_conference": "Big Ten",
+      "away_ap_rank": 0,
+      "home_team": "Wisconsin",
+      "home_full_name": "Wisconsin Badgers",
+      "home_conference": "Big Ten",
+      "home_ap_rank": 0,
+      "projected_winner": "Wisconsin Badgers",
+      "projected_margin": 6.39,
+      "projection_closeness": 0.6955,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Context Pushback",
+        "note": "The baseline has a lean, but stable Control Framework traits point to meaningful matchup resistance.",
+        "historical_model_win_rate": 0.606,
+        "framework_support": {
+          "strength": "Framework Leans Against",
+          "support_components": 1,
+          "conflict_components": 3
+        }
+      },
+      "key_advantages": {
+        "Wisconsin": [
+          "Higher overall ADV strength",
+          "Limits Control Pressure better"
+        ],
+        "Michigan State": [
+          "Stronger Control Creation",
+          "More consistent Control Rate",
+          "More efficient Control Finish",
+          "Stronger Control Denial",
+          "Stronger schedule context"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 67.439665,
+        "adv_schedule_strength": 72.08068,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": 0.2602846352828467,
+        "talent_yield_label": "Above Expectation",
+        "control_creation": 0.458175,
+        "control_finish": 0.843942,
+        "control_denial": 0.559778,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 330,
+          "yards_per_play": 5.18,
+          "points_per_drive": 2.26,
+          "rush_yards_per_game": 130,
+          "pass_yards_per_game": 200,
+          "turnover_margin": -3
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 78.751459,
+        "adv_schedule_strength": 49.713885,
+        "games_before_target": 4,
+        "recent_form": "Improving",
+        "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+        "talent_yield": -0.07855506605496365,
+        "talent_yield_label": "Near Expectation",
+        "control_creation": 0.420247,
+        "control_finish": 0.82186,
+        "control_denial": 0.53378,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 379.5,
+          "yards_per_play": 6.33,
+          "points_per_drive": 2.4,
+          "rush_yards_per_game": 132.5,
+          "pass_yards_per_game": 247,
+          "turnover_margin": -2
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401858479/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401858479.json"
+    },
+    {
+      "game_id": "401860898",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T23:30:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Utah State",
+      "away_full_name": "Utah State Aggies",
+      "away_conference": "Pac-12",
+      "away_ap_rank": 0,
+      "home_team": "Boise State",
+      "home_full_name": "Boise State Broncos",
+      "home_conference": "Pac-12",
+      "home_ap_rank": 22,
+      "projected_winner": "Boise State Broncos",
+      "projected_margin": 26.91,
+      "projection_closeness": 0,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Strong Separation",
+        "note": "Large baseline separation with non-conflicting matchup context. Historically, this game shape has been much harder to overturn.",
+        "historical_model_win_rate": 0.907,
+        "framework_support": {
+          "strength": "Framework Strongly Supports",
+          "support_components": 5,
+          "conflict_components": 0
+        }
+      },
+      "key_advantages": {
+        "Boise State": [
+          "Stronger Control Creation",
+          "More consistent Control Rate",
+          "More efficient Control Finish",
+          "Stronger Control Denial",
+          "Higher Control Drive Shutout Rate",
+          "Higher overall ADV strength",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ],
+        "Utah State": [
+          "Stronger schedule context"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 23.156627,
+        "adv_schedule_strength": 62.06417,
+        "games_before_target": 4,
+        "recent_form": "Improving",
+        "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+        "talent_yield": 0.4045599448269568,
+        "talent_yield_label": "Above Expectation",
+        "control_creation": 0.267623,
+        "control_finish": 0.754107,
+        "control_denial": 0.510507,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 314.5,
+          "yards_per_play": 4.88,
+          "points_per_drive": 0.94,
+          "rush_yards_per_game": 123.8,
+          "pass_yards_per_game": 190.8,
+          "turnover_margin": -6
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 102.854337,
+        "adv_schedule_strength": 56.955305,
+        "games_before_target": 4,
+        "recent_form": "Improving",
+        "recent_form_note": "Recent ADV has improved with manageable volatility.",
+        "talent_yield": 1.4671369227462667,
+        "talent_yield_label": "Well Above Expectation",
+        "control_creation": 0.490239,
+        "control_finish": 0.907324,
+        "control_denial": 0.747257,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 442.8,
+          "yards_per_play": 6.24,
+          "points_per_drive": 2.5,
+          "rush_yards_per_game": 238.5,
+          "pass_yards_per_game": 204.2,
+          "turnover_margin": 3
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401860898/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401860898.json"
+    },
+    {
+      "game_id": "401860899",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T22:00:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Oregon State",
+      "away_full_name": "Oregon State Beavers",
+      "away_conference": "Pac-12",
+      "away_ap_rank": 0,
+      "home_team": "Colorado State",
+      "home_full_name": "Colorado State Rams",
+      "home_conference": "Pac-12",
+      "home_ap_rank": 0,
+      "projected_winner": "Oregon State Beavers",
+      "projected_margin": 5.25,
+      "projection_closeness": 0.75,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Context Pushback",
+        "note": "The baseline has a lean, but stable Control Framework traits point to meaningful matchup resistance.",
+        "historical_model_win_rate": 0.525,
+        "framework_support": {
+          "strength": "Framework Conflicts",
+          "support_components": 1,
+          "conflict_components": 4
+        }
+      },
+      "key_advantages": {
+        "Colorado State": [
+          "Stronger Control Creation",
+          "Stronger Control Denial",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ],
+        "Oregon State": [
+          "More consistent Control Rate",
+          "Higher overall ADV strength",
+          "Stronger schedule context"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 68.719648,
+        "adv_schedule_strength": 53.248974,
+        "games_before_target": 4,
+        "recent_form": "Improving",
+        "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+        "talent_yield": 0.8425500674646247,
+        "talent_yield_label": "Above Expectation",
+        "control_creation": 0.392522,
+        "control_finish": 0.905183,
+        "control_denial": 0.520296,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 459.5,
+          "yards_per_play": 6.83,
+          "points_per_drive": 2.69,
+          "rush_yards_per_game": 93.8,
+          "pass_yards_per_game": 365.8,
+          "turnover_margin": 4
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 41.218228,
+        "adv_schedule_strength": 44.602747,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": 0.3310897258548452,
+        "talent_yield_label": "Above Expectation",
+        "control_creation": 0.458947,
+        "control_finish": 0.893362,
+        "control_denial": 0.594461,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 476,
+          "yards_per_play": 6.85,
+          "points_per_drive": 2.88,
+          "rush_yards_per_game": 173.5,
+          "pass_yards_per_game": 302.5,
+          "turnover_margin": 6
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401860899/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401860899.json"
+    },
+    {
+      "game_id": "401862787",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T15:00:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Memphis",
+      "away_full_name": "Memphis Tigers",
+      "away_conference": "American Athletic",
+      "away_ap_rank": 0,
+      "home_team": "Charlotte",
+      "home_full_name": "Charlotte 49ers",
+      "home_conference": "American Athletic",
+      "home_ap_rank": 0,
+      "projected_winner": "Memphis Tigers",
+      "projected_margin": 19.09,
+      "projection_closeness": 0.091,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Strong Separation",
+        "note": "Large baseline separation with non-conflicting matchup context. Historically, this game shape has been much harder to overturn.",
+        "historical_model_win_rate": 0.836,
+        "framework_support": {
+          "strength": "Framework Strongly Supports",
+          "support_components": 5,
+          "conflict_components": 0
+        }
+      },
+      "key_advantages": {
+        "Charlotte": [],
+        "Memphis": [
+          "Stronger Control Creation",
+          "More consistent Control Rate",
+          "More efficient Control Finish",
+          "Stronger Control Denial",
+          "Higher overall ADV strength",
+          "Stronger schedule context",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 69.472759,
+        "adv_schedule_strength": 45.187359,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": 0.30316116628553946,
+        "talent_yield_label": "Above Expectation",
+        "control_creation": 0.509707,
+        "control_finish": 0.885726,
+        "control_denial": 0.706794,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 501.8,
+          "yards_per_play": 8.13,
+          "points_per_drive": 2.75,
+          "rush_yards_per_game": 239.2,
+          "pass_yards_per_game": 262.5,
+          "turnover_margin": -1
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": -4.154491,
+        "adv_schedule_strength": 38.526203,
+        "games_before_target": 4,
+        "recent_form": "Declining",
+        "recent_form_note": "Recent ADV has declined with manageable volatility.",
+        "talent_yield": -1.1734514561199032,
+        "talent_yield_label": "Well Below Expectation",
+        "control_creation": 0.28251,
+        "control_finish": 0.821149,
+        "control_denial": 0.485273,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 308,
+          "yards_per_play": 5.24,
+          "points_per_drive": 2.53,
+          "rush_yards_per_game": 104.2,
+          "pass_yards_per_game": 203.8,
+          "turnover_margin": -6
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401862787/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401862787.json"
+    },
+    {
+      "game_id": "401862788",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T23:00:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "UTSA",
+      "away_full_name": "UTSA Roadrunners",
+      "away_conference": "American Athletic",
+      "away_ap_rank": 0,
+      "home_team": "Rice",
+      "home_full_name": "Rice Owls",
+      "home_conference": "American Athletic",
+      "home_ap_rank": 0,
+      "projected_winner": "UTSA Roadrunners",
+      "projected_margin": 7.38,
+      "projection_closeness": 0.6485,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Supported Edge",
+        "note": "The matchup shape supports the lean with meaningful but not overwhelming separation.",
+        "historical_model_win_rate": 0.723,
+        "framework_support": {
+          "strength": "Framework Strongly Supports",
+          "support_components": 4,
+          "conflict_components": 0
+        }
+      },
+      "key_advantages": {
+        "Rice": [],
+        "UTSA": [
+          "Stronger Control Creation",
+          "More efficient Control Finish",
+          "Stronger Control Denial",
+          "Higher Control Drive Shutout Rate",
+          "Higher overall ADV strength",
+          "Stronger schedule context",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 61.387362,
+        "adv_schedule_strength": 60.859264,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": 0.3895441922748415,
+        "talent_yield_label": "Above Expectation",
+        "control_creation": 0.401295,
+        "control_finish": 0.971185,
+        "control_denial": 0.62646,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 401.8,
+          "yards_per_play": 6.43,
+          "points_per_drive": 2.77,
+          "rush_yards_per_game": 173.2,
+          "pass_yards_per_game": 228.5,
+          "turnover_margin": 4
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 26.782458,
+        "adv_schedule_strength": 37.777532,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": -0.3701022213922484,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.362415,
+        "control_finish": 0.801638,
+        "control_denial": 0.599252,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 356.5,
+          "yards_per_play": 5.87,
+          "points_per_drive": 1.68,
+          "rush_yards_per_game": 270,
+          "pass_yards_per_game": 86.5,
+          "turnover_margin": -5
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401862788/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401862788.json"
+    },
+    {
+      "game_id": "401862790",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T22:00:00.000Z",
+      "game_type": "Non-Conference",
+      "away_team": "Texas Southern",
+      "away_full_name": "Texas Southern",
+      "away_conference": "SWAC",
+      "away_ap_rank": 0,
+      "home_team": "Florida Atlantic",
+      "home_full_name": "Florida Atlantic Owls",
+      "home_conference": "American Athletic",
+      "home_ap_rank": 0,
+      "projected_winner": "Florida Atlantic Owls",
+      "projected_margin": 25.3,
+      "projection_closeness": 0,
+      "context_label": "Opponent-Tier Baseline",
+      "context_note": "Limited projection using historical FBS-vs-FCS margin baselines by team tier. No full ADV or Control Framework read is published for the FCS opponent.",
+      "matchup_conviction": {
+        "label": "Baseline Only",
+        "note": "This is a baseline projection without a complete supported Control Framework read.",
+        "historical_model_win_rate": 0.688,
+        "framework_support": null
+      },
+      "key_advantages": {
+        "Florida Atlantic": [],
+        "Texas Southern": []
+      },
+      "away_profile": null,
+      "home_profile": null,
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401862790/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401862790.json"
+    },
+    {
+      "game_id": "401862791",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T16:00:00.000Z",
+      "game_type": "Non-Conference",
+      "away_team": "Navy",
+      "away_full_name": "Navy Midshipmen",
+      "away_conference": "American Athletic",
+      "away_ap_rank": 0,
+      "home_team": "Air Force",
+      "home_full_name": "Air Force Falcons",
+      "home_conference": "Mountain West",
+      "home_ap_rank": 0,
+      "projected_winner": "Air Force Falcons",
+      "projected_margin": 2.57,
+      "projection_closeness": 0.8775,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Fragile Edge",
+        "note": "CFP Advantage has a lean, but this sits in a historical range where modest edges have been easier to overturn.",
+        "historical_model_win_rate": 0.613,
+        "framework_support": {
+          "strength": "Mixed / Neutral",
+          "support_components": 1,
+          "conflict_components": 0
+        }
+      },
+      "key_advantages": {
+        "Air Force": [
+          "More efficient Control Finish",
+          "Higher Control Drive Shutout Rate"
+        ],
+        "Navy": []
+      },
+      "away_profile": {
+        "pregame_adv_rating": 15.495132,
+        "adv_schedule_strength": 7.745601,
+        "games_before_target": 3,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": 2.1530428631565517,
+        "talent_yield_label": "Well Above Expectation",
+        "control_creation": 0.518289,
+        "control_finish": 0.826498,
+        "control_denial": 0.493067,
+        "comparison_stats": {
+          "games_available": 3,
+          "yards_per_game": 427,
+          "yards_per_play": 6.34,
+          "points_per_drive": 2.81,
+          "rush_yards_per_game": 336.3,
+          "pass_yards_per_game": 90.7,
+          "turnover_margin": -2
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 14.070733,
+        "adv_schedule_strength": 8.700942,
+        "games_before_target": 3,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": 2.9932426922746727,
+        "talent_yield_label": "Well Above Expectation",
+        "control_creation": 0.522242,
+        "control_finish": 0.866859,
+        "control_denial": 0.474997,
+        "comparison_stats": {
+          "games_available": 3,
+          "yards_per_game": 430.3,
+          "yards_per_play": 5.69,
+          "points_per_drive": 3.94,
+          "rush_yards_per_game": 333.7,
+          "pass_yards_per_game": 96.7,
+          "turnover_margin": 1
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401862791/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401862791.json"
+    },
+    {
+      "game_id": "401862792",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T23:30:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Temple",
+      "away_full_name": "Temple Owls",
+      "away_conference": "American Athletic",
+      "away_ap_rank": 0,
+      "home_team": "South Florida",
+      "home_full_name": "South Florida Bulls",
+      "home_conference": "American Athletic",
+      "home_ap_rank": 0,
+      "projected_winner": "South Florida Bulls",
+      "projected_margin": 14.14,
+      "projection_closeness": 0.3269,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Strong Separation",
+        "note": "Large baseline separation with non-conflicting matchup context. Historically, this game shape has been much harder to overturn.",
+        "historical_model_win_rate": 0.836,
+        "framework_support": {
+          "strength": "Framework Strongly Supports",
+          "support_components": 5,
+          "conflict_components": 0
+        }
+      },
+      "key_advantages": {
+        "South Florida": [
+          "Stronger Control Creation",
+          "More consistent Control Rate",
+          "Stronger Control Denial",
+          "Higher overall ADV strength",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ],
+        "Temple": [
+          "More efficient Control Finish",
+          "Higher Control Drive Shutout Rate",
+          "Stronger schedule context"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 18.274857,
+        "adv_schedule_strength": 41.42582,
+        "games_before_target": 4,
+        "recent_form": "Declining",
+        "recent_form_note": "Recent ADV has declined with manageable volatility.",
+        "talent_yield": -0.9721990398428457,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.370255,
+        "control_finish": 0.914611,
+        "control_denial": 0.505829,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 386.5,
+          "yards_per_play": 6.52,
+          "points_per_drive": 2.45,
+          "rush_yards_per_game": 222.8,
+          "pass_yards_per_game": 163.8,
+          "turnover_margin": 3
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 55.392303,
+        "adv_schedule_strength": 5.911254,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is comparatively stable without a material slope.",
+        "talent_yield": -0.4122102108180458,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.499585,
+        "control_finish": 0.857213,
+        "control_denial": 0.625403,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 356.8,
+          "yards_per_play": 6.31,
+          "points_per_drive": 2.86,
+          "rush_yards_per_game": 177.8,
+          "pass_yards_per_game": 179,
+          "turnover_margin": 3
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401862792/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401862792.json"
+    },
+    {
+      "game_id": "401862793",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T19:30:00.000Z",
+      "game_type": "Non-Conference",
+      "away_team": "Samford",
+      "away_full_name": "Samford",
+      "away_conference": "Southern",
+      "away_ap_rank": 0,
+      "home_team": "UAB",
+      "home_full_name": "UAB Blazers",
+      "home_conference": "American Athletic",
+      "home_ap_rank": 0,
+      "projected_winner": "UAB Blazers",
+      "projected_margin": 25.3,
+      "projection_closeness": 0,
+      "context_label": "Opponent-Tier Baseline",
+      "context_note": "Limited projection using historical FBS-vs-FCS margin baselines by team tier. No full ADV or Control Framework read is published for the FCS opponent.",
+      "matchup_conviction": {
+        "label": "Baseline Only",
+        "note": "This is a baseline projection without a complete supported Control Framework read.",
+        "historical_model_win_rate": 0.688,
+        "framework_support": null
+      },
+      "key_advantages": {
+        "UAB": [],
+        "Samford": []
+      },
+      "away_profile": null,
+      "home_profile": null,
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401862793/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401862793.json"
+    },
+    {
+      "game_id": "401864514",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T20:00:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "UTEP",
+      "away_full_name": "UTEP Miners",
+      "away_conference": "Mountain West",
+      "away_ap_rank": 0,
+      "home_team": "New Mexico",
+      "home_full_name": "New Mexico Lobos",
+      "home_conference": "Mountain West",
+      "home_ap_rank": 0,
+      "projected_winner": "New Mexico Lobos",
+      "projected_margin": 15.94,
+      "projection_closeness": 0.2411,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Strong Separation",
+        "note": "Large baseline separation with non-conflicting matchup context. Historically, this game shape has been much harder to overturn.",
+        "historical_model_win_rate": 0.836,
+        "framework_support": {
+          "strength": "Framework Strongly Supports",
+          "support_components": 5,
+          "conflict_components": 0
+        }
+      },
+      "key_advantages": {
+        "New Mexico": [
+          "Stronger Control Creation",
+          "More consistent Control Rate",
+          "More efficient Control Finish",
+          "Stronger Control Denial",
+          "Higher Control Drive Shutout Rate",
+          "Higher overall ADV strength",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ],
+        "UTEP": [
+          "Stronger schedule context"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 7.998301,
+        "adv_schedule_strength": 50.353523,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": -0.9829256024938842,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.319047,
+        "control_finish": 0.68938,
+        "control_denial": 0.521095,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 262,
+          "yards_per_play": 4.81,
+          "points_per_drive": 1.17,
+          "rush_yards_per_game": 134.8,
+          "pass_yards_per_game": 127.2,
+          "turnover_margin": -2
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 51.120943,
+        "adv_schedule_strength": 4.428535,
+        "games_before_target": 4,
+        "recent_form": "Declining",
+        "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+        "talent_yield": 0.493577443953622,
+        "talent_yield_label": "Above Expectation",
+        "control_creation": 0.489945,
+        "control_finish": 0.864874,
+        "control_denial": 0.655535,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 360.8,
+          "yards_per_play": 5.57,
+          "points_per_drive": 2.77,
+          "rush_yards_per_game": 203.8,
+          "pass_yards_per_game": 157,
+          "turnover_margin": 8
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401864514/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401864514.json"
+    },
+    {
+      "game_id": "401864515",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T19:30:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Wyoming",
+      "away_full_name": "Wyoming Cowboys",
+      "away_conference": "Mountain West",
+      "away_ap_rank": 0,
+      "home_team": "North Dakota State",
+      "home_full_name": "North Dakota State Bison",
+      "home_conference": "Mountain West",
+      "home_ap_rank": 0,
+      "projected_winner": "North Dakota State Bison",
+      "projected_margin": 15.9,
+      "projection_closeness": 0.2431,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Strong Separation",
+        "note": "Large baseline separation with non-conflicting matchup context. Historically, this game shape has been much harder to overturn.",
+        "historical_model_win_rate": 0.836,
+        "framework_support": {
+          "strength": "Framework Strongly Supports",
+          "support_components": 5,
+          "conflict_components": 0
+        }
+      },
+      "key_advantages": {
+        "North Dakota State": [
+          "Stronger Control Creation",
+          "More consistent Control Rate",
+          "More efficient Control Finish",
+          "Stronger Control Denial",
+          "Higher Control Drive Shutout Rate",
+          "Higher overall ADV strength",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ],
+        "Wyoming": [
+          "Stronger schedule context"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 12.763305,
+        "adv_schedule_strength": 9.508183,
+        "games_before_target": 4,
+        "recent_form": "Improving",
+        "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+        "talent_yield": -0.4774530791645152,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.313282,
+        "control_finish": 0.836945,
+        "control_denial": 0.580776,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 325.5,
+          "yards_per_play": 5.76,
+          "points_per_drive": 1.77,
+          "rush_yards_per_game": 161.5,
+          "pass_yards_per_game": 164,
+          "turnover_margin": -4
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 55.746737,
+        "adv_schedule_strength": -7.880072,
+        "games_before_target": 4,
+        "recent_form": "Declining",
+        "recent_form_note": "Recent ADV has declined with manageable volatility.",
+        "talent_yield": 1.1347116554381598,
+        "talent_yield_label": "Well Above Expectation",
+        "control_creation": 0.439024,
+        "control_finish": 0.888889,
+        "control_denial": 0.675,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 371.5,
+          "yards_per_play": 5.85,
+          "points_per_drive": 3.24,
+          "rush_yards_per_game": 159.5,
+          "pass_yards_per_game": 212,
+          "turnover_margin": 8
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401864515/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401864515.json"
+    },
+    {
+      "game_id": "401866430",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T19:30:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Akron",
+      "away_full_name": "Akron Zips",
+      "away_conference": "Mid-American",
+      "away_ap_rank": 0,
+      "home_team": "Central Michigan",
+      "home_full_name": "Central Michigan Chippewas",
+      "home_conference": "Mid-American",
+      "home_ap_rank": 0,
+      "projected_winner": "Central Michigan Chippewas",
+      "projected_margin": 5.61,
+      "projection_closeness": 0.733,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Context Pushback",
+        "note": "The baseline has a lean, but stable Control Framework traits point to meaningful matchup resistance.",
+        "historical_model_win_rate": 0.525,
+        "framework_support": {
+          "strength": "Framework Conflicts",
+          "support_components": 0,
+          "conflict_components": 5
+        }
+      },
+      "key_advantages": {
+        "Central Michigan": [
+          "More efficient Control Finish",
+          "Higher Control Drive Shutout Rate",
+          "Higher overall ADV strength",
+          "Stronger schedule context"
+        ],
+        "Akron": [
+          "Stronger Control Creation",
+          "More consistent Control Rate",
+          "Stronger Control Denial",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": -0.151011,
+        "adv_schedule_strength": 23.508427,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": -0.6429266470173651,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.351653,
+        "control_finish": 0.684835,
+        "control_denial": 0.719453,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 337.2,
+          "yards_per_play": 5.31,
+          "points_per_drive": 1.7,
+          "rush_yards_per_game": 132.8,
+          "pass_yards_per_game": 204.5,
+          "turnover_margin": -4
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 8.53956,
+        "adv_schedule_strength": 28.99191,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": -0.5722460622503486,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.27408,
+        "control_finish": 0.793497,
+        "control_denial": 0.629454,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 247,
+          "yards_per_play": 4.43,
+          "points_per_drive": 1.15,
+          "rush_yards_per_game": 178,
+          "pass_yards_per_game": 69,
+          "turnover_margin": 1
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401866430/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401866430.json"
+    },
+    {
+      "game_id": "401866431",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T18:00:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Toledo",
+      "away_full_name": "Toledo Rockets",
+      "away_conference": "Mid-American",
+      "away_ap_rank": 0,
+      "home_team": "Ball State",
+      "home_full_name": "Ball State Cardinals",
+      "home_conference": "Mid-American",
+      "home_ap_rank": 0,
+      "projected_winner": "Toledo Rockets",
+      "projected_margin": 6.3,
+      "projection_closeness": 0.7,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Fragile Edge",
+        "note": "CFP Advantage has a lean, but this sits in a historical range where modest edges have been easier to overturn.",
+        "historical_model_win_rate": 0.613,
+        "framework_support": {
+          "strength": "Framework Strongly Supports",
+          "support_components": 5,
+          "conflict_components": 0
+        }
+      },
+      "key_advantages": {
+        "Ball State": [
+          "Stronger schedule context"
+        ],
+        "Toledo": [
+          "Stronger Control Creation",
+          "More consistent Control Rate",
+          "More efficient Control Finish",
+          "Stronger Control Denial",
+          "Higher Control Drive Shutout Rate",
+          "Higher overall ADV strength",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 44.354074,
+        "adv_schedule_strength": 16.667845,
+        "games_before_target": 4,
+        "recent_form": "Improving",
+        "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+        "talent_yield": 0.7541153118214097,
+        "talent_yield_label": "Above Expectation",
+        "control_creation": 0.53373,
+        "control_finish": 0.857808,
+        "control_denial": 0.66434,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 469.8,
+          "yards_per_play": 7.14,
+          "points_per_drive": 4.55,
+          "rush_yards_per_game": 162.8,
+          "pass_yards_per_game": 307,
+          "turnover_margin": 1
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 13.352473,
+        "adv_schedule_strength": 48.01136,
+        "games_before_target": 4,
+        "recent_form": "Improving",
+        "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+        "talent_yield": -0.6013699852547787,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.335936,
+        "control_finish": 0.650118,
+        "control_denial": 0.447713,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 279,
+          "yards_per_play": 4.77,
+          "points_per_drive": 1.85,
+          "rush_yards_per_game": 118.8,
+          "pass_yards_per_game": 160.2,
+          "turnover_margin": 2
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401866431/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401866431.json"
+    },
+    {
+      "game_id": "401866432",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T17:00:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Western Michigan",
+      "away_full_name": "Western Michigan Broncos",
+      "away_conference": "Mid-American",
+      "away_ap_rank": 0,
+      "home_team": "Buffalo",
+      "home_full_name": "Buffalo Bulls",
+      "home_conference": "Mid-American",
+      "home_ap_rank": 0,
+      "projected_winner": "Western Michigan Broncos",
+      "projected_margin": 16.22,
+      "projection_closeness": 0.2276,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Strong Separation",
+        "note": "Large baseline separation with non-conflicting matchup context. Historically, this game shape has been much harder to overturn.",
+        "historical_model_win_rate": 0.836,
+        "framework_support": {
+          "strength": "Framework Strongly Supports",
+          "support_components": 5,
+          "conflict_components": 0
+        }
+      },
+      "key_advantages": {
+        "Buffalo": [],
+        "Western Michigan": [
+          "Stronger Control Creation",
+          "More consistent Control Rate",
+          "More efficient Control Finish",
+          "Stronger Control Denial",
+          "Higher Control Drive Shutout Rate",
+          "Higher overall ADV strength",
+          "Stronger schedule context",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 52.474556,
+        "adv_schedule_strength": 56.678343,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": 0.9714889869934822,
+        "talent_yield_label": "Above Expectation",
+        "control_creation": 0.378592,
+        "control_finish": 0.901721,
+        "control_denial": 0.700451,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 306.8,
+          "yards_per_play": 5.24,
+          "points_per_drive": 2.23,
+          "rush_yards_per_game": 159,
+          "pass_yards_per_game": 147.8,
+          "turnover_margin": 4
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": -11.592406,
+        "adv_schedule_strength": -8.760635,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": -1.3618631100677274,
+        "talent_yield_label": "Well Below Expectation",
+        "control_creation": 0.279875,
+        "control_finish": 0.872716,
+        "control_denial": 0.635212,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 326.8,
+          "yards_per_play": 4.43,
+          "points_per_drive": 1.52,
+          "rush_yards_per_game": 164.2,
+          "pass_yards_per_game": 162.5,
+          "turnover_margin": -4
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401866432/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401866432.json"
+    },
+    {
+      "game_id": "401866433",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T19:30:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Eastern Michigan",
+      "away_full_name": "Eastern Michigan Eagles",
+      "away_conference": "Mid-American",
+      "away_ap_rank": 0,
+      "home_team": "Massachusetts",
+      "home_full_name": "Massachusetts Minutemen",
+      "home_conference": "Mid-American",
+      "home_ap_rank": 0,
+      "projected_winner": "Massachusetts Minutemen",
+      "projected_margin": 5.24,
+      "projection_closeness": 0.7504,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Fragile Edge",
+        "note": "CFP Advantage has a lean, but this sits in a historical range where modest edges have been easier to overturn.",
+        "historical_model_win_rate": 0.613,
+        "framework_support": {
+          "strength": "Framework Strongly Supports",
+          "support_components": 4,
+          "conflict_components": 0
+        }
+      },
+      "key_advantages": {
+        "Massachusetts": [
+          "Stronger Control Creation",
+          "More consistent Control Rate",
+          "More efficient Control Finish",
+          "Higher Control Drive Shutout Rate",
+          "Higher overall ADV strength",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ],
+        "Eastern Michigan": [
+          "Stronger schedule context"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 17.011193,
+        "adv_schedule_strength": 29.754643,
+        "games_before_target": 5,
+        "recent_form": "Improving, Still Below Baseline",
+        "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+        "talent_yield": -0.6770378970414266,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.375,
+        "control_finish": 0.666667,
+        "control_denial": 0.568182,
+        "comparison_stats": {
+          "games_available": 5,
+          "yards_per_game": 297.2,
+          "yards_per_play": 4.75,
+          "points_per_drive": 1.57,
+          "rush_yards_per_game": 101.6,
+          "pass_yards_per_game": 195.6,
+          "turnover_margin": -1
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 24.483049,
+        "adv_schedule_strength": -21.499997,
+        "games_before_target": 4,
+        "recent_form": "Declining",
+        "recent_form_note": "Recent ADV has declined with manageable volatility.",
+        "talent_yield": -0.0724507279840293,
+        "talent_yield_label": "Near Expectation",
+        "control_creation": 0.39913,
+        "control_finish": 0.86857,
+        "control_denial": 0.58772,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 353.8,
+          "yards_per_play": 6.64,
+          "points_per_drive": 2.82,
+          "rush_yards_per_game": 197.5,
+          "pass_yards_per_game": 156.2,
+          "turnover_margin": 8
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401866433/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401866433.json"
+    },
+    {
+      "game_id": "401866434",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T19:30:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Ohio",
+      "away_full_name": "Ohio Bobcats",
+      "away_conference": "Mid-American",
+      "away_ap_rank": 0,
+      "home_team": "Kent State",
+      "home_full_name": "Kent State Golden Flashes",
+      "home_conference": "Mid-American",
+      "home_ap_rank": 0,
+      "projected_winner": "Ohio Bobcats",
+      "projected_margin": 0.87,
+      "projection_closeness": 0.9585,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Fragile Edge",
+        "note": "CFP Advantage has a lean, but this sits in a historical range where modest edges have been easier to overturn.",
+        "historical_model_win_rate": 0.66,
+        "framework_support": {
+          "strength": "Framework Strongly Supports",
+          "support_components": 5,
+          "conflict_components": 0
+        }
+      },
+      "key_advantages": {
+        "Kent State": [
+          "Stronger schedule context"
+        ],
+        "Ohio": [
+          "Stronger Control Creation",
+          "More consistent Control Rate",
+          "Stronger Control Denial",
+          "Higher Control Drive Shutout Rate",
+          "Higher overall ADV strength",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 25.791344,
+        "adv_schedule_strength": 29.102355,
+        "games_before_target": 4,
+        "recent_form": "Improving",
+        "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+        "talent_yield": 0.6198213903683664,
+        "talent_yield_label": "Above Expectation",
+        "control_creation": 0.443635,
+        "control_finish": 0.861661,
+        "control_denial": 0.795174,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 371.2,
+          "yards_per_play": 5.73,
+          "points_per_drive": 4.09,
+          "rush_yards_per_game": 189.2,
+          "pass_yards_per_game": 182,
+          "turnover_margin": -3
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 12.886869,
+        "adv_schedule_strength": 48.125304,
+        "games_before_target": 4,
+        "recent_form": "Improving",
+        "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+        "talent_yield": -0.3558204912941514,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.19578,
+        "control_finish": 0.851123,
+        "control_denial": 0.54126,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 290,
+          "yards_per_play": 4.87,
+          "points_per_drive": 1.28,
+          "rush_yards_per_game": 141.2,
+          "pass_yards_per_game": 148.8,
+          "turnover_margin": -2
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401866434/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401866434.json"
+    },
+    {
+      "game_id": "401866477",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T19:30:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Bowling Green",
+      "away_full_name": "Bowling Green Falcons",
+      "away_conference": "Mid-American",
+      "away_ap_rank": 0,
+      "home_team": "Miami (OH)",
+      "home_full_name": "Miami (OH) RedHawks",
+      "home_conference": "Mid-American",
+      "home_ap_rank": 0,
+      "projected_winner": "Miami (OH) RedHawks",
+      "projected_margin": 6.74,
+      "projection_closeness": 0.679,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Fragile Edge",
+        "note": "CFP Advantage has a lean, but this sits in a historical range where modest edges have been easier to overturn.",
+        "historical_model_win_rate": 0.613,
+        "framework_support": {
+          "strength": "Framework Strongly Supports",
+          "support_components": 5,
+          "conflict_components": 0
+        }
+      },
+      "key_advantages": {
+        "Miami (OH)": [
+          "Stronger Control Creation",
+          "More consistent Control Rate",
+          "More efficient Control Finish",
+          "Stronger Control Denial",
+          "Higher Control Drive Shutout Rate",
+          "Higher overall ADV strength",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ],
+        "Bowling Green": [
+          "Stronger schedule context"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 29.64133,
+        "adv_schedule_strength": 71.964821,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": -0.140650152784203,
+        "talent_yield_label": "Near Expectation",
+        "control_creation": 0.300663,
+        "control_finish": 0.535987,
+        "control_denial": 0.55994,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 234.2,
+          "yards_per_play": 4.22,
+          "points_per_drive": 0.73,
+          "rush_yards_per_game": 90,
+          "pass_yards_per_game": 144.2,
+          "turnover_margin": -2
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 42.109649,
+        "adv_schedule_strength": 34.963414,
+        "games_before_target": 4,
+        "recent_form": "Improving",
+        "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+        "talent_yield": -0.22958015502032797,
+        "talent_yield_label": "Near Expectation",
+        "control_creation": 0.448312,
+        "control_finish": 0.838614,
+        "control_denial": 0.699698,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 387.8,
+          "yards_per_play": 6.92,
+          "points_per_drive": 2.41,
+          "rush_yards_per_game": 97.8,
+          "pass_yards_per_game": 290,
+          "turnover_margin": 0
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401866477/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401866477.json"
+    },
+    {
+      "game_id": "401869842",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T23:30:00.000Z",
+      "game_type": "Non-Conference",
+      "away_team": "Army",
+      "away_full_name": "Army Black Knights",
+      "away_conference": "American Athletic",
+      "away_ap_rank": 0,
+      "home_team": "Louisiana Tech",
+      "home_full_name": "Louisiana Tech Bulldogs",
+      "home_conference": "Sun Belt",
+      "home_ap_rank": 0,
+      "projected_winner": "Louisiana Tech Bulldogs",
+      "projected_margin": 2.37,
+      "projection_closeness": 0.8873,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Context Pushback",
+        "note": "The baseline has a lean, but stable Control Framework traits point to meaningful matchup resistance.",
+        "historical_model_win_rate": 0.525,
+        "framework_support": {
+          "strength": "Framework Conflicts",
+          "support_components": 0,
+          "conflict_components": 5
+        }
+      },
+      "key_advantages": {
+        "Louisiana Tech": [
+          "Stronger schedule context"
+        ],
+        "Army": [
+          "Stronger Control Creation",
+          "More consistent Control Rate",
+          "Stronger Control Denial",
+          "Higher Control Drive Shutout Rate",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 27.562415,
+        "adv_schedule_strength": 5.057254,
+        "games_before_target": 3,
+        "recent_form": "Declining",
+        "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+        "talent_yield": 2.5418829493788038,
+        "talent_yield_label": "Well Above Expectation",
+        "control_creation": 0.55823,
+        "control_finish": 0.843125,
+        "control_denial": 0.578639,
+        "comparison_stats": {
+          "games_available": 3,
+          "yards_per_game": 434.7,
+          "yards_per_play": 6.72,
+          "points_per_drive": 4,
+          "rush_yards_per_game": 358.3,
+          "pass_yards_per_game": 76.3,
+          "turnover_margin": -1
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 25.450788,
+        "adv_schedule_strength": 35.59909,
+        "games_before_target": 3,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": -0.22880022419414048,
+        "talent_yield_label": "Near Expectation",
+        "control_creation": 0.39899,
+        "control_finish": 0.827419,
+        "control_denial": 0.504187,
+        "comparison_stats": {
+          "games_available": 3,
+          "yards_per_game": 338.7,
+          "yards_per_play": 5.43,
+          "points_per_drive": 2.59,
+          "rush_yards_per_game": 121.7,
+          "pass_yards_per_game": 217,
+          "turnover_margin": 2
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401869842/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401869842.json"
+    },
+    {
+      "game_id": "401869942",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T23:00:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Georgia Southern",
+      "away_full_name": "Georgia Southern Eagles",
+      "away_conference": "Sun Belt",
+      "away_ap_rank": 0,
+      "home_team": "Coastal Carolina",
+      "home_full_name": "Coastal Carolina Chanticleers",
+      "home_conference": "Sun Belt",
+      "home_ap_rank": 0,
+      "projected_winner": "Georgia Southern Eagles",
+      "projected_margin": 4.41,
+      "projection_closeness": 0.7898,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Fragile Edge",
+        "note": "CFP Advantage has a lean, but this sits in a historical range where modest edges have been easier to overturn.",
+        "historical_model_win_rate": 0.613,
+        "framework_support": {
+          "strength": "Mixed / Neutral",
+          "support_components": 1,
+          "conflict_components": 0
+        }
+      },
+      "key_advantages": {
+        "Coastal Carolina": [],
+        "Georgia Southern": [
+          "More consistent Control Rate",
+          "More efficient Control Finish",
+          "Higher Control Drive Shutout Rate",
+          "Higher overall ADV strength",
+          "Stronger schedule context"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 39.262939,
+        "adv_schedule_strength": 39.766096,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": -0.39918192180823076,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.364812,
+        "control_finish": 0.866108,
+        "control_denial": 0.619366,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 379.2,
+          "yards_per_play": 5.44,
+          "points_per_drive": 1.93,
+          "rush_yards_per_game": 110,
+          "pass_yards_per_game": 269.2,
+          "turnover_margin": 1
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 14.551076,
+        "adv_schedule_strength": 16.97113,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": -0.8201976259796986,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.354179,
+        "control_finish": 0.82538,
+        "control_denial": 0.626564,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 389.5,
+          "yards_per_play": 6.16,
+          "points_per_drive": 2.08,
+          "rush_yards_per_game": 135,
+          "pass_yards_per_game": 254.5,
+          "turnover_margin": 3
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401869942/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401869942.json"
+    },
+    {
+      "game_id": "401869956",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T19:30:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Old Dominion",
+      "away_full_name": "Old Dominion Monarchs",
+      "away_conference": "Sun Belt",
+      "away_ap_rank": 0,
+      "home_team": "Georgia State",
+      "home_full_name": "Georgia State Panthers",
+      "home_conference": "Sun Belt",
+      "home_ap_rank": 0,
+      "projected_winner": "Georgia State Panthers",
+      "projected_margin": 6.42,
+      "projection_closeness": 0.6944,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Fragile Edge",
+        "note": "CFP Advantage has a lean, but this sits in a historical range where modest edges have been easier to overturn.",
+        "historical_model_win_rate": 0.613,
+        "framework_support": {
+          "strength": "Framework Strongly Supports",
+          "support_components": 5,
+          "conflict_components": 0
+        }
+      },
+      "key_advantages": {
+        "Georgia State": [
+          "Stronger Control Creation",
+          "More consistent Control Rate",
+          "More efficient Control Finish",
+          "Stronger Control Denial",
+          "Higher Control Drive Shutout Rate",
+          "Higher overall ADV strength",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ],
+        "Old Dominion": [
+          "Stronger schedule context"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 21.385958,
+        "adv_schedule_strength": 24.799157,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": 0.3867529723320262,
+        "talent_yield_label": "Above Expectation",
+        "control_creation": 0.275276,
+        "control_finish": 0.691413,
+        "control_denial": 0.492583,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 282.8,
+          "yards_per_play": 4.98,
+          "points_per_drive": 1.55,
+          "rush_yards_per_game": 121.5,
+          "pass_yards_per_game": 161.2,
+          "turnover_margin": -4
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 32.775549,
+        "adv_schedule_strength": 0.231661,
+        "games_before_target": 4,
+        "recent_form": "Declining",
+        "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+        "talent_yield": -0.23396643924910537,
+        "talent_yield_label": "Near Expectation",
+        "control_creation": 0.505318,
+        "control_finish": 0.884405,
+        "control_denial": 0.712604,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 466.2,
+          "yards_per_play": 6.68,
+          "points_per_drive": 2.88,
+          "rush_yards_per_game": 212.5,
+          "pass_yards_per_game": 253.8,
+          "turnover_margin": -5
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401869956/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401869956.json"
+    },
+    {
+      "game_id": "401869962",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T19:45:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Marshall",
+      "away_full_name": "Marshall Thundering Herd",
+      "away_conference": "Sun Belt",
+      "away_ap_rank": 0,
+      "home_team": "James Madison",
+      "home_full_name": "James Madison Dukes",
+      "home_conference": "Sun Belt",
+      "home_ap_rank": 0,
+      "projected_winner": "James Madison Dukes",
+      "projected_margin": 15.12,
+      "projection_closeness": 0.2802,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Strong Separation",
+        "note": "Large baseline separation with non-conflicting matchup context. Historically, this game shape has been much harder to overturn.",
+        "historical_model_win_rate": 0.836,
+        "framework_support": {
+          "strength": "Framework Strongly Supports",
+          "support_components": 5,
+          "conflict_components": 0
+        }
+      },
+      "key_advantages": {
+        "James Madison": [
+          "Stronger Control Creation",
+          "More efficient Control Finish",
+          "Stronger Control Denial",
+          "Higher Control Drive Shutout Rate",
+          "Higher overall ADV strength",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ],
+        "Marshall": [
+          "Stronger schedule context"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 29.39224,
+        "adv_schedule_strength": 26.616937,
+        "games_before_target": 4,
+        "recent_form": "Improving",
+        "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+        "talent_yield": 0.13857147554322957,
+        "talent_yield_label": "Near Expectation",
+        "control_creation": 0.420634,
+        "control_finish": 0.785045,
+        "control_denial": 0.546017,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 378,
+          "yards_per_play": 6,
+          "points_per_drive": 1.78,
+          "rush_yards_per_game": 151.8,
+          "pass_yards_per_game": 226.2,
+          "turnover_margin": -4
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 69.778185,
+        "adv_schedule_strength": 7.975881,
+        "games_before_target": 4,
+        "recent_form": "Improving",
+        "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+        "talent_yield": 0.9218127128849949,
+        "talent_yield_label": "Above Expectation",
+        "control_creation": 0.468665,
+        "control_finish": 0.933647,
+        "control_denial": 0.604424,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 427,
+          "yards_per_play": 6.52,
+          "points_per_drive": 3.37,
+          "rush_yards_per_game": 200.2,
+          "pass_yards_per_game": 226.8,
+          "turnover_margin": 1
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401869962/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401869962.json"
+    },
+    {
+      "game_id": "401871089",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-03",
+      "kickoff_at": "2026-10-03T23:00:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "UL Monroe",
+      "away_full_name": "UL Monroe Warhawks",
+      "away_conference": "Sun Belt",
+      "away_ap_rank": 0,
+      "home_team": "South Alabama",
+      "home_full_name": "South Alabama Jaguars",
+      "home_conference": "Sun Belt",
+      "home_ap_rank": 0,
+      "projected_winner": "South Alabama Jaguars",
+      "projected_margin": 15.99,
+      "projection_closeness": 0.2387,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Strong Separation",
+        "note": "Large baseline separation with non-conflicting matchup context. Historically, this game shape has been much harder to overturn.",
+        "historical_model_win_rate": 0.836,
+        "framework_support": {
+          "strength": "Framework Strongly Supports",
+          "support_components": 5,
+          "conflict_components": 0
+        }
+      },
+      "key_advantages": {
+        "South Alabama": [
+          "Stronger Control Creation",
+          "More efficient Control Finish",
+          "Stronger Control Denial",
+          "Higher Control Drive Shutout Rate",
+          "Higher overall ADV strength",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ],
+        "UL Monroe": []
+      },
+      "away_profile": {
+        "pregame_adv_rating": 6.120398,
+        "adv_schedule_strength": 46.830293,
+        "games_before_target": 4,
+        "recent_form": "Improving",
+        "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+        "talent_yield": -0.48996772865835125,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.320211,
+        "control_finish": 0.79332,
+        "control_denial": 0.512983,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 353.2,
+          "yards_per_play": 5.35,
+          "points_per_drive": 1.73,
+          "rush_yards_per_game": 148.8,
+          "pass_yards_per_game": 204.5,
+          "turnover_margin": -3
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 49.412656,
+        "adv_schedule_strength": 47.961182,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": 1.042799159125274,
+        "talent_yield_label": "Well Above Expectation",
+        "control_creation": 0.479828,
+        "control_finish": 0.861291,
+        "control_denial": 0.650664,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 433.2,
+          "yards_per_play": 5.8,
+          "points_per_drive": 2.73,
+          "rush_yards_per_game": 203.8,
+          "pass_yards_per_game": 229.5,
+          "turnover_margin": 4
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401871089/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401871089.json"
+    },
+    {
+      "game_id": "401856817",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-04",
+      "kickoff_at": "2026-10-04T02:30:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Baylor",
+      "away_full_name": "Baylor Bears",
+      "away_conference": "Big 12",
+      "away_ap_rank": 0,
+      "home_team": "Arizona State",
+      "home_full_name": "Arizona State Sun Devils",
+      "home_conference": "Big 12",
+      "home_ap_rank": 0,
+      "projected_winner": "Arizona State Sun Devils",
+      "projected_margin": 1.73,
+      "projection_closeness": 0.9178,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Fragile Edge",
+        "note": "CFP Advantage has a lean, but this sits in a historical range where modest edges have been easier to overturn.",
+        "historical_model_win_rate": 0.66,
+        "framework_support": {
+          "strength": "Framework Strongly Supports",
+          "support_components": 5,
+          "conflict_components": 0
+        }
+      },
+      "key_advantages": {
+        "Arizona State": [
+          "Stronger Control Creation",
+          "Stronger Control Denial",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ],
+        "Baylor": [
+          "More efficient Control Finish",
+          "Higher Control Drive Shutout Rate"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 71.605614,
+        "adv_schedule_strength": 34.203545,
+        "games_before_target": 4,
+        "recent_form": "Improving",
+        "recent_form_note": "Recent ADV has improved with manageable volatility.",
+        "talent_yield": 0.22847369562931025,
+        "talent_yield_label": "Near Expectation",
+        "control_creation": 0.380583,
+        "control_finish": 0.877364,
+        "control_denial": 0.493715,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 443.8,
+          "yards_per_play": 5.56,
+          "points_per_drive": 1.92,
+          "rush_yards_per_game": 160.5,
+          "pass_yards_per_game": 283.2,
+          "turnover_margin": -1
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 67.357215,
+        "adv_schedule_strength": 29.627878,
+        "games_before_target": 3,
+        "recent_form": "Declining",
+        "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+        "talent_yield": -0.06464809090657575,
+        "talent_yield_label": "Near Expectation",
+        "control_creation": 0.470279,
+        "control_finish": 0.82886,
+        "control_denial": 0.6275,
+        "comparison_stats": {
+          "games_available": 3,
+          "yards_per_game": 429.7,
+          "yards_per_play": 6.64,
+          "points_per_drive": 2.5,
+          "rush_yards_per_game": 169,
+          "pass_yards_per_game": 260.7,
+          "turnover_margin": 1
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401856817/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401856817.json"
+    },
+    {
+      "game_id": "401856820",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-04",
+      "kickoff_at": "2026-10-04T03:00:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Cincinnati",
+      "away_full_name": "Cincinnati Bearcats",
+      "away_conference": "Big 12",
+      "away_ap_rank": 0,
+      "home_team": "Arizona",
+      "home_full_name": "Arizona Wildcats",
+      "home_conference": "Big 12",
+      "home_ap_rank": 0,
+      "projected_winner": "Arizona Wildcats",
+      "projected_margin": 4.21,
+      "projection_closeness": 0.7995,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Fragile Edge",
+        "note": "CFP Advantage has a lean, but this sits in a historical range where modest edges have been easier to overturn.",
+        "historical_model_win_rate": 0.613,
+        "framework_support": {
+          "strength": "Mixed / Neutral",
+          "support_components": 2,
+          "conflict_components": 2
+        }
+      },
+      "key_advantages": {
+        "Arizona": [
+          "Stronger Control Creation",
+          "Stronger Control Denial"
+        ],
+        "Cincinnati": [
+          "More efficient Control Finish",
+          "Higher Control Drive Shutout Rate",
+          "Stronger schedule context",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 75.573959,
+        "adv_schedule_strength": 39.25497,
+        "games_before_target": 4,
+        "recent_form": "Declining",
+        "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+        "talent_yield": 0.7337407133849715,
+        "talent_yield_label": "Above Expectation",
+        "control_creation": 0.481072,
+        "control_finish": 0.966484,
+        "control_denial": 0.471845,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 479.8,
+          "yards_per_play": 7.27,
+          "points_per_drive": 3.38,
+          "rush_yards_per_game": 269.8,
+          "pass_yards_per_game": 210,
+          "turnover_margin": 4
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 79.612278,
+        "adv_schedule_strength": 33.512324,
+        "games_before_target": 4,
+        "recent_form": "Declining",
+        "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+        "talent_yield": 0.3438847429069075,
+        "talent_yield_label": "Above Expectation",
+        "control_creation": 0.518918,
+        "control_finish": 0.774896,
+        "control_denial": 0.546595,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 425.5,
+          "yards_per_play": 6.33,
+          "points_per_drive": 2.63,
+          "rush_yards_per_game": 133.5,
+          "pass_yards_per_game": 292,
+          "turnover_margin": -4
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401856820/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401856820.json"
+    },
+    {
+      "game_id": "401858477",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-04",
+      "kickoff_at": "2026-10-04T00:00:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Indiana",
+      "away_full_name": "Indiana Hoosiers",
+      "away_conference": "Big Ten",
+      "away_ap_rank": 6,
+      "home_team": "Rutgers",
+      "home_full_name": "Rutgers Scarlet Knights",
+      "home_conference": "Big Ten",
+      "home_ap_rank": 0,
+      "projected_winner": "Indiana Hoosiers",
+      "projected_margin": 14.28,
+      "projection_closeness": 0.3199,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Strong Separation",
+        "note": "Large baseline separation with non-conflicting matchup context. Historically, this game shape has been much harder to overturn.",
+        "historical_model_win_rate": 0.836,
+        "framework_support": {
+          "strength": "Framework Strongly Supports",
+          "support_components": 5,
+          "conflict_components": 0
+        }
+      },
+      "key_advantages": {
+        "Rutgers": [
+          "Stronger schedule context"
+        ],
+        "Indiana": [
+          "Stronger Control Creation",
+          "More efficient Control Finish",
+          "Stronger Control Denial",
+          "Higher Control Drive Shutout Rate",
+          "Higher overall ADV strength",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 92.371411,
+        "adv_schedule_strength": 13.494181,
+        "games_before_target": 4,
+        "recent_form": "Declining",
+        "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+        "talent_yield": 0.505615883860275,
+        "talent_yield_label": "Above Expectation",
+        "control_creation": 0.660351,
+        "control_finish": 0.922815,
+        "control_denial": 0.515721,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 463.2,
+          "yards_per_play": 7.72,
+          "points_per_drive": 3.51,
+          "rush_yards_per_game": 235.5,
+          "pass_yards_per_game": 227.8,
+          "turnover_margin": 3
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 34.763296,
+        "adv_schedule_strength": 19.27906,
+        "games_before_target": 4,
+        "recent_form": "Improving",
+        "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+        "talent_yield": -1.0132498388017548,
+        "talent_yield_label": "Well Below Expectation",
+        "control_creation": 0.514569,
+        "control_finish": 0.838213,
+        "control_denial": 0.360629,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 430.8,
+          "yards_per_play": 6.41,
+          "points_per_drive": 2.91,
+          "rush_yards_per_game": 155.5,
+          "pass_yards_per_game": 275.2,
+          "turnover_margin": -4
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401858477/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401858477.json"
+    },
+    {
+      "game_id": "401860900",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-04",
+      "kickoff_at": "2026-10-04T02:30:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Texas State",
+      "away_full_name": "Texas State Bobcats",
+      "away_conference": "Pac-12",
+      "away_ap_rank": 0,
+      "home_team": "San Diego State",
+      "home_full_name": "San Diego State Aztecs",
+      "home_conference": "Pac-12",
+      "home_ap_rank": 0,
+      "projected_winner": "Texas State Bobcats",
+      "projected_margin": 8.41,
+      "projection_closeness": 0.5995,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Supported Edge",
+        "note": "The matchup shape supports the lean with meaningful but not overwhelming separation.",
+        "historical_model_win_rate": 0.723,
+        "framework_support": {
+          "strength": "Framework Strongly Supports",
+          "support_components": 5,
+          "conflict_components": 0
+        }
+      },
+      "key_advantages": {
+        "San Diego State": [
+          "More efficient Control Finish",
+          "Higher Control Drive Shutout Rate"
+        ],
+        "Texas State": [
+          "Stronger Control Creation",
+          "More consistent Control Rate",
+          "Stronger Control Denial",
+          "Higher overall ADV strength",
+          "Stronger schedule context",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 65.237439,
+        "adv_schedule_strength": 58.306268,
+        "games_before_target": 4,
+        "recent_form": "Improving",
+        "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+        "talent_yield": 0.4281974439747437,
+        "talent_yield_label": "Above Expectation",
+        "control_creation": 0.573934,
+        "control_finish": 0.746515,
+        "control_denial": 0.620054,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 524,
+          "yards_per_play": 7.49,
+          "points_per_drive": 3.02,
+          "rush_yards_per_game": 280.5,
+          "pass_yards_per_game": 243.5,
+          "turnover_margin": 0
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 27.204758,
+        "adv_schedule_strength": 38.671396,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": -0.13252382574485988,
+        "talent_yield_label": "Near Expectation",
+        "control_creation": 0.357348,
+        "control_finish": 0.785833,
+        "control_denial": 0.467127,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 316,
+          "yards_per_play": 4.86,
+          "points_per_drive": 1.56,
+          "rush_yards_per_game": 147.8,
+          "pass_yards_per_game": 168.2,
+          "turnover_margin": -3
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401860900/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401860900.json"
+    },
+    {
+      "game_id": "401860921",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-04",
+      "kickoff_at": "2026-10-04T01:30:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Fresno State",
+      "away_full_name": "Fresno State Bulldogs",
+      "away_conference": "Pac-12",
+      "away_ap_rank": 0,
+      "home_team": "Washington State",
+      "home_full_name": "Washington State Cougars",
+      "home_conference": "Pac-12",
+      "home_ap_rank": 0,
+      "projected_winner": "Fresno State Bulldogs",
+      "projected_margin": 5.12,
+      "projection_closeness": 0.7562,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Fragile Edge",
+        "note": "CFP Advantage has a lean, but this sits in a historical range where modest edges have been easier to overturn.",
+        "historical_model_win_rate": 0.613,
+        "framework_support": {
+          "strength": "Framework Strongly Supports",
+          "support_components": 5,
+          "conflict_components": 0
+        }
+      },
+      "key_advantages": {
+        "Washington State": [
+          "Stronger schedule context"
+        ],
+        "Fresno State": [
+          "Stronger Control Creation",
+          "More efficient Control Finish",
+          "Stronger Control Denial",
+          "Higher Control Drive Shutout Rate",
+          "Higher overall ADV strength",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 56.032815,
+        "adv_schedule_strength": 34.08475,
+        "games_before_target": 4,
+        "recent_form": "Improving",
+        "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+        "talent_yield": 0.3210763391152658,
+        "talent_yield_label": "Above Expectation",
+        "control_creation": 0.378341,
+        "control_finish": 0.92481,
+        "control_denial": 0.706993,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 373.5,
+          "yards_per_play": 6.28,
+          "points_per_drive": 2.19,
+          "rush_yards_per_game": 164.5,
+          "pass_yards_per_game": 209,
+          "turnover_margin": 7
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 28.964212,
+        "adv_schedule_strength": 51.266185,
+        "games_before_target": 4,
+        "recent_form": "Improving",
+        "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+        "talent_yield": -0.42235031846249227,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.309907,
+        "control_finish": 0.787742,
+        "control_denial": 0.623866,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 316.5,
+          "yards_per_play": 5.39,
+          "points_per_drive": 1.82,
+          "rush_yards_per_game": 152.5,
+          "pass_yards_per_game": 164,
+          "turnover_margin": -3
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401860921/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401860921.json"
+    },
+    {
+      "game_id": "401864513",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-04",
+      "kickoff_at": "2026-10-04T03:59:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "San José State",
+      "away_full_name": "San José State Spartans",
+      "away_conference": "Mountain West",
+      "away_ap_rank": 0,
+      "home_team": "Hawai'i",
+      "home_full_name": "Hawai'i Rainbow Warriors",
+      "home_conference": "Mountain West",
+      "home_ap_rank": 0,
+      "projected_winner": "San José State Spartans",
+      "projected_margin": 2.64,
+      "projection_closeness": 0.8744,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Context Pushback",
+        "note": "The baseline has a lean, but stable Control Framework traits point to meaningful matchup resistance.",
+        "historical_model_win_rate": 0.525,
+        "framework_support": {
+          "strength": "Framework Conflicts",
+          "support_components": 0,
+          "conflict_components": 3
+        }
+      },
+      "key_advantages": {
+        "Hawai'i": [
+          "Stronger Control Creation",
+          "More consistent Control Rate",
+          "Stronger Control Denial"
+        ],
+        "San José State": [
+          "More efficient Control Finish",
+          "Higher Control Drive Shutout Rate",
+          "Higher overall ADV strength",
+          "Stronger schedule context"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 29.498774,
+        "adv_schedule_strength": 38.702839,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": -0.14316924848484058,
+        "talent_yield_label": "Near Expectation",
+        "control_creation": 0.321596,
+        "control_finish": 0.857492,
+        "control_denial": 0.629313,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 405.5,
+          "yards_per_play": 5.83,
+          "points_per_drive": 1.79,
+          "rush_yards_per_game": 147,
+          "pass_yards_per_game": 258.5,
+          "turnover_margin": -2
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 10.703645,
+        "adv_schedule_strength": 25.269045,
+        "games_before_target": 4,
+        "recent_form": "Improving",
+        "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+        "talent_yield": -0.6464554874345141,
+        "talent_yield_label": "Below Expectation",
+        "control_creation": 0.363926,
+        "control_finish": 0.818462,
+        "control_denial": 0.672411,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 338.2,
+          "yards_per_play": 4.73,
+          "points_per_drive": 1.6,
+          "rush_yards_per_game": 86.8,
+          "pass_yards_per_game": 251.5,
+          "turnover_margin": 0
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401864513/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401864513.json"
+    },
+    {
+      "game_id": "401869932",
+      "season": 2026,
+      "week": 5,
+      "date": "2026-10-04",
+      "kickoff_at": "2026-10-04T00:00:00.000Z",
+      "game_type": "Conference Game",
+      "away_team": "Arkansas State",
+      "away_full_name": "Arkansas State Red Wolves",
+      "away_conference": "Sun Belt",
+      "away_ap_rank": 0,
+      "home_team": "Louisiana",
+      "home_full_name": "Louisiana Ragin' Cajuns",
+      "home_conference": "Sun Belt",
+      "home_ap_rank": 0,
+      "projected_winner": "Louisiana Ragin' Cajuns",
+      "projected_margin": 9.09,
+      "projection_closeness": 0.567,
+      "context_label": "Expected/Observed Blend",
+      "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+      "matchup_conviction": {
+        "label": "Supported Edge",
+        "note": "The matchup shape supports the lean with meaningful but not overwhelming separation.",
+        "historical_model_win_rate": 0.723,
+        "framework_support": {
+          "strength": "Framework Strongly Supports",
+          "support_components": 4,
+          "conflict_components": 1
+        }
+      },
+      "key_advantages": {
+        "Louisiana": [
+          "Stronger Control Creation",
+          "More efficient Control Finish",
+          "Stronger Control Denial",
+          "Higher Control Drive Shutout Rate",
+          "Higher overall ADV strength",
+          "Creates more Control Pressure",
+          "Limits Control Pressure better"
+        ],
+        "Arkansas State": [
+          "More consistent Control Rate",
+          "Stronger schedule context"
+        ]
+      },
+      "away_profile": {
+        "pregame_adv_rating": 36.951039,
+        "adv_schedule_strength": 43.558376,
+        "games_before_target": 4,
+        "recent_form": "Stable",
+        "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+        "talent_yield": -0.22733221022940414,
+        "talent_yield_label": "Near Expectation",
+        "control_creation": 0.404966,
+        "control_finish": 0.730654,
+        "control_denial": 0.515852,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 366.8,
+          "yards_per_play": 6.43,
+          "points_per_drive": 2.15,
+          "rush_yards_per_game": 157.2,
+          "pass_yards_per_game": 209.5,
+          "turnover_margin": 3
+        }
+      },
+      "home_profile": {
+        "pregame_adv_rating": 57.262448,
+        "adv_schedule_strength": 23.329683,
+        "games_before_target": 4,
+        "recent_form": "Improving",
+        "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+        "talent_yield": 0.9711060310375041,
+        "talent_yield_label": "Above Expectation",
+        "control_creation": 0.489517,
+        "control_finish": 0.844725,
+        "control_denial": 0.573415,
+        "comparison_stats": {
+          "games_available": 4,
+          "yards_per_game": 367.2,
+          "yards_per_play": 5.54,
+          "points_per_drive": 2.58,
+          "rush_yards_per_game": 188.8,
+          "pass_yards_per_game": 178.5,
+          "turnover_margin": 4
+        }
+      },
+      "contains_ats_recommendation": false,
+      "canonical_url": "https://cfpadvantage.com/matchups/401869932/",
+      "data_url": "https://cfpadvantage.com/public-data/matchups/401869932.json"
+    }
+  ]
+}

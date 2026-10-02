@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Houston",
+  "full_name": "Houston Cougars",
+  "season": 2026,
+  "conference": "Big 12",
+  "classification": "fbs",
+  "tier": "power",
+  "record": "3-1",
+  "points_for": 178,
+  "points_against": 82,
+  "average_score_margin": 24,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 72.769828,
+    "adv_schedule_strength": 27.937938,
+    "games_before_target": 4,
+    "recent_form": "Declining",
+    "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+    "talent_yield": 0.17494266369713773,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.656275,
+    "control_finish": 0.866304,
+    "control_denial": 0.553311,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 505.2,
+      "yards_per_play": 7.46,
+      "points_per_drive": 4.26,
+      "rush_yards_per_game": 247,
+      "pass_yards_per_game": 258.2,
+      "turnover_margin": 3
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/houston/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/houston.json"
+}

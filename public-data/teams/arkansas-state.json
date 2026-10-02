@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Arkansas State",
+  "full_name": "Arkansas State Red Wolves",
+  "season": 2026,
+  "conference": "Sun Belt",
+  "classification": "fbs",
+  "tier": "g5",
+  "record": "2-2",
+  "points_for": 100,
+  "points_against": 94,
+  "average_score_margin": 1.5,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 36.951039,
+    "adv_schedule_strength": 43.558376,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -0.22733221022940414,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.404966,
+    "control_finish": 0.730654,
+    "control_denial": 0.515852,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 366.8,
+      "yards_per_play": 6.43,
+      "points_per_drive": 2.15,
+      "rush_yards_per_game": 157.2,
+      "pass_yards_per_game": 209.5,
+      "turnover_margin": 3
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/arkansas-state/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/arkansas-state.json"
+}

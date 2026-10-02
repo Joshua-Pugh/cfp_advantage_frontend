@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Washington State",
+  "full_name": "Washington State Cougars",
+  "season": 2026,
+  "conference": "Pac-12",
+  "classification": "fbs",
+  "tier": "g5",
+  "record": "1-3",
+  "points_for": 89,
+  "points_against": 99,
+  "average_score_margin": -2.5,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 28.964212,
+    "adv_schedule_strength": 51.266185,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": -0.42235031846249227,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.309907,
+    "control_finish": 0.787742,
+    "control_denial": 0.623866,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 316.5,
+      "yards_per_play": 5.39,
+      "points_per_drive": 1.82,
+      "rush_yards_per_game": 152.5,
+      "pass_yards_per_game": 164,
+      "turnover_margin": -3
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/washington-state/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/washington-state.json"
+}

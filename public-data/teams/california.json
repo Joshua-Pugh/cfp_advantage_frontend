@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "California",
+  "full_name": "California Golden Bears",
+  "season": 2026,
+  "conference": "ACC",
+  "classification": "fbs",
+  "tier": "power",
+  "record": "2-2",
+  "points_for": 104,
+  "points_against": 94,
+  "average_score_margin": 2.5,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 39.566564,
+    "adv_schedule_strength": 41.428512,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": -1.0185162912573218,
+    "talent_yield_label": "Well Below Expectation",
+    "control_creation": 0.326079,
+    "control_finish": 0.919252,
+    "control_denial": 0.651513,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 381.5,
+      "yards_per_play": 5.61,
+      "points_per_drive": 1.91,
+      "rush_yards_per_game": 103.8,
+      "pass_yards_per_game": 277.8,
+      "turnover_margin": 2
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/california/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/california.json"
+}

@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Maryland",
+  "full_name": "Maryland Terrapins",
+  "season": 2026,
+  "conference": "Big Ten",
+  "classification": "fbs",
+  "tier": "power",
+  "record": "2-2",
+  "points_for": 129,
+  "points_against": 103,
+  "average_score_margin": 6.5,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 50.841891,
+    "adv_schedule_strength": 24.808408,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -0.503819553250567,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.41651,
+    "control_finish": 0.858885,
+    "control_denial": 0.406016,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 438,
+      "yards_per_play": 6.08,
+      "points_per_drive": 2.39,
+      "rush_yards_per_game": 149.8,
+      "pass_yards_per_game": 288.2,
+      "turnover_margin": 1
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/maryland/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/maryland.json"
+}

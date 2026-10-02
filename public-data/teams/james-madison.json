@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "James Madison",
+  "full_name": "James Madison Dukes",
+  "season": 2026,
+  "conference": "Sun Belt",
+  "classification": "fbs",
+  "tier": "g5",
+  "record": "4-0",
+  "points_for": 179,
+  "points_against": 49,
+  "average_score_margin": 32.5,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 69.778185,
+    "adv_schedule_strength": 7.975881,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": 0.9218127128849949,
+    "talent_yield_label": "Above Expectation",
+    "control_creation": 0.468665,
+    "control_finish": 0.933647,
+    "control_denial": 0.604424,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 427,
+      "yards_per_play": 6.52,
+      "points_per_drive": 3.37,
+      "rush_yards_per_game": 200.2,
+      "pass_yards_per_game": 226.8,
+      "turnover_margin": 1
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/james-madison/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/james-madison.json"
+}

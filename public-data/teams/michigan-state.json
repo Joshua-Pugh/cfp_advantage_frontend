@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Michigan State",
+  "full_name": "Michigan State Spartans",
+  "season": 2026,
+  "conference": "Big Ten",
+  "classification": "fbs",
+  "tier": "power",
+  "record": "2-2",
+  "points_for": 88,
+  "points_against": 85,
+  "average_score_margin": 0.75,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 67.439665,
+    "adv_schedule_strength": 72.08068,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": 0.2602846352828467,
+    "talent_yield_label": "Above Expectation",
+    "control_creation": 0.458175,
+    "control_finish": 0.843942,
+    "control_denial": 0.559778,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 330,
+      "yards_per_play": 5.18,
+      "points_per_drive": 2.26,
+      "rush_yards_per_game": 130,
+      "pass_yards_per_game": 200,
+      "turnover_margin": -3
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/michigan-state/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/michigan-state.json"
+}

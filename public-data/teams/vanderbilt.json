@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Vanderbilt",
+  "full_name": "Vanderbilt Commodores",
+  "season": 2026,
+  "conference": "SEC",
+  "classification": "fbs",
+  "tier": "power",
+  "record": "3-1",
+  "points_for": 113,
+  "points_against": 87,
+  "average_score_margin": 6.5,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 70.014407,
+    "adv_schedule_strength": 46.958922,
+    "games_before_target": 4,
+    "recent_form": "Declining",
+    "recent_form_note": "Recent ADV has declined with manageable volatility.",
+    "talent_yield": -0.05308147994647017,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.411954,
+    "control_finish": 0.83717,
+    "control_denial": 0.482004,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 364.5,
+      "yards_per_play": 5.63,
+      "points_per_drive": 2.07,
+      "rush_yards_per_game": 133,
+      "pass_yards_per_game": 231.5,
+      "turnover_margin": 1
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/vanderbilt/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/vanderbilt.json"
+}

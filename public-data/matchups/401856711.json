@@ -1,0 +1,87 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "game_id": "401856711",
+  "season": 2026,
+  "week": 5,
+  "date": "2026-10-03",
+  "kickoff_at": "2026-10-03T23:00:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "Arkansas",
+  "away_full_name": "Arkansas Razorbacks",
+  "away_conference": "SEC",
+  "away_ap_rank": 0,
+  "home_team": "Texas A&M",
+  "home_full_name": "Texas A&M Aggies",
+  "home_conference": "SEC",
+  "home_ap_rank": 0,
+  "projected_winner": "Texas A&M Aggies",
+  "projected_margin": 13.1,
+  "projection_closeness": 0.3762,
+  "context_label": "Expected/Observed Blend",
+  "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+  "matchup_conviction": {
+    "label": "Context Pushback",
+    "note": "The baseline has a lean, but stable Control Framework traits point to meaningful matchup resistance.",
+    "historical_model_win_rate": 0.606,
+    "framework_support": {
+      "strength": "Framework Leans Against",
+      "support_components": 1,
+      "conflict_components": 2
+    }
+  },
+  "key_advantages": {
+    "Texas A&M": [
+      "Higher overall ADV strength",
+      "Stronger schedule context",
+      "Limits Control Pressure better"
+    ],
+    "Arkansas": [
+      "Stronger Control Creation"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 56.112905,
+    "adv_schedule_strength": 56.523652,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": -0.5789418641152461,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.427421,
+    "control_finish": 0.844067,
+    "control_denial": 0.608583,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 370.5,
+      "yards_per_play": 4.97,
+      "points_per_drive": 2,
+      "rush_yards_per_game": 90,
+      "pass_yards_per_game": 280.5,
+      "turnover_margin": -1
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 89.779945,
+    "adv_schedule_strength": 76.431564,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -0.6286732985710854,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.381696,
+    "control_finish": 0.845769,
+    "control_denial": 0.605455,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 344.8,
+      "yards_per_play": 4.82,
+      "points_per_drive": 2.12,
+      "rush_yards_per_game": 154,
+      "pass_yards_per_game": 190.8,
+      "turnover_margin": -3
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401856711/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401856711.json"
+}

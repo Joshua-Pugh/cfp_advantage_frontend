@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "UTEP",
+  "full_name": "UTEP Miners",
+  "season": 2026,
+  "conference": "Mountain West",
+  "classification": "fbs",
+  "tier": "g5",
+  "record": "1-3",
+  "points_for": 75,
+  "points_against": 146,
+  "average_score_margin": -17.75,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 7.998301,
+    "adv_schedule_strength": 50.353523,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -0.9829256024938842,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.319047,
+    "control_finish": 0.68938,
+    "control_denial": 0.521095,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 262,
+      "yards_per_play": 4.81,
+      "points_per_drive": 1.17,
+      "rush_yards_per_game": 134.8,
+      "pass_yards_per_game": 127.2,
+      "turnover_margin": -2
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/utep/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/utep.json"
+}

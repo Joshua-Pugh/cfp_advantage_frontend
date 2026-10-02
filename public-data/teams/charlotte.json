@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Charlotte",
+  "full_name": "Charlotte 49ers",
+  "season": 2026,
+  "conference": "American Athletic",
+  "classification": "fbs",
+  "tier": "g5",
+  "record": "0-4",
+  "points_for": 78,
+  "points_against": 144,
+  "average_score_margin": -16.5,
+  "current_pregame_profile": {
+    "pregame_adv_rating": -4.154491,
+    "adv_schedule_strength": 38.526203,
+    "games_before_target": 4,
+    "recent_form": "Declining",
+    "recent_form_note": "Recent ADV has declined with manageable volatility.",
+    "talent_yield": -1.1734514561199032,
+    "talent_yield_label": "Well Below Expectation",
+    "control_creation": 0.28251,
+    "control_finish": 0.821149,
+    "control_denial": 0.485273,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 308,
+      "yards_per_play": 5.24,
+      "points_per_drive": 2.53,
+      "rush_yards_per_game": 104.2,
+      "pass_yards_per_game": 203.8,
+      "turnover_margin": -6
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/charlotte/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/charlotte.json"
+}

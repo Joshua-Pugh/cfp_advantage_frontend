@@ -1,0 +1,92 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "game_id": "401858474",
+  "season": 2026,
+  "week": 5,
+  "date": "2026-10-03",
+  "kickoff_at": "2026-10-03T16:00:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "Michigan",
+  "away_full_name": "Michigan Wolverines",
+  "away_conference": "Big Ten",
+  "away_ap_rank": 0,
+  "home_team": "Minnesota",
+  "home_full_name": "Minnesota Golden Gophers",
+  "home_conference": "Big Ten",
+  "home_ap_rank": 0,
+  "projected_winner": "Michigan Wolverines",
+  "projected_margin": 5.42,
+  "projection_closeness": 0.7418,
+  "context_label": "Expected/Observed Blend",
+  "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+  "matchup_conviction": {
+    "label": "Context Pushback",
+    "note": "The baseline has a lean, but stable Control Framework traits point to meaningful matchup resistance.",
+    "historical_model_win_rate": 0.525,
+    "framework_support": {
+      "strength": "Framework Conflicts",
+      "support_components": 0,
+      "conflict_components": 5
+    }
+  },
+  "key_advantages": {
+    "Minnesota": [
+      "Stronger Control Creation",
+      "More consistent Control Rate",
+      "Stronger Control Denial",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ],
+    "Michigan": [
+      "More efficient Control Finish",
+      "Higher Control Drive Shutout Rate",
+      "Higher overall ADV strength",
+      "Stronger schedule context"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 98.088279,
+    "adv_schedule_strength": 58.737595,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": -0.16268249882057506,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.354117,
+    "control_finish": 0.908592,
+    "control_denial": 0.55321,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 347.8,
+      "yards_per_play": 5.82,
+      "points_per_drive": 2.24,
+      "rush_yards_per_game": 145.5,
+      "pass_yards_per_game": 202.2,
+      "turnover_margin": -1
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 70.012349,
+    "adv_schedule_strength": 35.906032,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -0.16501846049199087,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.463036,
+    "control_finish": 0.886086,
+    "control_denial": 0.661369,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 379,
+      "yards_per_play": 5.88,
+      "points_per_drive": 2.28,
+      "rush_yards_per_game": 122.2,
+      "pass_yards_per_game": 256.8,
+      "turnover_margin": 0
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401858474/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401858474.json"
+}

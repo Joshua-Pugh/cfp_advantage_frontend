@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Virginia",
+  "full_name": "Virginia Cavaliers",
+  "season": 2026,
+  "conference": "ACC",
+  "classification": "fbs",
+  "tier": "power",
+  "record": "3-1",
+  "points_for": 162,
+  "points_against": 52,
+  "average_score_margin": 27.5,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 70.21328,
+    "adv_schedule_strength": 16.651918,
+    "games_before_target": 4,
+    "recent_form": "Declining",
+    "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+    "talent_yield": 0.0826385976575782,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.479927,
+    "control_finish": 0.92755,
+    "control_denial": 0.558123,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 449,
+      "yards_per_play": 6.37,
+      "points_per_drive": 3.16,
+      "rush_yards_per_game": 196.2,
+      "pass_yards_per_game": 252.8,
+      "turnover_margin": 5
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/virginia/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/virginia.json"
+}

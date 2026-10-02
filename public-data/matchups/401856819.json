@@ -1,0 +1,91 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "game_id": "401856819",
+  "season": 2026,
+  "week": 5,
+  "date": "2026-10-03",
+  "kickoff_at": "2026-10-03T16:00:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "UCF",
+  "away_full_name": "UCF Knights",
+  "away_conference": "Big 12",
+  "away_ap_rank": 0,
+  "home_team": "Houston",
+  "home_full_name": "Houston Cougars",
+  "home_conference": "Big 12",
+  "home_ap_rank": 20,
+  "projected_winner": "Houston Cougars",
+  "projected_margin": 4.88,
+  "projection_closeness": 0.7674,
+  "context_label": "Expected/Observed Blend",
+  "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+  "matchup_conviction": {
+    "label": "Fragile Edge",
+    "note": "CFP Advantage has a lean, but this sits in a historical range where modest edges have been easier to overturn.",
+    "historical_model_win_rate": 0.613,
+    "framework_support": {
+      "strength": "Framework Strongly Supports",
+      "support_components": 5,
+      "conflict_components": 0
+    }
+  },
+  "key_advantages": {
+    "Houston": [
+      "Stronger Control Creation",
+      "More consistent Control Rate",
+      "Stronger Control Denial",
+      "Higher overall ADV strength",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ],
+    "UCF": [
+      "More efficient Control Finish",
+      "Higher Control Drive Shutout Rate"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 66.491044,
+    "adv_schedule_strength": 32.563371,
+    "games_before_target": 4,
+    "recent_form": "Declining",
+    "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+    "talent_yield": 0.3169668657483369,
+    "talent_yield_label": "Above Expectation",
+    "control_creation": 0.452609,
+    "control_finish": 0.928061,
+    "control_denial": 0.328228,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 364.5,
+      "yards_per_play": 6.66,
+      "points_per_drive": 2.96,
+      "rush_yards_per_game": 205.5,
+      "pass_yards_per_game": 159,
+      "turnover_margin": 5
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 72.769828,
+    "adv_schedule_strength": 27.937938,
+    "games_before_target": 4,
+    "recent_form": "Declining",
+    "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+    "talent_yield": 0.17494266369713773,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.656275,
+    "control_finish": 0.866304,
+    "control_denial": 0.553311,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 505.2,
+      "yards_per_play": 7.46,
+      "points_per_drive": 4.26,
+      "rush_yards_per_game": 247,
+      "pass_yards_per_game": 258.2,
+      "turnover_margin": 3
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401856819/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401856819.json"
+}

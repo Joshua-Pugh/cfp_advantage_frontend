@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "UTSA",
+  "full_name": "UTSA Roadrunners",
+  "season": 2026,
+  "conference": "American Athletic",
+  "classification": "fbs",
+  "tier": "g5",
+  "record": "3-1",
+  "points_for": 141,
+  "points_against": 117,
+  "average_score_margin": 6,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 61.387362,
+    "adv_schedule_strength": 60.859264,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": 0.3895441922748415,
+    "talent_yield_label": "Above Expectation",
+    "control_creation": 0.401295,
+    "control_finish": 0.971185,
+    "control_denial": 0.62646,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 401.8,
+      "yards_per_play": 6.43,
+      "points_per_drive": 2.77,
+      "rush_yards_per_game": 173.2,
+      "pass_yards_per_game": 228.5,
+      "turnover_margin": 4
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/utsa/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/utsa.json"
+}

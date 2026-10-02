@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Miami (OH)",
+  "full_name": "Miami (OH) RedHawks",
+  "season": 2026,
+  "conference": "Mid-American",
+  "classification": "fbs",
+  "tier": "g5",
+  "record": "2-2",
+  "points_for": 114,
+  "points_against": 122,
+  "average_score_margin": -2,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 42.109649,
+    "adv_schedule_strength": 34.963414,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": -0.22958015502032797,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.448312,
+    "control_finish": 0.838614,
+    "control_denial": 0.699698,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 387.8,
+      "yards_per_play": 6.92,
+      "points_per_drive": 2.41,
+      "rush_yards_per_game": 97.8,
+      "pass_yards_per_game": 290,
+      "turnover_margin": 0
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/miami-oh/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/miami-oh.json"
+}

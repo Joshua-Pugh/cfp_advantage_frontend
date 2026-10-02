@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Florida State",
+  "full_name": "Florida State Seminoles",
+  "season": 2026,
+  "conference": "ACC",
+  "classification": "fbs",
+  "tier": "power",
+  "record": "2-2",
+  "points_for": 128,
+  "points_against": 101,
+  "average_score_margin": 6.75,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 73.957193,
+    "adv_schedule_strength": 52.442542,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": -0.41784571301969686,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.463003,
+    "control_finish": 0.960511,
+    "control_denial": 0.530749,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 411,
+      "yards_per_play": 6.71,
+      "points_per_drive": 2.98,
+      "rush_yards_per_game": 174,
+      "pass_yards_per_game": 237,
+      "turnover_margin": -2
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/florida-state/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/florida-state.json"
+}

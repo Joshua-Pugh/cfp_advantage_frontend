@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Fresno State",
+  "full_name": "Fresno State Bulldogs",
+  "season": 2026,
+  "conference": "Pac-12",
+  "classification": "fbs",
+  "tier": "g5",
+  "record": "3-1",
+  "points_for": 113,
+  "points_against": 76,
+  "average_score_margin": 9.25,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 56.032815,
+    "adv_schedule_strength": 34.08475,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": 0.3210763391152658,
+    "talent_yield_label": "Above Expectation",
+    "control_creation": 0.378341,
+    "control_finish": 0.92481,
+    "control_denial": 0.706993,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 373.5,
+      "yards_per_play": 6.28,
+      "points_per_drive": 2.19,
+      "rush_yards_per_game": 164.5,
+      "pass_yards_per_game": 209,
+      "turnover_margin": 7
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/fresno-state/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/fresno-state.json"
+}

@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Kansas",
+  "full_name": "Kansas Jayhawks",
+  "season": 2026,
+  "conference": "Big 12",
+  "classification": "fbs",
+  "tier": "power",
+  "record": "1-2",
+  "points_for": 89,
+  "points_against": 68,
+  "average_score_margin": 7,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 56.078388,
+    "adv_schedule_strength": 34.49634,
+    "games_before_target": 3,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -0.24144183762512658,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.377642,
+    "control_finish": 0.895569,
+    "control_denial": 0.562035,
+    "comparison_stats": {
+      "games_available": 3,
+      "yards_per_game": 435.7,
+      "yards_per_play": 6.19,
+      "points_per_drive": 1.97,
+      "rush_yards_per_game": 186,
+      "pass_yards_per_game": 249.7,
+      "turnover_margin": -4
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/kansas/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/kansas.json"
+}

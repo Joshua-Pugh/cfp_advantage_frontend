@@ -1,0 +1,91 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "game_id": "401869962",
+  "season": 2026,
+  "week": 5,
+  "date": "2026-10-03",
+  "kickoff_at": "2026-10-03T19:45:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "Marshall",
+  "away_full_name": "Marshall Thundering Herd",
+  "away_conference": "Sun Belt",
+  "away_ap_rank": 0,
+  "home_team": "James Madison",
+  "home_full_name": "James Madison Dukes",
+  "home_conference": "Sun Belt",
+  "home_ap_rank": 0,
+  "projected_winner": "James Madison Dukes",
+  "projected_margin": 15.12,
+  "projection_closeness": 0.2802,
+  "context_label": "Expected/Observed Blend",
+  "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+  "matchup_conviction": {
+    "label": "Strong Separation",
+    "note": "Large baseline separation with non-conflicting matchup context. Historically, this game shape has been much harder to overturn.",
+    "historical_model_win_rate": 0.836,
+    "framework_support": {
+      "strength": "Framework Strongly Supports",
+      "support_components": 5,
+      "conflict_components": 0
+    }
+  },
+  "key_advantages": {
+    "James Madison": [
+      "Stronger Control Creation",
+      "More efficient Control Finish",
+      "Stronger Control Denial",
+      "Higher Control Drive Shutout Rate",
+      "Higher overall ADV strength",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ],
+    "Marshall": [
+      "Stronger schedule context"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 29.39224,
+    "adv_schedule_strength": 26.616937,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": 0.13857147554322957,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.420634,
+    "control_finish": 0.785045,
+    "control_denial": 0.546017,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 378,
+      "yards_per_play": 6,
+      "points_per_drive": 1.78,
+      "rush_yards_per_game": 151.8,
+      "pass_yards_per_game": 226.2,
+      "turnover_margin": -4
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 69.778185,
+    "adv_schedule_strength": 7.975881,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": 0.9218127128849949,
+    "talent_yield_label": "Above Expectation",
+    "control_creation": 0.468665,
+    "control_finish": 0.933647,
+    "control_denial": 0.604424,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 427,
+      "yards_per_play": 6.52,
+      "points_per_drive": 3.37,
+      "rush_yards_per_game": 200.2,
+      "pass_yards_per_game": 226.8,
+      "turnover_margin": 1
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401869962/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401869962.json"
+}

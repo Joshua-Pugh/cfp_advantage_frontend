@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Pittsburgh",
+  "full_name": "Pittsburgh Panthers",
+  "season": 2026,
+  "conference": "ACC",
+  "classification": "fbs",
+  "tier": "power",
+  "record": "4-0",
+  "points_for": 157,
+  "points_against": 34,
+  "average_score_margin": 30.75,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 81.21953,
+    "adv_schedule_strength": 27.099156,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": 0.6758153438750871,
+    "talent_yield_label": "Above Expectation",
+    "control_creation": 0.546799,
+    "control_finish": 0.889232,
+    "control_denial": 0.481301,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 516.2,
+      "yards_per_play": 7.17,
+      "points_per_drive": 3.37,
+      "rush_yards_per_game": 177,
+      "pass_yards_per_game": 339.2,
+      "turnover_margin": 1
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/pittsburgh/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/pittsburgh.json"
+}

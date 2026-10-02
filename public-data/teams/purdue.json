@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Purdue",
+  "full_name": "Purdue Boilermakers",
+  "season": 2026,
+  "conference": "Big Ten",
+  "classification": "fbs",
+  "tier": "power",
+  "record": "1-3",
+  "points_for": 128,
+  "points_against": 158,
+  "average_score_margin": -7.5,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 42.910235,
+    "adv_schedule_strength": 59.398796,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -0.6243912230473687,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.443993,
+    "control_finish": 0.798822,
+    "control_denial": 0.455417,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 424.8,
+      "yards_per_play": 6.11,
+      "points_per_drive": 3.78,
+      "rush_yards_per_game": 106.5,
+      "pass_yards_per_game": 318.2,
+      "turnover_margin": -1
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/purdue/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/purdue.json"
+}

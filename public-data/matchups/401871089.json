@@ -1,0 +1,89 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "game_id": "401871089",
+  "season": 2026,
+  "week": 5,
+  "date": "2026-10-03",
+  "kickoff_at": "2026-10-03T23:00:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "UL Monroe",
+  "away_full_name": "UL Monroe Warhawks",
+  "away_conference": "Sun Belt",
+  "away_ap_rank": 0,
+  "home_team": "South Alabama",
+  "home_full_name": "South Alabama Jaguars",
+  "home_conference": "Sun Belt",
+  "home_ap_rank": 0,
+  "projected_winner": "South Alabama Jaguars",
+  "projected_margin": 15.99,
+  "projection_closeness": 0.2387,
+  "context_label": "Expected/Observed Blend",
+  "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+  "matchup_conviction": {
+    "label": "Strong Separation",
+    "note": "Large baseline separation with non-conflicting matchup context. Historically, this game shape has been much harder to overturn.",
+    "historical_model_win_rate": 0.836,
+    "framework_support": {
+      "strength": "Framework Strongly Supports",
+      "support_components": 5,
+      "conflict_components": 0
+    }
+  },
+  "key_advantages": {
+    "South Alabama": [
+      "Stronger Control Creation",
+      "More efficient Control Finish",
+      "Stronger Control Denial",
+      "Higher Control Drive Shutout Rate",
+      "Higher overall ADV strength",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ],
+    "UL Monroe": []
+  },
+  "away_profile": {
+    "pregame_adv_rating": 6.120398,
+    "adv_schedule_strength": 46.830293,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": -0.48996772865835125,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.320211,
+    "control_finish": 0.79332,
+    "control_denial": 0.512983,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 353.2,
+      "yards_per_play": 5.35,
+      "points_per_drive": 1.73,
+      "rush_yards_per_game": 148.8,
+      "pass_yards_per_game": 204.5,
+      "turnover_margin": -3
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 49.412656,
+    "adv_schedule_strength": 47.961182,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": 1.042799159125274,
+    "talent_yield_label": "Well Above Expectation",
+    "control_creation": 0.479828,
+    "control_finish": 0.861291,
+    "control_denial": 0.650664,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 433.2,
+      "yards_per_play": 5.8,
+      "points_per_drive": 2.73,
+      "rush_yards_per_game": 203.8,
+      "pass_yards_per_game": 229.5,
+      "turnover_margin": 4
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401871089/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401871089.json"
+}

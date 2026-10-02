@@ -1,0 +1,90 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "game_id": "401871050",
+  "season": 2026,
+  "week": 5,
+  "date": "2026-10-02",
+  "kickoff_at": "2026-10-02T23:00:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "Liberty",
+  "away_full_name": "Liberty Flames",
+  "away_conference": "Conference USA",
+  "away_ap_rank": 0,
+  "home_team": "Delaware",
+  "home_full_name": "Delaware Blue Hens",
+  "home_conference": "Conference USA",
+  "home_ap_rank": 0,
+  "projected_winner": "Liberty Flames",
+  "projected_margin": 10.45,
+  "projection_closeness": 0.5026,
+  "context_label": "Expected/Observed Blend",
+  "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+  "matchup_conviction": {
+    "label": "Supported Edge",
+    "note": "The matchup shape supports the lean with meaningful but not overwhelming separation.",
+    "historical_model_win_rate": 0.723,
+    "framework_support": {
+      "strength": "Framework Strongly Supports",
+      "support_components": 5,
+      "conflict_components": 0
+    }
+  },
+  "key_advantages": {
+    "Delaware": [],
+    "Liberty": [
+      "Stronger Control Creation",
+      "More consistent Control Rate",
+      "More efficient Control Finish",
+      "Stronger Control Denial",
+      "Higher Control Drive Shutout Rate",
+      "Higher overall ADV strength",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 59.31331,
+    "adv_schedule_strength": 20.975733,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": 0.11792415549029008,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.514566,
+    "control_finish": 0.839154,
+    "control_denial": 0.636211,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 412,
+      "yards_per_play": 6.57,
+      "points_per_drive": 2.38,
+      "rush_yards_per_game": 190.5,
+      "pass_yards_per_game": 221.5,
+      "turnover_margin": 1
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 14.494862,
+    "adv_schedule_strength": 23.837591,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": 0.7414109654222907,
+    "talent_yield_label": "Above Expectation",
+    "control_creation": 0.37751,
+    "control_finish": 0.737153,
+    "control_denial": 0.475983,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 363,
+      "yards_per_play": 5.67,
+      "points_per_drive": 1.3,
+      "rush_yards_per_game": 106.2,
+      "pass_yards_per_game": 256.8,
+      "turnover_margin": 0
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401871050/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401871050.json"
+}

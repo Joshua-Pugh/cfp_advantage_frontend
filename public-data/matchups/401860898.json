@@ -1,0 +1,92 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "game_id": "401860898",
+  "season": 2026,
+  "week": 5,
+  "date": "2026-10-03",
+  "kickoff_at": "2026-10-03T23:30:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "Utah State",
+  "away_full_name": "Utah State Aggies",
+  "away_conference": "Pac-12",
+  "away_ap_rank": 0,
+  "home_team": "Boise State",
+  "home_full_name": "Boise State Broncos",
+  "home_conference": "Pac-12",
+  "home_ap_rank": 22,
+  "projected_winner": "Boise State Broncos",
+  "projected_margin": 26.91,
+  "projection_closeness": 0,
+  "context_label": "Expected/Observed Blend",
+  "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+  "matchup_conviction": {
+    "label": "Strong Separation",
+    "note": "Large baseline separation with non-conflicting matchup context. Historically, this game shape has been much harder to overturn.",
+    "historical_model_win_rate": 0.907,
+    "framework_support": {
+      "strength": "Framework Strongly Supports",
+      "support_components": 5,
+      "conflict_components": 0
+    }
+  },
+  "key_advantages": {
+    "Boise State": [
+      "Stronger Control Creation",
+      "More consistent Control Rate",
+      "More efficient Control Finish",
+      "Stronger Control Denial",
+      "Higher Control Drive Shutout Rate",
+      "Higher overall ADV strength",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ],
+    "Utah State": [
+      "Stronger schedule context"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 23.156627,
+    "adv_schedule_strength": 62.06417,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": 0.4045599448269568,
+    "talent_yield_label": "Above Expectation",
+    "control_creation": 0.267623,
+    "control_finish": 0.754107,
+    "control_denial": 0.510507,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 314.5,
+      "yards_per_play": 4.88,
+      "points_per_drive": 0.94,
+      "rush_yards_per_game": 123.8,
+      "pass_yards_per_game": 190.8,
+      "turnover_margin": -6
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 102.854337,
+    "adv_schedule_strength": 56.955305,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV has improved with manageable volatility.",
+    "talent_yield": 1.4671369227462667,
+    "talent_yield_label": "Well Above Expectation",
+    "control_creation": 0.490239,
+    "control_finish": 0.907324,
+    "control_denial": 0.747257,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 442.8,
+      "yards_per_play": 6.24,
+      "points_per_drive": 2.5,
+      "rush_yards_per_game": 238.5,
+      "pass_yards_per_game": 204.2,
+      "turnover_margin": 3
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401860898/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401860898.json"
+}

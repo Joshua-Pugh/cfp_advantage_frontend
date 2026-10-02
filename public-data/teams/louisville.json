@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Louisville",
+  "full_name": "Louisville Cardinals",
+  "season": 2026,
+  "conference": "ACC",
+  "classification": "fbs",
+  "tier": "power",
+  "record": "2-2",
+  "points_for": 165,
+  "points_against": 115,
+  "average_score_margin": 12.5,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 87.284917,
+    "adv_schedule_strength": 60.9218,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": 0.46992891299118095,
+    "talent_yield_label": "Above Expectation",
+    "control_creation": 0.501711,
+    "control_finish": 0.948173,
+    "control_denial": 0.559344,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 495.8,
+      "yards_per_play": 7.51,
+      "points_per_drive": 3.12,
+      "rush_yards_per_game": 196.2,
+      "pass_yards_per_game": 299.5,
+      "turnover_margin": 5
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/louisville/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/louisville.json"
+}

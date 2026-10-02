@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "San José State",
+  "full_name": "San José State Spartans",
+  "season": 2026,
+  "conference": "Mountain West",
+  "classification": "fbs",
+  "tier": "g5",
+  "record": "2-2",
+  "points_for": 93,
+  "points_against": 109,
+  "average_score_margin": -4,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 29.498774,
+    "adv_schedule_strength": 38.702839,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -0.14316924848484058,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.321596,
+    "control_finish": 0.857492,
+    "control_denial": 0.629313,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 405.5,
+      "yards_per_play": 5.83,
+      "points_per_drive": 1.79,
+      "rush_yards_per_game": 147,
+      "pass_yards_per_game": 258.5,
+      "turnover_margin": -2
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/san-jose-state/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/san-jose-state.json"
+}

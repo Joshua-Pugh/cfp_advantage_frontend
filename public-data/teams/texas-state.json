@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Texas State",
+  "full_name": "Texas State Bobcats",
+  "season": 2026,
+  "conference": "Pac-12",
+  "classification": "fbs",
+  "tier": "g5",
+  "record": "2-2",
+  "points_for": 145,
+  "points_against": 135,
+  "average_score_margin": 2.5,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 65.237439,
+    "adv_schedule_strength": 58.306268,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": 0.4281974439747437,
+    "talent_yield_label": "Above Expectation",
+    "control_creation": 0.573934,
+    "control_finish": 0.746515,
+    "control_denial": 0.620054,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 524,
+      "yards_per_play": 7.49,
+      "points_per_drive": 3.02,
+      "rush_yards_per_game": 280.5,
+      "pass_yards_per_game": 243.5,
+      "turnover_margin": 0
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/texas-state/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/texas-state.json"
+}

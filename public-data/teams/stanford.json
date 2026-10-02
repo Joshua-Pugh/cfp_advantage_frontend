@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Stanford",
+  "full_name": "Stanford Cardinal",
+  "season": 2026,
+  "conference": "ACC",
+  "classification": "fbs",
+  "tier": "power",
+  "record": "2-2",
+  "points_for": 84,
+  "points_against": 134,
+  "average_score_margin": -12.5,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 45.968003,
+    "adv_schedule_strength": 65.382274,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -0.6791140409021199,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.360919,
+    "control_finish": 0.781833,
+    "control_denial": 0.495951,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 377,
+      "yards_per_play": 5.67,
+      "points_per_drive": 1.98,
+      "rush_yards_per_game": 103.8,
+      "pass_yards_per_game": 273.2,
+      "turnover_margin": 5
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/stanford/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/stanford.json"
+}

@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Illinois",
+  "full_name": "Illinois Fighting Illini",
+  "season": 2026,
+  "conference": "Big Ten",
+  "classification": "fbs",
+  "tier": "power",
+  "record": "2-2",
+  "points_for": 136,
+  "points_against": 106,
+  "average_score_margin": 7.5,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 71.244254,
+    "adv_schedule_strength": 63.555942,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": 0.1177424666308659,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.5361,
+    "control_finish": 0.863305,
+    "control_denial": 0.537208,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 421.2,
+      "yards_per_play": 7.05,
+      "points_per_drive": 3.21,
+      "rush_yards_per_game": 165.5,
+      "pass_yards_per_game": 255.8,
+      "turnover_margin": 0
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/illinois/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/illinois.json"
+}

@@ -1,0 +1,90 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "game_id": "401864513",
+  "season": 2026,
+  "week": 5,
+  "date": "2026-10-04",
+  "kickoff_at": "2026-10-04T03:59:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "San José State",
+  "away_full_name": "San José State Spartans",
+  "away_conference": "Mountain West",
+  "away_ap_rank": 0,
+  "home_team": "Hawai'i",
+  "home_full_name": "Hawai'i Rainbow Warriors",
+  "home_conference": "Mountain West",
+  "home_ap_rank": 0,
+  "projected_winner": "San José State Spartans",
+  "projected_margin": 2.64,
+  "projection_closeness": 0.8744,
+  "context_label": "Expected/Observed Blend",
+  "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+  "matchup_conviction": {
+    "label": "Context Pushback",
+    "note": "The baseline has a lean, but stable Control Framework traits point to meaningful matchup resistance.",
+    "historical_model_win_rate": 0.525,
+    "framework_support": {
+      "strength": "Framework Conflicts",
+      "support_components": 0,
+      "conflict_components": 3
+    }
+  },
+  "key_advantages": {
+    "Hawai'i": [
+      "Stronger Control Creation",
+      "More consistent Control Rate",
+      "Stronger Control Denial"
+    ],
+    "San José State": [
+      "More efficient Control Finish",
+      "Higher Control Drive Shutout Rate",
+      "Higher overall ADV strength",
+      "Stronger schedule context"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 29.498774,
+    "adv_schedule_strength": 38.702839,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -0.14316924848484058,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.321596,
+    "control_finish": 0.857492,
+    "control_denial": 0.629313,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 405.5,
+      "yards_per_play": 5.83,
+      "points_per_drive": 1.79,
+      "rush_yards_per_game": 147,
+      "pass_yards_per_game": 258.5,
+      "turnover_margin": -2
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 10.703645,
+    "adv_schedule_strength": 25.269045,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": -0.6464554874345141,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.363926,
+    "control_finish": 0.818462,
+    "control_denial": 0.672411,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 338.2,
+      "yards_per_play": 4.73,
+      "points_per_drive": 1.6,
+      "rush_yards_per_game": 86.8,
+      "pass_yards_per_game": 251.5,
+      "turnover_margin": 0
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401864513/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401864513.json"
+}

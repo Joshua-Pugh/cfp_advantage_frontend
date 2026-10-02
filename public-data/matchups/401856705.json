@@ -1,0 +1,92 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "game_id": "401856705",
+  "season": 2026,
+  "week": 5,
+  "date": "2026-10-03",
+  "kickoff_at": "2026-10-03T16:45:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "Vanderbilt",
+  "away_full_name": "Vanderbilt Commodores",
+  "away_conference": "SEC",
+  "away_ap_rank": 0,
+  "home_team": "Georgia",
+  "home_full_name": "Georgia Bulldogs",
+  "home_conference": "SEC",
+  "home_ap_rank": 2,
+  "projected_winner": "Georgia Bulldogs",
+  "projected_margin": 17.53,
+  "projection_closeness": 0.1653,
+  "context_label": "Expected/Observed Blend",
+  "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+  "matchup_conviction": {
+    "label": "Strong Separation",
+    "note": "Large baseline separation with non-conflicting matchup context. Historically, this game shape has been much harder to overturn.",
+    "historical_model_win_rate": 0.836,
+    "framework_support": {
+      "strength": "Framework Strongly Supports",
+      "support_components": 5,
+      "conflict_components": 0
+    }
+  },
+  "key_advantages": {
+    "Georgia": [
+      "Stronger Control Creation",
+      "More consistent Control Rate",
+      "More efficient Control Finish",
+      "Stronger Control Denial",
+      "Higher Control Drive Shutout Rate",
+      "Higher overall ADV strength",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ],
+    "Vanderbilt": [
+      "Stronger schedule context"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 70.014407,
+    "adv_schedule_strength": 46.958922,
+    "games_before_target": 4,
+    "recent_form": "Declining",
+    "recent_form_note": "Recent ADV has declined with manageable volatility.",
+    "talent_yield": -0.05308147994647017,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.411954,
+    "control_finish": 0.83717,
+    "control_denial": 0.482004,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 364.5,
+      "yards_per_play": 5.63,
+      "points_per_drive": 2.07,
+      "rush_yards_per_game": 133,
+      "pass_yards_per_game": 231.5,
+      "turnover_margin": 1
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 118.446059,
+    "adv_schedule_strength": 24.089064,
+    "games_before_target": 4,
+    "recent_form": "Declining",
+    "recent_form_note": "Recent ADV has declined with manageable volatility.",
+    "talent_yield": -0.10859979914851059,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.531893,
+    "control_finish": 0.947001,
+    "control_denial": 0.633227,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 477,
+      "yards_per_play": 8.26,
+      "points_per_drive": 3.67,
+      "rush_yards_per_game": 219,
+      "pass_yards_per_game": 258,
+      "turnover_margin": 3
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401856705/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401856705.json"
+}

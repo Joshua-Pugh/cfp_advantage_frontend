@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Louisiana Tech",
+  "full_name": "Louisiana Tech Bulldogs",
+  "season": 2026,
+  "conference": "Sun Belt",
+  "classification": "fbs",
+  "tier": "g5",
+  "record": "1-2",
+  "points_for": 113,
+  "points_against": 87,
+  "average_score_margin": 8.6667,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 25.450788,
+    "adv_schedule_strength": 35.59909,
+    "games_before_target": 3,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -0.22880022419414048,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.39899,
+    "control_finish": 0.827419,
+    "control_denial": 0.504187,
+    "comparison_stats": {
+      "games_available": 3,
+      "yards_per_game": 338.7,
+      "yards_per_play": 5.43,
+      "points_per_drive": 2.59,
+      "rush_yards_per_game": 121.7,
+      "pass_yards_per_game": 217,
+      "turnover_margin": 2
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/louisiana-tech/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/louisiana-tech.json"
+}

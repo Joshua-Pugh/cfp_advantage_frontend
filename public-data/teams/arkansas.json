@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-10-02T17:41:50.749Z",
+  "team": "Arkansas",
+  "full_name": "Arkansas Razorbacks",
+  "season": 2026,
+  "conference": "SEC",
+  "classification": "fbs",
+  "tier": "power",
+  "record": "2-2",
+  "points_for": 92,
+  "points_against": 108,
+  "average_score_margin": -4,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 56.112905,
+    "adv_schedule_strength": 56.523652,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": -0.5789418641152461,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.427421,
+    "control_finish": 0.844067,
+    "control_denial": 0.608583,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 370.5,
+      "yards_per_play": 4.97,
+      "points_per_drive": 2,
+      "rush_yards_per_game": 90,
+      "pass_yards_per_game": 280.5,
+      "turnover_margin": -1
+    }
+  },
+  "canonical_url": "https://cfpadvantage.com/teams/2026/arkansas/",
+  "data_url": "https://cfpadvantage.com/public-data/teams/arkansas.json"
+}
