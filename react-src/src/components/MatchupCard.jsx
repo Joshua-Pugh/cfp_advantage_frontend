@@ -36,7 +36,7 @@ function MatchupCard({ matchup, logos }) {
       </div>
 
       <div className="featured-matchup-title">
-        <div>
+        <div className="featured-matchup-team">
           <span>Away</span>
 
           <span className="featured-team-mark">
@@ -49,7 +49,7 @@ function MatchupCard({ matchup, logos }) {
           </span>
         </div>
 
-        <div>
+        <div className="featured-matchup-versus">
           <b>vs</b>
 
           {sameConference && awayConference ? (
@@ -75,7 +75,7 @@ function MatchupCard({ matchup, logos }) {
           ) : null}
         </div>
 
-        <div>
+        <div className="featured-matchup-team">
           <span>Home</span>
 
           <span className="featured-team-mark">

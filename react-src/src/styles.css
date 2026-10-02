@@ -9910,3 +9910,41 @@ pre {
   .giveaway-name-grid, .giveaway-tiers { grid-template-columns: 1fr; }
   .giveaway-hero .primary-action, .giveaway-hero .secondary-action { width: 100%; margin: 8px 0 0; }
 }
+
+/* Mobile featured-card alignment: keep each label, logo, and AP rank as one centered unit. */
+.featured-matchup-team,
+.featured-matchup-versus {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  min-width: 0;
+}
+
+.featured-team-mark {
+  width: max-content;
+  max-width: 100%;
+  justify-self: center;
+}
+
+.featured-team-mark .poll-rank-tag {
+  display: inline-flex;
+  width: max-content;
+  max-width: 100%;
+  justify-self: center;
+}
+
+@media (max-width: 640px) {
+  .featured-matchup-title {
+    grid-template-columns: minmax(72px, 1fr) minmax(58px, 70px) minmax(72px, 1fr);
+    align-items: start;
+  }
+
+  .featured-matchup-team > span:first-child {
+    width: max-content;
+    justify-self: center;
+  }
+
+  .featured-matchup-versus {
+    padding-top: 20px;
+  }
+}
