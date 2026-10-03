@@ -10168,3 +10168,30 @@ pre {
 :root[data-theme="dark"] .ask-adv-form input, :root[data-theme="dark"] .ask-adv-answer { background: #0b1511; color: #fff; border-color: rgba(214,173,85,.24); }
 :root[data-theme="dark"] .ask-adv-form label, :root[data-theme="dark"] .ask-adv-answer strong { color: #fff; }
 @media (max-width: 700px) { .ask-adv-heading { display: grid; } .ask-adv-heading .secondary-action { width: 100%; } .ask-adv-form > div { grid-template-columns: 1fr; } .ask-adv-form button { width: 100%; } }
+
+/* Sitewide Ask ADV guide. Matchup-specific questions remain inside Full Breakdown. */
+.ask-adv-launcher { position: fixed; right: 22px; bottom: 22px; z-index: 1100; display: flex; align-items: center; gap: 9px; padding: 10px 16px 10px 10px; border: 1px solid var(--gold); border-radius: 999px; background: var(--green); color: #fff; box-shadow: 0 12px 28px rgba(16,24,32,.25); cursor: pointer; }
+.ask-adv-launcher span { display: grid; place-items: center; width: 35px; height: 35px; border-radius: 50%; background: var(--gold); color: #101814; font-size: 11px; font-weight: 950; letter-spacing: .04em; }
+.ask-adv-launcher b { font-size: 14px; }
+.ask-adv-launcher:hover { transform: translateY(-2px); background: #21664f; }
+.ask-adv-assistant { position: fixed; right: 22px; bottom: 88px; z-index: 1099; width: min(410px, calc(100vw - 32px)); max-height: min(680px, calc(100vh - 116px)); overflow-y: auto; padding: 20px; border: 1px solid var(--line); border-top: 4px solid var(--gold); border-radius: 14px; background: var(--panel); color: var(--ink); box-shadow: 0 22px 55px rgba(16,24,32,.30); }
+.ask-adv-assistant-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.ask-adv-assistant-heading h2 { margin: 2px 0 8px; }
+.ask-adv-assistant-heading > button { width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 50%; background: var(--paper); color: var(--ink); font-size: 22px; line-height: 1; cursor: pointer; }
+.ask-adv-assistant > p { color: var(--muted); line-height: 1.5; }
+.ask-adv-quick-questions { display: flex; flex-wrap: wrap; gap: 7px; margin: 14px 0; }
+.ask-adv-quick-questions button { padding: 7px 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--paper); color: var(--green); font-size: 12px; font-weight: 800; cursor: pointer; }
+.ask-adv-assistant-form { display: grid; gap: 8px; }
+.ask-adv-assistant-form label { font-size: 12px; font-weight: 900; }
+.ask-adv-assistant-form textarea { width: 100%; resize: vertical; padding: 11px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); color: var(--ink); }
+.ask-adv-assistant-form > button { justify-self: end; padding: 10px 16px; border: 1px solid var(--green); border-radius: 7px; background: var(--green); color: #fff; font-weight: 900; cursor: pointer; }
+.ask-adv-assistant-form button:disabled, .ask-adv-quick-questions button:disabled { opacity: .55; cursor: wait; }
+.ask-adv-assistant-answer { margin-top: 14px; padding: 14px; border-left: 4px solid var(--gold); border-radius: 8px; background: var(--paper); }
+.ask-adv-assistant-answer p { margin: 7px 0 10px; line-height: 1.55; }
+.ask-adv-assistant-answer small { color: var(--muted); }
+.ask-adv-assistant-links { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 0; }
+.ask-adv-assistant-links a { color: var(--green); font-weight: 850; }
+:root[data-theme="dark"] .ask-adv-assistant { background: #17251f; border-color: rgba(214,173,85,.38); border-top-color: var(--gold-bright); }
+:root[data-theme="dark"] .ask-adv-assistant-heading > button, :root[data-theme="dark"] .ask-adv-quick-questions button, :root[data-theme="dark"] .ask-adv-assistant-form textarea, :root[data-theme="dark"] .ask-adv-assistant-answer { background: #0b1511; color: #fff; border-color: rgba(214,173,85,.28); }
+:root[data-theme="dark"] .ask-adv-quick-questions button, :root[data-theme="dark"] .ask-adv-assistant-links a { color: var(--gold-bright); }
+@media (max-width: 600px) { .ask-adv-launcher { right: 14px; bottom: 14px; padding: 8px; } .ask-adv-launcher b { display: none; } .ask-adv-assistant { right: 16px; bottom: 72px; width: calc(100vw - 32px); max-height: calc(100vh - 96px); } }

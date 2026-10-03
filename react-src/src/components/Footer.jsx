@@ -61,7 +61,7 @@ function Footer() {
           <Link to="/model-record">Model Record</Link>
           <Link to="/news">News</Link>
           <Link to="/updates">
-            Updates <span className="site-version">v2.5</span>
+            Updates <span className="site-version">v2.6</span>
           </Link>
         </nav>
       </div>
