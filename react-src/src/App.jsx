@@ -15,47 +15,51 @@ import FrameworkCardPage from "./pages/FrameworkCardPage";
 import GiveawayPage from "./pages/GiveawayPage";
 import MetricRelationshipsPage from "./pages/MetricRelationshipsPage";
 import ModelRecordPage from "./pages/ModelRecordPage";
+import AskAdvAssistant from "./components/AskAdvAssistant";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/teams" element={<Teams />} />
-      <Route path="/teams/:season" element={<Teams />} />
-      <Route path="/teams/:season/:teamSlug" element={<Teams />} />
-      <Route path="/matchups" element={<Matchups />} />
-      <Route path="/matchups/:gameId" element={<Matchups />} />
-      <Route path="/bracket-room" element={<BracketRoom />} />
-      <Route path="/probability-board" element={<Navigate replace to="/bracket-room" />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/live-2026" element={<Navigate replace to="/model-record" />} />
-      <Route path="/metrics" element={<MetricsGuide />} />
-      <Route path="/metric-relationships" element={<MetricRelationshipsPage />} />
-      <Route path="/model-record" element={<ModelRecordPage />} />
-      <Route path="/news" element={<News />} />
-      <Route path="/updates" element={<Updates />} />
-      <Route path="/contact" element={<Contact />} />
-      <Route path="/support" element={<Support />} />
-      <Route path="/legal" element={<Legal />} />
-      <Route path="/framework-card" element={<FrameworkCardPage />} />
-      <Route path="/giveaway" element={<GiveawayPage />} />
-      <Route path="/index.html" element={<Navigate replace to="/" />} />
-      <Route path="/team.html" element={<Navigate replace to="/teams" />} />
-      <Route path="/matchups.html" element={<Navigate replace to="/matchups" />} />
-      <Route path="/bracket-room.html" element={<Navigate replace to="/bracket-room" />} />
-      <Route path="/live-2026.html" element={<Navigate replace to="/model-record" />} />
-      <Route path="/metrics.html" element={<Navigate replace to="/metrics" />} />
-      <Route path="/metric-relationships.html" element={<Navigate replace to="/metric-relationships" />} />
-      <Route path="/model-record.html" element={<Navigate replace to="/model-record" />} />
-      <Route path="/about.html" element={<Navigate replace to="/about" />} />
-      <Route path="/news.html" element={<Navigate replace to="/news" />} />
-      <Route path="/updates.html" element={<Navigate replace to="/updates" />} />
-      <Route path="/contact.html" element={<Navigate replace to="/contact" />} />
-      <Route path="/legal.html" element={<Navigate replace to="/legal" />} />
-      <Route path="/framework-card.html" element={<Navigate replace to="/framework-card" />} />
-      <Route path="/giveaway.html" element={<Navigate replace to="/giveaway" />} />
-      <Route path="*" element={<Navigate replace to="/" />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/teams" element={<Teams />} />
+        <Route path="/teams/:season" element={<Teams />} />
+        <Route path="/teams/:season/:teamSlug" element={<Teams />} />
+        <Route path="/matchups" element={<Matchups />} />
+        <Route path="/matchups/:gameId" element={<Matchups />} />
+        <Route path="/bracket-room" element={<BracketRoom />} />
+        <Route path="/probability-board" element={<Navigate replace to="/bracket-room" />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/live-2026" element={<Navigate replace to="/model-record" />} />
+        <Route path="/metrics" element={<MetricsGuide />} />
+        <Route path="/metric-relationships" element={<MetricRelationshipsPage />} />
+        <Route path="/model-record" element={<ModelRecordPage />} />
+        <Route path="/news" element={<News />} />
+        <Route path="/updates" element={<Updates />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/support" element={<Support />} />
+        <Route path="/legal" element={<Legal />} />
+        <Route path="/framework-card" element={<FrameworkCardPage />} />
+        <Route path="/giveaway" element={<GiveawayPage />} />
+        <Route path="/index.html" element={<Navigate replace to="/" />} />
+        <Route path="/team.html" element={<Navigate replace to="/teams" />} />
+        <Route path="/matchups.html" element={<Navigate replace to="/matchups" />} />
+        <Route path="/bracket-room.html" element={<Navigate replace to="/bracket-room" />} />
+        <Route path="/live-2026.html" element={<Navigate replace to="/model-record" />} />
+        <Route path="/metrics.html" element={<Navigate replace to="/metrics" />} />
+        <Route path="/metric-relationships.html" element={<Navigate replace to="/metric-relationships" />} />
+        <Route path="/model-record.html" element={<Navigate replace to="/model-record" />} />
+        <Route path="/about.html" element={<Navigate replace to="/about" />} />
+        <Route path="/news.html" element={<Navigate replace to="/news" />} />
+        <Route path="/updates.html" element={<Navigate replace to="/updates" />} />
+        <Route path="/contact.html" element={<Navigate replace to="/contact" />} />
+        <Route path="/legal.html" element={<Navigate replace to="/legal" />} />
+        <Route path="/framework-card.html" element={<Navigate replace to="/framework-card" />} />
+        <Route path="/giveaway.html" element={<Navigate replace to="/giveaway" />} />
+        <Route path="*" element={<Navigate replace to="/" />} />
+      </Routes>
+      <AskAdvAssistant />
+    </>
   )
 }
 

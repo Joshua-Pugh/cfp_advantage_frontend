@@ -1,6 +1,5 @@
 import Footer from "./Footer";
 import Header from "./Header";
-import AskAdvAssistant from "./AskAdvAssistant";
 
 function StandardPage({ children, className = "" }) {
   return (
@@ -8,7 +7,6 @@ function StandardPage({ children, className = "" }) {
       <Header />
       {children}
       <Footer />
-      <AskAdvAssistant />
     </main>
   );
 }
