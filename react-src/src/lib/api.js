@@ -9,8 +9,8 @@ export function apiUrl(path) {
   return `${API_BASE}${path}`;
 }
 
-export async function api(path) {
-  const response = await fetch(apiUrl(path));
+export async function api(path, options) {
+  const response = await fetch(apiUrl(path), options);
 
   if (!response.ok) {
     throw new Error(`${path} failed with ${response.status}`);

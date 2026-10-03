@@ -70,13 +70,53 @@ function TeamContext({ context, name, rank }) {
   </article>;
 }
 
+function AskAdvPanel({ matchup }) {
+  const [question, setQuestion] = useState("");
+  const [response, setResponse] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  async function askAdv(event, summaryOnly = false) {
+    event?.preventDefault();
+    try {
+      setLoading(true);
+      setError("");
+      const payload = await api("/api/ask-adv", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          kind: "matchup",
+          season: matchup.season,
+          week: matchup.week,
+          game_id: String(matchup.game_id),
+          question: summaryOnly ? "" : question.trim(),
+        }),
+      });
+      setResponse(payload);
+    } catch (askError) {
+      console.error("Ask ADV failed:", askError);
+      setError("Ask ADV is temporarily unavailable. The published pick and matchup data are still available above.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return <section className="ask-adv-panel" aria-label="Ask ADV matchup explainer">
+    <div className="ask-adv-heading"><div><p className="eyebrow">AI-assisted matchup explainer</p><h3>Ask ADV</h3><p>Plain-language answers grounded only in this frozen CFP Advantage snapshot.</p></div><button className="secondary-action" type="button" onClick={(event) => askAdv(event, true)} disabled={loading}>{loading ? "Thinking…" : "Summarize Matchup"}</button></div>
+    <form className="ask-adv-form" onSubmit={askAdv}><label htmlFor={`ask-adv-${matchup.game_id}`}>Ask about the pick, matchup edge, or risk</label><div><input id={`ask-adv-${matchup.game_id}`} value={question} maxLength={400} onChange={(event) => setQuestion(event.target.value)} placeholder="What gives the underdog a path to win?" /><button type="submit" disabled={loading || !question.trim()}>{loading ? "Thinking…" : "Ask ADV"}</button></div></form>
+    {error && <p className="status-line warn">{error}</p>}
+    {response?.answer && <article className="ask-adv-answer"><p>{response.answer}</p>{response.key_points?.length > 0 && <ul>{response.key_points.map((point) => <li key={point}>{point}</li>)}</ul>}{response.uncertainty && <p><strong>Uncertainty:</strong> {response.uncertainty}</p>}<small>{response.disclosure}</small></article>}
+  </section>;
+}
+
 function MatchupDetail({ matchup, onClose }) {
   const limited = matchup.projection_limited || matchup.projection_unavailable;
   const narrative = matchupNarrative(matchup);
   return <section className="insight-panel matchup-preview-detail matchup-inline-detail" aria-label="Selected matchup analysis">
     <div className="panel-heading matchup-detail-heading"><div><p className="eyebrow">Full Breakdown</p><h2><span className="matchup-heading-team"><PollRankTag rank={matchup.away_ap_rank} />{matchup.away_full_name || matchup.away_team}</span> at <span className="matchup-heading-team"><PollRankTag rank={matchup.home_ap_rank} />{matchup.home_full_name || matchup.home_team}</span></h2><MatchupConferenceContext matchup={matchup} /><p>{matchup.date} · {matchup.game_type || "College Football"}</p></div><button className="secondary-action" type="button" onClick={onClose}>Close Breakdown</button></div>
-    <div className="matchup-preview-summary"><div><span>Model Lean</span><strong>{matchup.projected_winner_full_name || "Not Published"}</strong></div><div><span>Projected Margin</span><strong>{matchup.projected_margin_abs == null ? "-" : `By ${formatProjectionMargin(matchup.projected_margin_abs)}`}</strong></div><div><span>Matchup Conviction</span><strong>{matchup.matchup_conviction?.label || "-"}</strong></div><div><span>Projection Closeness</span><strong>{formatPercent(matchup.projection_closeness, 0)}</strong></div></div>
+    <div className="matchup-preview-summary"><div><span>Model Lean</span><strong>{matchup.projected_winner_full_name || "Not Published"}</strong></div><div><span>{matchup.margin_label || "Projected Margin"}</span><strong>{matchup.projected_margin_abs == null ? "-" : `By ${formatProjectionMargin(matchup.projected_margin_abs)}`}</strong></div><div><span>Matchup Conviction</span><strong>{matchup.matchup_conviction?.label || "-"}</strong></div><div><span>Projection Closeness</span><strong>{formatPercent(matchup.projection_closeness, 0)}</strong></div></div>
     <div className="matchup-casual-summary"><div><span>Why ADV leans this way</span><p>{narrative.why}</p></div><div><span>What could change the game</span><p>{narrative.risk}</p></div></div>
+    <AskAdvPanel matchup={matchup} />
     <div className="matchup-story-panel"><div className="matchup-story-heading"><h3>{matchup.context_label || "Pregame Context"}</h3><p>{matchup.context_note}</p></div>{matchup.matchup_conviction?.note && <p>{matchup.matchup_conviction.note}</p>}</div>
     {limited ? <div className="matchup-limited-note"><strong>Limited opponent coverage</strong><p>This matchup uses the labeled opponent-tier view. A full two-team ADV and Control Framework comparison is not published when one side is outside supported FBS coverage.</p></div> : <><div className="matchup-advantages-grid">{[matchup.away_team, matchup.home_team].map((team) => <article key={team}><span>{team} advantages</span><ul>{advantagesFor(matchup, team).map((item) => <li key={item}><strong>{plainAdvantage(item)}</strong><small>{item}</small></li>)}</ul></article>)}</div><div className="matchup-context-columns"><TeamContext context={matchup.away_context} name={matchup.away_full_name || matchup.away_team} rank={matchup.away_ap_rank} /><TeamContext context={matchup.home_context} name={matchup.home_full_name || matchup.home_team} rank={matchup.home_ap_rank} /></div><div className="advanced-reading-guide"><strong>How to read the context</strong><p>Recent Form compares a team with its own season baseline. Talent Yield compares current performance with roster expectation. Both explain the matchup and do not override the published model margin.</p></div></>}
   </section>;

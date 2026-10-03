@@ -10147,3 +10147,24 @@ pre {
     padding-top: 20px;
   }
 }
+
+
+/* Ask ADV: AI explains the frozen matchup snapshot; it does not alter the model. */
+.ask-adv-panel { margin: 14px 0; padding: 18px; border: 1px solid var(--line); border-left: 4px solid var(--gold); border-radius: 10px; background: var(--paper); }
+.ask-adv-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; }
+.ask-adv-heading h3 { margin: 2px 0 5px; }
+.ask-adv-heading p:last-child { margin: 0; color: var(--muted); }
+.ask-adv-form { display: grid; gap: 7px; margin-top: 16px; }
+.ask-adv-form label { font-size: 12px; font-weight: 900; color: var(--ink); }
+.ask-adv-form > div { display: grid; grid-template-columns: 1fr auto; gap: 8px; }
+.ask-adv-form input { min-width: 0; padding: 12px 14px; border: 1px solid var(--line); border-radius: 7px; background: var(--surface); color: var(--ink); }
+.ask-adv-form button { padding: 11px 18px; border: 1px solid var(--green); border-radius: 7px; background: var(--green); color: #fff; font-weight: 900; cursor: pointer; }
+.ask-adv-form button:disabled { opacity: .55; cursor: wait; }
+.ask-adv-answer { margin-top: 15px; padding: 16px; border-radius: 8px; background: var(--surface); }
+.ask-adv-answer > p:first-child { margin-top: 0; font-size: 16px; line-height: 1.55; }
+.ask-adv-answer ul { margin: 10px 0; padding-left: 20px; }
+.ask-adv-answer small { display: block; margin-top: 12px; color: var(--muted); }
+:root[data-theme="dark"] .ask-adv-panel { background: #101c17; border-color: rgba(214,173,85,.30); border-left-color: var(--gold-bright); }
+:root[data-theme="dark"] .ask-adv-form input, :root[data-theme="dark"] .ask-adv-answer { background: #0b1511; color: #fff; border-color: rgba(214,173,85,.24); }
+:root[data-theme="dark"] .ask-adv-form label, :root[data-theme="dark"] .ask-adv-answer strong { color: #fff; }
+@media (max-width: 700px) { .ask-adv-heading { display: grid; } .ask-adv-heading .secondary-action { width: 100%; } .ask-adv-form > div { grid-template-columns: 1fr; } .ask-adv-form button { width: 100%; } }
