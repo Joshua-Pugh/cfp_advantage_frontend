@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { api } from "../lib/api";
@@ -17,6 +17,19 @@ function AskAdvAssistant() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  useEffect(() => {
+    if (!open) return undefined;
+    document.body.classList.add("ask-adv-open");
+    function closeOnEscape(event) {
+      if (event.key === "Escape") setOpen(false);
+    }
+    window.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.body.classList.remove("ask-adv-open");
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [open]);
+
   async function ask(questionValue) {
     const nextQuestion = String(questionValue || question).trim();
     if (!nextQuestion || loading) return;
@@ -27,7 +40,7 @@ function AskAdvAssistant() {
       const payload = await api("/api/ask-adv", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ kind: "framework", question: nextQuestion }),
+        body: JSON.stringify({ kind: "framework", season: 2026, question: nextQuestion }),
       });
       setResponse(payload);
     } catch (askError) {
@@ -59,7 +72,13 @@ function AskAdvAssistant() {
         <button type="submit" disabled={loading || !question.trim()}>{loading ? "Thinking…" : "Ask ADV"}</button>
       </form>
       {error && <p className="status-line warn">{error}</p>}
-      {response?.answer && <article className="ask-adv-assistant-answer"><strong>ADV says</strong><p>{response.answer}</p><small>{response.disclosure}</small></article>}
+      {response?.answer && <article className="ask-adv-assistant-answer">
+        <strong>ADV says</strong>
+        <p>{response.answer}</p>
+        {response.key_points?.length > 0 && <ul>{response.key_points.map((point) => <li key={point}>{point}</li>)}</ul>}
+        {response.uncertainty && <p className="ask-adv-uncertainty"><strong>What the data cannot settle:</strong> {response.uncertainty}</p>}
+        <small>{response.disclosure}</small>
+      </article>}
       <p className="ask-adv-assistant-links"><Link to="/metrics" onClick={() => setOpen(false)}>Open the Metrics Guide</Link><Link to="/matchups" onClick={() => setOpen(false)}>Explore matchups</Link></p>
     </aside>}
     <button className="ask-adv-launcher" type="button" onClick={() => setOpen((value) => !value)} aria-expanded={open} aria-label={open ? "Close Ask ADV" : "Open Ask ADV"}>
