@@ -1,16 +1,36 @@
 {
-  "generated_at": "2026-10-03T18:31:13.319Z",
+  "generated_at": "2026-10-04T17:52:14.648Z",
   "team": "UAB",
   "full_name": "UAB Blazers",
   "season": 2026,
   "conference": "American Athletic",
   "classification": "fbs",
   "tier": "g5",
-  "record": "2-2",
-  "points_for": 87,
-  "points_against": 103,
-  "average_score_margin": -4,
-  "current_pregame_profile": null,
+  "record": "3-2",
+  "points_for": 120,
+  "points_against": 117,
+  "average_score_margin": 0.6,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 26.174777,
+    "adv_schedule_strength": 19.521136,
+    "games_before_target": 5,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": -0.4778912660108303,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.490196,
+    "control_finish": 0.92,
+    "control_denial": 0.403509,
+    "comparison_stats": {
+      "games_available": 5,
+      "yards_per_game": 340.4,
+      "yards_per_play": 5.17,
+      "points_per_drive": 2.1,
+      "rush_yards_per_game": 179.6,
+      "pass_yards_per_game": 160.8,
+      "turnover_margin": 1
+    }
+  },
   "canonical_url": "https://cfpadvantage.com/teams/2026/uab/",
   "data_url": "https://cfpadvantage.com/public-data/teams/uab.json"
 }

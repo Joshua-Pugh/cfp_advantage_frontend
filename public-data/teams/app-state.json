@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T18:31:13.319Z",
+  "generated_at": "2026-10-04T17:52:14.648Z",
   "team": "App State",
   "full_name": "App State Mountaineers",
   "season": 2026,
@@ -10,7 +10,27 @@
   "points_for": 139,
   "points_against": 89,
   "average_score_margin": 12.5,
-  "current_pregame_profile": null,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 35.536794,
+    "adv_schedule_strength": 10.689137,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": 0.11237953123395505,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.485776,
+    "control_finish": 0.840455,
+    "control_denial": 0.751551,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 464.2,
+      "yards_per_play": 6.61,
+      "points_per_drive": 2.9,
+      "rush_yards_per_game": 145,
+      "pass_yards_per_game": 319.2,
+      "turnover_margin": 4
+    }
+  },
   "canonical_url": "https://cfpadvantage.com/teams/2026/app-state/",
   "data_url": "https://cfpadvantage.com/public-data/teams/app-state.json"
 }

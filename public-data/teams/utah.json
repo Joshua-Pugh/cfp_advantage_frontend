@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T18:31:13.319Z",
+  "generated_at": "2026-10-04T17:52:14.648Z",
   "team": "Utah",
   "full_name": "Utah Utes",
   "season": 2026,
@@ -10,7 +10,27 @@
   "points_for": 173,
   "points_against": 41,
   "average_score_margin": 33,
-  "current_pregame_profile": null,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 108.327674,
+    "adv_schedule_strength": 36.018727,
+    "games_before_target": 4,
+    "recent_form": "Declining",
+    "recent_form_note": "Recent ADV has declined with manageable volatility.",
+    "talent_yield": 1.3765186582098736,
+    "talent_yield_label": "Well Above Expectation",
+    "control_creation": 0.5382,
+    "control_finish": 0.941168,
+    "control_denial": 0.585471,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 491.5,
+      "yards_per_play": 7.25,
+      "points_per_drive": 4,
+      "rush_yards_per_game": 226,
+      "pass_yards_per_game": 265.5,
+      "turnover_margin": 4
+    }
+  },
   "canonical_url": "https://cfpadvantage.com/teams/2026/utah/",
   "data_url": "https://cfpadvantage.com/public-data/teams/utah.json"
 }

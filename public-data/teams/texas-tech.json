@@ -1,36 +1,16 @@
 {
-  "generated_at": "2026-10-03T18:31:13.319Z",
+  "generated_at": "2026-10-04T17:52:14.648Z",
   "team": "Texas Tech",
   "full_name": "Texas Tech Red Raiders",
   "season": 2026,
   "conference": "Big 12",
   "classification": "fbs",
   "tier": "power",
-  "record": "4-0",
-  "points_for": 145,
-  "points_against": 74,
-  "average_score_margin": 17.75,
-  "current_pregame_profile": {
-    "pregame_adv_rating": 93.759867,
-    "adv_schedule_strength": 52.817019,
-    "games_before_target": 4,
-    "recent_form": "Declining",
-    "recent_form_note": "Recent ADV has declined with manageable volatility.",
-    "talent_yield": 0.4540968227515877,
-    "talent_yield_label": "Above Expectation",
-    "control_creation": 0.428621,
-    "control_finish": 0.866547,
-    "control_denial": 0.6799,
-    "comparison_stats": {
-      "games_available": 4,
-      "yards_per_game": 422.2,
-      "yards_per_play": 6.28,
-      "points_per_drive": 2.57,
-      "rush_yards_per_game": 178,
-      "pass_yards_per_game": 244.2,
-      "turnover_margin": 0
-    }
-  },
+  "record": "5-0",
+  "points_for": 174,
+  "points_against": 81,
+  "average_score_margin": 18.6,
+  "current_pregame_profile": null,
   "canonical_url": "https://cfpadvantage.com/teams/2026/texas-tech/",
   "data_url": "https://cfpadvantage.com/public-data/teams/texas-tech.json"
 }

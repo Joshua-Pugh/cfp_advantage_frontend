@@ -1,17 +1,17 @@
 {
   "name": "CFP Advantage Public Model Record",
-  "generated_at": "2026-10-03T18:31:13.319Z",
+  "generated_at": "2026-10-04T17:52:14.648Z",
   "season": 2026,
   "current_season": {
     "scope": "2026 development validation",
-    "updated_at": "2026-09-27T15:14:01.460943+00:00",
+    "updated_at": "2026-10-04T15:39:04.986925+00:00",
     "update_policy": "Updated after each certified weekly publish or grade run; this is not a live scoreboard.",
     "summary": {
-      "games_published": 271,
-      "games_graded": 215,
-      "games_pending": 56,
-      "winner_accuracy": 0.804651,
-      "margin_mae": 12.504867
+      "games_published": 329,
+      "games_graded": 271,
+      "games_pending": 58,
+      "winner_accuracy": 0.797048,
+      "margin_mae": 12.811772
     },
     "weeks": [
       {
@@ -69,8 +69,20 @@
         "publication_status": "final-public",
         "receipt_version": 1,
         "games_published": 56,
+        "games_graded": 56,
+        "games_pending": 0,
+        "winner_accuracy": 0.767857,
+        "margin_mae": 13.990066
+      },
+      {
+        "week": 6,
+        "published_at_utc": "2026-10-04T15:39:04.986925+00:00",
+        "run_label": "manual-sunday-2026-week-5-to-6",
+        "publication_status": "final-public",
+        "receipt_version": 1,
+        "games_published": 58,
         "games_graded": 0,
-        "games_pending": 56,
+        "games_pending": 58,
         "winner_accuracy": null,
         "margin_mae": null
       }

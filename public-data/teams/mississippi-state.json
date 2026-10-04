@@ -1,36 +1,16 @@
 {
-  "generated_at": "2026-10-03T18:31:13.319Z",
+  "generated_at": "2026-10-04T17:52:14.648Z",
   "team": "Mississippi State",
   "full_name": "Mississippi State Bulldogs",
   "season": 2026,
   "conference": "SEC",
   "classification": "fbs",
   "tier": "power",
-  "record": "4-0",
-  "points_for": 172,
-  "points_against": 84,
-  "average_score_margin": 22,
-  "current_pregame_profile": {
-    "pregame_adv_rating": 99.069967,
-    "adv_schedule_strength": 57.232458,
-    "games_before_target": 4,
-    "recent_form": "Declining",
-    "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
-    "talent_yield": 0.3121263423229791,
-    "talent_yield_label": "Above Expectation",
-    "control_creation": 0.557713,
-    "control_finish": 0.944776,
-    "control_denial": 0.379435,
-    "comparison_stats": {
-      "games_available": 4,
-      "yards_per_game": 536,
-      "yards_per_play": 7.55,
-      "points_per_drive": 3.81,
-      "rush_yards_per_game": 220,
-      "pass_yards_per_game": 316,
-      "turnover_margin": 0
-    }
-  },
+  "record": "4-1",
+  "points_for": 195,
+  "points_against": 140,
+  "average_score_margin": 11,
+  "current_pregame_profile": null,
   "canonical_url": "https://cfpadvantage.com/teams/2026/mississippi-state/",
   "data_url": "https://cfpadvantage.com/public-data/teams/mississippi-state.json"
 }

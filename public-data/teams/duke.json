@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T18:31:13.319Z",
+  "generated_at": "2026-10-04T17:52:14.648Z",
   "team": "Duke",
   "full_name": "Duke Blue Devils",
   "season": 2026,
@@ -10,7 +10,27 @@
   "points_for": 145,
   "points_against": 44,
   "average_score_margin": 25.25,
-  "current_pregame_profile": null,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 81.236293,
+    "adv_schedule_strength": 31.2197,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": 0.6698628315296489,
+    "talent_yield_label": "Above Expectation",
+    "control_creation": 0.477856,
+    "control_finish": 0.875987,
+    "control_denial": 0.57457,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 466.2,
+      "yards_per_play": 6.76,
+      "points_per_drive": 2.94,
+      "rush_yards_per_game": 243.5,
+      "pass_yards_per_game": 222.8,
+      "turnover_margin": 1
+    }
+  },
   "canonical_url": "https://cfpadvantage.com/teams/2026/duke/",
   "data_url": "https://cfpadvantage.com/public-data/teams/duke.json"
 }

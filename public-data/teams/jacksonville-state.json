@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T18:31:13.319Z",
+  "generated_at": "2026-10-04T17:52:14.648Z",
   "team": "Jacksonville State",
   "full_name": "Jacksonville State Gamecocks",
   "season": 2026,
@@ -10,7 +10,27 @@
   "points_for": 137,
   "points_against": 109,
   "average_score_margin": 5.6,
-  "current_pregame_profile": null,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 35.247461,
+    "adv_schedule_strength": 21.523451,
+    "games_before_target": 5,
+    "recent_form": "Stable, Above Baseline",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -0.28006733999424066,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.509434,
+    "control_finish": 0.703704,
+    "control_denial": 0.622222,
+    "comparison_stats": {
+      "games_available": 5,
+      "yards_per_game": 392.4,
+      "yards_per_play": 6.5,
+      "points_per_drive": 2.42,
+      "rush_yards_per_game": 160.8,
+      "pass_yards_per_game": 231.6,
+      "turnover_margin": -3
+    }
+  },
   "canonical_url": "https://cfpadvantage.com/teams/2026/jacksonville-state/",
   "data_url": "https://cfpadvantage.com/public-data/teams/jacksonville-state.json"
 }

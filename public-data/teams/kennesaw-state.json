@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T18:31:13.319Z",
+  "generated_at": "2026-10-04T17:52:14.648Z",
   "team": "Kennesaw State",
   "full_name": "Kennesaw State Owls",
   "season": 2026,
@@ -10,7 +10,27 @@
   "points_for": 87,
   "points_against": 90,
   "average_score_margin": -0.75,
-  "current_pregame_profile": null,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 24.446499,
+    "adv_schedule_strength": 51.308668,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": 0.11235130841234742,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.372907,
+    "control_finish": 0.874643,
+    "control_denial": 0.514236,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 364.2,
+      "yards_per_play": 5.54,
+      "points_per_drive": 1.93,
+      "rush_yards_per_game": 167,
+      "pass_yards_per_game": 197.2,
+      "turnover_margin": 1
+    }
+  },
   "canonical_url": "https://cfpadvantage.com/teams/2026/kennesaw-state/",
   "data_url": "https://cfpadvantage.com/public-data/teams/kennesaw-state.json"
 }

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T18:31:13.319Z",
+  "generated_at": "2026-10-04T17:52:14.648Z",
   "team": "Sacramento State",
   "full_name": "Sacramento State Hornets",
   "season": 2026,
@@ -10,7 +10,27 @@
   "points_for": 88,
   "points_against": 143,
   "average_score_margin": -11,
-  "current_pregame_profile": null,
+  "current_pregame_profile": {
+    "pregame_adv_rating": -5.125389,
+    "adv_schedule_strength": 14.459551,
+    "games_before_target": 5,
+    "recent_form": "Stable, Above Baseline",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -0.8700137695945575,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.278689,
+    "control_finish": 0.705882,
+    "control_denial": 0.685185,
+    "comparison_stats": {
+      "games_available": 5,
+      "yards_per_game": 326.8,
+      "yards_per_play": 4.78,
+      "points_per_drive": 1.38,
+      "rush_yards_per_game": 111.2,
+      "pass_yards_per_game": 215.6,
+      "turnover_margin": -9
+    }
+  },
   "canonical_url": "https://cfpadvantage.com/teams/2026/sacramento-state/",
   "data_url": "https://cfpadvantage.com/public-data/teams/sacramento-state.json"
 }

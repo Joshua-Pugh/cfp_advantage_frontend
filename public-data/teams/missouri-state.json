@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T18:31:13.319Z",
+  "generated_at": "2026-10-04T17:52:14.648Z",
   "team": "Missouri State",
   "full_name": "Missouri State Bears",
   "season": 2026,
@@ -10,7 +10,27 @@
   "points_for": 96,
   "points_against": 128,
   "average_score_margin": -8,
-  "current_pregame_profile": null,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 15.607536,
+    "adv_schedule_strength": 43.522244,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -0.3024599828279195,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.402946,
+    "control_finish": 0.779037,
+    "control_denial": 0.681985,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 349,
+      "yards_per_play": 5.7,
+      "points_per_drive": 1.98,
+      "rush_yards_per_game": 138.8,
+      "pass_yards_per_game": 210.2,
+      "turnover_margin": 1
+    }
+  },
   "canonical_url": "https://cfpadvantage.com/teams/2026/missouri-state/",
   "data_url": "https://cfpadvantage.com/public-data/teams/missouri-state.json"
 }

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T18:31:13.319Z",
+  "generated_at": "2026-10-04T17:52:14.648Z",
   "team": "Northern Illinois",
   "full_name": "Northern Illinois Huskies",
   "season": 2026,
@@ -10,7 +10,27 @@
   "points_for": 55,
   "points_against": 145,
   "average_score_margin": -22.5,
-  "current_pregame_profile": null,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 13.833876,
+    "adv_schedule_strength": 57.268371,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV has improved with manageable volatility.",
+    "talent_yield": -0.33318761315854073,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.31097,
+    "control_finish": 0.614333,
+    "control_denial": 0.542765,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 300.2,
+      "yards_per_play": 4.6,
+      "points_per_drive": 1.04,
+      "rush_yards_per_game": 79.2,
+      "pass_yards_per_game": 221,
+      "turnover_margin": 0
+    }
+  },
   "canonical_url": "https://cfpadvantage.com/teams/2026/northern-illinois/",
   "data_url": "https://cfpadvantage.com/public-data/teams/northern-illinois.json"
 }

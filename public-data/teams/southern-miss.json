@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T18:31:13.319Z",
+  "generated_at": "2026-10-04T17:52:14.648Z",
   "team": "Southern Miss",
   "full_name": "Southern Miss Golden Eagles",
   "season": 2026,
@@ -10,7 +10,27 @@
   "points_for": 98,
   "points_against": 118,
   "average_score_margin": -5,
-  "current_pregame_profile": null,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 5.969585,
+    "adv_schedule_strength": 22.883465,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -0.6080699584026267,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.325744,
+    "control_finish": 0.854903,
+    "control_denial": 0.677429,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 391.5,
+      "yards_per_play": 5.51,
+      "points_per_drive": 1.96,
+      "rush_yards_per_game": 150,
+      "pass_yards_per_game": 241.5,
+      "turnover_margin": 2
+    }
+  },
   "canonical_url": "https://cfpadvantage.com/teams/2026/southern-miss/",
   "data_url": "https://cfpadvantage.com/public-data/teams/southern-miss.json"
 }

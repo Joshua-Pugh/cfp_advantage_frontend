@@ -1,16 +1,36 @@
 {
-  "generated_at": "2026-10-03T18:31:13.319Z",
+  "generated_at": "2026-10-04T17:52:14.648Z",
   "team": "LSU",
   "full_name": "LSU Tigers",
   "season": 2026,
   "conference": "SEC",
   "classification": "fbs",
   "tier": "power",
-  "record": "3-1",
-  "points_for": 155,
-  "points_against": 62,
-  "average_score_margin": 23.25,
-  "current_pregame_profile": null,
+  "record": "4-1",
+  "points_for": 218,
+  "points_against": 76,
+  "average_score_margin": 28.4,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 116.447729,
+    "adv_schedule_strength": 50.185564,
+    "games_before_target": 5,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": 0.12406712466698466,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.5625,
+    "control_finish": 0.861111,
+    "control_denial": 0.566667,
+    "comparison_stats": {
+      "games_available": 5,
+      "yards_per_game": 547.8,
+      "yards_per_play": 6.58,
+      "points_per_drive": 3.41,
+      "rush_yards_per_game": 237.8,
+      "pass_yards_per_game": 310,
+      "turnover_margin": 0
+    }
+  },
   "canonical_url": "https://cfpadvantage.com/teams/2026/lsu/",
   "data_url": "https://cfpadvantage.com/public-data/teams/lsu.json"
 }

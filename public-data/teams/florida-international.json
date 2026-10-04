@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T18:31:13.319Z",
+  "generated_at": "2026-10-04T17:52:14.648Z",
   "team": "Florida International",
   "full_name": "Florida International Panthers",
   "season": 2026,
@@ -10,7 +10,27 @@
   "points_for": 72,
   "points_against": 58,
   "average_score_margin": 3.5,
-  "current_pregame_profile": null,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 17.641712,
+    "adv_schedule_strength": 6.717311,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": -0.7386478639407498,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.355353,
+    "control_finish": 0.862283,
+    "control_denial": 0.630383,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 418,
+      "yards_per_play": 5.79,
+      "points_per_drive": 1.67,
+      "rush_yards_per_game": 124,
+      "pass_yards_per_game": 294,
+      "turnover_margin": -4
+    }
+  },
   "canonical_url": "https://cfpadvantage.com/teams/2026/florida-international/",
   "data_url": "https://cfpadvantage.com/public-data/teams/florida-international.json"
 }

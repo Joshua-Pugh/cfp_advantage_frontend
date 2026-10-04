@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T18:31:13.319Z",
+  "generated_at": "2026-10-04T17:52:14.648Z",
   "team": "Texas",
   "full_name": "Texas Longhorns",
   "season": 2026,
@@ -10,7 +10,27 @@
   "points_for": 133,
   "points_against": 53,
   "average_score_margin": 20,
-  "current_pregame_profile": null,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 136.178826,
+    "adv_schedule_strength": 87.654694,
+    "games_before_target": 4,
+    "recent_form": "Declining",
+    "recent_form_note": "Recent ADV has declined with manageable volatility.",
+    "talent_yield": 0.4131331409625345,
+    "talent_yield_label": "Above Expectation",
+    "control_creation": 0.453784,
+    "control_finish": 0.901471,
+    "control_denial": 0.667411,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 378.5,
+      "yards_per_play": 5.29,
+      "points_per_drive": 2.82,
+      "rush_yards_per_game": 146.5,
+      "pass_yards_per_game": 232,
+      "turnover_margin": 0
+    }
+  },
   "canonical_url": "https://cfpadvantage.com/teams/2026/texas/",
   "data_url": "https://cfpadvantage.com/public-data/teams/texas.json"
 }

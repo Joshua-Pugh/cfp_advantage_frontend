@@ -1,0 +1,92 @@
+{
+  "generated_at": "2026-10-04T17:52:14.648Z",
+  "game_id": "401862795",
+  "season": 2026,
+  "week": 6,
+  "date": "2026-10-10",
+  "kickoff_at": "2026-10-10T16:00:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "Tulane",
+  "away_full_name": "Tulane Green Wave",
+  "away_conference": "American Athletic",
+  "away_ap_rank": 0,
+  "home_team": "Army",
+  "home_full_name": "Army Black Knights",
+  "home_conference": "American Athletic",
+  "home_ap_rank": 0,
+  "projected_winner": "Army Black Knights",
+  "projected_margin": 15.06,
+  "projection_closeness": 0.283,
+  "context_label": "Expected/Observed Blend",
+  "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+  "matchup_conviction": {
+    "label": "Strong Separation",
+    "note": "Large baseline separation with non-conflicting matchup context. Historically, this game shape has been much harder to overturn.",
+    "historical_model_win_rate": 0.836,
+    "framework_support": {
+      "strength": "Framework Strongly Supports",
+      "support_components": 5,
+      "conflict_components": 0
+    }
+  },
+  "key_advantages": {
+    "Army": [
+      "Stronger Control Creation",
+      "More consistent Control Rate",
+      "More efficient Control Finish",
+      "Stronger Control Denial",
+      "Higher Control Drive Shutout Rate",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ],
+    "Tulane": [
+      "Higher overall ADV strength",
+      "Stronger schedule context"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 47.91493,
+    "adv_schedule_strength": 58.893716,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV has improved with manageable volatility.",
+    "talent_yield": -0.3093001711194321,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.358308,
+    "control_finish": 0.761232,
+    "control_denial": 0.473449,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 346.8,
+      "yards_per_play": 5.71,
+      "points_per_drive": 1.63,
+      "rush_yards_per_game": 160.5,
+      "pass_yards_per_game": 186.2,
+      "turnover_margin": -1
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 22.58663,
+    "adv_schedule_strength": 9.56208,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": 2.4615182705907577,
+    "talent_yield_label": "Well Above Expectation",
+    "control_creation": 0.550397,
+    "control_finish": 0.845805,
+    "control_denial": 0.65284,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 432.8,
+      "yards_per_play": 6.56,
+      "points_per_drive": 3.82,
+      "rush_yards_per_game": 334.2,
+      "pass_yards_per_game": 98.5,
+      "turnover_margin": -2
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401862795/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401862795.json"
+}

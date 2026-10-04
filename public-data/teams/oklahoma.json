@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T18:31:13.319Z",
+  "generated_at": "2026-10-04T17:52:14.648Z",
   "team": "Oklahoma",
   "full_name": "Oklahoma Sooners",
   "season": 2026,
@@ -10,7 +10,27 @@
   "points_for": 88,
   "points_against": 64,
   "average_score_margin": 6,
-  "current_pregame_profile": null,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 80.722133,
+    "adv_schedule_strength": 64.595508,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -0.42805242270074284,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.346894,
+    "control_finish": 0.769269,
+    "control_denial": 0.56808,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 321.2,
+      "yards_per_play": 5.2,
+      "points_per_drive": 1.72,
+      "rush_yards_per_game": 99,
+      "pass_yards_per_game": 222.2,
+      "turnover_margin": -6
+    }
+  },
   "canonical_url": "https://cfpadvantage.com/teams/2026/oklahoma/",
   "data_url": "https://cfpadvantage.com/public-data/teams/oklahoma.json"
 }

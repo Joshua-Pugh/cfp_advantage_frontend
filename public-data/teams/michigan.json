@@ -1,36 +1,16 @@
 {
-  "generated_at": "2026-10-03T18:31:13.319Z",
+  "generated_at": "2026-10-04T17:52:14.648Z",
   "team": "Michigan",
   "full_name": "Michigan Wolverines",
   "season": 2026,
   "conference": "Big Ten",
   "classification": "fbs",
   "tier": "power",
-  "record": "3-1",
-  "points_for": 101,
-  "points_against": 59,
-  "average_score_margin": 10.5,
-  "current_pregame_profile": {
-    "pregame_adv_rating": 98.088279,
-    "adv_schedule_strength": 58.737595,
-    "games_before_target": 4,
-    "recent_form": "Improving",
-    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
-    "talent_yield": -0.16268249882057506,
-    "talent_yield_label": "Near Expectation",
-    "control_creation": 0.354117,
-    "control_finish": 0.908592,
-    "control_denial": 0.55321,
-    "comparison_stats": {
-      "games_available": 4,
-      "yards_per_game": 347.8,
-      "yards_per_play": 5.82,
-      "points_per_drive": 2.24,
-      "rush_yards_per_game": 145.5,
-      "pass_yards_per_game": 202.2,
-      "turnover_margin": -1
-    }
-  },
+  "record": "3-2",
+  "points_for": 115,
+  "points_against": 79,
+  "average_score_margin": 7.2,
+  "current_pregame_profile": null,
   "canonical_url": "https://cfpadvantage.com/teams/2026/michigan/",
   "data_url": "https://cfpadvantage.com/public-data/teams/michigan.json"
 }

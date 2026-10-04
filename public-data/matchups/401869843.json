@@ -1,0 +1,92 @@
+{
+  "generated_at": "2026-10-04T17:52:14.648Z",
+  "game_id": "401869843",
+  "season": 2026,
+  "week": 6,
+  "date": "2026-10-10",
+  "kickoff_at": "2026-10-10T17:00:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "Old Dominion",
+  "away_full_name": "Old Dominion Monarchs",
+  "away_conference": "Sun Belt",
+  "away_ap_rank": 0,
+  "home_team": "App State",
+  "home_full_name": "App State Mountaineers",
+  "home_conference": "Sun Belt",
+  "home_ap_rank": 0,
+  "projected_winner": "App State Mountaineers",
+  "projected_margin": 12.78,
+  "projection_closeness": 0.3914,
+  "context_label": "Expected/Observed Blend",
+  "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+  "matchup_conviction": {
+    "label": "Supported Edge",
+    "note": "The matchup shape supports the lean with meaningful but not overwhelming separation.",
+    "historical_model_win_rate": 0.723,
+    "framework_support": {
+      "strength": "Framework Strongly Supports",
+      "support_components": 5,
+      "conflict_components": 0
+    }
+  },
+  "key_advantages": {
+    "App State": [
+      "Stronger Control Creation",
+      "More consistent Control Rate",
+      "More efficient Control Finish",
+      "Stronger Control Denial",
+      "Higher Control Drive Shutout Rate",
+      "Higher overall ADV strength",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ],
+    "Old Dominion": [
+      "Stronger schedule context"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 8.65402,
+    "adv_schedule_strength": 29.90411,
+    "games_before_target": 5,
+    "recent_form": "Stable, Below Baseline",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": 0.08695768351943789,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.19697,
+    "control_finish": 0.692308,
+    "control_denial": 0.489796,
+    "comparison_stats": {
+      "games_available": 5,
+      "yards_per_game": 259.2,
+      "yards_per_play": 4.31,
+      "points_per_drive": 1.29,
+      "rush_yards_per_game": 107.6,
+      "pass_yards_per_game": 151.6,
+      "turnover_margin": -2
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 35.536794,
+    "adv_schedule_strength": 10.689137,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": 0.11237953123395505,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.485776,
+    "control_finish": 0.840455,
+    "control_denial": 0.751551,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 464.2,
+      "yards_per_play": 6.61,
+      "points_per_drive": 2.9,
+      "rush_yards_per_game": 145,
+      "pass_yards_per_game": 319.2,
+      "turnover_margin": 4
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401869843/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401869843.json"
+}

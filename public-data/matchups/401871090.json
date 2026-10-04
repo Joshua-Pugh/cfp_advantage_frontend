@@ -1,0 +1,87 @@
+{
+  "generated_at": "2026-10-04T17:52:14.648Z",
+  "game_id": "401871090",
+  "season": 2026,
+  "week": 6,
+  "date": "2026-10-07",
+  "kickoff_at": "2026-10-07T00:00:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "Southern Miss",
+  "away_full_name": "Southern Miss Golden Eagles",
+  "away_conference": "Sun Belt",
+  "away_ap_rank": 0,
+  "home_team": "Troy",
+  "home_full_name": "Troy Trojans",
+  "home_conference": "Sun Belt",
+  "home_ap_rank": 0,
+  "projected_winner": "Troy Trojans",
+  "projected_margin": 8.62,
+  "projection_closeness": 0.5895,
+  "context_label": "Expected/Observed Blend",
+  "context_note": "This read blends weighted preseason control expectation with current-season evidence while the live sample is still building.",
+  "matchup_conviction": {
+    "label": "Context Pushback",
+    "note": "The baseline has a lean, but stable Control Framework traits point to meaningful matchup resistance.",
+    "historical_model_win_rate": 0.606,
+    "framework_support": {
+      "strength": "Framework Leans Against",
+      "support_components": 0,
+      "conflict_components": 3
+    }
+  },
+  "key_advantages": {
+    "Troy": [
+      "Higher overall ADV strength",
+      "Stronger schedule context"
+    ],
+    "Southern Miss": [
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 5.969585,
+    "adv_schedule_strength": 22.883465,
+    "games_before_target": 4,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -0.6080699584026267,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.325744,
+    "control_finish": 0.854903,
+    "control_denial": 0.677429,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 391.5,
+      "yards_per_play": 5.51,
+      "points_per_drive": 1.96,
+      "rush_yards_per_game": 150,
+      "pass_yards_per_game": 241.5,
+      "turnover_margin": 2
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 33.012311,
+    "adv_schedule_strength": 32.712648,
+    "games_before_target": 4,
+    "recent_form": "Declining",
+    "recent_form_note": "Recent ADV has declined with manageable volatility.",
+    "talent_yield": -0.328607779348614,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.308357,
+    "control_finish": 0.863096,
+    "control_denial": 0.667518,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 371.8,
+      "yards_per_play": 5.2,
+      "points_per_drive": 1.53,
+      "rush_yards_per_game": 166.2,
+      "pass_yards_per_game": 205.5,
+      "turnover_margin": -1
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401871090/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401871090.json"
+}

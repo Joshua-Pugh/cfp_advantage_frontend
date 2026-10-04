@@ -1,36 +1,16 @@
 {
-  "generated_at": "2026-10-03T18:31:13.319Z",
+  "generated_at": "2026-10-04T17:52:14.648Z",
   "team": "Miami",
   "full_name": "Miami Hurricanes",
   "season": 2026,
   "conference": "ACC",
   "classification": "fbs",
   "tier": "power",
-  "record": "4-0",
-  "points_for": 207,
-  "points_against": 36,
-  "average_score_margin": 42.75,
-  "current_pregame_profile": {
-    "pregame_adv_rating": 97.681792,
-    "adv_schedule_strength": 8.250241,
-    "games_before_target": 4,
-    "recent_form": "Declining",
-    "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
-    "talent_yield": -0.21583468109095416,
-    "talent_yield_label": "Near Expectation",
-    "control_creation": 0.617292,
-    "control_finish": 0.90822,
-    "control_denial": 0.658677,
-    "comparison_stats": {
-      "games_available": 4,
-      "yards_per_game": 583.8,
-      "yards_per_play": 8.58,
-      "points_per_drive": 4.48,
-      "rush_yards_per_game": 226.8,
-      "pass_yards_per_game": 357,
-      "turnover_margin": 0
-    }
-  },
+  "record": "5-0",
+  "points_for": 248,
+  "points_against": 49,
+  "average_score_margin": 39.8,
+  "current_pregame_profile": null,
   "canonical_url": "https://cfpadvantage.com/teams/2026/miami/",
   "data_url": "https://cfpadvantage.com/public-data/teams/miami.json"
 }

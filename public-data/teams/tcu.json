@@ -1,36 +1,16 @@
 {
-  "generated_at": "2026-10-03T18:31:13.319Z",
+  "generated_at": "2026-10-04T17:52:14.648Z",
   "team": "TCU",
   "full_name": "TCU Horned Frogs",
   "season": 2026,
   "conference": "Big 12",
   "classification": "fbs",
   "tier": "power",
-  "record": "2-2",
-  "points_for": 117,
-  "points_against": 50,
-  "average_score_margin": 16.75,
-  "current_pregame_profile": {
-    "pregame_adv_rating": 63.954907,
-    "adv_schedule_strength": 25.420353,
-    "games_before_target": 4,
-    "recent_form": "Stable",
-    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
-    "talent_yield": -0.24844393929227243,
-    "talent_yield_label": "Near Expectation",
-    "control_creation": 0.45763,
-    "control_finish": 0.813436,
-    "control_denial": 0.416279,
-    "comparison_stats": {
-      "games_available": 4,
-      "yards_per_game": 442,
-      "yards_per_play": 6.62,
-      "points_per_drive": 2.39,
-      "rush_yards_per_game": 143,
-      "pass_yards_per_game": 299,
-      "turnover_margin": -1
-    }
-  },
+  "record": "2-3",
+  "points_for": 127,
+  "points_against": 67,
+  "average_score_margin": 12,
+  "current_pregame_profile": null,
   "canonical_url": "https://cfpadvantage.com/teams/2026/tcu/",
   "data_url": "https://cfpadvantage.com/public-data/teams/tcu.json"
 }

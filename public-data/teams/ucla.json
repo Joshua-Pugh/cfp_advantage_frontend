@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-03T18:31:13.319Z",
+  "generated_at": "2026-10-04T17:52:14.648Z",
   "team": "UCLA",
   "full_name": "UCLA Bruins",
   "season": 2026,
@@ -10,7 +10,27 @@
   "points_for": 179,
   "points_against": 75,
   "average_score_margin": 26,
-  "current_pregame_profile": null,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 95.583886,
+    "adv_schedule_strength": 39.853297,
+    "games_before_target": 4,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV has improved with manageable volatility.",
+    "talent_yield": 0.3627692510643088,
+    "talent_yield_label": "Above Expectation",
+    "control_creation": 0.520175,
+    "control_finish": 0.817191,
+    "control_denial": 0.415955,
+    "comparison_stats": {
+      "games_available": 4,
+      "yards_per_game": 486.5,
+      "yards_per_play": 7.4,
+      "points_per_drive": 2.9,
+      "rush_yards_per_game": 281.5,
+      "pass_yards_per_game": 205,
+      "turnover_margin": 8
+    }
+  },
   "canonical_url": "https://cfpadvantage.com/teams/2026/ucla/",
   "data_url": "https://cfpadvantage.com/public-data/teams/ucla.json"
 }
