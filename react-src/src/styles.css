@@ -10164,9 +10164,11 @@ pre {
 .ask-adv-answer > p:first-child { margin-top: 0; font-size: 16px; line-height: 1.55; }
 .ask-adv-answer ul { margin: 10px 0; padding-left: 20px; }
 .ask-adv-answer small { display: block; margin-top: 12px; color: var(--muted); }
+.ask-adv-clear { margin-top: 12px; padding: 0; border: 0; background: transparent; color: var(--green); font: inherit; font-weight: 800; text-decoration: underline; cursor: pointer; }
 :root[data-theme="dark"] .ask-adv-panel { background: #101c17; border-color: rgba(214,173,85,.30); border-left-color: var(--gold-bright); }
 :root[data-theme="dark"] .ask-adv-form input, :root[data-theme="dark"] .ask-adv-answer { background: #0b1511; color: #fff; border-color: rgba(214,173,85,.24); }
 :root[data-theme="dark"] .ask-adv-form label, :root[data-theme="dark"] .ask-adv-answer strong { color: #fff; }
+:root[data-theme="dark"] .ask-adv-clear { color: var(--gold-bright); }
 @media (max-width: 700px) { .ask-adv-heading { display: grid; } .ask-adv-heading .secondary-action { width: 100%; } .ask-adv-form > div { grid-template-columns: 1fr; } .ask-adv-form button { width: 100%; } }
 
 /* Sitewide Ask ADV guide. Matchup-specific questions remain inside Full Breakdown. */
@@ -10193,10 +10195,13 @@ pre {
 .ask-adv-uncertainty { padding-top: 10px; border-top: 1px solid var(--line); color: var(--muted); }
 .ask-adv-assistant-answer small { color: var(--muted); }
 .ask-adv-assistant-links { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 0; }
-.ask-adv-assistant-links a { color: var(--green); font-weight: 850; }
+.ask-adv-assistant-links a, .ask-adv-assistant-links button { color: var(--green); font-weight: 850; }
+.ask-adv-assistant-links button { padding: 0; border: 0; background: transparent; font: inherit; text-decoration: underline; cursor: pointer; }
+.ask-adv-answer-rankings { padding-block: 12px; }
+.ask-adv-answer-rankings > p { font-size: 1.02rem; }
 :root[data-theme="dark"] .ask-adv-assistant { background: #17251f; border-color: rgba(214,173,85,.38); border-top-color: var(--gold-bright); }
 :root[data-theme="dark"] .ask-adv-assistant-heading > button, :root[data-theme="dark"] .ask-adv-quick-questions button, :root[data-theme="dark"] .ask-adv-assistant-form textarea, :root[data-theme="dark"] .ask-adv-assistant-answer { background: #0b1511; color: #fff; border-color: rgba(214,173,85,.28); }
-:root[data-theme="dark"] .ask-adv-quick-questions button, :root[data-theme="dark"] .ask-adv-assistant-links a { color: var(--gold-bright); }
+:root[data-theme="dark"] .ask-adv-quick-questions button, :root[data-theme="dark"] .ask-adv-assistant-links a, :root[data-theme="dark"] .ask-adv-assistant-links button { color: var(--gold-bright); }
 body.ask-adv-open { overflow: hidden; }
 @media (max-width: 600px) {
   .ask-adv-launcher { right: max(12px, env(safe-area-inset-right)); bottom: max(12px, env(safe-area-inset-bottom)); padding: 8px; }
