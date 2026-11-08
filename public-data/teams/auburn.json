@@ -1,16 +1,36 @@
 {
-  "generated_at": "2026-10-05T22:01:52.540Z",
+  "generated_at": "2026-11-08T22:12:22.384Z",
   "team": "Auburn",
   "full_name": "Auburn Tigers",
   "season": 2026,
   "conference": "SEC",
   "classification": "fbs",
   "tier": "power",
-  "record": "3-2",
-  "points_for": 134,
-  "points_against": 107,
-  "average_score_margin": 5.4,
-  "current_pregame_profile": null,
+  "record": "5-4",
+  "points_for": 219,
+  "points_against": 237,
+  "average_score_margin": -2,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 59.483641,
+    "adv_schedule_strength": 72.900308,
+    "games_before_target": 9,
+    "recent_form": "Stable, Below Baseline",
+    "recent_form_note": "Recent ADV is comparatively stable without a material slope.",
+    "talent_yield": -0.8794272289813886,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.365385,
+    "control_finish": 0.842105,
+    "control_denial": 0.59434,
+    "comparison_stats": {
+      "games_available": 9,
+      "yards_per_game": 367.6,
+      "yards_per_play": 5.23,
+      "points_per_drive": 1.95,
+      "rush_yards_per_game": 156.1,
+      "pass_yards_per_game": 211.4,
+      "turnover_margin": 3
+    }
+  },
   "canonical_url": "https://cfpadvantage.com/teams/2026/auburn/",
   "data_url": "https://cfpadvantage.com/public-data/teams/auburn.json"
 }

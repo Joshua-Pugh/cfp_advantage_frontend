@@ -1,16 +1,36 @@
 {
-  "generated_at": "2026-10-05T22:01:52.540Z",
+  "generated_at": "2026-11-08T22:12:22.384Z",
   "team": "New Mexico",
   "full_name": "New Mexico Lobos",
   "season": 2026,
   "conference": "Mountain West",
   "classification": "fbs",
   "tier": "g5",
-  "record": "4-1",
-  "points_for": 217,
-  "points_against": 53,
-  "average_score_margin": 32.8,
-  "current_pregame_profile": null,
+  "record": "8-1",
+  "points_for": 311,
+  "points_against": 98,
+  "average_score_margin": 23.6667,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 66.21453,
+    "adv_schedule_strength": 13.158975,
+    "games_before_target": 9,
+    "recent_form": "Improving, Still Below Baseline",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": 1.1874292037488114,
+    "talent_yield_label": "Well Above Expectation",
+    "control_creation": 0.435185,
+    "control_finish": 0.87234,
+    "control_denial": 0.62037,
+    "comparison_stats": {
+      "games_available": 9,
+      "yards_per_game": 362.2,
+      "yards_per_play": 5.75,
+      "points_per_drive": 2.51,
+      "rush_yards_per_game": 213.1,
+      "pass_yards_per_game": 149.1,
+      "turnover_margin": 18
+    }
+  },
   "canonical_url": "https://cfpadvantage.com/teams/2026/new-mexico/",
   "data_url": "https://cfpadvantage.com/public-data/teams/new-mexico.json"
 }

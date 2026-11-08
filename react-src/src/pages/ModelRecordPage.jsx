@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import PageMetadata from "../components/PageMetadata";
 import StandardPage from "../components/StandardPage";
+import { api } from "../lib/api";
 
 const DATA_URL = "/public-data/validation-record.json";
 
@@ -17,13 +18,36 @@ function ModelRecordPage() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    fetch(DATA_URL)
-      .then((response) => {
-        if (!response.ok) throw new Error("Model record unavailable");
-        return response.json();
-      })
-      .then(setRecord)
-      .catch(() => setError("The current public model record is temporarily unavailable."));
+    async function loadRecord() {
+      try {
+        const staticResponse = await fetch(DATA_URL);
+        if (!staticResponse.ok) throw new Error("Static model record unavailable");
+        const staticRecord = await staticResponse.json();
+        try {
+          const liveTracker = await api("/api/product-a/live-tracker?season=2026");
+          setRecord({
+            ...staticRecord,
+            current_season: {
+              ...staticRecord.current_season,
+              updated_at: liveTracker.updated_at_utc,
+              update_policy: liveTracker.update_policy,
+              summary: liveTracker.summary,
+              weeks: liveTracker.weeks,
+            },
+            receipt_repository_url:
+              liveTracker.receipt_repository_url || staticRecord.receipt_repository_url,
+          });
+        } catch (liveError) {
+          console.warn("Live model record unavailable; using published snapshot.", liveError);
+          setRecord(staticRecord);
+        }
+      } catch (recordError) {
+        console.error("Public model record failed:", recordError);
+        setError("The current public model record is temporarily unavailable.");
+      }
+    }
+
+    loadRecord();
   }, []);
 
   const current = record?.current_season;

@@ -1,0 +1,91 @@
+{
+  "generated_at": "2026-11-08T22:12:22.384Z",
+  "game_id": "401866462",
+  "season": 2026,
+  "week": 11,
+  "date": "2026-11-12",
+  "kickoff_at": "2026-11-12T00:30:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "Sacramento State",
+  "away_full_name": "Sacramento State Hornets",
+  "away_conference": "Mid-American",
+  "away_ap_rank": 0,
+  "home_team": "Central Michigan",
+  "home_full_name": "Central Michigan Chippewas",
+  "home_conference": "Mid-American",
+  "home_ap_rank": 0,
+  "projected_winner": "Central Michigan Chippewas",
+  "projected_margin": 19.69,
+  "projection_closeness": 0.0626,
+  "context_label": "Strong Framework Support",
+  "context_note": "Central Michigan owns support across control, finishing, denial, and finishing resistance.",
+  "matchup_conviction": {
+    "label": "Strong Separation",
+    "note": "Large baseline separation with non-conflicting matchup context. Historically, this game shape has been much harder to overturn.",
+    "historical_model_win_rate": 0.836,
+    "framework_support": {
+      "strength": "Framework Strongly Supports",
+      "support_components": 5,
+      "conflict_components": 0
+    }
+  },
+  "key_advantages": {
+    "Central Michigan": [
+      "Stronger Control Creation",
+      "More consistent Control Rate",
+      "More efficient Control Finish",
+      "Stronger Control Denial",
+      "Higher Control Drive Shutout Rate",
+      "Higher overall ADV strength",
+      "Stronger schedule context",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ],
+    "Sacramento State": []
+  },
+  "away_profile": {
+    "pregame_adv_rating": -27.404693,
+    "adv_schedule_strength": 10.445307,
+    "games_before_target": 10,
+    "recent_form": "Improving, Still Below Baseline",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": -1.3191793287278788,
+    "talent_yield_label": "Well Below Expectation",
+    "control_creation": 0.247934,
+    "control_finish": 0.766667,
+    "control_denial": 0.673684,
+    "comparison_stats": {
+      "games_available": 10,
+      "yards_per_game": 288.4,
+      "yards_per_play": 4.46,
+      "points_per_drive": 1.19,
+      "rush_yards_per_game": 97.6,
+      "pass_yards_per_game": 190.8,
+      "turnover_margin": -5
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 16.548186,
+    "adv_schedule_strength": 24.13152,
+    "games_before_target": 9,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": -0.05354323861263599,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.326316,
+    "control_finish": 0.870968,
+    "control_denial": 0.752066,
+    "comparison_stats": {
+      "games_available": 9,
+      "yards_per_game": 305.6,
+      "yards_per_play": 4.97,
+      "points_per_drive": 1.8,
+      "rush_yards_per_game": 176.6,
+      "pass_yards_per_game": 129,
+      "turnover_margin": 4
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401866462/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401866462.json"
+}

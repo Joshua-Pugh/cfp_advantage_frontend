@@ -1,0 +1,92 @@
+{
+  "generated_at": "2026-11-08T22:12:22.384Z",
+  "game_id": "401869969",
+  "season": 2026,
+  "week": 11,
+  "date": "2026-11-13",
+  "kickoff_at": "2026-11-13T02:00:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "Louisiana",
+  "away_full_name": "Louisiana Ragin' Cajuns",
+  "away_conference": "Sun Belt",
+  "away_ap_rank": 0,
+  "home_team": "UL Monroe",
+  "home_full_name": "UL Monroe Warhawks",
+  "home_conference": "Sun Belt",
+  "home_ap_rank": 0,
+  "projected_winner": "Louisiana Ragin' Cajuns",
+  "projected_margin": 10.33,
+  "projection_closeness": 0.508,
+  "context_label": "Strong Framework Support",
+  "context_note": "Louisiana owns support across control, finishing, denial, and finishing resistance.",
+  "matchup_conviction": {
+    "label": "Supported Edge",
+    "note": "The matchup shape supports the lean with meaningful but not overwhelming separation.",
+    "historical_model_win_rate": 0.723,
+    "framework_support": {
+      "strength": "Framework Strongly Supports",
+      "support_components": 5,
+      "conflict_components": 0
+    }
+  },
+  "key_advantages": {
+    "UL Monroe": [
+      "Stronger schedule context"
+    ],
+    "Louisiana": [
+      "Stronger Control Creation",
+      "More consistent Control Rate",
+      "More efficient Control Finish",
+      "Stronger Control Denial",
+      "Higher Control Drive Shutout Rate",
+      "Higher overall ADV strength",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 58.123957,
+    "adv_schedule_strength": 21.373957,
+    "games_before_target": 9,
+    "recent_form": "Improving, Still Below Baseline",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": 1.2449543019481082,
+    "talent_yield_label": "Well Above Expectation",
+    "control_creation": 0.47619,
+    "control_finish": 0.84,
+    "control_denial": 0.669725,
+    "comparison_stats": {
+      "games_available": 9,
+      "yards_per_game": 391.1,
+      "yards_per_play": 5.84,
+      "points_per_drive": 2.47,
+      "rush_yards_per_game": 202.9,
+      "pass_yards_per_game": 188.2,
+      "turnover_margin": 4
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": -1.758259,
+    "adv_schedule_strength": 30.963964,
+    "games_before_target": 9,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV has improved with manageable volatility.",
+    "talent_yield": -0.43321864710468927,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.330275,
+    "control_finish": 0.777778,
+    "control_denial": 0.52381,
+    "comparison_stats": {
+      "games_available": 9,
+      "yards_per_game": 337.7,
+      "yards_per_play": 5.09,
+      "points_per_drive": 1.54,
+      "rush_yards_per_game": 138,
+      "pass_yards_per_game": 199.7,
+      "turnover_margin": -5
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401869969/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401869969.json"
+}

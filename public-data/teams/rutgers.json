@@ -1,16 +1,36 @@
 {
-  "generated_at": "2026-10-05T22:01:52.540Z",
+  "generated_at": "2026-11-08T22:12:22.384Z",
   "team": "Rutgers",
   "full_name": "Rutgers Scarlet Knights",
   "season": 2026,
   "conference": "Big Ten",
   "classification": "fbs",
   "tier": "power",
-  "record": "1-4",
-  "points_for": 150,
-  "points_against": 161,
-  "average_score_margin": -2.2,
-  "current_pregame_profile": null,
+  "record": "2-7",
+  "points_for": 232,
+  "points_against": 292,
+  "average_score_margin": -6.6667,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 11.147455,
+    "adv_schedule_strength": 42.675232,
+    "games_before_target": 9,
+    "recent_form": "Stable, Below Baseline",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -1.4371699614139293,
+    "talent_yield_label": "Well Below Expectation",
+    "control_creation": 0.424242,
+    "control_finish": 0.880952,
+    "control_denial": 0.558824,
+    "comparison_stats": {
+      "games_available": 9,
+      "yards_per_game": 363.4,
+      "yards_per_play": 5.79,
+      "points_per_drive": 2.3,
+      "rush_yards_per_game": 143.6,
+      "pass_yards_per_game": 219.9,
+      "turnover_margin": -6
+    }
+  },
   "canonical_url": "https://cfpadvantage.com/teams/2026/rutgers/",
   "data_url": "https://cfpadvantage.com/public-data/teams/rutgers.json"
 }

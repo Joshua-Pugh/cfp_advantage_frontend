@@ -1,0 +1,84 @@
+{
+  "generated_at": "2026-11-08T22:12:22.384Z",
+  "game_id": "401858520",
+  "season": 2026,
+  "week": 11,
+  "date": "2026-11-14",
+  "kickoff_at": "2026-11-14T17:00:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "Wisconsin",
+  "away_full_name": "Wisconsin Badgers",
+  "away_conference": "Big Ten",
+  "away_ap_rank": 0,
+  "home_team": "Maryland",
+  "home_full_name": "Maryland Terrapins",
+  "home_conference": "Big Ten",
+  "home_ap_rank": 0,
+  "projected_winner": "Wisconsin Badgers",
+  "projected_margin": 0.59,
+  "projection_closeness": 0.9718,
+  "context_label": "Mixed Framework Read",
+  "context_note": "The frozen Control Framework is split and does not strongly reinforce the baseline.",
+  "matchup_conviction": {
+    "label": "Fragile Edge",
+    "note": "CFP Advantage has a lean, but this sits in a historical range where modest edges have been easier to overturn.",
+    "historical_model_win_rate": 0.613,
+    "framework_support": {
+      "strength": "Mixed / Neutral",
+      "support_components": 0,
+      "conflict_components": 0
+    }
+  },
+  "key_advantages": {
+    "Maryland": [],
+    "Wisconsin": [
+      "Higher overall ADV strength",
+      "Stronger schedule context"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 79.874004,
+    "adv_schedule_strength": 53.735116,
+    "games_before_target": 9,
+    "recent_form": "Improving, Still Below Baseline",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": 0.1869342850739334,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.377778,
+    "control_finish": 0.882353,
+    "control_denial": 0.63964,
+    "comparison_stats": {
+      "games_available": 9,
+      "yards_per_game": 323.2,
+      "yards_per_play": 5.65,
+      "points_per_drive": 2.16,
+      "rush_yards_per_game": 136.6,
+      "pass_yards_per_game": 186.7,
+      "turnover_margin": -1
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 35.579914,
+    "adv_schedule_strength": 41.218803,
+    "games_before_target": 9,
+    "recent_form": "Improving, Still Below Baseline",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": -0.6958445175876478,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.36036,
+    "control_finish": 0.875,
+    "control_denial": 0.622222,
+    "comparison_stats": {
+      "games_available": 9,
+      "yards_per_game": 369.1,
+      "yards_per_play": 5.75,
+      "points_per_drive": 2.17,
+      "rush_yards_per_game": 129.6,
+      "pass_yards_per_game": 239.6,
+      "turnover_margin": 2
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401858520/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401858520.json"
+}

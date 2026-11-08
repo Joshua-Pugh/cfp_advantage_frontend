@@ -1,16 +1,36 @@
 {
-  "generated_at": "2026-10-05T22:01:52.540Z",
+  "generated_at": "2026-11-08T22:12:22.384Z",
   "team": "Georgia State",
   "full_name": "Georgia State Panthers",
   "season": 2026,
   "conference": "Sun Belt",
   "classification": "fbs",
   "tier": "g5",
-  "record": "4-1",
-  "points_for": 197,
-  "points_against": 95,
-  "average_score_margin": 20.4,
-  "current_pregame_profile": null,
+  "record": "5-4",
+  "points_for": 310,
+  "points_against": 236,
+  "average_score_margin": 8.2222,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 24.817448,
+    "adv_schedule_strength": 8.567448,
+    "games_before_target": 9,
+    "recent_form": "Improving, Still Below Baseline",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": -0.19935636509817917,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.5,
+    "control_finish": 0.857143,
+    "control_denial": 0.584158,
+    "comparison_stats": {
+      "games_available": 9,
+      "yards_per_game": 431.7,
+      "yards_per_play": 6.33,
+      "points_per_drive": 2.52,
+      "rush_yards_per_game": 206.9,
+      "pass_yards_per_game": 224.8,
+      "turnover_margin": -1
+    }
+  },
   "canonical_url": "https://cfpadvantage.com/teams/2026/georgia-state/",
   "data_url": "https://cfpadvantage.com/public-data/teams/georgia-state.json"
 }

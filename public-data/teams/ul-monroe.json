@@ -1,16 +1,36 @@
 {
-  "generated_at": "2026-10-05T22:01:52.540Z",
+  "generated_at": "2026-11-08T22:12:22.384Z",
   "team": "UL Monroe",
   "full_name": "UL Monroe Warhawks",
   "season": 2026,
   "conference": "Sun Belt",
   "classification": "fbs",
   "tier": "g5",
-  "record": "0-5",
-  "points_for": 120,
-  "points_against": 223,
-  "average_score_margin": -20.6,
-  "current_pregame_profile": null,
+  "record": "2-7",
+  "points_for": 181,
+  "points_against": 313,
+  "average_score_margin": -14.6667,
+  "current_pregame_profile": {
+    "pregame_adv_rating": -1.758259,
+    "adv_schedule_strength": 30.963964,
+    "games_before_target": 9,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV has improved with manageable volatility.",
+    "talent_yield": -0.43321864710468927,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.330275,
+    "control_finish": 0.777778,
+    "control_denial": 0.52381,
+    "comparison_stats": {
+      "games_available": 9,
+      "yards_per_game": 337.7,
+      "yards_per_play": 5.09,
+      "points_per_drive": 1.54,
+      "rush_yards_per_game": 138,
+      "pass_yards_per_game": 199.7,
+      "turnover_margin": -5
+    }
+  },
   "canonical_url": "https://cfpadvantage.com/teams/2026/ul-monroe/",
   "data_url": "https://cfpadvantage.com/public-data/teams/ul-monroe.json"
 }

@@ -1,0 +1,91 @@
+{
+  "generated_at": "2026-11-08T22:12:22.384Z",
+  "game_id": "401858300",
+  "season": 2026,
+  "week": 11,
+  "date": "2026-11-14",
+  "kickoff_at": "2026-11-14T17:00:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "Syracuse",
+  "away_full_name": "Syracuse Orange",
+  "away_conference": "ACC",
+  "away_ap_rank": 0,
+  "home_team": "NC State",
+  "home_full_name": "NC State Wolfpack",
+  "home_conference": "ACC",
+  "home_ap_rank": 0,
+  "projected_winner": "NC State Wolfpack",
+  "projected_margin": 7.48,
+  "projection_closeness": 0.6437,
+  "context_label": "Mixed Framework Read",
+  "context_note": "The frozen Control Framework is split and does not strongly reinforce the baseline.",
+  "matchup_conviction": {
+    "label": "Supported Edge",
+    "note": "The matchup shape supports the lean with meaningful but not overwhelming separation.",
+    "historical_model_win_rate": 0.723,
+    "framework_support": {
+      "strength": "Framework Strongly Supports",
+      "support_components": 4,
+      "conflict_components": 0
+    }
+  },
+  "key_advantages": {
+    "NC State": [
+      "Stronger Control Creation",
+      "More efficient Control Finish",
+      "Stronger Control Denial",
+      "Higher Control Drive Shutout Rate",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ],
+    "Syracuse": [
+      "Higher overall ADV strength",
+      "Stronger schedule context"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 48.446574,
+    "adv_schedule_strength": 45.946574,
+    "games_before_target": 9,
+    "recent_form": "Stable, Below Baseline",
+    "recent_form_note": "Recent ADV is comparatively stable without a material slope.",
+    "talent_yield": -0.6285809803526132,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.363636,
+    "control_finish": 0.9,
+    "control_denial": 0.588785,
+    "comparison_stats": {
+      "games_available": 9,
+      "yards_per_game": 430,
+      "yards_per_play": 5.45,
+      "points_per_drive": 2.62,
+      "rush_yards_per_game": 156.9,
+      "pass_yards_per_game": 273.1,
+      "turnover_margin": 0
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 43.016937,
+    "adv_schedule_strength": 38.155826,
+    "games_before_target": 9,
+    "recent_form": "Improving, Still Below Baseline",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": -0.8235631958930081,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.411215,
+    "control_finish": 0.931818,
+    "control_denial": 0.636364,
+    "comparison_stats": {
+      "games_available": 9,
+      "yards_per_game": 387,
+      "yards_per_play": 5.7,
+      "points_per_drive": 2.43,
+      "rush_yards_per_game": 144.8,
+      "pass_yards_per_game": 242.2,
+      "turnover_margin": -1
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401858300/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401858300.json"
+}

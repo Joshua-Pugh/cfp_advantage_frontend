@@ -1,0 +1,90 @@
+{
+  "generated_at": "2026-11-08T22:12:22.384Z",
+  "game_id": "401856860",
+  "season": 2026,
+  "week": 11,
+  "date": "2026-11-14",
+  "kickoff_at": "2026-11-14T03:15:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "Houston",
+  "away_full_name": "Houston Cougars",
+  "away_conference": "Big 12",
+  "away_ap_rank": 14,
+  "home_team": "Colorado",
+  "home_full_name": "Colorado Buffaloes",
+  "home_conference": "Big 12",
+  "home_ap_rank": 0,
+  "projected_winner": "Houston Cougars",
+  "projected_margin": 17.27,
+  "projection_closeness": 0.1774,
+  "context_label": "Mixed Framework Read",
+  "context_note": "The frozen Control Framework is split and does not strongly reinforce the baseline.",
+  "matchup_conviction": {
+    "label": "Strong Separation",
+    "note": "Large baseline separation with non-conflicting matchup context. Historically, this game shape has been much harder to overturn.",
+    "historical_model_win_rate": 0.836,
+    "framework_support": {
+      "strength": "Framework Strongly Supports",
+      "support_components": 5,
+      "conflict_components": 0
+    }
+  },
+  "key_advantages": {
+    "Colorado": [
+      "Stronger schedule context"
+    ],
+    "Houston": [
+      "Stronger Control Creation",
+      "More consistent Control Rate",
+      "Stronger Control Denial",
+      "Higher overall ADV strength",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 94.154704,
+    "adv_schedule_strength": 53.515815,
+    "games_before_target": 9,
+    "recent_form": "Declining",
+    "recent_form_note": "Recent ADV has declined with manageable volatility.",
+    "talent_yield": 1.0363407359117631,
+    "talent_yield_label": "Well Above Expectation",
+    "control_creation": 0.602151,
+    "control_finish": 0.857143,
+    "control_denial": 0.719298,
+    "comparison_stats": {
+      "games_available": 9,
+      "yards_per_game": 470.2,
+      "yards_per_play": 6.8,
+      "points_per_drive": 3.52,
+      "rush_yards_per_game": 207.8,
+      "pass_yards_per_game": 262.4,
+      "turnover_margin": 7
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 34.005816,
+    "adv_schedule_strength": 60.811372,
+    "games_before_target": 9,
+    "recent_form": "Stable, Below Baseline",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -0.7697246685715099,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.280702,
+    "control_finish": 0.875,
+    "control_denial": 0.397849,
+    "comparison_stats": {
+      "games_available": 9,
+      "yards_per_game": 387,
+      "yards_per_play": 5.64,
+      "points_per_drive": 1.62,
+      "rush_yards_per_game": 131.6,
+      "pass_yards_per_game": 255.4,
+      "turnover_margin": -11
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401856860/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401856860.json"
+}

@@ -1,16 +1,36 @@
 {
-  "generated_at": "2026-10-05T22:01:52.540Z",
+  "generated_at": "2026-11-08T22:12:22.384Z",
   "team": "Delaware",
   "full_name": "Delaware Blue Hens",
   "season": 2026,
   "conference": "Conference USA",
   "classification": "fbs",
   "tier": "g5",
-  "record": "2-3",
-  "points_for": 107,
-  "points_against": 128,
-  "average_score_margin": -4.2,
-  "current_pregame_profile": null,
+  "record": "4-5",
+  "points_for": 273,
+  "points_against": 262,
+  "average_score_margin": 1.2222,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 15.298898,
+    "adv_schedule_strength": 15.548898,
+    "games_before_target": 9,
+    "recent_form": "Stable, Above Baseline",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": 1.0453823318814626,
+    "talent_yield_label": "Well Above Expectation",
+    "control_creation": 0.408696,
+    "control_finish": 0.808511,
+    "control_denial": 0.643564,
+    "comparison_stats": {
+      "games_available": 9,
+      "yards_per_game": 406.7,
+      "yards_per_play": 5.96,
+      "points_per_drive": 2.01,
+      "rush_yards_per_game": 106.9,
+      "pass_yards_per_game": 299.8,
+      "turnover_margin": 4
+    }
+  },
   "canonical_url": "https://cfpadvantage.com/teams/2026/delaware/",
   "data_url": "https://cfpadvantage.com/public-data/teams/delaware.json"
 }

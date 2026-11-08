@@ -1,36 +1,16 @@
 {
-  "generated_at": "2026-10-05T22:01:52.540Z",
+  "generated_at": "2026-11-08T22:12:22.384Z",
   "team": "Eastern Michigan",
   "full_name": "Eastern Michigan Eagles",
   "season": 2026,
   "conference": "Mid-American",
   "classification": "fbs",
   "tier": "g5",
-  "record": "3-3",
-  "points_for": 133,
-  "points_against": 150,
-  "average_score_margin": -2.8333,
-  "current_pregame_profile": {
-    "pregame_adv_rating": 31.692872,
-    "adv_schedule_strength": 29.651205,
-    "games_before_target": 6,
-    "recent_form": "Improving, Still Below Baseline",
-    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
-    "talent_yield": -0.17730789924238277,
-    "talent_yield_label": "Near Expectation",
-    "control_creation": 0.430769,
-    "control_finish": 0.678571,
-    "control_denial": 0.672414,
-    "comparison_stats": {
-      "games_available": 6,
-      "yards_per_game": 311.8,
-      "yards_per_play": 4.85,
-      "points_per_drive": 1.94,
-      "rush_yards_per_game": 111.7,
-      "pass_yards_per_game": 200.2,
-      "turnover_margin": 2
-    }
-  },
+  "record": "4-6",
+  "points_for": 199,
+  "points_against": 266,
+  "average_score_margin": -6.7,
+  "current_pregame_profile": null,
   "canonical_url": "https://cfpadvantage.com/teams/2026/eastern-michigan/",
   "data_url": "https://cfpadvantage.com/public-data/teams/eastern-michigan.json"
 }

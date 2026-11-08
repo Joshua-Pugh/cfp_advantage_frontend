@@ -1,0 +1,91 @@
+{
+  "generated_at": "2026-11-08T22:12:22.384Z",
+  "game_id": "401858519",
+  "season": 2026,
+  "week": 11,
+  "date": "2026-11-15",
+  "kickoff_at": "2026-11-15T00:30:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "Purdue",
+  "away_full_name": "Purdue Boilermakers",
+  "away_conference": "Big Ten",
+  "away_ap_rank": 0,
+  "home_team": "Iowa",
+  "home_full_name": "Iowa Hawkeyes",
+  "home_conference": "Big Ten",
+  "home_ap_rank": 16,
+  "projected_winner": "Iowa Hawkeyes",
+  "projected_margin": 12.73,
+  "projection_closeness": 0.3939,
+  "context_label": "Mixed Framework Read",
+  "context_note": "The frozen Control Framework is split and does not strongly reinforce the baseline.",
+  "matchup_conviction": {
+    "label": "Context Pushback",
+    "note": "The baseline has a lean, but stable Control Framework traits point to meaningful matchup resistance.",
+    "historical_model_win_rate": 0.525,
+    "framework_support": {
+      "strength": "Framework Conflicts",
+      "support_components": 0,
+      "conflict_components": 4
+    }
+  },
+  "key_advantages": {
+    "Iowa": [
+      "Higher overall ADV strength"
+    ],
+    "Purdue": [
+      "Stronger Control Creation",
+      "More efficient Control Finish",
+      "Stronger Control Denial",
+      "Higher Control Drive Shutout Rate",
+      "Stronger schedule context",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 43.01586,
+    "adv_schedule_strength": 60.654749,
+    "games_before_target": 9,
+    "recent_form": "Stable, Below Baseline",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -0.3619354425016245,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.425743,
+    "control_finish": 0.883721,
+    "control_denial": 0.596154,
+    "comparison_stats": {
+      "games_available": 9,
+      "yards_per_game": 384.9,
+      "yards_per_play": 5.72,
+      "points_per_drive": 2.9,
+      "rush_yards_per_game": 117.9,
+      "pass_yards_per_game": 267,
+      "turnover_margin": 2
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 89.090951,
+    "adv_schedule_strength": 52.47984,
+    "games_before_target": 9,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV has improved with manageable volatility.",
+    "talent_yield": 0.7632046188231525,
+    "talent_yield_label": "Above Expectation",
+    "control_creation": 0.403846,
+    "control_finish": 0.833333,
+    "control_denial": 0.574257,
+    "comparison_stats": {
+      "games_available": 9,
+      "yards_per_game": 373.9,
+      "yards_per_play": 6.04,
+      "points_per_drive": 2.2,
+      "rush_yards_per_game": 173.8,
+      "pass_yards_per_game": 200.1,
+      "turnover_margin": -1
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401858519/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401858519.json"
+}

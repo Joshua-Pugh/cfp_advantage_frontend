@@ -1,0 +1,90 @@
+{
+  "generated_at": "2026-11-08T22:12:22.384Z",
+  "game_id": "401862827",
+  "season": 2026,
+  "week": 11,
+  "date": "2026-11-15",
+  "kickoff_at": "2026-11-15T02:00:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "North Texas",
+  "away_full_name": "North Texas Mean Green",
+  "away_conference": "American Athletic",
+  "away_ap_rank": 0,
+  "home_team": "UTSA",
+  "home_full_name": "UTSA Roadrunners",
+  "home_conference": "American Athletic",
+  "home_ap_rank": 0,
+  "projected_winner": "North Texas Mean Green",
+  "projected_margin": 0.63,
+  "projection_closeness": 0.9699,
+  "context_label": "Mixed Framework Read",
+  "context_note": "The frozen Control Framework is split and does not strongly reinforce the baseline.",
+  "matchup_conviction": {
+    "label": "Fragile Edge",
+    "note": "CFP Advantage has a lean, but this sits in a historical range where modest edges have been easier to overturn.",
+    "historical_model_win_rate": 0.66,
+    "framework_support": {
+      "strength": "Framework Strongly Supports",
+      "support_components": 5,
+      "conflict_components": 0
+    }
+  },
+  "key_advantages": {
+    "UTSA": [
+      "Stronger schedule context"
+    ],
+    "North Texas": [
+      "Stronger Control Creation",
+      "More consistent Control Rate",
+      "Stronger Control Denial",
+      "Higher overall ADV strength",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 50.336668,
+    "adv_schedule_strength": 22.489445,
+    "games_before_target": 9,
+    "recent_form": "Cooling, Still Above Baseline",
+    "recent_form_note": "Recent ADV has declined with manageable volatility.",
+    "talent_yield": 0.27834719085630244,
+    "talent_yield_label": "Above Expectation",
+    "control_creation": 0.587156,
+    "control_finish": 0.921875,
+    "control_denial": 0.577982,
+    "comparison_stats": {
+      "games_available": 9,
+      "yards_per_game": 531,
+      "yards_per_play": 7.48,
+      "points_per_drive": 3.35,
+      "rush_yards_per_game": 188.2,
+      "pass_yards_per_game": 342.8,
+      "turnover_margin": 4
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 45.295722,
+    "adv_schedule_strength": 37.434611,
+    "games_before_target": 9,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": 0.16545992895251566,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.422018,
+    "control_finish": 0.934783,
+    "control_denial": 0.412844,
+    "comparison_stats": {
+      "games_available": 9,
+      "yards_per_game": 410.8,
+      "yards_per_play": 6.04,
+      "points_per_drive": 2.65,
+      "rush_yards_per_game": 181.1,
+      "pass_yards_per_game": 229.7,
+      "turnover_margin": 5
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401862827/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401862827.json"
+}

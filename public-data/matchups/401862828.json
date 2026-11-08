@@ -1,0 +1,89 @@
+{
+  "generated_at": "2026-11-08T22:12:22.384Z",
+  "game_id": "401862828",
+  "season": 2026,
+  "week": 11,
+  "date": "2026-11-14",
+  "kickoff_at": "2026-11-14T19:00:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "Tulane",
+  "away_full_name": "Tulane Green Wave",
+  "away_conference": "American Athletic",
+  "away_ap_rank": 0,
+  "home_team": "Rice",
+  "home_full_name": "Rice Owls",
+  "home_conference": "American Athletic",
+  "home_ap_rank": 0,
+  "projected_winner": "Rice Owls",
+  "projected_margin": 11.25,
+  "projection_closeness": 0.4643,
+  "context_label": "Strong Framework Support",
+  "context_note": "Rice owns support across control, finishing, denial, and finishing resistance.",
+  "matchup_conviction": {
+    "label": "Supported Edge",
+    "note": "The matchup shape supports the lean with meaningful but not overwhelming separation.",
+    "historical_model_win_rate": 0.723,
+    "framework_support": {
+      "strength": "Framework Strongly Supports",
+      "support_components": 5,
+      "conflict_components": 0
+    }
+  },
+  "key_advantages": {
+    "Rice": [
+      "Stronger Control Creation",
+      "More consistent Control Rate",
+      "More efficient Control Finish",
+      "Stronger Control Denial",
+      "Higher Control Drive Shutout Rate",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ],
+    "Tulane": []
+  },
+  "away_profile": {
+    "pregame_adv_rating": 7.314657,
+    "adv_schedule_strength": 36.259102,
+    "games_before_target": 9,
+    "recent_form": "Stable, Below Baseline",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -1.2841967440608735,
+    "talent_yield_label": "Well Below Expectation",
+    "control_creation": 0.300971,
+    "control_finish": 0.806452,
+    "control_denial": 0.633663,
+    "comparison_stats": {
+      "games_available": 9,
+      "yards_per_game": 332.8,
+      "yards_per_play": 5.39,
+      "points_per_drive": 1.64,
+      "rush_yards_per_game": 139.6,
+      "pass_yards_per_game": 193.2,
+      "turnover_margin": -5
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 10.005251,
+    "adv_schedule_strength": 39.199695,
+    "games_before_target": 9,
+    "recent_form": "Stable, Below Baseline",
+    "recent_form_note": "Recent ADV is comparatively stable without a material slope.",
+    "talent_yield": -0.5884670973213544,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.366337,
+    "control_finish": 0.837838,
+    "control_denial": 0.699029,
+    "comparison_stats": {
+      "games_available": 9,
+      "yards_per_game": 363.4,
+      "yards_per_play": 5.83,
+      "points_per_drive": 1.82,
+      "rush_yards_per_game": 271,
+      "pass_yards_per_game": 92.4,
+      "turnover_margin": -8
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401862828/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401862828.json"
+}

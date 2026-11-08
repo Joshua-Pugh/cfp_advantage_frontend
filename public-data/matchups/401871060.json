@@ -1,0 +1,90 @@
+{
+  "generated_at": "2026-11-08T22:12:22.384Z",
+  "game_id": "401871060",
+  "season": 2026,
+  "week": 11,
+  "date": "2026-11-14",
+  "kickoff_at": "2026-11-14T20:00:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "Florida International",
+  "away_full_name": "Florida International Panthers",
+  "away_conference": "Conference USA",
+  "away_ap_rank": 0,
+  "home_team": "Delaware",
+  "home_full_name": "Delaware Blue Hens",
+  "home_conference": "Conference USA",
+  "home_ap_rank": 0,
+  "projected_winner": "Delaware Blue Hens",
+  "projected_margin": 10.21,
+  "projection_closeness": 0.5139,
+  "context_label": "Mixed Framework Read",
+  "context_note": "The frozen Control Framework is split and does not strongly reinforce the baseline.",
+  "matchup_conviction": {
+    "label": "Supported Edge",
+    "note": "The matchup shape supports the lean with meaningful but not overwhelming separation.",
+    "historical_model_win_rate": 0.723,
+    "framework_support": {
+      "strength": "Framework Strongly Supports",
+      "support_components": 5,
+      "conflict_components": 0
+    }
+  },
+  "key_advantages": {
+    "Delaware": [
+      "Stronger Control Creation",
+      "More consistent Control Rate",
+      "Stronger Control Denial",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ],
+    "Florida International": [
+      "More efficient Control Finish",
+      "Higher Control Drive Shutout Rate"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 17.92869,
+    "adv_schedule_strength": 17.484245,
+    "games_before_target": 9,
+    "recent_form": "Improving, Still Below Baseline",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": -0.5252102882240653,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.356436,
+    "control_finish": 0.833333,
+    "control_denial": 0.591304,
+    "comparison_stats": {
+      "games_available": 9,
+      "yards_per_game": 371.9,
+      "yards_per_play": 5.48,
+      "points_per_drive": 1.66,
+      "rush_yards_per_game": 133.1,
+      "pass_yards_per_game": 238.8,
+      "turnover_margin": -3
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 15.298898,
+    "adv_schedule_strength": 15.548898,
+    "games_before_target": 9,
+    "recent_form": "Stable, Above Baseline",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": 1.0453823318814626,
+    "talent_yield_label": "Well Above Expectation",
+    "control_creation": 0.408696,
+    "control_finish": 0.808511,
+    "control_denial": 0.643564,
+    "comparison_stats": {
+      "games_available": 9,
+      "yards_per_game": 406.7,
+      "yards_per_play": 5.96,
+      "points_per_drive": 2.01,
+      "rush_yards_per_game": 106.9,
+      "pass_yards_per_game": 299.8,
+      "turnover_margin": 4
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401871060/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401871060.json"
+}

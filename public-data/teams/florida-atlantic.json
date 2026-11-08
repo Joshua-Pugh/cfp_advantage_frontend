@@ -1,16 +1,36 @@
 {
-  "generated_at": "2026-10-05T22:01:52.540Z",
+  "generated_at": "2026-11-08T22:12:22.384Z",
   "team": "Florida Atlantic",
   "full_name": "Florida Atlantic Owls",
   "season": 2026,
   "conference": "American Athletic",
   "classification": "fbs",
   "tier": "g5",
-  "record": "4-1",
-  "points_for": 186,
-  "points_against": 133,
-  "average_score_margin": 10.6,
-  "current_pregame_profile": null,
+  "record": "6-3",
+  "points_for": 362,
+  "points_against": 315,
+  "average_score_margin": 5.2222,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 34.284605,
+    "adv_schedule_strength": 23.395716,
+    "games_before_target": 9,
+    "recent_form": "Improving, Still Below Baseline",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": -0.006750247151217692,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.495327,
+    "control_finish": 0.886792,
+    "control_denial": 0.533333,
+    "comparison_stats": {
+      "games_available": 9,
+      "yards_per_game": 453.4,
+      "yards_per_play": 5.88,
+      "points_per_drive": 3.15,
+      "rush_yards_per_game": 135.8,
+      "pass_yards_per_game": 317.7,
+      "turnover_margin": 4
+    }
+  },
   "canonical_url": "https://cfpadvantage.com/teams/2026/florida-atlantic/",
   "data_url": "https://cfpadvantage.com/public-data/teams/florida-atlantic.json"
 }

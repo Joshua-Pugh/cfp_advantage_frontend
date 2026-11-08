@@ -1,0 +1,89 @@
+{
+  "generated_at": "2026-11-08T22:12:22.384Z",
+  "game_id": "401870796",
+  "season": 2026,
+  "week": 11,
+  "date": "2026-11-14",
+  "kickoff_at": "2026-11-14T20:00:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "New Mexico State",
+  "away_full_name": "New Mexico State Aggies",
+  "away_conference": "Conference USA",
+  "away_ap_rank": 0,
+  "home_team": "Missouri State",
+  "home_full_name": "Missouri State Bears",
+  "home_conference": "Conference USA",
+  "home_ap_rank": 0,
+  "projected_winner": "Missouri State Bears",
+  "projected_margin": 5.1,
+  "projection_closeness": 0.7571,
+  "context_label": "Strong Framework Support",
+  "context_note": "Missouri State owns support across control, finishing, denial, and finishing resistance.",
+  "matchup_conviction": {
+    "label": "Fragile Edge",
+    "note": "CFP Advantage has a lean, but this sits in a historical range where modest edges have been easier to overturn.",
+    "historical_model_win_rate": 0.613,
+    "framework_support": {
+      "strength": "Framework Strongly Supports",
+      "support_components": 5,
+      "conflict_components": 0
+    }
+  },
+  "key_advantages": {
+    "Missouri State": [
+      "Stronger Control Creation",
+      "More consistent Control Rate",
+      "More efficient Control Finish",
+      "Stronger Control Denial",
+      "Higher Control Drive Shutout Rate",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ],
+    "New Mexico State": []
+  },
+  "away_profile": {
+    "pregame_adv_rating": -3.676163,
+    "adv_schedule_strength": 21.796059,
+    "games_before_target": 9,
+    "recent_form": "Stable, Below Baseline",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -0.00867272880452763,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.314286,
+    "control_finish": 0.757576,
+    "control_denial": 0.59375,
+    "comparison_stats": {
+      "games_available": 9,
+      "yards_per_game": 343.9,
+      "yards_per_play": 5.54,
+      "points_per_drive": 1.39,
+      "rush_yards_per_game": 143.9,
+      "pass_yards_per_game": 200,
+      "turnover_margin": -7
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": -5.328727,
+    "adv_schedule_strength": 21.671273,
+    "games_before_target": 9,
+    "recent_form": "Stable, Above Baseline",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -0.7088800116515268,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.40625,
+    "control_finish": 0.846154,
+    "control_denial": 0.685714,
+    "comparison_stats": {
+      "games_available": 9,
+      "yards_per_game": 357,
+      "yards_per_play": 5.67,
+      "points_per_drive": 1.98,
+      "rush_yards_per_game": 124.3,
+      "pass_yards_per_game": 232.7,
+      "turnover_margin": -1
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401870796/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401870796.json"
+}

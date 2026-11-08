@@ -1,0 +1,89 @@
+{
+  "generated_at": "2026-11-08T22:12:22.384Z",
+  "game_id": "401862825",
+  "season": 2026,
+  "week": 11,
+  "date": "2026-11-14",
+  "kickoff_at": "2026-11-14T18:00:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "East Carolina",
+  "away_full_name": "East Carolina Pirates",
+  "away_conference": "American Athletic",
+  "away_ap_rank": 0,
+  "home_team": "Charlotte",
+  "home_full_name": "Charlotte 49ers",
+  "home_conference": "American Athletic",
+  "home_ap_rank": 0,
+  "projected_winner": "East Carolina Pirates",
+  "projected_margin": 5.79,
+  "projection_closeness": 0.7245,
+  "context_label": "Mixed Framework Read",
+  "context_note": "The frozen Control Framework is split and does not strongly reinforce the baseline.",
+  "matchup_conviction": {
+    "label": "Fragile Edge",
+    "note": "CFP Advantage has a lean, but this sits in a historical range where modest edges have been easier to overturn.",
+    "historical_model_win_rate": 0.613,
+    "framework_support": {
+      "strength": "Framework Strongly Supports",
+      "support_components": 3,
+      "conflict_components": 0
+    }
+  },
+  "key_advantages": {
+    "Charlotte": [
+      "More efficient Control Finish",
+      "Higher Control Drive Shutout Rate"
+    ],
+    "East Carolina": [
+      "Stronger Control Creation",
+      "More consistent Control Rate",
+      "Stronger Control Denial",
+      "Higher overall ADV strength"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 38.827838,
+    "adv_schedule_strength": 28.647282,
+    "games_before_target": 9,
+    "recent_form": "Stable",
+    "recent_form_note": "Recent ADV is comparatively stable without a material slope.",
+    "talent_yield": -0.013574435345046598,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.327586,
+    "control_finish": 0.789474,
+    "control_denial": 0.731481,
+    "comparison_stats": {
+      "games_available": 9,
+      "yards_per_game": 352.3,
+      "yards_per_play": 5.14,
+      "points_per_drive": 1.67,
+      "rush_yards_per_game": 161.8,
+      "pass_yards_per_game": 190.6,
+      "turnover_margin": -3
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": -19.486902,
+    "adv_schedule_strength": 30.888098,
+    "games_before_target": 9,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": -1.3266386428090833,
+    "talent_yield_label": "Well Below Expectation",
+    "control_creation": 0.268519,
+    "control_finish": 0.896552,
+    "control_denial": 0.672414,
+    "comparison_stats": {
+      "games_available": 9,
+      "yards_per_game": 318.3,
+      "yards_per_play": 5.25,
+      "points_per_drive": 2.02,
+      "rush_yards_per_game": 116.9,
+      "pass_yards_per_game": 201.4,
+      "turnover_margin": -6
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401862825/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401862825.json"
+}

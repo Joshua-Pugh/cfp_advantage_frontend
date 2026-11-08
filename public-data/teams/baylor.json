@@ -1,16 +1,36 @@
 {
-  "generated_at": "2026-10-05T22:01:52.540Z",
+  "generated_at": "2026-11-08T22:12:22.384Z",
   "team": "Baylor",
   "full_name": "Baylor Bears",
   "season": 2026,
   "conference": "Big 12",
   "classification": "fbs",
   "tier": "power",
-  "record": "4-1",
-  "points_for": 174,
-  "points_against": 71,
-  "average_score_margin": 20.6,
-  "current_pregame_profile": null,
+  "record": "6-3",
+  "points_for": 287,
+  "points_against": 153,
+  "average_score_margin": 14.8889,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 73.317296,
+    "adv_schedule_strength": 43.150629,
+    "games_before_target": 9,
+    "recent_form": "Improving, Still Below Baseline",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": 0.5164734819988142,
+    "talent_yield_label": "Above Expectation",
+    "control_creation": 0.364407,
+    "control_finish": 0.953488,
+    "control_denial": 0.539216,
+    "comparison_stats": {
+      "games_available": 9,
+      "yards_per_game": 433.4,
+      "yards_per_play": 5.68,
+      "points_per_drive": 2.21,
+      "rush_yards_per_game": 157.1,
+      "pass_yards_per_game": 276.3,
+      "turnover_margin": 5
+    }
+  },
   "canonical_url": "https://cfpadvantage.com/teams/2026/baylor/",
   "data_url": "https://cfpadvantage.com/public-data/teams/baylor.json"
 }

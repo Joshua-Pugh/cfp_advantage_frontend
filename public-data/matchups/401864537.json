@@ -1,0 +1,91 @@
+{
+  "generated_at": "2026-11-08T22:12:22.384Z",
+  "game_id": "401864537",
+  "season": 2026,
+  "week": 11,
+  "date": "2026-11-15",
+  "kickoff_at": "2026-11-15T04:00:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "North Dakota State",
+  "away_full_name": "North Dakota State Bison",
+  "away_conference": "Mountain West",
+  "away_ap_rank": 0,
+  "home_team": "Hawai'i",
+  "home_full_name": "Hawai'i Rainbow Warriors",
+  "home_conference": "Mountain West",
+  "home_ap_rank": 0,
+  "projected_winner": "North Dakota State Bison",
+  "projected_margin": 4.16,
+  "projection_closeness": 0.8019,
+  "context_label": "Framework Conflict",
+  "context_note": "The baseline favors North Dakota State, but the opponent owns the stronger control-and-finish profile.",
+  "matchup_conviction": {
+    "label": "Fragile Edge",
+    "note": "CFP Advantage has a lean, but this sits in a historical range where modest edges have been easier to overturn.",
+    "historical_model_win_rate": 0.613,
+    "framework_support": {
+      "strength": "Framework Strongly Supports",
+      "support_components": 4,
+      "conflict_components": 1
+    }
+  },
+  "key_advantages": {
+    "Hawai'i": [
+      "More efficient Control Finish",
+      "Higher Control Drive Shutout Rate",
+      "Stronger schedule context"
+    ],
+    "North Dakota State": [
+      "Stronger Control Creation",
+      "Stronger Control Denial",
+      "Higher overall ADV strength",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 63.691681,
+    "adv_schedule_strength": 11.08057,
+    "games_before_target": 9,
+    "recent_form": "Improving, Still Below Baseline",
+    "recent_form_note": "Recent ADV has improved with manageable volatility.",
+    "talent_yield": 1.6164536695494807,
+    "talent_yield_label": "Well Above Expectation",
+    "control_creation": 0.393939,
+    "control_finish": 0.794872,
+    "control_denial": 0.650485,
+    "comparison_stats": {
+      "games_available": 9,
+      "yards_per_game": 351.8,
+      "yards_per_play": 5.38,
+      "points_per_drive": 2.38,
+      "rush_yards_per_game": 157.4,
+      "pass_yards_per_game": 194.3,
+      "turnover_margin": 9
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 8.724061,
+    "adv_schedule_strength": 17.640727,
+    "games_before_target": 9,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": -0.42091943685348854,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.349515,
+    "control_finish": 0.833333,
+    "control_denial": 0.606061,
+    "comparison_stats": {
+      "games_available": 9,
+      "yards_per_game": 371.6,
+      "yards_per_play": 5.18,
+      "points_per_drive": 1.78,
+      "rush_yards_per_game": 93.1,
+      "pass_yards_per_game": 278.4,
+      "turnover_margin": 1
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401864537/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401864537.json"
+}

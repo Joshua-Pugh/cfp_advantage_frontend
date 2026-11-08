@@ -1,0 +1,88 @@
+{
+  "generated_at": "2026-11-08T22:12:22.384Z",
+  "game_id": "401856886",
+  "season": 2026,
+  "week": 11,
+  "date": "2026-11-14",
+  "kickoff_at": "2026-11-14T17:00:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "Auburn",
+  "away_full_name": "Auburn Tigers",
+  "away_conference": "SEC",
+  "away_ap_rank": 0,
+  "home_team": "Mississippi State",
+  "home_full_name": "Mississippi State Bulldogs",
+  "home_conference": "SEC",
+  "home_ap_rank": 0,
+  "projected_winner": "Mississippi State Bulldogs",
+  "projected_margin": 9.16,
+  "projection_closeness": 0.5638,
+  "context_label": "Mixed Framework Read",
+  "context_note": "The frozen Control Framework is split and does not strongly reinforce the baseline.",
+  "matchup_conviction": {
+    "label": "Supported Edge",
+    "note": "The matchup shape supports the lean with meaningful but not overwhelming separation.",
+    "historical_model_win_rate": 0.723,
+    "framework_support": {
+      "strength": "Framework Strongly Supports",
+      "support_components": 5,
+      "conflict_components": 0
+    }
+  },
+  "key_advantages": {
+    "Mississippi State": [
+      "Stronger Control Creation",
+      "More consistent Control Rate",
+      "Stronger Control Denial",
+      "Higher overall ADV strength",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ],
+    "Auburn": []
+  },
+  "away_profile": {
+    "pregame_adv_rating": 59.483641,
+    "adv_schedule_strength": 72.900308,
+    "games_before_target": 9,
+    "recent_form": "Stable, Below Baseline",
+    "recent_form_note": "Recent ADV is comparatively stable without a material slope.",
+    "talent_yield": -0.8794272289813886,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.365385,
+    "control_finish": 0.842105,
+    "control_denial": 0.59434,
+    "comparison_stats": {
+      "games_available": 9,
+      "yards_per_game": 367.6,
+      "yards_per_play": 5.23,
+      "points_per_drive": 1.95,
+      "rush_yards_per_game": 156.1,
+      "pass_yards_per_game": 211.4,
+      "turnover_margin": 3
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 68.960399,
+    "adv_schedule_strength": 75.793732,
+    "games_before_target": 9,
+    "recent_form": "Improving, Still Below Baseline",
+    "recent_form_note": "Recent ADV has improved with manageable volatility.",
+    "talent_yield": -0.34916336522978597,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.40566,
+    "control_finish": 0.837209,
+    "control_denial": 0.634615,
+    "comparison_stats": {
+      "games_available": 9,
+      "yards_per_game": 395.8,
+      "yards_per_play": 5.86,
+      "points_per_drive": 2.16,
+      "rush_yards_per_game": 148.4,
+      "pass_yards_per_game": 247.3,
+      "turnover_margin": -4
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401856886/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401856886.json"
+}

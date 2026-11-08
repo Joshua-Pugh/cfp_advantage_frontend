@@ -1,0 +1,91 @@
+{
+  "generated_at": "2026-11-08T22:12:22.384Z",
+  "game_id": "401856862",
+  "season": 2026,
+  "week": 11,
+  "date": "2026-11-14",
+  "kickoff_at": "2026-11-14T05:00:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "Kansas State",
+  "away_full_name": "Kansas State Wildcats",
+  "away_conference": "Big 12",
+  "away_ap_rank": 0,
+  "home_team": "TCU",
+  "home_full_name": "TCU Horned Frogs",
+  "home_conference": "Big 12",
+  "home_ap_rank": 0,
+  "projected_winner": "TCU Horned Frogs",
+  "projected_margin": 2.45,
+  "projection_closeness": 0.8831,
+  "context_label": "Framework Conflict",
+  "context_note": "The baseline favors TCU, but the opponent owns the stronger control-and-finish profile.",
+  "matchup_conviction": {
+    "label": "Context Pushback",
+    "note": "The baseline has a lean, but stable Control Framework traits point to meaningful matchup resistance.",
+    "historical_model_win_rate": 0.525,
+    "framework_support": {
+      "strength": "Framework Conflicts",
+      "support_components": 0,
+      "conflict_components": 5
+    }
+  },
+  "key_advantages": {
+    "TCU": [
+      "Stronger schedule context"
+    ],
+    "Kansas State": [
+      "Stronger Control Creation",
+      "More consistent Control Rate",
+      "More efficient Control Finish",
+      "Stronger Control Denial",
+      "Higher Control Drive Shutout Rate",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 54.840918,
+    "adv_schedule_strength": 40.229806,
+    "games_before_target": 9,
+    "recent_form": "Stable, Below Baseline",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -0.2435555160830016,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.416667,
+    "control_finish": 0.955556,
+    "control_denial": 0.65,
+    "comparison_stats": {
+      "games_available": 9,
+      "yards_per_game": 415.6,
+      "yards_per_play": 5.85,
+      "points_per_drive": 2.43,
+      "rush_yards_per_game": 196.8,
+      "pass_yards_per_game": 218.8,
+      "turnover_margin": -2
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 54.135081,
+    "adv_schedule_strength": 48.968414,
+    "games_before_target": 9,
+    "recent_form": "Declining",
+    "recent_form_note": "Recent ADV has declined with manageable volatility.",
+    "talent_yield": -0.2913620168368791,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.35,
+    "control_finish": 0.857143,
+    "control_denial": 0.583333,
+    "comparison_stats": {
+      "games_available": 9,
+      "yards_per_game": 378.3,
+      "yards_per_play": 5.7,
+      "points_per_drive": 1.93,
+      "rush_yards_per_game": 107.3,
+      "pass_yards_per_game": 271,
+      "turnover_margin": -3
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401856862/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401856862.json"
+}
