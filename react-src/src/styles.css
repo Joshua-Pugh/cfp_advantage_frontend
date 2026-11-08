@@ -701,6 +701,97 @@ select {
   }
 }
 
+/* Current-season CFP outlook keeps committee, power, and path views distinct. */
+.current-cfp-outlook {
+  display: grid;
+  gap: 24px;
+  margin-top: 20px;
+}
+
+.current-outlook-note {
+  margin: 0;
+}
+
+.current-outlook-note h3 {
+  margin: 4px 0 10px;
+}
+
+.current-outlook-summary {
+  margin: 0;
+}
+
+.cfp-outlook-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.cfp-outlook-grid > .insight-panel,
+.current-cfp-outlook > .insight-panel {
+  margin: 0;
+}
+
+.current-cfp-outlook .validation-table-wrap {
+  margin: 16px 0;
+}
+
+.current-cfp-outlook .validation-table-wrap table {
+  min-width: 560px;
+}
+
+.current-cfp-outlook .team-name-with-logo {
+  flex-wrap: nowrap;
+  min-width: 170px;
+  color: var(--ink);
+  font-weight: 850;
+}
+
+.provisional-bracket-grid {
+  grid-template-columns: repeat(4, minmax(210px, 1fr));
+  margin-bottom: 0;
+  padding: 0;
+}
+
+.provisional-bracket-grid .bracket-game-card {
+  min-height: 110px;
+}
+
+:root[data-theme="dark"] .current-cfp-outlook .team-name-with-logo {
+  color: #fff;
+}
+
+@media (max-width: 1100px) {
+  .cfp-outlook-grid,
+  .provisional-bracket-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .cfp-outlook-grid,
+  .provisional-bracket-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .current-cfp-outlook {
+    gap: 16px;
+  }
+
+  .current-cfp-outlook .insight-panel,
+  .current-outlook-note,
+  .current-cfp-outlook .relationship-guardrail {
+    padding: 18px;
+  }
+
+  .current-cfp-outlook .validation-table-wrap table {
+    min-width: 620px;
+  }
+
+  .provisional-bracket-grid {
+    padding: 0;
+  }
+}
+
 /* Public metric-relationship research: responsive, formula-free evidence display. */
 .model-record-page { max-width: 1320px; }
 .model-record-hero { margin: 26px 0; padding: clamp(28px, 5vw, 50px); border: 1px solid #174f3d; border-radius: 12px; background: linear-gradient(135deg, #102d23, #174f3d 72%, #24664f); color: #fff; box-shadow: var(--shadow); }

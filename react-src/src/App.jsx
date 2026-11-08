@@ -12,7 +12,6 @@ import Contact from "./pages/ContactPage";
 import Support from "./pages/SupportPage";
 import Legal from "./pages/LegalPage";
 import FrameworkCardPage from "./pages/FrameworkCardPage";
-import GiveawayPage from "./pages/GiveawayPage";
 import MetricRelationshipsPage from "./pages/MetricRelationshipsPage";
 import ModelRecordPage from "./pages/ModelRecordPage";
 import AskAdvAssistant from "./components/AskAdvAssistant";
@@ -40,7 +39,7 @@ function App() {
         <Route path="/support" element={<Support />} />
         <Route path="/legal" element={<Legal />} />
         <Route path="/framework-card" element={<FrameworkCardPage />} />
-        <Route path="/giveaway" element={<GiveawayPage />} />
+        <Route path="/giveaway" element={<Navigate replace to="/support" />} />
         <Route path="/index.html" element={<Navigate replace to="/" />} />
         <Route path="/team.html" element={<Navigate replace to="/teams" />} />
         <Route path="/matchups.html" element={<Navigate replace to="/matchups" />} />
@@ -55,7 +54,7 @@ function App() {
         <Route path="/contact.html" element={<Navigate replace to="/contact" />} />
         <Route path="/legal.html" element={<Navigate replace to="/legal" />} />
         <Route path="/framework-card.html" element={<Navigate replace to="/framework-card" />} />
-        <Route path="/giveaway.html" element={<Navigate replace to="/giveaway" />} />
+        <Route path="/giveaway.html" element={<Navigate replace to="/support" />} />
         <Route path="*" element={<Navigate replace to="/" />} />
       </Routes>
       <AskAdvAssistant />

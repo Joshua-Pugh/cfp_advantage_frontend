@@ -1,0 +1,51 @@
+{
+  "schema_version": "cfp-outlook-public-v1",
+  "season": 2026,
+  "through_week": 10,
+  "entering_week": 11,
+  "generated_at": "2026-11-08T22:12:22.384Z",
+  "status": "preliminary_outlook_not_championship_pick",
+  "committee_snapshot": {
+    "released_at": "2026-11-03",
+    "through_week": 9,
+    "source": "https://collegefootballplayoff.com/news/2026/11/3/rankings",
+    "rankings": [
+      {"rank": 1, "team": "Miami"}, {"rank": 2, "team": "Georgia"},
+      {"rank": 3, "team": "Utah"}, {"rank": 4, "team": "Indiana"},
+      {"rank": 5, "team": "Alabama"}, {"rank": 6, "team": "Kentucky"},
+      {"rank": 7, "team": "Texas"}, {"rank": 8, "team": "UCLA"},
+      {"rank": 9, "team": "BYU"}, {"rank": 10, "team": "Ole Miss"},
+      {"rank": 11, "team": "Notre Dame"}, {"rank": 12, "team": "Ohio State"}
+    ]
+  },
+  "provisional_bracket": [
+    {"higher_seed": 5, "higher_seed_team": "Alabama", "lower_seed": 12, "lower_seed_team": "Ohio State"},
+    {"higher_seed": 6, "higher_seed_team": "Kentucky", "lower_seed": 11, "lower_seed_team": "Notre Dame"},
+    {"higher_seed": 7, "higher_seed_team": "Texas", "lower_seed": 10, "lower_seed_team": "Ole Miss"},
+    {"higher_seed": 8, "higher_seed_team": "UCLA", "lower_seed": 9, "lower_seed_team": "BYU"}
+  ],
+  "team_paths": [
+    {"team":"Alabama","current_record":"7-2","expected_final_wins":8.621,"probability_two_or_fewer_losses":0.652697,"next_opponent":"Vanderbilt","next_game_win_probability":0.748434,"two_loss_path_if_next_win":0.872083,"two_loss_path_if_next_loss":0.0},
+    {"team":"Boise State","current_record":"8-1","expected_final_wins":9.729,"probability_two_or_fewer_losses":0.985301,"next_opponent":"Oregon State","next_game_win_probability":0.803688,"two_loss_path_if_next_win":1.0,"two_loss_path_if_next_loss":0.925126},
+    {"team":"BYU","current_record":"7-2","expected_final_wins":9.059,"probability_two_or_fewer_losses":0.313082,"next_opponent":"Baylor","next_game_win_probability":0.749866,"two_loss_path_if_next_win":0.417517,"two_loss_path_if_next_loss":0.0},
+    {"team":"Georgia","current_record":"8-1","expected_final_wins":10.448,"probability_two_or_fewer_losses":0.94346,"next_opponent":"Missouri","next_game_win_probability":0.901297,"two_loss_path_if_next_win":0.985342,"two_loss_path_if_next_loss":0.561023},
+    {"team":"Indiana","current_record":"8-1","expected_final_wins":9.983,"probability_two_or_fewer_losses":0.740872,"next_opponent":"USC","next_game_win_probability":0.662398,"two_loss_path_if_next_win":0.908197,"two_loss_path_if_next_loss":0.412568},
+    {"team":"Kentucky","current_record":"7-2","expected_final_wins":8.622,"probability_two_or_fewer_losses":0.150942,"next_opponent":"Florida","next_game_win_probability":0.607547,"two_loss_path_if_next_win":0.248445,"two_loss_path_if_next_loss":0.0},
+    {"team":"LSU","current_record":"6-3","expected_final_wins":7.979,"probability_two_or_fewer_losses":0.0,"next_opponent":"Texas","next_game_win_probability":0.728991,"two_loss_path_if_next_win":0.0,"two_loss_path_if_next_loss":0.0},
+    {"team":"Miami","current_record":"8-1","expected_final_wins":10.685,"probability_two_or_fewer_losses":0.970762,"next_opponent":"Duke","next_game_win_probability":0.852157,"two_loss_path_if_next_win":0.993663,"two_loss_path_if_next_loss":0.838767},
+    {"team":"Notre Dame","current_record":"8-1","expected_final_wins":10.494,"probability_two_or_fewer_losses":0.930604,"next_opponent":"Boston College","next_game_win_probability":0.946475,"two_loss_path_if_next_win":0.949394,"two_loss_path_if_next_loss":0.598359},
+    {"team":"Ohio State","current_record":"6-3","expected_final_wins":8.202,"probability_two_or_fewer_losses":0.0,"next_opponent":"Northwestern","next_game_win_probability":0.74424,"two_loss_path_if_next_win":0.0,"two_loss_path_if_next_loss":0.0},
+    {"team":"Ole Miss","current_record":"6-3","expected_final_wins":7.308,"probability_two_or_fewer_losses":0.0,"next_opponent":"Oklahoma","next_game_win_probability":0.520535,"two_loss_path_if_next_win":0.0,"two_loss_path_if_next_loss":0.0},
+    {"team":"Tennessee","current_record":"7-2","expected_final_wins":8.705,"probability_two_or_fewer_losses":0.178822,"next_opponent":"Texas A&M","next_game_win_probability":0.507705,"two_loss_path_if_next_win":0.352216,"two_loss_path_if_next_loss":0.0},
+    {"team":"Texas","current_record":"7-2","expected_final_wins":8.72,"probability_two_or_fewer_losses":0.134456,"next_opponent":"LSU","next_game_win_probability":0.271009,"two_loss_path_if_next_win":0.49613,"two_loss_path_if_next_loss":0.0},
+    {"team":"UCLA","current_record":"9-0","expected_final_wins":11.061,"probability_two_or_fewer_losses":0.972375,"next_opponent":"Illinois","next_game_win_probability":0.791112,"two_loss_path_if_next_win":1.0,"two_loss_path_if_next_loss":0.867753},
+    {"team":"Utah","current_record":"9-0","expected_final_wins":11.024,"probability_two_or_fewer_losses":0.976089,"next_opponent":"Arizona","next_game_win_probability":0.489657,"two_loss_path_if_next_win":1.0,"two_loss_path_if_next_loss":0.953147}
+  ],
+  "methodology": {
+    "committee_order": "Official November 3 committee ranking snapshot.",
+    "adv_order": "Live post-Week-10 ADV SRS strength order.",
+    "game_odds": "Frozen raw ADV Fair Line converted through the retained historical margin-to-win calibration.",
+    "path_odds": "Probability of completing the modeled regular-season slate with two or fewer losses.",
+    "selection_odds": "Not claimed. Auto-bids, conference title games, and committee behavior are not yet modeled as validated selection probabilities."
+  }
+}
