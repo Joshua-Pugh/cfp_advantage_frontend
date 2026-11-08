@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from "react";
 
 import LoadingDots from "./LoadingDots";
 import TeamLogo from "./TeamLogo";
-import { api } from "../lib/api";
 
 const OUTLOOK_URL = "/public-data/cfp-outlook-2026-week10.json";
 
@@ -22,20 +21,15 @@ function TeamName({ team, logos }) {
 
 export default function CurrentCfpOutlook({ logos }) {
   const [outlook, setOutlook] = useState(null);
-  const [adv, setAdv] = useState(null);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    Promise.all([
-      fetch(OUTLOOK_URL).then((response) => {
+    fetch(OUTLOOK_URL).then((response) => {
         if (!response.ok) throw new Error("CFP outlook snapshot unavailable");
         return response.json();
-      }),
-      api("/api/product-a/championship-favorite?season=2026"),
-    ])
-      .then(([outlookPayload, advPayload]) => {
+      })
+      .then((outlookPayload) => {
         setOutlook(outlookPayload);
-        setAdv(advPayload);
       })
       .catch((loadError) => {
         console.error("2026 CFP outlook failed:", loadError);
@@ -47,14 +41,15 @@ export default function CurrentCfpOutlook({ logos }) {
     () => outlook?.committee_snapshot?.rankings || [],
     [outlook],
   );
-  const contenders = useMemo(() => adv?.contenders || [], [adv]);
+  const powerBoard = useMemo(() => outlook?.adv_power_board || [], [outlook]);
+  const seedBoard = useMemo(() => outlook?.adv_seed_board || [], [outlook]);
   const committeeRanks = useMemo(
     () => new Map(committee.map((row) => [row.team, row.rank])),
     [committee],
   );
   const advRanks = useMemo(
-    () => new Map(contenders.map((row) => [row.team, row.adv_srs_rank])),
-    [contenders],
+    () => new Map(powerBoard.map((row) => [row.team, row.rank])),
+    [powerBoard],
   );
   const paths = useMemo(
     () => new Map((outlook?.team_paths || []).map((row) => [row.team, row])),
@@ -62,7 +57,7 @@ export default function CurrentCfpOutlook({ logos }) {
   );
 
   if (error) return <p className="status-line warn">{error}</p>;
-  if (!outlook || !adv) return <LoadingDots text="Building the Week 11 CFP outlook" />;
+  if (!outlook) return <LoadingDots text="Building the Week 11 CFP outlook" />;
 
   const georgia = paths.get("Georgia");
   return <div className="current-cfp-outlook">
@@ -74,8 +69,8 @@ export default function CurrentCfpOutlook({ logos }) {
 
     <div className="summary-grid bracket-summary-grid current-outlook-summary">
       <div><span>Committee No. 1</span><strong>{committee[0]?.team || "-"}</strong><small>November 3 snapshot</small></div>
-      <div><span>ADV Strength Leader</span><strong>{adv.strength_leader?.team || "-"}</strong><small>Power signal, not title pick</small></div>
-      <div><span>Georgia</span><strong>Committee #2 · ADV #3</strong><small>Post-Week-10 views</small></div>
+      <div><span>ADV Power Leader</span><strong>{powerBoard[0]?.team || "-"}</strong><small>Multi-signal ADVPI, not SRS alone</small></div>
+      <div><span>Current ADV Title Lean</span><strong>{outlook.current_title_lean?.team || "-"}</strong><small>Preliminary entering Week 11</small></div>
       <div><span>Georgia Two-Loss-or-Better Path</span><strong>{percent(georgia?.probability_two_or_fewer_losses)}</strong><small>Remaining regular season only</small></div>
     </div>
 
@@ -92,12 +87,24 @@ export default function CurrentCfpOutlook({ logos }) {
 
       <article className="insight-panel">
         <p className="eyebrow">ADV after Week 10</p>
-        <h2>Current Strength Outlook</h2>
-        <p className="panel-note">ADV SRS estimates neutral strength. It does not award résumé or head-to-head credit, and this ordering is not the final championship pick.</p>
-        <div className="validation-table-wrap"><table><thead><tr><th>ADV</th><th>Team</th><th>Rating</th><th>CFP</th><th>Champion floors</th></tr></thead><tbody>
-          {contenders.map((row) => <tr key={row.team}><td>{row.adv_srs_rank}</td><td><TeamName team={row.team} logos={logos} /></td><td>{number(row.adv_srs, 2)}</td><td>{committeeRanks.get(row.team) || "-"}</td><td>{row.championship_shape?.traits_cleared ?? "-"}/6</td></tr>)}
+        <h2>ADV Power Board</h2>
+        <p className="panel-note">This is the refreshed multi-signal ADVPI board—not ADV SRS alone. It combines corrected ADV with opponent-adjusted offense, defense, special teams, and stable Control evidence. Georgia is the current neutral-field power leader.</p>
+        <div className="validation-table-wrap"><table><thead><tr><th>Power</th><th>Team</th><th>Neutral pts</th><th>ADV SRS</th><th>CFP</th></tr></thead><tbody>
+          {powerBoard.map((row) => <tr key={row.team}><td>{row.rank}</td><td><TeamName team={row.team} logos={logos} /></td><td>{number(row.neutral_rating, 2)}</td><td>{number(row.adv_srs, 2)}</td><td>{committeeRanks.get(row.team) || "-"}</td></tr>)}
         </tbody></table></div>
       </article>
+    </section>
+
+    <section className="insight-panel bracket-contender-table">
+      <p className="eyebrow">Power plus earned résumé</p>
+      <h2>ADV Seed Outlook</h2>
+      <p className="panel-note">This answers a different question from the power board. The retained late-season research blend is 55% ADVPI power and 45% Strength of Record. Utah and UCLA lead the seed read because they are unbeaten; Georgia is third in seed order but remains ADV&apos;s strongest team and current title lean.</p>
+      <div className="validation-table-wrap"><table><thead><tr><th>Seed read</th><th>Team</th><th>Record</th><th>Power</th><th>SOR</th><th>Next-game path</th></tr></thead><tbody>
+        {seedBoard.map((row) => {
+          const path = paths.get(row.team);
+          return <tr key={row.team}><td>{row.rank}</td><td><TeamName team={row.team} logos={logos} /></td><td>{row.record}</td><td>#{row.power_rank}</td><td>{number(row.sor_score, 3)}</td><td>{path ? `${percent(path.two_loss_path_if_next_win)} if win · ${percent(path.two_loss_path_if_next_loss)} if loss` : "-"}</td></tr>;
+        })}
+      </tbody></table></div>
     </section>
 
     <section className="insight-panel current-bracket-snapshot">
@@ -126,7 +133,7 @@ export default function CurrentCfpOutlook({ logos }) {
 
     <section className="relationship-guardrail">
       <strong>How to read this</strong>
-      <p>The committee ranking is a résumé/selection snapshot. ADV SRS is a power estimate. The remaining-game percentages come from the frozen raw ADV Fair Line and a historical margin-to-win calibration. None of these rows declares ADV&apos;s national champion.</p>
+      <p>The committee ranking is an external résumé/selection snapshot. ADVPI estimates neutral-field power. The ADV seed outlook adds earned résumé without counting SOS twice. The remaining-game percentages come from the frozen raw ADV Fair Line and a historical margin-to-win calibration. Georgia is the current ADV title lean, but the final selection remains intentionally unfrozen with three regular-season games left.</p>
     </section>
   </div>;
 }
