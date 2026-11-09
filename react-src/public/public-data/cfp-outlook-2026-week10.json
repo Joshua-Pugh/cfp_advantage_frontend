@@ -5,6 +5,39 @@
   "entering_week": 11,
   "generated_at": "2026-11-08T22:12:22.384Z",
   "status": "preliminary_outlook_not_championship_pick",
+  "current_title_lean": {
+    "team": "Georgia",
+    "basis": "ADVPI power leader with current championship-profile support",
+    "status": "preliminary_entering_week_11"
+  },
+  "adv_power_board": [
+    {"rank":1,"team":"Georgia","neutral_rating":23.59275476294064,"adv_srs":118.73717027762451},
+    {"rank":2,"team":"LSU","neutral_rating":20.619189627970123,"adv_srs":115.88236859568543},
+    {"rank":3,"team":"Alabama","neutral_rating":20.195388628372196,"adv_srs":119.56443172092642},
+    {"rank":4,"team":"Notre Dame","neutral_rating":20.107835705564227,"adv_srs":116.72331607965616},
+    {"rank":5,"team":"Texas","neutral_rating":20.09977171196391,"adv_srs":119.2455087342732},
+    {"rank":6,"team":"Ohio State","neutral_rating":16.85193869498285,"adv_srs":102.39407921862384},
+    {"rank":7,"team":"Utah","neutral_rating":16.4713212499001,"adv_srs":103.47281589489286},
+    {"rank":8,"team":"Tennessee","neutral_rating":16.39747787230148,"adv_srs":106.47731901902522},
+    {"rank":9,"team":"Miami","neutral_rating":15.848728834701792,"adv_srs":94.93326643322426},
+    {"rank":10,"team":"UCLA","neutral_rating":15.64539916887055,"adv_srs":103.50932683981964},
+    {"rank":11,"team":"Boise State","neutral_rating":15.47705887129496,"adv_srs":106.19052058289688},
+    {"rank":12,"team":"Houston","neutral_rating":14.859998431107147,"adv_srs":94.15470420148196}
+  ],
+  "adv_seed_board": [
+    {"rank":1,"team":"Utah","record":"9-0","power_rank":7,"sor_score":1.4774297962531775},
+    {"rank":2,"team":"UCLA","record":"9-0","power_rank":10,"sor_score":1.3052557461755523},
+    {"rank":3,"team":"Georgia","record":"8-1","power_rank":1,"sor_score":1.0221359028968915},
+    {"rank":4,"team":"Alabama","record":"7-2","power_rank":3,"sor_score":1.0585746687785604},
+    {"rank":5,"team":"Notre Dame","record":"8-1","power_rank":4,"sor_score":0.9416385412320355},
+    {"rank":6,"team":"Miami","record":"8-1","power_rank":9,"sor_score":1.0073644713824965},
+    {"rank":7,"team":"Texas","record":"7-2","power_rank":5,"sor_score":0.784607535235837},
+    {"rank":8,"team":"Kentucky","record":"7-2","power_rank":17,"sor_score":0.8274775650164317},
+    {"rank":9,"team":"Indiana","record":"8-1","power_rank":14,"sor_score":0.7235332786848909},
+    {"rank":10,"team":"Boise State","record":"8-1","power_rank":11,"sor_score":0.5933477082983486},
+    {"rank":11,"team":"Tennessee","record":"7-2","power_rank":8,"sor_score":0.5421001687853514},
+    {"rank":12,"team":"Texas Tech","record":"8-1","power_rank":25,"sor_score":0.724915947327437}
+  ],
   "committee_snapshot": {
     "released_at": "2026-11-03",
     "through_week": 9,
@@ -43,7 +76,7 @@
   ],
   "methodology": {
     "committee_order": "Official November 3 committee ranking snapshot.",
-    "adv_order": "Live post-Week-10 ADV SRS strength order.",
+    "adv_order": "Refreshed post-Week-10 multi-signal ADVPI power order, kept separate from the resume-aware seed outlook.",
     "game_odds": "Frozen raw ADV Fair Line converted through the retained historical margin-to-win calibration.",
     "path_odds": "Probability of completing the modeled regular-season slate with two or fewer losses.",
     "selection_odds": "Not claimed. Auto-bids, conference title games, and committee behavior are not yet modeled as validated selection probabilities."

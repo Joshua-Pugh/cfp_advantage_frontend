@@ -80,7 +80,7 @@ export default function CurrentCfpOutlook({ logos }) {
         <h2>CFP Committee Top 12</h2>
         <p className="panel-note">Released November 3. Week 10 results are not retroactively inserted into the committee&apos;s ranking.</p>
         <div className="validation-table-wrap"><table><thead><tr><th>CFP</th><th>Team</th><th>ADV</th></tr></thead><tbody>
-          {committee.map((row) => <tr key={row.team}><td>{row.rank}</td><td><TeamName team={row.team} logos={logos} /></td><td>{advRanks.get(row.team) || "-"}</td></tr>)}
+          {committee.map((row) => <tr key={row.team}><td data-label="CFP rank">{row.rank}</td><td data-label="Team"><TeamName team={row.team} logos={logos} /></td><td data-label="ADV power rank">{advRanks.get(row.team) || "-"}</td></tr>)}
         </tbody></table></div>
         <a href={outlook.committee_snapshot.source} target="_blank" rel="noreferrer">Open official committee ranking</a>
       </article>
@@ -90,7 +90,7 @@ export default function CurrentCfpOutlook({ logos }) {
         <h2>ADV Power Board</h2>
         <p className="panel-note">This is the refreshed multi-signal ADVPI board—not ADV SRS alone. It combines corrected ADV with opponent-adjusted offense, defense, special teams, and stable Control evidence. Georgia is the current neutral-field power leader.</p>
         <div className="validation-table-wrap"><table><thead><tr><th>Power</th><th>Team</th><th>Neutral pts</th><th>ADV SRS</th><th>CFP</th></tr></thead><tbody>
-          {powerBoard.map((row) => <tr key={row.team}><td>{row.rank}</td><td><TeamName team={row.team} logos={logos} /></td><td>{number(row.neutral_rating, 2)}</td><td>{number(row.adv_srs, 2)}</td><td>{committeeRanks.get(row.team) || "-"}</td></tr>)}
+          {powerBoard.map((row) => <tr key={row.team}><td data-label="Power rank">{row.rank}</td><td data-label="Team"><TeamName team={row.team} logos={logos} /></td><td data-label="Neutral points">{number(row.neutral_rating, 2)}</td><td data-label="ADV SRS">{number(row.adv_srs, 2)}</td><td data-label="CFP rank">{committeeRanks.get(row.team) || "-"}</td></tr>)}
         </tbody></table></div>
       </article>
     </section>
@@ -102,7 +102,7 @@ export default function CurrentCfpOutlook({ logos }) {
       <div className="validation-table-wrap"><table><thead><tr><th>Seed read</th><th>Team</th><th>Record</th><th>Power</th><th>SOR</th><th>Next-game path</th></tr></thead><tbody>
         {seedBoard.map((row) => {
           const path = paths.get(row.team);
-          return <tr key={row.team}><td>{row.rank}</td><td><TeamName team={row.team} logos={logos} /></td><td>{row.record}</td><td>#{row.power_rank}</td><td>{number(row.sor_score, 3)}</td><td>{path ? `${percent(path.two_loss_path_if_next_win)} if win · ${percent(path.two_loss_path_if_next_loss)} if loss` : "-"}</td></tr>;
+          return <tr key={row.team}><td data-label="Seed read">{row.rank}</td><td data-label="Team"><TeamName team={row.team} logos={logos} /></td><td data-label="Record">{row.record}</td><td data-label="Power rank">#{row.power_rank}</td><td data-label="SOR">{number(row.sor_score, 3)}</td><td data-label="Next-game path">{path ? `${percent(path.two_loss_path_if_next_win)} if win · ${percent(path.two_loss_path_if_next_loss)} if loss` : "-"}</td></tr>;
         })}
       </tbody></table></div>
     </section>
@@ -126,7 +126,7 @@ export default function CurrentCfpOutlook({ logos }) {
       <div className="validation-table-wrap"><table><thead><tr><th>Team</th><th>Record</th><th>Next game</th><th>Win chance</th><th>Two-loss-or-better</th><th>If win</th><th>If loss</th></tr></thead><tbody>
         {committee.map((ranked) => {
           const row = paths.get(ranked.team);
-          return <tr key={ranked.team}><td><TeamName team={ranked.team} logos={logos} /></td><td>{row?.current_record || "-"}</td><td>{row ? `vs ${row.next_opponent}` : "-"}</td><td>{percent(row?.next_game_win_probability)}</td><td>{percent(row?.probability_two_or_fewer_losses)}</td><td>{percent(row?.two_loss_path_if_next_win)}</td><td>{percent(row?.two_loss_path_if_next_loss)}</td></tr>;
+          return <tr key={ranked.team}><td data-label="Team"><TeamName team={ranked.team} logos={logos} /></td><td data-label="Record">{row?.current_record || "-"}</td><td data-label="Next game">{row ? `vs ${row.next_opponent}` : "-"}</td><td data-label="Win chance">{percent(row?.next_game_win_probability)}</td><td data-label="Two-loss or better">{percent(row?.probability_two_or_fewer_losses)}</td><td data-label="If win">{percent(row?.two_loss_path_if_next_win)}</td><td data-label="If loss">{percent(row?.two_loss_path_if_next_loss)}</td></tr>;
         })}
       </tbody></table></div>
     </section>

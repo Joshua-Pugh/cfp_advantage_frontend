@@ -783,8 +783,77 @@ select {
     padding: 18px;
   }
 
-  .current-cfp-outlook .validation-table-wrap table {
-    min-width: 620px;
+  .current-cfp-outlook,
+  .current-cfp-outlook > *,
+  .current-cfp-outlook .insight-panel {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .current-cfp-outlook .validation-table-wrap {
+    overflow: visible;
+    border: 0;
+  }
+
+  .current-cfp-outlook .validation-table-wrap table,
+  .current-cfp-outlook .validation-table-wrap tbody,
+  .current-cfp-outlook .validation-table-wrap tr,
+  .current-cfp-outlook .validation-table-wrap td {
+    display: block;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .current-cfp-outlook .validation-table-wrap thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  .current-cfp-outlook .validation-table-wrap tbody {
+    display: grid;
+    gap: 12px;
+  }
+
+  .current-cfp-outlook .validation-table-wrap tr {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--paper);
+  }
+
+  .current-cfp-outlook .validation-table-wrap td {
+    display: grid;
+    grid-template-columns: minmax(118px, 0.8fr) minmax(0, 1.2fr);
+    gap: 12px;
+    align-items: center;
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--line);
+    overflow-wrap: anywhere;
+  }
+
+  .current-cfp-outlook .validation-table-wrap td:last-child {
+    border-bottom: 0;
+  }
+
+  .current-cfp-outlook .validation-table-wrap td::before {
+    content: attr(data-label);
+    color: var(--gold);
+    font-size: 0.72rem;
+    font-weight: 850;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .current-cfp-outlook .team-name-with-logo {
+    min-width: 0;
+    white-space: normal;
+  }
+
+  .current-outlook-summary {
+    grid-template-columns: 1fr;
   }
 
   .provisional-bracket-grid {
