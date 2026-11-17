@@ -1,0 +1,469 @@
+{
+  "schema_version": "cfp-outlook-public-v1",
+  "season": 2026,
+  "through_week": 11,
+  "entering_week": 12,
+  "generated_at": "2026-11-17T18:10:51.741536+00:00",
+  "status": "preliminary_outlook_not_championship_pick",
+  "current_title_lean": {
+    "team": "Georgia",
+    "basis": "ADVPI power leader with current championship-profile support",
+    "status": "preliminary_entering_week_12"
+  },
+  "adv_power_board": [
+    {
+      "rank": 1,
+      "team": "Georgia",
+      "neutral_rating": 25.32400683707832,
+      "adv_srs": 126.20803440985844,
+      "eadv_shadow_rank": 3
+    },
+    {
+      "rank": 2,
+      "team": "Notre Dame",
+      "neutral_rating": 20.93830314994496,
+      "adv_srs": 117.66525087132187,
+      "eadv_shadow_rank": 2
+    },
+    {
+      "rank": 3,
+      "team": "Texas",
+      "neutral_rating": 20.19465819204355,
+      "adv_srs": 119.49970480235768,
+      "eadv_shadow_rank": 7
+    },
+    {
+      "rank": 4,
+      "team": "LSU",
+      "neutral_rating": 19.576187000172883,
+      "adv_srs": 112.12365455264096,
+      "eadv_shadow_rank": 11
+    },
+    {
+      "rank": 5,
+      "team": "Alabama",
+      "neutral_rating": 19.264215868441827,
+      "adv_srs": 114.93539019374444,
+      "eadv_shadow_rank": 6
+    },
+    {
+      "rank": 6,
+      "team": "Miami",
+      "neutral_rating": 17.505289019927194,
+      "adv_srs": 100.29960084440545,
+      "eadv_shadow_rank": 5
+    },
+    {
+      "rank": 7,
+      "team": "Utah",
+      "neutral_rating": 17.443534225054297,
+      "adv_srs": 106.87488854886648,
+      "eadv_shadow_rank": 8
+    },
+    {
+      "rank": 8,
+      "team": "Ohio State",
+      "neutral_rating": 17.374493401027767,
+      "adv_srs": 104.46298969108956,
+      "eadv_shadow_rank": 1
+    },
+    {
+      "rank": 9,
+      "team": "Tennessee",
+      "neutral_rating": 17.19856922452411,
+      "adv_srs": 110.34207162564454,
+      "eadv_shadow_rank": 12
+    },
+    {
+      "rank": 10,
+      "team": "UCLA",
+      "neutral_rating": 16.003114022300448,
+      "adv_srs": 104.77096758632015,
+      "eadv_shadow_rank": 40
+    },
+    {
+      "rank": 11,
+      "team": "Wake Forest",
+      "neutral_rating": 15.35389025833727,
+      "adv_srs": 89.14366139898291,
+      "eadv_shadow_rank": 26
+    },
+    {
+      "rank": 12,
+      "team": "Indiana",
+      "neutral_rating": 14.107391206038375,
+      "adv_srs": 92.81472745422792,
+      "eadv_shadow_rank": 4
+    }
+  ],
+  "adv_seed_board": [
+    {
+      "rank": 1,
+      "team": "Utah",
+      "record": "10-0",
+      "power_rank": 7,
+      "sor_score": 1.9310536898459287
+    },
+    {
+      "rank": 2,
+      "team": "Georgia",
+      "record": "9-1",
+      "power_rank": 1,
+      "sor_score": 1.2647760529187597
+    },
+    {
+      "rank": 3,
+      "team": "UCLA",
+      "record": "10-0",
+      "power_rank": 10,
+      "sor_score": 1.466888576996243
+    },
+    {
+      "rank": 4,
+      "team": "Miami",
+      "record": "9-1",
+      "power_rank": 6,
+      "sor_score": 1.2468043201873475
+    },
+    {
+      "rank": 5,
+      "team": "Texas",
+      "record": "8-2",
+      "power_rank": 3,
+      "sor_score": 1.1311591845555575
+    },
+    {
+      "rank": 6,
+      "team": "Alabama",
+      "record": "8-2",
+      "power_rank": 5,
+      "sor_score": 1.1194473864175947
+    },
+    {
+      "rank": 7,
+      "team": "Notre Dame",
+      "record": "9-1",
+      "power_rank": 2,
+      "sor_score": 1.047257313620406
+    },
+    {
+      "rank": 8,
+      "team": "Texas Tech",
+      "record": "9-1",
+      "power_rank": 16,
+      "sor_score": 1.0143957498163299
+    },
+    {
+      "rank": 9,
+      "team": "Wake Forest",
+      "record": "9-1",
+      "power_rank": 11,
+      "sor_score": 0.8519475931529773
+    },
+    {
+      "rank": 10,
+      "team": "Indiana",
+      "record": "9-1",
+      "power_rank": 12,
+      "sor_score": 0.8722667216168396
+    },
+    {
+      "rank": 11,
+      "team": "Tennessee",
+      "record": "8-2",
+      "power_rank": 9,
+      "sor_score": 0.7120811208714676
+    },
+    {
+      "rank": 12,
+      "team": "Boise State",
+      "record": "9-1",
+      "power_rank": 13,
+      "sor_score": 0.7381125262280441
+    }
+  ],
+  "committee_snapshot": {
+    "released_at": "2026-11-10",
+    "through_week": 10,
+    "source": "https://collegefootballplayoff.com/news/2026/11/10/rankings",
+    "rankings": [
+      {
+        "rank": 1,
+        "team": "Georgia"
+      },
+      {
+        "rank": 2,
+        "team": "Utah"
+      },
+      {
+        "rank": 3,
+        "team": "Alabama"
+      },
+      {
+        "rank": 4,
+        "team": "UCLA"
+      },
+      {
+        "rank": 5,
+        "team": "Notre Dame"
+      },
+      {
+        "rank": 6,
+        "team": "Texas"
+      },
+      {
+        "rank": 7,
+        "team": "Miami"
+      },
+      {
+        "rank": 8,
+        "team": "Tennessee"
+      },
+      {
+        "rank": 9,
+        "team": "Indiana"
+      },
+      {
+        "rank": 10,
+        "team": "BYU"
+      },
+      {
+        "rank": 11,
+        "team": "Kentucky"
+      },
+      {
+        "rank": 12,
+        "team": "Texas Tech"
+      }
+    ]
+  },
+  "provisional_bracket": [
+    {
+      "higher_seed": 5,
+      "higher_seed_team": "Notre Dame",
+      "lower_seed": 12,
+      "lower_seed_team": "Texas Tech"
+    },
+    {
+      "higher_seed": 6,
+      "higher_seed_team": "Texas",
+      "lower_seed": 11,
+      "lower_seed_team": "Kentucky"
+    },
+    {
+      "higher_seed": 7,
+      "higher_seed_team": "Miami",
+      "lower_seed": 10,
+      "lower_seed_team": "BYU"
+    },
+    {
+      "higher_seed": 8,
+      "higher_seed_team": "Tennessee",
+      "lower_seed": 9,
+      "lower_seed_team": "Indiana"
+    }
+  ],
+  "team_paths": [
+    {
+      "team": "Alabama",
+      "current_record": "8-2",
+      "expected_final_wins": null,
+      "probability_two_or_fewer_losses": null,
+      "next_opponent": "Chattanooga",
+      "next_game_win_probability": null,
+      "two_loss_path_if_next_win": null,
+      "two_loss_path_if_next_loss": null,
+      "next_game_venue": "home"
+    },
+    {
+      "team": "BYU",
+      "current_record": "8-2",
+      "expected_final_wins": 9.332,
+      "probability_two_or_fewer_losses": 0.423503,
+      "next_opponent": "Kansas",
+      "next_game_win_probability": 0.525038,
+      "two_loss_path_if_next_win": 0.806614,
+      "two_loss_path_if_next_loss": 0.0,
+      "next_game_venue": "away"
+    },
+    {
+      "team": "Boise State",
+      "current_record": "9-1",
+      "expected_final_wins": 9.897,
+      "probability_two_or_fewer_losses": 1.0,
+      "next_opponent": "San Diego State",
+      "next_game_win_probability": 0.896593,
+      "two_loss_path_if_next_win": 1.0,
+      "two_loss_path_if_next_loss": 1.0,
+      "next_game_venue": "home"
+    },
+    {
+      "team": "Georgia",
+      "current_record": "9-1",
+      "expected_final_wins": 10.625,
+      "probability_two_or_fewer_losses": 0.988126,
+      "next_opponent": "South Carolina",
+      "next_game_win_probability": 0.659864,
+      "two_loss_path_if_next_win": 1.0,
+      "two_loss_path_if_next_loss": 0.965089,
+      "next_game_venue": "away"
+    },
+    {
+      "team": "Indiana",
+      "current_record": "9-1",
+      "expected_final_wins": 10.309,
+      "probability_two_or_fewer_losses": 0.905897,
+      "next_opponent": "Washington",
+      "next_game_win_probability": 0.495666,
+      "two_loss_path_if_next_win": 1.0,
+      "two_loss_path_if_next_loss": 0.813412,
+      "next_game_venue": "away"
+    },
+    {
+      "team": "Kentucky",
+      "current_record": "7-3",
+      "expected_final_wins": 7.955,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_opponent": "Missouri",
+      "next_game_win_probability": 0.376732,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "next_game_venue": "away"
+    },
+    {
+      "team": "LSU",
+      "current_record": "6-4",
+      "expected_final_wins": 7.192,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_opponent": "Tennessee",
+      "next_game_win_probability": 0.489607,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "next_game_venue": "away"
+    },
+    {
+      "team": "Miami",
+      "current_record": "9-1",
+      "expected_final_wins": 10.865,
+      "probability_two_or_fewer_losses": 0.995846,
+      "next_opponent": "Virginia Tech",
+      "next_game_win_probability": 0.913549,
+      "two_loss_path_if_next_win": 1.0,
+      "two_loss_path_if_next_loss": 0.951947,
+      "next_game_venue": "home"
+    },
+    {
+      "team": "Notre Dame",
+      "current_record": "9-1",
+      "expected_final_wins": 10.608,
+      "probability_two_or_fewer_losses": 0.963222,
+      "next_opponent": "SMU",
+      "next_game_win_probability": 0.845207,
+      "two_loss_path_if_next_win": 1.0,
+      "two_loss_path_if_next_loss": 0.762405,
+      "next_game_venue": "home"
+    },
+    {
+      "team": "Ohio State",
+      "current_record": "7-3",
+      "expected_final_wins": 8.462,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_opponent": "Nebraska",
+      "next_game_win_probability": 0.561634,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "next_game_venue": "away"
+    },
+    {
+      "team": "Tennessee",
+      "current_record": "8-2",
+      "expected_final_wins": 9.192,
+      "probability_two_or_fewer_losses": 0.347743,
+      "next_opponent": "LSU",
+      "next_game_win_probability": 0.510393,
+      "two_loss_path_if_next_win": 0.681324,
+      "two_loss_path_if_next_loss": 0.0,
+      "next_game_venue": "home"
+    },
+    {
+      "team": "Texas",
+      "current_record": "8-2",
+      "expected_final_wins": 9.441,
+      "probability_two_or_fewer_losses": 0.49901,
+      "next_opponent": "Arkansas",
+      "next_game_win_probability": 0.862335,
+      "two_loss_path_if_next_win": 0.578673,
+      "two_loss_path_if_next_loss": 0.0,
+      "next_game_venue": "home"
+    },
+    {
+      "team": "Texas Tech",
+      "current_record": "9-1",
+      "expected_final_wins": 10.241,
+      "probability_two_or_fewer_losses": 0.892088,
+      "next_opponent": "Baylor",
+      "next_game_win_probability": 0.43049,
+      "two_loss_path_if_next_win": 1.0,
+      "two_loss_path_if_next_loss": 0.810518,
+      "next_game_venue": "away"
+    },
+    {
+      "team": "UCLA",
+      "current_record": "10-0",
+      "expected_final_wins": 11.306,
+      "probability_two_or_fewer_losses": 1.0,
+      "next_opponent": "Michigan",
+      "next_game_win_probability": 0.625597,
+      "two_loss_path_if_next_win": 1.0,
+      "two_loss_path_if_next_loss": 1.0,
+      "next_game_venue": "away"
+    },
+    {
+      "team": "Utah",
+      "current_record": "10-0",
+      "expected_final_wins": 11.556,
+      "probability_two_or_fewer_losses": 1.0,
+      "next_opponent": "TCU",
+      "next_game_win_probability": 0.677081,
+      "two_loss_path_if_next_win": 1.0,
+      "two_loss_path_if_next_loss": 1.0,
+      "next_game_venue": "away"
+    },
+    {
+      "team": "Wake Forest",
+      "current_record": "9-1",
+      "expected_final_wins": 10.634,
+      "probability_two_or_fewer_losses": 0.966528,
+      "next_opponent": "Georgia Tech",
+      "next_game_win_probability": 0.806682,
+      "two_loss_path_if_next_win": 1.0,
+      "two_loss_path_if_next_loss": 0.826853,
+      "next_game_venue": "away"
+    }
+  ],
+  "methodology": {
+    "committee_order": "Official November 10 committee ranking snapshot through Week 10.",
+    "adv_order": "Post-Week-11 ADVPI v1.0 neutral-field power with kickoff-safe Control evidence.",
+    "game_odds": "Week 12 uses the published Fair Line. Week 13 uses preliminary Fair Lines from the Week 11 cutoff, before Week 12 results. Both use the same historical margin-to-win calibration.",
+    "path_odds": "Probability of completing the modeled regular-season slate with two or fewer losses.",
+    "selection_odds": "Not claimed. Auto-bids, conference title games, and committee behavior are not yet modeled as validated selection probabilities."
+  },
+  "adv_power_ranks": {
+    "Georgia": 1,
+    "Notre Dame": 2,
+    "Texas": 3,
+    "LSU": 4,
+    "Alabama": 5,
+    "Miami": 6,
+    "Utah": 7,
+    "Ohio State": 8,
+    "Tennessee": 9,
+    "UCLA": 10,
+    "Wake Forest": 11,
+    "Indiana": 12,
+    "Boise State": 13,
+    "BYU": 15,
+    "Texas Tech": 16,
+    "Kentucky": 22
+  }
+}
