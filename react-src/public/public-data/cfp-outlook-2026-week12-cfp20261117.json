@@ -3553,7 +3553,7 @@
     "path_probabilities": "The probabilities describe remaining record thresholds, not CFP selection odds.",
     "selection_odds_status": "withheld_until_committee_proxy_and_auto_bid_logic_are_chronologically_validated"
   },
-  "generated_at": "2026-11-23T23:04:13.521504+00:00",
+  "generated_at": "2026-11-23T23:06:18.559081+00:00",
   "entering_week": 13,
   "ap_snapshot": {
     "season": 2026,
@@ -5469,16 +5469,8 @@
       "team": "Oregon"
     },
     {
-      "rank": 14,
-      "team": "Ohio State"
-    },
-    {
       "rank": 15,
       "team": "Iowa"
-    },
-    {
-      "rank": 16,
-      "team": "Kentucky"
     },
     {
       "rank": 17,
@@ -5497,27 +5489,15 @@
       "team": "Houston"
     },
     {
-      "rank": 21,
-      "team": "South Carolina"
-    },
-    {
-      "rank": 22,
-      "team": "Oklahoma"
-    },
-    {
       "rank": 23,
       "team": "Louisville"
     },
     {
-      "rank": 24,
-      "team": "Florida"
-    },
-    {
-      "rank": 25,
-      "team": "Ole Miss"
+      "team": "Liberty",
+      "rank": null
     }
   ],
-  "watchlist_note": "CFP-ranked teams outside the top 12; inclusion is not a selection probability or a guarantee of a remaining path.",
+  "watchlist_note": "CFP- or AP-ranked teams outside the CFP top 12 with three or fewer current losses. This display filter is not a selection model or an elimination list; other conference-title routes may remain.",
   "current_title_lean": {
     "team": "Georgia",
     "basis": "Current neutral-power leader; preliminary, not a championship probability"
