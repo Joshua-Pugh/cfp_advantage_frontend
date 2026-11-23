@@ -1,0 +1,90 @@
+{
+  "generated_at": "2026-11-23T22:09:52.946Z",
+  "game_id": "401858311",
+  "season": 2026,
+  "week": 13,
+  "date": "2026-11-28",
+  "kickoff_at": "2026-11-28T17:00:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "Boston College",
+  "away_full_name": "Boston College Eagles",
+  "away_conference": "ACC",
+  "away_ap_rank": 0,
+  "home_team": "Miami",
+  "home_full_name": "Miami Hurricanes",
+  "home_conference": "ACC",
+  "home_ap_rank": 4,
+  "projected_winner": "Miami Hurricanes",
+  "projected_margin": 30.33,
+  "projection_closeness": 0,
+  "context_label": "Strong Framework Support",
+  "context_note": "Miami owns support across control, finishing, denial, and finishing resistance.",
+  "matchup_conviction": {
+    "label": "Strong Separation",
+    "note": "Large baseline separation with non-conflicting matchup context. Historically, this game shape has been much harder to overturn.",
+    "historical_model_win_rate": 0.907,
+    "framework_support": {
+      "strength": "Framework Strongly Supports",
+      "support_components": 5,
+      "conflict_components": 0
+    }
+  },
+  "key_advantages": {
+    "Miami": [
+      "Stronger Control Creation",
+      "More consistent Control Rate",
+      "More efficient Control Finish",
+      "Stronger Control Denial",
+      "Higher Control Drive Shutout Rate",
+      "Higher overall ADV strength",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ],
+    "Boston College": []
+  },
+  "away_profile": {
+    "pregame_adv_rating": 26.777207,
+    "adv_schedule_strength": 46.027207,
+    "games_before_target": 11,
+    "recent_form": "Improving, Still Below Baseline",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": -0.6367204885683635,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.312,
+    "control_finish": 0.846154,
+    "control_denial": 0.428571,
+    "comparison_stats": {
+      "games_available": 11,
+      "yards_per_game": 336.2,
+      "yards_per_play": 5.36,
+      "points_per_drive": 1.76,
+      "rush_yards_per_game": 167.8,
+      "pass_yards_per_game": 168.4,
+      "turnover_margin": 1
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 93.291142,
+    "adv_schedule_strength": 46.257051,
+    "games_before_target": 11,
+    "recent_form": "Improving, Still Below Baseline",
+    "recent_form_note": "Recent ADV has improved with manageable volatility.",
+    "talent_yield": -0.08292498325616049,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.571429,
+    "control_finish": 0.916667,
+    "control_denial": 0.688,
+    "comparison_stats": {
+      "games_available": 11,
+      "yards_per_game": 507.6,
+      "yards_per_play": 7.22,
+      "points_per_drive": 3.73,
+      "rush_yards_per_game": 184.2,
+      "pass_yards_per_game": 323.5,
+      "turnover_margin": 3
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401858311/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401858311.json"
+}

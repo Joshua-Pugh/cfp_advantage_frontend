@@ -1,0 +1,83 @@
+{
+  "generated_at": "2026-11-23T22:09:52.946Z",
+  "game_id": "401856876",
+  "season": 2026,
+  "week": 13,
+  "date": "2026-11-28",
+  "kickoff_at": "2026-11-28T20:30:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "Cincinnati",
+  "away_full_name": "Cincinnati Bearcats",
+  "away_conference": "Big 12",
+  "away_ap_rank": 0,
+  "home_team": "BYU",
+  "home_full_name": "BYU Cougars",
+  "home_conference": "Big 12",
+  "home_ap_rank": 11,
+  "projected_winner": "BYU Cougars",
+  "projected_margin": 13.86,
+  "projection_closeness": 0.34,
+  "context_label": "Mixed Framework Read",
+  "context_note": "The frozen Control Framework is split and does not strongly reinforce the baseline.",
+  "matchup_conviction": {
+    "label": "Supported Edge",
+    "note": "The matchup shape supports the lean with meaningful but not overwhelming separation.",
+    "historical_model_win_rate": 0.698,
+    "framework_support": {
+      "strength": "Mixed / Neutral",
+      "support_components": 0,
+      "conflict_components": 1
+    }
+  },
+  "key_advantages": {
+    "BYU": [
+      "Higher overall ADV strength"
+    ],
+    "Cincinnati": []
+  },
+  "away_profile": {
+    "pregame_adv_rating": 60.310822,
+    "adv_schedule_strength": 55.606276,
+    "games_before_target": 11,
+    "recent_form": "Improving, Still Below Baseline",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": 0.5543918738658574,
+    "talent_yield_label": "Above Expectation",
+    "control_creation": 0.438462,
+    "control_finish": 0.877193,
+    "control_denial": 0.548387,
+    "comparison_stats": {
+      "games_available": 11,
+      "yards_per_game": 441.5,
+      "yards_per_play": 6.57,
+      "points_per_drive": 2.6,
+      "rush_yards_per_game": 226.8,
+      "pass_yards_per_game": 214.6,
+      "turnover_margin": 7
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 90.74535,
+    "adv_schedule_strength": 60.279441,
+    "games_before_target": 11,
+    "recent_form": "Stable, Below Baseline",
+    "recent_form_note": "Recent ADV is comparatively stable without a material slope.",
+    "talent_yield": 2.1338251336833824,
+    "talent_yield_label": "Well Above Expectation",
+    "control_creation": 0.451613,
+    "control_finish": 0.892857,
+    "control_denial": 0.561538,
+    "comparison_stats": {
+      "games_available": 11,
+      "yards_per_game": 387.9,
+      "yards_per_play": 6.02,
+      "points_per_drive": 2.6,
+      "rush_yards_per_game": 174.5,
+      "pass_yards_per_game": 213.5,
+      "turnover_margin": 0
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401856876/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401856876.json"
+}

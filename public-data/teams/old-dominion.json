@@ -1,16 +1,36 @@
 {
-  "generated_at": "2026-11-09T02:27:18.779Z",
+  "generated_at": "2026-11-23T22:09:52.946Z",
   "team": "Old Dominion",
   "full_name": "Old Dominion Monarchs",
   "season": 2026,
   "conference": "Sun Belt",
   "classification": "fbs",
   "tier": "g5",
-  "record": "3-7",
-  "points_for": 168,
-  "points_against": 258,
-  "average_score_margin": -9,
-  "current_pregame_profile": null,
+  "record": "3-8",
+  "points_for": 189,
+  "points_against": 287,
+  "average_score_margin": -8.9091,
+  "current_pregame_profile": {
+    "pregame_adv_rating": -1.352783,
+    "adv_schedule_strength": 23.442672,
+    "games_before_target": 11,
+    "recent_form": "Improving, Still Below Baseline",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": 0.008303492100300458,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.190141,
+    "control_finish": 0.740741,
+    "control_denial": 0.678082,
+    "comparison_stats": {
+      "games_available": 11,
+      "yards_per_game": 279.1,
+      "yards_per_play": 4.36,
+      "points_per_drive": 1.07,
+      "rush_yards_per_game": 90.8,
+      "pass_yards_per_game": 188.3,
+      "turnover_margin": -1
+    }
+  },
   "canonical_url": "https://cfpadvantage.com/teams/2026/old-dominion/",
   "data_url": "https://cfpadvantage.com/public-data/teams/old-dominion.json"
 }

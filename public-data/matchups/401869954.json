@@ -1,0 +1,87 @@
+{
+  "generated_at": "2026-11-23T22:09:52.946Z",
+  "game_id": "401869954",
+  "season": 2026,
+  "week": 13,
+  "date": "2026-11-28",
+  "kickoff_at": "2026-11-28T17:00:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "Louisiana Tech",
+  "away_full_name": "Louisiana Tech Bulldogs",
+  "away_conference": "Sun Belt",
+  "away_ap_rank": 0,
+  "home_team": "Georgia Southern",
+  "home_full_name": "Georgia Southern Eagles",
+  "home_conference": "Sun Belt",
+  "home_ap_rank": 0,
+  "projected_winner": "Georgia Southern Eagles",
+  "projected_margin": 1.08,
+  "projection_closeness": 0.9486,
+  "context_label": "Mixed Framework Read",
+  "context_note": "The frozen Control Framework is split and does not strongly reinforce the baseline.",
+  "matchup_conviction": {
+    "label": "Context Pushback",
+    "note": "The baseline has a lean, but stable Control Framework traits point to meaningful matchup resistance.",
+    "historical_model_win_rate": 0.525,
+    "framework_support": {
+      "strength": "Framework Conflicts",
+      "support_components": 1,
+      "conflict_components": 4
+    }
+  },
+  "key_advantages": {
+    "Georgia Southern": [],
+    "Louisiana Tech": [
+      "Stronger Control Creation",
+      "Stronger Control Denial",
+      "Higher overall ADV strength",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 61.174221,
+    "adv_schedule_strength": 20.878766,
+    "games_before_target": 11,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV has improved with manageable volatility.",
+    "talent_yield": 1.117724477043705,
+    "talent_yield_label": "Well Above Expectation",
+    "control_creation": 0.459259,
+    "control_finish": 0.903226,
+    "control_denial": 0.576,
+    "comparison_stats": {
+      "games_available": 11,
+      "yards_per_game": 404.1,
+      "yards_per_play": 6.13,
+      "points_per_drive": 2.77,
+      "rush_yards_per_game": 145.1,
+      "pass_yards_per_game": 259,
+      "turnover_margin": 16
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 55.639379,
+    "adv_schedule_strength": 22.457561,
+    "games_before_target": 11,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV has improved with manageable volatility.",
+    "talent_yield": 0.37042937074478377,
+    "talent_yield_label": "Above Expectation",
+    "control_creation": 0.424,
+    "control_finish": 0.886792,
+    "control_denial": 0.540741,
+    "comparison_stats": {
+      "games_available": 11,
+      "yards_per_game": 411.2,
+      "yards_per_play": 6.09,
+      "points_per_drive": 2.62,
+      "rush_yards_per_game": 131.8,
+      "pass_yards_per_game": 279.4,
+      "turnover_margin": 7
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401869954/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401869954.json"
+}

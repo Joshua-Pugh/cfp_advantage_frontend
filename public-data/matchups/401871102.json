@@ -1,0 +1,89 @@
+{
+  "generated_at": "2026-11-23T22:09:52.946Z",
+  "game_id": "401871102",
+  "season": 2026,
+  "week": 13,
+  "date": "2026-11-28",
+  "kickoff_at": "2026-11-28T18:00:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "Marshall",
+  "away_full_name": "Marshall Thundering Herd",
+  "away_conference": "Sun Belt",
+  "away_ap_rank": 0,
+  "home_team": "UL Monroe",
+  "home_full_name": "UL Monroe Warhawks",
+  "home_conference": "Sun Belt",
+  "home_ap_rank": 0,
+  "projected_winner": "UL Monroe Warhawks",
+  "projected_margin": 0.15,
+  "projection_closeness": 0.9927,
+  "context_label": "Mixed Framework Read",
+  "context_note": "The frozen Control Framework is split and does not strongly reinforce the baseline.",
+  "matchup_conviction": {
+    "label": "Context Pushback",
+    "note": "The baseline has a lean, but stable Control Framework traits point to meaningful matchup resistance.",
+    "historical_model_win_rate": 0.525,
+    "framework_support": {
+      "strength": "Framework Conflicts",
+      "support_components": 0,
+      "conflict_components": 3
+    }
+  },
+  "key_advantages": {
+    "UL Monroe": [
+      "More efficient Control Finish",
+      "Higher Control Drive Shutout Rate",
+      "Stronger schedule context"
+    ],
+    "Marshall": [
+      "Stronger Control Creation",
+      "Stronger Control Denial",
+      "Higher overall ADV strength"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 17.769995,
+    "adv_schedule_strength": 21.860904,
+    "games_before_target": 11,
+    "recent_form": "Cooling, Still Above Baseline",
+    "recent_form_note": "Recent ADV has declined with manageable volatility.",
+    "talent_yield": 0.0852291584469489,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.4,
+    "control_finish": 0.714286,
+    "control_denial": 0.679389,
+    "comparison_stats": {
+      "games_available": 11,
+      "yards_per_game": 383.9,
+      "yards_per_play": 5.59,
+      "points_per_drive": 1.72,
+      "rush_yards_per_game": 173.4,
+      "pass_yards_per_game": 210.5,
+      "turnover_margin": -5
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": -1.549629,
+    "adv_schedule_strength": 30.234462,
+    "games_before_target": 11,
+    "recent_form": "Stable, Above Baseline",
+    "recent_form_note": "Recent ADV is comparatively stable without a material slope.",
+    "talent_yield": -0.41727541586097416,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.320611,
+    "control_finish": 0.809524,
+    "control_denial": 0.6,
+    "comparison_stats": {
+      "games_available": 11,
+      "yards_per_game": 335.3,
+      "yards_per_play": 5,
+      "points_per_drive": 1.56,
+      "rush_yards_per_game": 145.9,
+      "pass_yards_per_game": 189.4,
+      "turnover_margin": -8
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401871102/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401871102.json"
+}

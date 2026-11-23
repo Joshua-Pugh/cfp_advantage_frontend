@@ -1,0 +1,5526 @@
+{
+  "schema_version": "cfp-outlook-public-v3",
+  "season": 2026,
+  "through_week": 12,
+  "status": "preliminary_outlook_not_championship_pick",
+  "committee_snapshot": {
+    "season": 2026,
+    "through_week": 11,
+    "released_at": "2026-11-17",
+    "source": "https://collegefootballplayoff.com/news/2026/11/17/rankings",
+    "status": "official_committee_snapshot",
+    "rankings": [
+      {
+        "rank": 1,
+        "team": "Georgia"
+      },
+      {
+        "rank": 2,
+        "team": "Utah"
+      },
+      {
+        "rank": 3,
+        "team": "Alabama"
+      },
+      {
+        "rank": 4,
+        "team": "UCLA"
+      },
+      {
+        "rank": 5,
+        "team": "Texas"
+      },
+      {
+        "rank": 6,
+        "team": "Notre Dame"
+      },
+      {
+        "rank": 7,
+        "team": "Miami"
+      },
+      {
+        "rank": 8,
+        "team": "Indiana"
+      },
+      {
+        "rank": 9,
+        "team": "Tennessee"
+      },
+      {
+        "rank": 10,
+        "team": "BYU"
+      },
+      {
+        "rank": 11,
+        "team": "Wake Forest"
+      },
+      {
+        "rank": 12,
+        "team": "Texas Tech"
+      },
+      {
+        "rank": 13,
+        "team": "Oregon"
+      },
+      {
+        "rank": 14,
+        "team": "Ohio State"
+      },
+      {
+        "rank": 15,
+        "team": "Iowa"
+      },
+      {
+        "rank": 16,
+        "team": "Kentucky"
+      },
+      {
+        "rank": 17,
+        "team": "Boise State"
+      },
+      {
+        "rank": 18,
+        "team": "USC"
+      },
+      {
+        "rank": 19,
+        "team": "Arizona"
+      },
+      {
+        "rank": 20,
+        "team": "Houston"
+      },
+      {
+        "rank": 21,
+        "team": "South Carolina"
+      },
+      {
+        "rank": 22,
+        "team": "Oklahoma"
+      },
+      {
+        "rank": 23,
+        "team": "Louisville"
+      },
+      {
+        "rank": 24,
+        "team": "Florida"
+      },
+      {
+        "rank": 25,
+        "team": "Ole Miss"
+      }
+    ]
+  },
+  "provisional_bracket": [
+    {
+      "round": "first_round",
+      "higher_seed": 5,
+      "higher_seed_team": "Texas",
+      "lower_seed": 12,
+      "lower_seed_team": "Texas Tech"
+    },
+    {
+      "round": "first_round",
+      "higher_seed": 6,
+      "higher_seed_team": "Notre Dame",
+      "lower_seed": 11,
+      "lower_seed_team": "Wake Forest"
+    },
+    {
+      "round": "first_round",
+      "higher_seed": 7,
+      "higher_seed_team": "Miami",
+      "lower_seed": 10,
+      "lower_seed_team": "BYU"
+    },
+    {
+      "round": "first_round",
+      "higher_seed": 8,
+      "higher_seed_team": "Indiana",
+      "lower_seed": 9,
+      "lower_seed_team": "Tennessee"
+    },
+    {
+      "round": "quarterfinal_bye",
+      "seed": 1,
+      "team": "Georgia"
+    },
+    {
+      "round": "quarterfinal_bye",
+      "seed": 2,
+      "team": "Utah"
+    },
+    {
+      "round": "quarterfinal_bye",
+      "seed": 3,
+      "team": "Alabama"
+    },
+    {
+      "round": "quarterfinal_bye",
+      "seed": 4,
+      "team": "UCLA"
+    }
+  ],
+  "remaining_games": [
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401866470",
+      "date": "2026-11-25",
+      "away_team": "Kent State",
+      "home_team": "Eastern Michigan",
+      "adv_fair_margin_home": 11.9488,
+      "home_win_probability": 0.76125,
+      "away_win_probability": 0.23875,
+      "confidence_bucket": "7-14",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401866471",
+      "date": "2026-11-25",
+      "away_team": "Miami (OH)",
+      "home_team": "Western Michigan",
+      "adv_fair_margin_home": 13.9647,
+      "home_win_probability": 0.791655,
+      "away_win_probability": 0.208345,
+      "confidence_bucket": "7-14",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401856759",
+      "date": "2026-11-27",
+      "away_team": "Florida",
+      "home_team": "Florida State",
+      "adv_fair_margin_home": -2.8298,
+      "home_win_probability": 0.468494,
+      "away_win_probability": 0.531506,
+      "confidence_bucket": "0-3",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401856762",
+      "date": "2026-11-27",
+      "away_team": "Mississippi State",
+      "home_team": "Ole Miss",
+      "adv_fair_margin_home": 16.9472,
+      "home_win_probability": 0.831235,
+      "away_win_probability": 0.168765,
+      "confidence_bucket": "14-21",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401856879",
+      "date": "2026-11-27",
+      "away_team": "TCU",
+      "home_team": "Texas Tech",
+      "adv_fair_margin_home": 15.6666,
+      "home_win_probability": 0.815024,
+      "away_win_probability": 0.184976,
+      "confidence_bucket": "14-21",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401858536",
+      "date": "2026-11-27",
+      "away_team": "Nebraska",
+      "home_team": "Iowa",
+      "adv_fair_margin_home": 7.083,
+      "home_win_probability": 0.676168,
+      "away_win_probability": 0.323832,
+      "confidence_bucket": "7-14",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401862838",
+      "date": "2026-11-27",
+      "away_team": "Temple",
+      "home_team": "Memphis",
+      "adv_fair_margin_home": 21.4568,
+      "home_win_probability": 0.879398,
+      "away_win_probability": 0.120602,
+      "confidence_bucket": "21+",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401862840",
+      "date": "2026-11-27",
+      "away_team": "Tulsa",
+      "home_team": "UTSA",
+      "adv_fair_margin_home": 2.3707,
+      "home_win_probability": 0.580847,
+      "away_win_probability": 0.419153,
+      "confidence_bucket": "0-3",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401864546",
+      "date": "2026-11-27",
+      "away_team": "Air Force",
+      "home_team": "New Mexico",
+      "adv_fair_margin_home": 3.8269,
+      "home_win_probability": 0.611339,
+      "away_win_probability": 0.388661,
+      "confidence_bucket": "3-7",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401864549",
+      "date": "2026-11-27",
+      "away_team": "North Dakota State",
+      "home_team": "San Jos\u00e9 State",
+      "adv_fair_margin_home": -6.06,
+      "home_win_probability": 0.399578,
+      "away_win_probability": 0.600422,
+      "confidence_bucket": "3-7",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401866472",
+      "date": "2026-11-27",
+      "away_team": "Buffalo",
+      "home_team": "Akron",
+      "adv_fair_margin_home": 2.3803,
+      "home_win_probability": 0.58105,
+      "away_win_probability": 0.41895,
+      "confidence_bucket": "0-3",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401866473",
+      "date": "2026-11-27",
+      "away_team": "Toledo",
+      "home_team": "Ohio",
+      "adv_fair_margin_home": 3.4796,
+      "home_win_probability": 0.604135,
+      "away_win_probability": 0.395865,
+      "confidence_bucket": "3-7",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401869930",
+      "date": "2026-11-27",
+      "away_team": "App State",
+      "home_team": "South Alabama",
+      "adv_fair_margin_home": 11.3642,
+      "home_win_probability": 0.751884,
+      "away_win_probability": 0.248116,
+      "confidence_bucket": "7-14",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401856756",
+      "date": "2026-11-28",
+      "away_team": "Texas",
+      "home_team": "Texas A&M",
+      "adv_fair_margin_home": -7.4356,
+      "home_win_probability": 0.371241,
+      "away_win_probability": 0.628759,
+      "confidence_bucket": "7-14",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401856758",
+      "date": "2026-11-28",
+      "away_team": "LSU",
+      "home_team": "Arkansas",
+      "adv_fair_margin_home": -10.2486,
+      "home_win_probability": 0.316127,
+      "away_win_probability": 0.683873,
+      "confidence_bucket": "7-14",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401856760",
+      "date": "2026-11-28",
+      "away_team": "Georgia Tech",
+      "home_team": "Georgia",
+      "adv_fair_margin_home": 35.4317,
+      "home_win_probability": 0.960931,
+      "away_win_probability": 0.039069,
+      "confidence_bucket": "21+",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401856761",
+      "date": "2026-11-28",
+      "away_team": "Louisville",
+      "home_team": "Kentucky",
+      "adv_fair_margin_home": -0.2169,
+      "home_win_probability": 0.525261,
+      "away_win_probability": 0.474739,
+      "confidence_bucket": "0-3",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401856763",
+      "date": "2026-11-28",
+      "away_team": "Oklahoma",
+      "home_team": "Missouri",
+      "adv_fair_margin_home": 5.8061,
+      "home_win_probability": 0.651384,
+      "away_win_probability": 0.348616,
+      "confidence_bucket": "3-7",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401856764",
+      "date": "2026-11-28",
+      "away_team": "South Carolina",
+      "home_team": "Clemson",
+      "adv_fair_margin_home": -5.9481,
+      "home_win_probability": 0.401918,
+      "away_win_probability": 0.598082,
+      "confidence_bucket": "3-7",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401856875",
+      "date": "2026-11-28",
+      "away_team": "UCF",
+      "home_team": "Colorado",
+      "adv_fair_margin_home": -2.037,
+      "home_win_probability": 0.485699,
+      "away_win_probability": 0.514301,
+      "confidence_bucket": "0-3",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401856876",
+      "date": "2026-11-28",
+      "away_team": "Cincinnati",
+      "home_team": "BYU",
+      "adv_fair_margin_home": 13.8594,
+      "home_win_probability": 0.790139,
+      "away_win_probability": 0.209861,
+      "confidence_bucket": "7-14",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401856877",
+      "date": "2026-11-28",
+      "away_team": "Kansas",
+      "home_team": "Oklahoma State",
+      "adv_fair_margin_home": 13.4715,
+      "home_win_probability": 0.78449,
+      "away_win_probability": 0.21551,
+      "confidence_bucket": "7-14",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401856878",
+      "date": "2026-11-28",
+      "away_team": "Kansas State",
+      "home_team": "Iowa State",
+      "adv_fair_margin_home": 4.9168,
+      "home_win_probability": 0.633616,
+      "away_win_probability": 0.366384,
+      "confidence_bucket": "3-7",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401856880",
+      "date": "2026-11-28",
+      "away_team": "West Virginia",
+      "home_team": "Utah",
+      "adv_fair_margin_home": 20.478,
+      "home_win_probability": 0.870071,
+      "away_win_probability": 0.129929,
+      "confidence_bucket": "14-21",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401858311",
+      "date": "2026-11-28",
+      "away_team": "Boston College",
+      "home_team": "Miami",
+      "adv_fair_margin_home": 30.3261,
+      "home_win_probability": 0.940385,
+      "away_win_probability": 0.059615,
+      "confidence_bucket": "21+",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401858312",
+      "date": "2026-11-28",
+      "away_team": "Duke",
+      "home_team": "Wake Forest",
+      "adv_fair_margin_home": 18.7999,
+      "home_win_probability": 0.852657,
+      "away_win_probability": 0.147343,
+      "confidence_bucket": "14-21",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401858313",
+      "date": "2026-11-28",
+      "away_team": "NC State",
+      "home_team": "North Carolina",
+      "adv_fair_margin_home": 6.3413,
+      "home_win_probability": 0.661883,
+      "away_win_probability": 0.338117,
+      "confidence_bucket": "3-7",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401858314",
+      "date": "2026-11-28",
+      "away_team": "Notre Dame",
+      "home_team": "Syracuse",
+      "adv_fair_margin_home": -14.5467,
+      "home_win_probability": 0.2413,
+      "away_win_probability": 0.7587,
+      "confidence_bucket": "14-21",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401858316",
+      "date": "2026-11-28",
+      "away_team": "SMU",
+      "home_team": "Stanford",
+      "adv_fair_margin_home": -6.4125,
+      "home_win_probability": 0.392244,
+      "away_win_probability": 0.607756,
+      "confidence_bucket": "3-7",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401858317",
+      "date": "2026-11-28",
+      "away_team": "Virginia",
+      "home_team": "Virginia Tech",
+      "adv_fair_margin_home": 5.4828,
+      "home_win_probability": 0.644971,
+      "away_win_probability": 0.355029,
+      "confidence_bucket": "3-7",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401858537",
+      "date": "2026-11-28",
+      "away_team": "Illinois",
+      "home_team": "Northwestern",
+      "adv_fair_margin_home": 11.2759,
+      "home_win_probability": 0.750447,
+      "away_win_probability": 0.249553,
+      "confidence_bucket": "7-14",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401858539",
+      "date": "2026-11-28",
+      "away_team": "Penn State",
+      "home_team": "Maryland",
+      "adv_fair_margin_home": 0.9032,
+      "home_win_probability": 0.549482,
+      "away_win_probability": 0.450518,
+      "confidence_bucket": "0-3",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401858540",
+      "date": "2026-11-28",
+      "away_team": "Michigan",
+      "home_team": "Ohio State",
+      "adv_fair_margin_home": 23.2204,
+      "home_win_probability": 0.894747,
+      "away_win_probability": 0.105253,
+      "confidence_bucket": "21+",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401858542",
+      "date": "2026-11-28",
+      "away_team": "Michigan State",
+      "home_team": "Rutgers",
+      "adv_fair_margin_home": 3.015,
+      "home_win_probability": 0.594429,
+      "away_win_probability": 0.405571,
+      "confidence_bucket": "3-7",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401858543",
+      "date": "2026-11-28",
+      "away_team": "USC",
+      "home_team": "UCLA",
+      "adv_fair_margin_home": 5.7524,
+      "home_win_probability": 0.650322,
+      "away_win_probability": 0.349678,
+      "confidence_bucket": "3-7",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401858544",
+      "date": "2026-11-28",
+      "away_team": "Minnesota",
+      "home_team": "Wisconsin",
+      "adv_fair_margin_home": 13.0974,
+      "home_win_probability": 0.778936,
+      "away_win_probability": 0.221064,
+      "confidence_bucket": "7-14",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401860926",
+      "date": "2026-11-28",
+      "away_team": "Boise State",
+      "home_team": "Colorado State",
+      "adv_fair_margin_home": -12.3472,
+      "home_win_probability": 0.27804,
+      "away_win_probability": 0.72196,
+      "confidence_bucket": "7-14",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401860929",
+      "date": "2026-11-28",
+      "away_team": "San Diego State",
+      "home_team": "Washington State",
+      "adv_fair_margin_home": 1.0902,
+      "home_win_probability": 0.553506,
+      "away_win_probability": 0.446494,
+      "confidence_bucket": "0-3",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401861969",
+      "date": "2026-11-28",
+      "away_team": "UConn",
+      "home_team": "Wyoming",
+      "adv_fair_margin_home": -1.1782,
+      "home_win_probability": 0.504375,
+      "away_win_probability": 0.495625,
+      "confidence_bucket": "0-3",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401862837",
+      "date": "2026-11-28",
+      "away_team": "Florida Atlantic",
+      "home_team": "East Carolina",
+      "adv_fair_margin_home": -4.7274,
+      "home_win_probability": 0.427691,
+      "away_win_probability": 0.572309,
+      "confidence_bucket": "3-7",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401862839",
+      "date": "2026-11-28",
+      "away_team": "Tulane",
+      "home_team": "South Florida",
+      "adv_fair_margin_home": 10.4751,
+      "home_win_probability": 0.737175,
+      "away_win_probability": 0.262825,
+      "confidence_bucket": "7-14",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401862841",
+      "date": "2026-11-28",
+      "away_team": "Army",
+      "home_team": "Rice",
+      "adv_fair_margin_home": -4.0686,
+      "home_win_probability": 0.441773,
+      "away_win_probability": 0.558227,
+      "confidence_bucket": "3-7",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401862842",
+      "date": "2026-11-28",
+      "away_team": "Navy",
+      "home_team": "Charlotte",
+      "adv_fair_margin_home": -11.9977,
+      "home_win_probability": 0.284184,
+      "away_win_probability": 0.715816,
+      "confidence_bucket": "7-14",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401862843",
+      "date": "2026-11-28",
+      "away_team": "UAB",
+      "home_team": "North Texas",
+      "adv_fair_margin_home": 16.5023,
+      "home_win_probability": 0.825736,
+      "away_win_probability": 0.174264,
+      "confidence_bucket": "14-21",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401864550",
+      "date": "2026-11-28",
+      "away_team": "UTEP",
+      "home_team": "Northern Illinois",
+      "adv_fair_margin_home": 12.5878,
+      "home_win_probability": 0.771206,
+      "away_win_probability": 0.228794,
+      "confidence_bucket": "7-14",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401866474",
+      "date": "2026-11-28",
+      "away_team": "Central Michigan",
+      "home_team": "Ball State",
+      "adv_fair_margin_home": -0.2372,
+      "home_win_probability": 0.524821,
+      "away_win_probability": 0.475179,
+      "confidence_bucket": "0-3",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401866475",
+      "date": "2026-11-28",
+      "away_team": "Massachusetts",
+      "home_team": "Bowling Green",
+      "adv_fair_margin_home": 2.7204,
+      "home_win_probability": 0.588235,
+      "away_win_probability": 0.411765,
+      "confidence_bucket": "0-3",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401869939",
+      "date": "2026-11-28",
+      "away_team": "Troy",
+      "home_team": "Arkansas State",
+      "adv_fair_margin_home": 12.5104,
+      "home_win_probability": 0.770017,
+      "away_win_probability": 0.229983,
+      "confidence_bucket": "7-14",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401869947",
+      "date": "2026-11-28",
+      "away_team": "Coastal Carolina",
+      "home_team": "James Madison",
+      "adv_fair_margin_home": 20.9373,
+      "home_win_probability": 0.874521,
+      "away_win_probability": 0.125479,
+      "confidence_bucket": "14-21",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401869954",
+      "date": "2026-11-28",
+      "away_team": "Louisiana Tech",
+      "home_team": "Georgia Southern",
+      "adv_fair_margin_home": 1.0801,
+      "home_win_probability": 0.553288,
+      "away_win_probability": 0.446712,
+      "confidence_bucket": "0-3",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401869959",
+      "date": "2026-11-28",
+      "away_team": "Louisiana",
+      "home_team": "Georgia State",
+      "adv_fair_margin_home": -2.2496,
+      "home_win_probability": 0.481081,
+      "away_win_probability": 0.518919,
+      "confidence_bucket": "0-3",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401870804",
+      "date": "2026-11-28",
+      "away_team": "Kennesaw State",
+      "home_team": "Western Kentucky",
+      "adv_fair_margin_home": 5.7766,
+      "home_win_probability": 0.650802,
+      "away_win_probability": 0.349198,
+      "confidence_bucket": "3-7",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401871062",
+      "date": "2026-11-28",
+      "away_team": "Jacksonville State",
+      "home_team": "Delaware",
+      "adv_fair_margin_home": 4.4343,
+      "home_win_probability": 0.623818,
+      "away_win_probability": 0.376182,
+      "confidence_bucket": "3-7",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401871063",
+      "date": "2026-11-28",
+      "away_team": "Liberty",
+      "home_team": "Missouri State",
+      "adv_fair_margin_home": -17.3125,
+      "home_win_probability": 0.200018,
+      "away_win_probability": 0.799982,
+      "confidence_bucket": "14-21",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401871082",
+      "date": "2026-11-28",
+      "away_team": "Sam Houston",
+      "home_team": "Florida International",
+      "adv_fair_margin_home": 10.6462,
+      "home_win_probability": 0.740048,
+      "away_win_probability": 0.259952,
+      "confidence_bucket": "7-14",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401871083",
+      "date": "2026-11-28",
+      "away_team": "New Mexico State",
+      "home_team": "Middle Tennessee",
+      "adv_fair_margin_home": 11.3845,
+      "home_win_probability": 0.752214,
+      "away_win_probability": 0.247786,
+      "confidence_bucket": "7-14",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401871102",
+      "date": "2026-11-28",
+      "away_team": "Marshall",
+      "home_team": "UL Monroe",
+      "adv_fair_margin_home": 0.1523,
+      "home_win_probability": 0.533263,
+      "away_win_probability": 0.466737,
+      "confidence_bucket": "0-3",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401871103",
+      "date": "2026-11-28",
+      "away_team": "Southern Miss",
+      "home_team": "Old Dominion",
+      "adv_fair_margin_home": -1.9471,
+      "home_win_probability": 0.487652,
+      "away_win_probability": 0.512348,
+      "confidence_bucket": "0-3",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401856757",
+      "date": "2026-11-29",
+      "away_team": "Auburn",
+      "home_team": "Alabama",
+      "adv_fair_margin_home": 15.9563,
+      "home_win_probability": 0.818794,
+      "away_win_probability": 0.181206,
+      "confidence_bucket": "14-21",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401856765",
+      "date": "2026-11-29",
+      "away_team": "Tennessee",
+      "home_team": "Vanderbilt",
+      "adv_fair_margin_home": -9.4601,
+      "home_win_probability": 0.331142,
+      "away_win_probability": 0.668858,
+      "confidence_bucket": "7-14",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401856873",
+      "date": "2026-11-29",
+      "away_team": "Arizona State",
+      "home_team": "Arizona",
+      "adv_fair_margin_home": 13.3786,
+      "home_win_probability": 0.783119,
+      "away_win_probability": 0.216881,
+      "confidence_bucket": "7-14",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401856874",
+      "date": "2026-11-29",
+      "away_team": "Baylor",
+      "home_team": "Houston",
+      "adv_fair_margin_home": 15.0757,
+      "home_win_probability": 0.807148,
+      "away_win_probability": 0.192852,
+      "confidence_bucket": "14-21",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401858315",
+      "date": "2026-11-29",
+      "away_team": "Pittsburgh",
+      "home_team": "California",
+      "adv_fair_margin_home": -5.6586,
+      "home_win_probability": 0.407987,
+      "away_win_probability": 0.592013,
+      "confidence_bucket": "3-7",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401858538",
+      "date": "2026-11-29",
+      "away_team": "Purdue",
+      "home_team": "Indiana",
+      "adv_fair_margin_home": 16.2413,
+      "home_win_probability": 0.822444,
+      "away_win_probability": 0.177556,
+      "confidence_bucket": "14-21",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401858541",
+      "date": "2026-11-29",
+      "away_team": "Washington",
+      "home_team": "Oregon",
+      "adv_fair_margin_home": 11.1534,
+      "home_win_probability": 0.748448,
+      "away_win_probability": 0.251552,
+      "confidence_bucket": "7-14",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401860927",
+      "date": "2026-11-29",
+      "away_team": "Oregon State",
+      "home_team": "Fresno State",
+      "adv_fair_margin_home": -2.6351,
+      "home_win_probability": 0.472713,
+      "away_win_probability": 0.527287,
+      "confidence_bucket": "0-3",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401860928",
+      "date": "2026-11-29",
+      "away_team": "Texas State",
+      "home_team": "Utah State",
+      "adv_fair_margin_home": -9.1151,
+      "home_win_probability": 0.337822,
+      "away_win_probability": 0.662178,
+      "confidence_bucket": "7-14",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401864547",
+      "date": "2026-11-29",
+      "away_team": "Sacramento State",
+      "home_team": "Hawai'i",
+      "adv_fair_margin_home": 18.0859,
+      "home_win_probability": 0.84468,
+      "away_win_probability": 0.15532,
+      "confidence_bucket": "14-21",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    },
+    {
+      "season": 2026,
+      "week": 13,
+      "game_id": "401864548",
+      "date": "2026-11-29",
+      "away_team": "Nevada",
+      "home_team": "UNLV",
+      "adv_fair_margin_home": 4.9375,
+      "home_win_probability": 0.634034,
+      "away_win_probability": 0.365966,
+      "confidence_bucket": "3-7",
+      "margin_method_version": "product_a_v3_raw_drive_aware_fair_line_v1"
+    }
+  ],
+  "team_paths": [
+    {
+      "team": "Utah",
+      "current_record": "11-0",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 11.87,
+      "probability_10_plus_wins": 1.0,
+      "probability_two_or_fewer_losses": 1.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "West Virginia",
+      "next_game_win_probability": 0.870071,
+      "two_loss_path_if_next_win": 1.0,
+      "two_loss_path_if_next_loss": 1.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 1.0,
+      "ten_win_path_if_next_loss": 1.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Georgia",
+      "current_record": "10-1",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 10.961,
+      "probability_10_plus_wins": 1.0,
+      "probability_two_or_fewer_losses": 1.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Georgia Tech",
+      "next_game_win_probability": 0.960931,
+      "two_loss_path_if_next_win": 1.0,
+      "two_loss_path_if_next_loss": 1.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 1.0,
+      "ten_win_path_if_next_loss": 1.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Miami",
+      "current_record": "10-1",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 10.94,
+      "probability_10_plus_wins": 1.0,
+      "probability_two_or_fewer_losses": 1.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Boston College",
+      "next_game_win_probability": 0.940385,
+      "two_loss_path_if_next_win": 1.0,
+      "two_loss_path_if_next_loss": 1.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 1.0,
+      "ten_win_path_if_next_loss": 1.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Wake Forest",
+      "current_record": "10-1",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 10.853,
+      "probability_10_plus_wins": 1.0,
+      "probability_two_or_fewer_losses": 1.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Duke",
+      "next_game_win_probability": 0.852657,
+      "two_loss_path_if_next_win": 1.0,
+      "two_loss_path_if_next_loss": 1.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 1.0,
+      "ten_win_path_if_next_loss": 1.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Texas Tech",
+      "current_record": "10-1",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 10.815,
+      "probability_10_plus_wins": 1.0,
+      "probability_two_or_fewer_losses": 1.0,
+      "next_game_date": "2026-11-27",
+      "next_opponent": "TCU",
+      "next_game_win_probability": 0.815024,
+      "two_loss_path_if_next_win": 1.0,
+      "two_loss_path_if_next_loss": 1.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 1.0,
+      "ten_win_path_if_next_loss": 1.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Liberty",
+      "current_record": "10-1",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 10.8,
+      "probability_10_plus_wins": 1.0,
+      "probability_two_or_fewer_losses": 1.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Missouri State",
+      "next_game_win_probability": 0.799982,
+      "two_loss_path_if_next_win": 1.0,
+      "two_loss_path_if_next_loss": 1.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 1.0,
+      "ten_win_path_if_next_loss": 1.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Notre Dame",
+      "current_record": "10-1",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 10.759,
+      "probability_10_plus_wins": 1.0,
+      "probability_two_or_fewer_losses": 1.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Syracuse",
+      "next_game_win_probability": 0.7587,
+      "two_loss_path_if_next_win": 1.0,
+      "two_loss_path_if_next_loss": 1.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 1.0,
+      "ten_win_path_if_next_loss": 1.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "UCLA",
+      "current_record": "10-1",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 10.65,
+      "probability_10_plus_wins": 1.0,
+      "probability_two_or_fewer_losses": 1.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "USC",
+      "next_game_win_probability": 0.650322,
+      "two_loss_path_if_next_win": 1.0,
+      "two_loss_path_if_next_loss": 1.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 1.0,
+      "ten_win_path_if_next_loss": 1.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Indiana",
+      "current_record": "9-2",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 9.822,
+      "probability_10_plus_wins": 0.822444,
+      "probability_two_or_fewer_losses": 0.822444,
+      "next_game_date": "2026-11-29",
+      "next_opponent": "Purdue",
+      "next_game_win_probability": 0.822444,
+      "two_loss_path_if_next_win": 1.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 1.0,
+      "ten_win_path_if_next_win": 1.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 1.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Alabama",
+      "current_record": "9-2",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 9.819,
+      "probability_10_plus_wins": 0.818794,
+      "probability_two_or_fewer_losses": 0.818794,
+      "next_game_date": "2026-11-29",
+      "next_opponent": "Auburn",
+      "next_game_win_probability": 0.818794,
+      "two_loss_path_if_next_win": 1.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 1.0,
+      "ten_win_path_if_next_win": 1.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 1.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "BYU",
+      "current_record": "9-2",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 9.79,
+      "probability_10_plus_wins": 0.790139,
+      "probability_two_or_fewer_losses": 0.790139,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Cincinnati",
+      "next_game_win_probability": 0.790139,
+      "two_loss_path_if_next_win": 1.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 1.0,
+      "ten_win_path_if_next_win": 1.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 1.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Boise State",
+      "current_record": "9-2",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 9.722,
+      "probability_10_plus_wins": 0.72196,
+      "probability_two_or_fewer_losses": 0.72196,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Colorado State",
+      "next_game_win_probability": 0.72196,
+      "two_loss_path_if_next_win": 1.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 1.0,
+      "ten_win_path_if_next_win": 1.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 1.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Iowa",
+      "current_record": "9-2",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 9.676,
+      "probability_10_plus_wins": 0.676168,
+      "probability_two_or_fewer_losses": 0.676168,
+      "next_game_date": "2026-11-27",
+      "next_opponent": "Nebraska",
+      "next_game_win_probability": 0.676168,
+      "two_loss_path_if_next_win": 1.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 1.0,
+      "ten_win_path_if_next_win": 1.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 1.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Tennessee",
+      "current_record": "9-2",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 9.669,
+      "probability_10_plus_wins": 0.668858,
+      "probability_two_or_fewer_losses": 0.668858,
+      "next_game_date": "2026-11-29",
+      "next_opponent": "Vanderbilt",
+      "next_game_win_probability": 0.668858,
+      "two_loss_path_if_next_win": 1.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 1.0,
+      "ten_win_path_if_next_win": 1.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 1.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Texas",
+      "current_record": "9-2",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 9.629,
+      "probability_10_plus_wins": 0.628759,
+      "probability_two_or_fewer_losses": 0.628759,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Texas A&M",
+      "next_game_win_probability": 0.628759,
+      "two_loss_path_if_next_win": 1.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 1.0,
+      "ten_win_path_if_next_win": 1.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 1.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "New Mexico",
+      "current_record": "9-2",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 9.611,
+      "probability_10_plus_wins": 0.611339,
+      "probability_two_or_fewer_losses": 0.611339,
+      "next_game_date": "2026-11-27",
+      "next_opponent": "Air Force",
+      "next_game_win_probability": 0.611339,
+      "two_loss_path_if_next_win": 1.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 1.0,
+      "ten_win_path_if_next_win": 1.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 1.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "North Dakota State",
+      "current_record": "9-2",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 9.6,
+      "probability_10_plus_wins": 0.600422,
+      "probability_two_or_fewer_losses": 0.600422,
+      "next_game_date": "2026-11-27",
+      "next_opponent": "San Jos\u00e9 State",
+      "next_game_win_probability": 0.600422,
+      "two_loss_path_if_next_win": 1.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 1.0,
+      "ten_win_path_if_next_win": 1.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 1.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "UTSA",
+      "current_record": "9-2",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 9.581,
+      "probability_10_plus_wins": 0.580847,
+      "probability_two_or_fewer_losses": 0.580847,
+      "next_game_date": "2026-11-27",
+      "next_opponent": "Tulsa",
+      "next_game_win_probability": 0.580847,
+      "two_loss_path_if_next_win": 1.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 1.0,
+      "ten_win_path_if_next_win": 1.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 1.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Louisiana Tech",
+      "current_record": "9-2",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 9.447,
+      "probability_10_plus_wins": 0.446712,
+      "probability_two_or_fewer_losses": 0.446712,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Georgia Southern",
+      "next_game_win_probability": 0.446712,
+      "two_loss_path_if_next_win": 1.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 1.0,
+      "ten_win_path_if_next_win": 1.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 1.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Toledo",
+      "current_record": "9-2",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 9.396,
+      "probability_10_plus_wins": 0.395865,
+      "probability_two_or_fewer_losses": 0.395865,
+      "next_game_date": "2026-11-27",
+      "next_opponent": "Ohio",
+      "next_game_win_probability": 0.395865,
+      "two_loss_path_if_next_win": 1.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 1.0,
+      "ten_win_path_if_next_win": 1.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 1.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Air Force",
+      "current_record": "9-2",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 9.389,
+      "probability_10_plus_wins": 0.388661,
+      "probability_two_or_fewer_losses": 0.388661,
+      "next_game_date": "2026-11-27",
+      "next_opponent": "New Mexico",
+      "next_game_win_probability": 0.388661,
+      "two_loss_path_if_next_win": 1.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 1.0,
+      "ten_win_path_if_next_win": 1.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 1.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Memphis",
+      "current_record": "8-3",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 8.879,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-27",
+      "next_opponent": "Temple",
+      "next_game_win_probability": 0.879398,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "James Madison",
+      "current_record": "8-3",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 8.875,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Coastal Carolina",
+      "next_game_win_probability": 0.874521,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Houston",
+      "current_record": "8-3",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 8.807,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-29",
+      "next_opponent": "Baylor",
+      "next_game_win_probability": 0.807148,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Western Michigan",
+      "current_record": "8-3",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 8.792,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-25",
+      "next_opponent": "Miami (OH)",
+      "next_game_win_probability": 0.791655,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Arizona",
+      "current_record": "8-3",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 8.783,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-29",
+      "next_opponent": "Arizona State",
+      "next_game_win_probability": 0.783119,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Oregon",
+      "current_record": "8-3",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 8.748,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-29",
+      "next_opponent": "Washington",
+      "next_game_win_probability": 0.748448,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Ohio",
+      "current_record": "8-3",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 8.604,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-27",
+      "next_opponent": "Toledo",
+      "next_game_win_probability": 0.604135,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Louisiana",
+      "current_record": "8-3",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 8.519,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Georgia State",
+      "next_game_win_probability": 0.518919,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Louisville",
+      "current_record": "8-3",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 8.475,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Kentucky",
+      "next_game_win_probability": 0.474739,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Buffalo",
+      "current_record": "8-3",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 8.419,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-27",
+      "next_opponent": "Akron",
+      "next_game_win_probability": 0.41895,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Jacksonville State",
+      "current_record": "8-3",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 8.376,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Delaware",
+      "next_game_win_probability": 0.376182,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "USC",
+      "current_record": "8-3",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 8.35,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "UCLA",
+      "next_game_win_probability": 0.349678,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Ohio State",
+      "current_record": "7-4",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 7.895,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Michigan",
+      "next_game_win_probability": 0.894747,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Ole Miss",
+      "current_record": "7-4",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 7.831,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-27",
+      "next_opponent": "Mississippi State",
+      "next_game_win_probability": 0.831235,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "North Texas",
+      "current_record": "7-4",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 7.826,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "UAB",
+      "next_game_win_probability": 0.825736,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Oklahoma State",
+      "current_record": "7-4",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 7.784,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Kansas",
+      "next_game_win_probability": 0.78449,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Wisconsin",
+      "current_record": "7-4",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 7.779,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Minnesota",
+      "next_game_win_probability": 0.778936,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Texas State",
+      "current_record": "7-4",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 7.662,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-29",
+      "next_opponent": "Utah State",
+      "next_game_win_probability": 0.662178,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Missouri",
+      "current_record": "7-4",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 7.651,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Oklahoma",
+      "next_game_win_probability": 0.651384,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "UNLV",
+      "current_record": "7-4",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 7.634,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-29",
+      "next_opponent": "Nevada",
+      "next_game_win_probability": 0.634034,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "SMU",
+      "current_record": "7-4",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 7.608,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Stanford",
+      "next_game_win_probability": 0.607756,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Florida Atlantic",
+      "current_record": "7-4",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 7.572,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "East Carolina",
+      "next_game_win_probability": 0.572309,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Georgia Southern",
+      "current_record": "7-4",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 7.553,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Louisiana Tech",
+      "next_game_win_probability": 0.553288,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Florida",
+      "current_record": "7-4",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 7.532,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-27",
+      "next_opponent": "Florida State",
+      "next_game_win_probability": 0.531506,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Kentucky",
+      "current_record": "7-4",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 7.525,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Louisville",
+      "next_game_win_probability": 0.525261,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Wyoming",
+      "current_record": "7-4",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 7.504,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "UConn",
+      "next_game_win_probability": 0.504375,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "East Carolina",
+      "current_record": "7-4",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 7.428,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Florida Atlantic",
+      "next_game_win_probability": 0.427691,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Tulsa",
+      "current_record": "7-4",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 7.419,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-27",
+      "next_opponent": "UTSA",
+      "next_game_win_probability": 0.419153,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Clemson",
+      "current_record": "7-4",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 7.402,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "South Carolina",
+      "next_game_win_probability": 0.401918,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Oklahoma",
+      "current_record": "7-4",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 7.349,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Missouri",
+      "next_game_win_probability": 0.348616,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Nebraska",
+      "current_record": "7-4",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 7.324,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-27",
+      "next_opponent": "Iowa",
+      "next_game_win_probability": 0.323832,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Washington",
+      "current_record": "7-4",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 7.252,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-29",
+      "next_opponent": "Oregon",
+      "next_game_win_probability": 0.251552,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "App State",
+      "current_record": "7-4",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 7.248,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-27",
+      "next_opponent": "South Alabama",
+      "next_game_win_probability": 0.248116,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Miami (OH)",
+      "current_record": "7-4",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 7.208,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-25",
+      "next_opponent": "Western Michigan",
+      "next_game_win_probability": 0.208345,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Auburn",
+      "current_record": "7-4",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 7.181,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-29",
+      "next_opponent": "Alabama",
+      "next_game_win_probability": 0.181206,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Duke",
+      "current_record": "7-4",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 7.147,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Wake Forest",
+      "next_game_win_probability": 0.147343,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Middle Tennessee",
+      "current_record": "6-5",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 6.752,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "New Mexico State",
+      "next_game_win_probability": 0.752214,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "South Alabama",
+      "current_record": "6-5",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 6.752,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-27",
+      "next_opponent": "App State",
+      "next_game_win_probability": 0.751884,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Northwestern",
+      "current_record": "6-5",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 6.75,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Illinois",
+      "next_game_win_probability": 0.750447,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "South Florida",
+      "current_record": "6-5",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 6.737,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Tulane",
+      "next_game_win_probability": 0.737175,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "LSU",
+      "current_record": "6-5",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 6.684,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Arkansas",
+      "next_game_win_probability": 0.683873,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Virginia Tech",
+      "current_record": "6-5",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 6.645,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Virginia",
+      "next_game_win_probability": 0.644971,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Delaware",
+      "current_record": "6-5",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 6.624,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Jacksonville State",
+      "next_game_win_probability": 0.623818,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "South Carolina",
+      "current_record": "6-5",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 6.598,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Clemson",
+      "next_game_win_probability": 0.598082,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Pittsburgh",
+      "current_record": "6-5",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 6.592,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-29",
+      "next_opponent": "California",
+      "next_game_win_probability": 0.592013,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Oregon State",
+      "current_record": "6-5",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 6.527,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-29",
+      "next_opponent": "Fresno State",
+      "next_game_win_probability": 0.527287,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "UCF",
+      "current_record": "6-5",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 6.514,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Colorado",
+      "next_game_win_probability": 0.514301,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "UConn",
+      "current_record": "6-5",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 6.496,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Wyoming",
+      "next_game_win_probability": 0.495625,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Fresno State",
+      "current_record": "6-5",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 6.473,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-29",
+      "next_opponent": "Oregon State",
+      "next_game_win_probability": 0.472713,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Marshall",
+      "current_record": "6-5",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 6.467,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "UL Monroe",
+      "next_game_win_probability": 0.466737,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Penn State",
+      "current_record": "6-5",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 6.451,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Maryland",
+      "next_game_win_probability": 0.450518,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "San Diego State",
+      "current_record": "6-5",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 6.446,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Washington State",
+      "next_game_win_probability": 0.446494,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Stanford",
+      "current_record": "6-5",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 6.392,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "SMU",
+      "next_game_win_probability": 0.392244,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Virginia",
+      "current_record": "6-5",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 6.355,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Virginia Tech",
+      "next_game_win_probability": 0.355029,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Tulane",
+      "current_record": "6-5",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 6.263,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "South Florida",
+      "next_game_win_probability": 0.262825,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Illinois",
+      "current_record": "6-5",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 6.25,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Northwestern",
+      "next_game_win_probability": 0.249553,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Minnesota",
+      "current_record": "6-5",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 6.221,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Wisconsin",
+      "next_game_win_probability": 0.221064,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Arizona State",
+      "current_record": "6-5",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 6.217,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-29",
+      "next_opponent": "Arizona",
+      "next_game_win_probability": 0.216881,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Cincinnati",
+      "current_record": "6-5",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 6.21,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "BYU",
+      "next_game_win_probability": 0.209861,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Baylor",
+      "current_record": "6-5",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 6.193,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-29",
+      "next_opponent": "Houston",
+      "next_game_win_probability": 0.192852,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "UAB",
+      "current_record": "6-5",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 6.174,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "North Texas",
+      "next_game_win_probability": 0.174264,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Michigan",
+      "current_record": "6-5",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 6.105,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Ohio State",
+      "next_game_win_probability": 0.105253,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "North Carolina",
+      "current_record": "5-6",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 5.662,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "NC State",
+      "next_game_win_probability": 0.661883,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Iowa State",
+      "current_record": "5-6",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 5.634,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Kansas State",
+      "next_game_win_probability": 0.633616,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Army",
+      "current_record": "5-5",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 5.558,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Rice",
+      "next_game_win_probability": 0.558227,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Georgia State",
+      "current_record": "5-6",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 5.481,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Louisiana",
+      "next_game_win_probability": 0.481081,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Central Michigan",
+      "current_record": "5-6",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 5.475,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Ball State",
+      "next_game_win_probability": 0.475179,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Florida State",
+      "current_record": "5-6",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 5.468,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-27",
+      "next_opponent": "Florida",
+      "next_game_win_probability": 0.468494,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Massachusetts",
+      "current_record": "5-6",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 5.412,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Bowling Green",
+      "next_game_win_probability": 0.411765,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "San Jos\u00e9 State",
+      "current_record": "5-7",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 5.4,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-27",
+      "next_opponent": "North Dakota State",
+      "next_game_win_probability": 0.399578,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Nevada",
+      "current_record": "5-6",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 5.366,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-29",
+      "next_opponent": "UNLV",
+      "next_game_win_probability": 0.365966,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Kennesaw State",
+      "current_record": "5-6",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 5.349,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Western Kentucky",
+      "next_game_win_probability": 0.349198,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "NC State",
+      "current_record": "5-6",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 5.338,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "North Carolina",
+      "next_game_win_probability": 0.338117,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Syracuse",
+      "current_record": "5-6",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 5.241,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Notre Dame",
+      "next_game_win_probability": 0.2413,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "TCU",
+      "current_record": "5-6",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 5.185,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-27",
+      "next_opponent": "Texas Tech",
+      "next_game_win_probability": 0.184976,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Mississippi State",
+      "current_record": "5-6",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 5.169,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-27",
+      "next_opponent": "Ole Miss",
+      "next_game_win_probability": 0.168765,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "West Virginia",
+      "current_record": "5-6",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 5.13,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Utah",
+      "next_game_win_probability": 0.129929,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Boston College",
+      "current_record": "5-6",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 5.06,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Miami",
+      "next_game_win_probability": 0.059615,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Arkansas State",
+      "current_record": "4-7",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 4.77,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Troy",
+      "next_game_win_probability": 0.770017,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Eastern Michigan",
+      "current_record": "4-7",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 4.761,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-25",
+      "next_opponent": "Kent State",
+      "next_game_win_probability": 0.76125,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Florida International",
+      "current_record": "4-7",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 4.74,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Sam Houston",
+      "next_game_win_probability": 0.740048,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Navy",
+      "current_record": "4-6",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 4.716,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Charlotte",
+      "next_game_win_probability": 0.715816,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Western Kentucky",
+      "current_record": "4-7",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 4.651,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Kennesaw State",
+      "next_game_win_probability": 0.650802,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Maryland",
+      "current_record": "4-7",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 4.549,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Penn State",
+      "next_game_win_probability": 0.549482,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Colorado",
+      "current_record": "4-7",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 4.486,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "UCF",
+      "next_game_win_probability": 0.485699,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Texas A&M",
+      "current_record": "4-7",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 4.371,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Texas",
+      "next_game_win_probability": 0.371241,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Kansas State",
+      "current_record": "4-7",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 4.366,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Iowa State",
+      "next_game_win_probability": 0.366384,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Utah State",
+      "current_record": "4-7",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 4.338,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-29",
+      "next_opponent": "Texas State",
+      "next_game_win_probability": 0.337822,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Vanderbilt",
+      "current_record": "4-7",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 4.331,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-29",
+      "next_opponent": "Tennessee",
+      "next_game_win_probability": 0.331142,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Arkansas",
+      "current_record": "4-7",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 4.316,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "LSU",
+      "next_game_win_probability": 0.316127,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Troy",
+      "current_record": "4-7",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 4.23,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Arkansas State",
+      "next_game_win_probability": 0.229983,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Kansas",
+      "current_record": "4-7",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 4.216,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Oklahoma State",
+      "next_game_win_probability": 0.21551,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Missouri State",
+      "current_record": "4-7",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 4.2,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Liberty",
+      "next_game_win_probability": 0.200018,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Coastal Carolina",
+      "current_record": "4-7",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 4.125,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "James Madison",
+      "next_game_win_probability": 0.125479,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Hawai'i",
+      "current_record": "3-8",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 3.845,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-29",
+      "next_opponent": "Sacramento State",
+      "next_game_win_probability": 0.84468,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Rutgers",
+      "current_record": "3-8",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 3.594,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Michigan State",
+      "next_game_win_probability": 0.594429,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Bowling Green",
+      "current_record": "3-8",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 3.588,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Massachusetts",
+      "next_game_win_probability": 0.588235,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Ball State",
+      "current_record": "3-8",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 3.525,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Central Michigan",
+      "next_game_win_probability": 0.524821,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Southern Miss",
+      "current_record": "3-8",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 3.512,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Old Dominion",
+      "next_game_win_probability": 0.512348,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Old Dominion",
+      "current_record": "3-8",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 3.488,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Southern Miss",
+      "next_game_win_probability": 0.487652,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "California",
+      "current_record": "3-8",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 3.408,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-29",
+      "next_opponent": "Pittsburgh",
+      "next_game_win_probability": 0.407987,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Michigan State",
+      "current_record": "3-8",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 3.406,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Rutgers",
+      "next_game_win_probability": 0.405571,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Colorado State",
+      "current_record": "3-8",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 3.278,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Boise State",
+      "next_game_win_probability": 0.27804,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "New Mexico State",
+      "current_record": "3-8",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 3.248,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Middle Tennessee",
+      "next_game_win_probability": 0.247786,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Kent State",
+      "current_record": "3-8",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 3.239,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-25",
+      "next_opponent": "Eastern Michigan",
+      "next_game_win_probability": 0.23875,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Purdue",
+      "current_record": "3-8",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 3.178,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-29",
+      "next_opponent": "Indiana",
+      "next_game_win_probability": 0.177556,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Georgia Tech",
+      "current_record": "3-8",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 3.039,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Georgia",
+      "next_game_win_probability": 0.039069,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Akron",
+      "current_record": "2-9",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 2.581,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-27",
+      "next_opponent": "Buffalo",
+      "next_game_win_probability": 0.58105,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Washington State",
+      "current_record": "2-9",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 2.554,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "San Diego State",
+      "next_game_win_probability": 0.553506,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "UL Monroe",
+      "current_record": "2-9",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 2.533,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Marshall",
+      "next_game_win_probability": 0.533263,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Rice",
+      "current_record": "2-9",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 2.442,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Army",
+      "next_game_win_probability": 0.441773,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Sacramento State",
+      "current_record": "2-9",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 2.155,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-29",
+      "next_opponent": "Hawai'i",
+      "next_game_win_probability": 0.15532,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Temple",
+      "current_record": "2-9",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 2.121,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-27",
+      "next_opponent": "Memphis",
+      "next_game_win_probability": 0.120602,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Charlotte",
+      "current_record": "1-10",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 1.284,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Navy",
+      "next_game_win_probability": 0.284184,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Sam Houston",
+      "current_record": "1-10",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 1.26,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Florida International",
+      "next_game_win_probability": 0.259952,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "UTEP",
+      "current_record": "1-10",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 1.229,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "Northern Illinois",
+      "next_game_win_probability": 0.228794,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    },
+    {
+      "team": "Northern Illinois",
+      "current_record": "0-11",
+      "remaining_games_modeled": 1,
+      "expected_final_wins": 0.771,
+      "probability_10_plus_wins": 0.0,
+      "probability_two_or_fewer_losses": 0.0,
+      "next_game_date": "2026-11-28",
+      "next_opponent": "UTEP",
+      "next_game_win_probability": 0.771206,
+      "two_loss_path_if_next_win": 0.0,
+      "two_loss_path_if_next_loss": 0.0,
+      "two_loss_path_next_game_swing": 0.0,
+      "ten_win_path_if_next_win": 0.0,
+      "ten_win_path_if_next_loss": 0.0,
+      "ten_win_path_next_game_swing": 0.0,
+      "probability_label": "remaining_record_threshold_not_CFP_selection_probability"
+    }
+  ],
+  "interpretation": {
+    "power_order": "ADV SRS is a neutral-strength signal and does not award head-to-head or resume credit.",
+    "resume_order": "The committee snapshot is the current external selection-order baseline.",
+    "path_probabilities": "The probabilities describe remaining record thresholds, not CFP selection odds.",
+    "selection_odds_status": "withheld_until_committee_proxy_and_auto_bid_logic_are_chronologically_validated"
+  },
+  "generated_at": "2026-11-23T22:14:51.857252+00:00",
+  "entering_week": 13,
+  "ap_snapshot": {
+    "season": 2026,
+    "week": 13,
+    "released_at": "2026-11-22",
+    "fetched_at": "2026-11-23T17:03:45.50483-05:00",
+    "source": "https://apnews.com/hub/ap-top-25-college-football-poll",
+    "source_provider": "CFBD archived AP Top 25",
+    "rankings": [
+      {
+        "rank": 1,
+        "team": "Georgia"
+      },
+      {
+        "rank": 2,
+        "team": "Utah"
+      },
+      {
+        "rank": 3,
+        "team": "Notre Dame"
+      },
+      {
+        "rank": 4,
+        "team": "Miami"
+      },
+      {
+        "rank": 5,
+        "team": "Texas"
+      },
+      {
+        "rank": 6,
+        "team": "Alabama"
+      },
+      {
+        "rank": 7,
+        "team": "Tennessee"
+      },
+      {
+        "rank": 8,
+        "team": "Wake Forest"
+      },
+      {
+        "rank": 9,
+        "team": "Texas Tech"
+      },
+      {
+        "rank": 10,
+        "team": "UCLA"
+      },
+      {
+        "rank": 11,
+        "team": "BYU"
+      },
+      {
+        "rank": 12,
+        "team": "Indiana"
+      },
+      {
+        "rank": 13,
+        "team": "Iowa"
+      },
+      {
+        "rank": 14,
+        "team": "Oregon"
+      },
+      {
+        "rank": 15,
+        "team": "USC"
+      },
+      {
+        "rank": 16,
+        "team": "Arizona"
+      },
+      {
+        "rank": 17,
+        "team": "Houston"
+      },
+      {
+        "rank": 18,
+        "team": "Louisville"
+      },
+      {
+        "rank": 19,
+        "team": "Oklahoma"
+      },
+      {
+        "rank": 20,
+        "team": "Florida"
+      },
+      {
+        "rank": 21,
+        "team": "Liberty"
+      },
+      {
+        "rank": 22,
+        "team": "Boise State"
+      },
+      {
+        "rank": 23,
+        "team": "Ole Miss"
+      },
+      {
+        "rank": 24,
+        "team": "Missouri"
+      },
+      {
+        "rank": 25,
+        "team": "Ohio State"
+      }
+    ]
+  },
+  "adv_power_board": [
+    {
+      "rank": 1,
+      "team": "Georgia",
+      "neutral_rating": 25.975722570957306,
+      "adv_srs": 125.81318835035096
+    },
+    {
+      "rank": 2,
+      "team": "Notre Dame",
+      "neutral_rating": 21.259288171925057,
+      "adv_srs": 117.08429061358244
+    },
+    {
+      "rank": 3,
+      "team": "Texas",
+      "neutral_rating": 21.1739731146685,
+      "adv_srs": 120.16610206827806
+    },
+    {
+      "rank": 4,
+      "team": "LSU",
+      "neutral_rating": 18.57946100055777,
+      "adv_srs": 106.40614410944582
+    },
+    {
+      "rank": 5,
+      "team": "Tennessee",
+      "neutral_rating": 18.47008900271041,
+      "adv_srs": 111.47088422611996
+    },
+    {
+      "rank": 6,
+      "team": "Alabama",
+      "neutral_rating": 18.45170230085824,
+      "adv_srs": 107.14858053913566
+    },
+    {
+      "rank": 7,
+      "team": "Utah",
+      "neutral_rating": 17.04525951977925,
+      "adv_srs": 106.54455517009488
+    },
+    {
+      "rank": 8,
+      "team": "Ohio State",
+      "neutral_rating": 16.608399351422072,
+      "adv_srs": 98.9880994817011
+    },
+    {
+      "rank": 9,
+      "team": "Miami",
+      "neutral_rating": 15.916858864977302,
+      "adv_srs": 93.291141709426
+    },
+    {
+      "rank": 10,
+      "team": "Wake Forest",
+      "neutral_rating": 15.380634272772516,
+      "adv_srs": 89.79044341447018
+    },
+    {
+      "rank": 11,
+      "team": "UCLA",
+      "neutral_rating": 14.621367010879291,
+      "adv_srs": 101.32250601786622
+    },
+    {
+      "rank": 12,
+      "team": "Louisville",
+      "neutral_rating": 14.053497145921236,
+      "adv_srs": 92.79565125055964
+    },
+    {
+      "rank": 13,
+      "team": "Iowa",
+      "neutral_rating": 13.721810515099785,
+      "adv_srs": 90.13782515187684
+    },
+    {
+      "rank": 14,
+      "team": "Texas Tech",
+      "neutral_rating": 13.292587351699614,
+      "adv_srs": 95.0490410374786
+    },
+    {
+      "rank": 15,
+      "team": "Indiana",
+      "neutral_rating": 13.285245849527916,
+      "adv_srs": 90.26357379780625
+    },
+    {
+      "rank": 16,
+      "team": "Ole Miss",
+      "neutral_rating": 13.080740147265931,
+      "adv_srs": 86.48375351884195
+    },
+    {
+      "rank": 17,
+      "team": "Houston",
+      "neutral_rating": 13.051439599261291,
+      "adv_srs": 86.55302999701173
+    },
+    {
+      "rank": 18,
+      "team": "BYU",
+      "neutral_rating": 12.893501557587271,
+      "adv_srs": 90.74534979727834
+    },
+    {
+      "rank": 19,
+      "team": "Boise State",
+      "neutral_rating": 11.566979771875092,
+      "adv_srs": 91.0022412670143
+    },
+    {
+      "rank": 20,
+      "team": "Oklahoma State",
+      "neutral_rating": 11.472279889150396,
+      "adv_srs": 79.2137532170592
+    },
+    {
+      "rank": 21,
+      "team": "Oklahoma",
+      "neutral_rating": 11.257865303343651,
+      "adv_srs": 80.39519227725219
+    },
+    {
+      "rank": 22,
+      "team": "Oregon",
+      "neutral_rating": 11.112441133093077,
+      "adv_srs": 83.90158162495118
+    },
+    {
+      "rank": 23,
+      "team": "Florida",
+      "neutral_rating": 10.5856469159754,
+      "adv_srs": 72.59665620692279
+    },
+    {
+      "rank": 24,
+      "team": "Arizona",
+      "neutral_rating": 10.522673926161692,
+      "adv_srs": 85.80916794126449
+    },
+    {
+      "rank": 25,
+      "team": "Kentucky",
+      "neutral_rating": 9.91673805978285,
+      "adv_srs": 76.0829131246686
+    },
+    {
+      "rank": 26,
+      "team": "Nebraska",
+      "neutral_rating": 9.757787939453346,
+      "adv_srs": 83.22899205929382
+    },
+    {
+      "rank": 27,
+      "team": "USC",
+      "neutral_rating": 9.717887188382935,
+      "adv_srs": 72.75244970642025
+    },
+    {
+      "rank": 28,
+      "team": "Wisconsin",
+      "neutral_rating": 9.54063154499598,
+      "adv_srs": 76.63299289881269
+    },
+    {
+      "rank": 29,
+      "team": "Northwestern",
+      "neutral_rating": 9.365695530044135,
+      "adv_srs": 75.34489362961364
+    },
+    {
+      "rank": 30,
+      "team": "Liberty",
+      "neutral_rating": 8.635311657172101,
+      "adv_srs": 73.98673692264454
+    },
+    {
+      "rank": 31,
+      "team": "South Carolina",
+      "neutral_rating": 8.214422337802146,
+      "adv_srs": 63.64499551479488
+    },
+    {
+      "rank": 32,
+      "team": "Penn State",
+      "neutral_rating": 8.098717385138778,
+      "adv_srs": 73.02236137793054
+    },
+    {
+      "rank": 33,
+      "team": "Missouri",
+      "neutral_rating": 7.734974836807256,
+      "adv_srs": 70.23563395558214
+    },
+    {
+      "rank": 34,
+      "team": "Auburn",
+      "neutral_rating": 7.608170611124938,
+      "adv_srs": 67.31749081322816
+    },
+    {
+      "rank": 35,
+      "team": "Texas State",
+      "neutral_rating": 7.6004793451155965,
+      "adv_srs": 71.05641385052611
+    },
+    {
+      "rank": 36,
+      "team": "SMU",
+      "neutral_rating": 7.481207555759335,
+      "adv_srs": 70.89553085768729
+    },
+    {
+      "rank": 37,
+      "team": "Baylor",
+      "neutral_rating": 7.15704624272052,
+      "adv_srs": 72.53760523402228
+    },
+    {
+      "rank": 38,
+      "team": "Washington",
+      "neutral_rating": 6.64439032094384,
+      "adv_srs": 70.07588720484841
+    },
+    {
+      "rank": 39,
+      "team": "Duke",
+      "neutral_rating": 6.287314180500919,
+      "adv_srs": 71.49449560053792
+    },
+    {
+      "rank": 40,
+      "team": "Kansas",
+      "neutral_rating": 5.985965685238773,
+      "adv_srs": 60.89878038666913
+    },
+    {
+      "rank": 41,
+      "team": "Oregon State",
+      "neutral_rating": 5.954482289895944,
+      "adv_srs": 69.57547749383752
+    },
+    {
+      "rank": 42,
+      "team": "North Carolina",
+      "neutral_rating": 5.650474904803948,
+      "adv_srs": 61.756352622859794
+    },
+    {
+      "rank": 43,
+      "team": "UCF",
+      "neutral_rating": 4.806059756999067,
+      "adv_srs": 57.28081042085466
+    },
+    {
+      "rank": 44,
+      "team": "Texas A&M",
+      "neutral_rating": 4.796636794040628,
+      "adv_srs": 57.18098171714343
+    },
+    {
+      "rank": 45,
+      "team": "Illinois",
+      "neutral_rating": 4.281834213627123,
+      "adv_srs": 59.98270708223719
+    },
+    {
+      "rank": 46,
+      "team": "Memphis",
+      "neutral_rating": 4.235789370910274,
+      "adv_srs": 61.87157542662256
+    },
+    {
+      "rank": 47,
+      "team": "Cincinnati",
+      "neutral_rating": 4.136104351557508,
+      "adv_srs": 60.31082161379547
+    },
+    {
+      "rank": 48,
+      "team": "Louisiana Tech",
+      "neutral_rating": 3.9844335027476503,
+      "adv_srs": 61.17422063362456
+    },
+    {
+      "rank": 49,
+      "team": "Mississippi State",
+      "neutral_rating": 3.970566062356648,
+      "adv_srs": 55.784718271379816
+    },
+    {
+      "rank": 50,
+      "team": "Arizona State",
+      "neutral_rating": 3.929038884093151,
+      "adv_srs": 56.778178801196205
+    },
+    {
+      "rank": 51,
+      "team": "TCU",
+      "neutral_rating": 3.306763528823252,
+      "adv_srs": 56.523106328316246
+    },
+    {
+      "rank": 52,
+      "team": "Iowa State",
+      "neutral_rating": 3.236892040306744,
+      "adv_srs": 54.450196764839504
+    },
+    {
+      "rank": 53,
+      "team": "New Mexico",
+      "neutral_rating": 3.0887308181710704,
+      "adv_srs": 58.4824227815444
+    },
+    {
+      "rank": 54,
+      "team": "Clemson",
+      "neutral_rating": 3.008163702524838,
+      "adv_srs": 57.53744019798587
+    },
+    {
+      "rank": 55,
+      "team": "NC State",
+      "neutral_rating": 2.858570166924258,
+      "adv_srs": 54.46868656047464
+    },
+    {
+      "rank": 56,
+      "team": "Arkansas",
+      "neutral_rating": 2.69012588032002,
+      "adv_srs": 49.11196801665066
+    },
+    {
+      "rank": 57,
+      "team": "Air Force",
+      "neutral_rating": 2.665418895097572,
+      "adv_srs": 51.64187034049448
+    },
+    {
+      "rank": 58,
+      "team": "Louisiana",
+      "neutral_rating": 2.3213786207602904,
+      "adv_srs": 57.69232501626101
+    },
+    {
+      "rank": 59,
+      "team": "North Dakota State",
+      "neutral_rating": 2.318760206994133,
+      "adv_srs": 55.493402698936
+    },
+    {
+      "rank": 60,
+      "team": "Pittsburgh",
+      "neutral_rating": 2.272699128763984,
+      "adv_srs": 50.70837978207619
+    },
+    {
+      "rank": 61,
+      "team": "James Madison",
+      "neutral_rating": 2.2513329673802875,
+      "adv_srs": 56.73014470845452
+    },
+    {
+      "rank": 62,
+      "team": "Kansas State",
+      "neutral_rating": 2.095766475831324,
+      "adv_srs": 53.77609241702952
+    },
+    {
+      "rank": 63,
+      "team": "Florida State",
+      "neutral_rating": 2.0557522214451662,
+      "adv_srs": 51.46681584457277
+    },
+    {
+      "rank": 64,
+      "team": "Virginia",
+      "neutral_rating": 1.993273287598006,
+      "adv_srs": 52.98504614265777
+    },
+    {
+      "rank": 65,
+      "team": "Michigan",
+      "neutral_rating": 1.96241067543488,
+      "adv_srs": 54.63211157134703
+    },
+    {
+      "rank": 66,
+      "team": "Vanderbilt",
+      "neutral_rating": 1.4300707435855369,
+      "adv_srs": 49.60126152107718
+    },
+    {
+      "rank": 67,
+      "team": "West Virginia",
+      "neutral_rating": 1.3629836922980785,
+      "adv_srs": 50.76281697902647
+    },
+    {
+      "rank": 68,
+      "team": "Georgia Southern",
+      "neutral_rating": 1.329627878595831,
+      "adv_srs": 55.63937902707417
+    },
+    {
+      "rank": 69,
+      "team": "Tulsa",
+      "neutral_rating": 1.200213329823507,
+      "adv_srs": 50.12075475301717
+    },
+    {
+      "rank": 70,
+      "team": "Michigan State",
+      "neutral_rating": 1.1690903803249046,
+      "adv_srs": 48.89674373688362
+    },
+    {
+      "rank": 71,
+      "team": "North Texas",
+      "neutral_rating": 0.989137728279344,
+      "adv_srs": 43.73231833174503
+    },
+    {
+      "rank": 72,
+      "team": "Minnesota",
+      "neutral_rating": 0.8123931809854046,
+      "adv_srs": 48.81562878569982
+    },
+    {
+      "rank": 73,
+      "team": "Syracuse",
+      "neutral_rating": 0.4138537485155122,
+      "adv_srs": 46.46898199810736
+    },
+    {
+      "rank": 74,
+      "team": "Maryland",
+      "neutral_rating": 0.0903510208026912,
+      "adv_srs": 42.29945936806487
+    },
+    {
+      "rank": 75,
+      "team": "Western Michigan",
+      "neutral_rating": -0.0094215382311464,
+      "adv_srs": 51.14855107722405
+    },
+    {
+      "rank": 76,
+      "team": "Virginia Tech",
+      "neutral_rating": -0.3948172034119572,
+      "adv_srs": 38.00413251046139
+    },
+    {
+      "rank": 77,
+      "team": "Purdue",
+      "neutral_rating": -0.5977873744129116,
+      "adv_srs": 36.74203654713413
+    },
+    {
+      "rank": 78,
+      "team": "Navy",
+      "neutral_rating": -0.7079979907618998,
+      "adv_srs": 41.01527313434407
+    },
+    {
+      "rank": 79,
+      "team": "Fresno State",
+      "neutral_rating": -0.8360047113622358,
+      "adv_srs": 47.75130883429263
+    },
+    {
+      "rank": 80,
+      "team": "Florida Atlantic",
+      "neutral_rating": -1.1448209085367118,
+      "adv_srs": 36.525887036787786
+    },
+    {
+      "rank": 81,
+      "team": "UTSA",
+      "neutral_rating": -1.3202787844267707,
+      "adv_srs": 45.29765873043194
+    },
+    {
+      "rank": 82,
+      "team": "San Diego State",
+      "neutral_rating": -2.3324966123605773,
+      "adv_srs": 40.06394152797561
+    },
+    {
+      "rank": 83,
+      "team": "UConn",
+      "neutral_rating": -2.5561542389731624,
+      "adv_srs": 35.388445136443686
+    },
+    {
+      "rank": 84,
+      "team": "Georgia Tech",
+      "neutral_rating": -2.650246309795996,
+      "adv_srs": 35.04493630124355
+    },
+    {
+      "rank": 85,
+      "team": "Colorado",
+      "neutral_rating": -3.10712636816897,
+      "adv_srs": 36.9212825008661
+    },
+    {
+      "rank": 86,
+      "team": "Toledo",
+      "neutral_rating": -3.8316017614118953,
+      "adv_srs": 40.30526053381456
+    },
+    {
+      "rank": 87,
+      "team": "Stanford",
+      "neutral_rating": -3.8694071124685454,
+      "adv_srs": 37.80188276464107
+    },
+    {
+      "rank": 88,
+      "team": "Army",
+      "neutral_rating": -4.215932966258293,
+      "adv_srs": 28.735980093114456
+    },
+    {
+      "rank": 89,
+      "team": "Jacksonville State",
+      "neutral_rating": -4.426481803762707,
+      "adv_srs": 32.793241363678575
+    },
+    {
+      "rank": 90,
+      "team": "Nevada",
+      "neutral_rating": -4.607865719413459,
+      "adv_srs": 31.74400057757124
+    },
+    {
+      "rank": 91,
+      "team": "East Carolina",
+      "neutral_rating": -5.107867981739977,
+      "adv_srs": 34.99378315852636
+    },
+    {
+      "rank": 92,
+      "team": "South Alabama",
+      "neutral_rating": -5.756444547502314,
+      "adv_srs": 30.901214210050934
+    },
+    {
+      "rank": 93,
+      "team": "Utah State",
+      "neutral_rating": -5.762847670785522,
+      "adv_srs": 30.012203433846835
+    },
+    {
+      "rank": 94,
+      "team": "Miami (OH)",
+      "neutral_rating": -6.03473762100089,
+      "adv_srs": 26.99284787976559
+    },
+    {
+      "rank": 95,
+      "team": "Boston College",
+      "neutral_rating": -6.283166626216849,
+      "adv_srs": 26.777206974618988
+    },
+    {
+      "rank": 96,
+      "team": "UAB",
+      "neutral_rating": -6.453545252036252,
+      "adv_srs": 26.46453821342732
+    },
+    {
+      "rank": 97,
+      "team": "UNLV",
+      "neutral_rating": -6.50311901142126,
+      "adv_srs": 26.17583543355824
+    },
+    {
+      "rank": 98,
+      "team": "South Florida",
+      "neutral_rating": -6.534983807580309,
+      "adv_srs": 24.81992052967266
+    },
+    {
+      "rank": 99,
+      "team": "Arkansas State",
+      "neutral_rating": -6.9574501509261975,
+      "adv_srs": 26.160138552703664
+    },
+    {
+      "rank": 100,
+      "team": "Marshall",
+      "neutral_rating": -7.401319161652113,
+      "adv_srs": 17.7699953241385
+    },
+    {
+      "rank": 101,
+      "team": "Rutgers",
+      "neutral_rating": -7.572985054488452,
+      "adv_srs": 12.944991505791204
+    },
+    {
+      "rank": 102,
+      "team": "Georgia State",
+      "neutral_rating": -7.7231469625394435,
+      "adv_srs": 18.12703423126189
+    },
+    {
+      "rank": 103,
+      "team": "Kennesaw State",
+      "neutral_rating": -8.243838778448332,
+      "adv_srs": 21.978614189595746
+    },
+    {
+      "rank": 104,
+      "team": "Ohio",
+      "neutral_rating": -8.302908175640885,
+      "adv_srs": 14.047109951157914
+    },
+    {
+      "rank": 105,
+      "team": "Delaware",
+      "neutral_rating": -8.85554362101848,
+      "adv_srs": 19.18122123778685
+    },
+    {
+      "rank": 106,
+      "team": "Central Michigan",
+      "neutral_rating": -9.009576302787444,
+      "adv_srs": 12.921425359967234
+    },
+    {
+      "rank": 107,
+      "team": "Hawai'i",
+      "neutral_rating": -9.07461140551583,
+      "adv_srs": 10.430969993063222
+    },
+    {
+      "rank": 108,
+      "team": "Wyoming",
+      "neutral_rating": -9.414258595170237,
+      "adv_srs": 16.12887660819181
+    },
+    {
+      "rank": 109,
+      "team": "Tulane",
+      "neutral_rating": -9.496120807241205,
+      "adv_srs": 15.620651156574349
+    },
+    {
+      "rank": 110,
+      "team": "Washington State",
+      "neutral_rating": -9.676640950650942,
+      "adv_srs": 9.85314455315288
+    },
+    {
+      "rank": 111,
+      "team": "Buffalo",
+      "neutral_rating": -9.69469161140016,
+      "adv_srs": 15.698450061265817
+    },
+    {
+      "rank": 112,
+      "team": "Middle Tennessee",
+      "neutral_rating": -9.84939160159323,
+      "adv_srs": 12.918635060032177
+    },
+    {
+      "rank": 113,
+      "team": "San Jos\u00e9 State",
+      "neutral_rating": -9.993876737913922,
+      "adv_srs": 15.70436554683486
+    },
+    {
+      "rank": 114,
+      "team": "App State",
+      "neutral_rating": -10.073070911284754,
+      "adv_srs": 12.210411174460654
+    },
+    {
+      "rank": 115,
+      "team": "Florida International",
+      "neutral_rating": -10.653340071587404,
+      "adv_srs": 10.59983862777112
+    },
+    {
+      "rank": 116,
+      "team": "Colorado State",
+      "neutral_rating": -10.88111810739688,
+      "adv_srs": 14.541756017555125
+    },
+    {
+      "rank": 117,
+      "team": "Western Kentucky",
+      "neutral_rating": -11.045564908388537,
+      "adv_srs": 9.696939396440932
+    },
+    {
+      "rank": 118,
+      "team": "California",
+      "neutral_rating": -11.269520411565535,
+      "adv_srs": 5.086362362957615
+    },
+    {
+      "rank": 119,
+      "team": "Rice",
+      "neutral_rating": -11.915157366736508,
+      "adv_srs": 5.122685600037013
+    },
+    {
+      "rank": 120,
+      "team": "Temple",
+      "neutral_rating": -12.29402028355124,
+      "adv_srs": 1.0865378118737845
+    },
+    {
+      "rank": 121,
+      "team": "Coastal Carolina",
+      "neutral_rating": -12.533214262799254,
+      "adv_srs": 2.3680432507860045
+    },
+    {
+      "rank": 122,
+      "team": "Southern Miss",
+      "neutral_rating": -12.748057303875475,
+      "adv_srs": -1.719580601795661
+    },
+    {
+      "rank": 123,
+      "team": "Ball State",
+      "neutral_rating": -12.895728885958064,
+      "adv_srs": 9.108941859916582
+    },
+    {
+      "rank": 124,
+      "team": "Eastern Michigan",
+      "neutral_rating": -13.785028019196217,
+      "adv_srs": -0.3970422436089902
+    },
+    {
+      "rank": 125,
+      "team": "Massachusetts",
+      "neutral_rating": -13.85098938285418,
+      "adv_srs": 2.128865078017107
+    },
+    {
+      "rank": 126,
+      "team": "Troy",
+      "neutral_rating": -13.999809613681713,
+      "adv_srs": 2.7935117566248766
+    },
+    {
+      "rank": 127,
+      "team": "Old Dominion",
+      "neutral_rating": -14.64370663038714,
+      "adv_srs": -1.3527827959213654
+    },
+    {
+      "rank": 128,
+      "team": "Bowling Green",
+      "neutral_rating": -14.703630422075811,
+      "adv_srs": 7.416058797143458
+    },
+    {
+      "rank": 129,
+      "team": "New Mexico State",
+      "neutral_rating": -14.921055171474462,
+      "adv_srs": -3.1475898151229047
+    },
+    {
+      "rank": 130,
+      "team": "UL Monroe",
+      "neutral_rating": -15.0937590122644,
+      "adv_srs": -1.5496286950469538
+    },
+    {
+      "rank": 131,
+      "team": "Akron",
+      "neutral_rating": -16.4156012182424,
+      "adv_srs": -17.487997030165054
+    },
+    {
+      "rank": 132,
+      "team": "Missouri State",
+      "neutral_rating": -16.455814756448433,
+      "adv_srs": -6.315691769716687
+    },
+    {
+      "rank": 133,
+      "team": "Sam Houston",
+      "neutral_rating": -17.33898668086571,
+      "adv_srs": -7.301882455955939
+    },
+    {
+      "rank": 134,
+      "team": "Kent State",
+      "neutral_rating": -18.517017374299783,
+      "adv_srs": -8.317432161155901
+    },
+    {
+      "rank": 135,
+      "team": "Northern Illinois",
+      "neutral_rating": -18.794135238776764,
+      "adv_srs": -18.39997739805765
+    },
+    {
+      "rank": 136,
+      "team": "Charlotte",
+      "neutral_rating": -19.347778347729147,
+      "adv_srs": -18.00603194047986
+    },
+    {
+      "rank": 137,
+      "team": "UTEP",
+      "neutral_rating": -22.305114259206537,
+      "adv_srs": -22.520728182723275
+    },
+    {
+      "rank": 138,
+      "team": "Sacramento State",
+      "neutral_rating": -23.00265267939855,
+      "adv_srs": -33.42028192716911
+    }
+  ],
+  "adv_seed_board": [
+    {
+      "rank": 1,
+      "team": "Utah",
+      "power_rank": 7,
+      "sor_score": 2.0610616127696972,
+      "record": "11-0"
+    },
+    {
+      "rank": 2,
+      "team": "Georgia",
+      "power_rank": 1,
+      "sor_score": 1.514521226562525,
+      "record": "10-1"
+    },
+    {
+      "rank": 3,
+      "team": "Texas",
+      "power_rank": 3,
+      "sor_score": 1.244340218970132,
+      "record": "9-2"
+    },
+    {
+      "rank": 4,
+      "team": "Notre Dame",
+      "power_rank": 2,
+      "sor_score": 1.151206557952783,
+      "record": "10-1"
+    },
+    {
+      "rank": 5,
+      "team": "Miami",
+      "power_rank": 9,
+      "sor_score": 1.2659838141817228,
+      "record": "10-1"
+    },
+    {
+      "rank": 6,
+      "team": "Alabama",
+      "power_rank": 6,
+      "sor_score": 1.1053660461246941,
+      "record": "9-2"
+    },
+    {
+      "rank": 7,
+      "team": "Texas Tech",
+      "power_rank": 14,
+      "sor_score": 1.2278740773355812,
+      "record": "10-1"
+    },
+    {
+      "rank": 8,
+      "team": "Tennessee",
+      "power_rank": 5,
+      "sor_score": 0.9379189743806209,
+      "record": "9-2"
+    },
+    {
+      "rank": 9,
+      "team": "Wake Forest",
+      "power_rank": 10,
+      "sor_score": 1.0054944791130493,
+      "record": "10-1"
+    },
+    {
+      "rank": 10,
+      "team": "UCLA",
+      "power_rank": 11,
+      "sor_score": 0.9374855137002429,
+      "record": "10-1"
+    },
+    {
+      "rank": 11,
+      "team": "BYU",
+      "power_rank": 18,
+      "sor_score": 0.8433405449086363,
+      "record": "9-2"
+    },
+    {
+      "rank": 12,
+      "team": "Iowa",
+      "power_rank": 13,
+      "sor_score": 0.6367171835145965,
+      "record": "9-2"
+    },
+    {
+      "rank": 13,
+      "team": "Indiana",
+      "power_rank": 15,
+      "sor_score": 0.5834147430868449,
+      "record": "9-2"
+    },
+    {
+      "rank": 14,
+      "team": "Oregon",
+      "power_rank": 22,
+      "sor_score": 0.5833507335268742,
+      "record": "8-3"
+    },
+    {
+      "rank": 15,
+      "team": "Ohio State",
+      "power_rank": 8,
+      "sor_score": 0.29301466000540927,
+      "record": "7-4"
+    },
+    {
+      "rank": 16,
+      "team": "Houston",
+      "power_rank": 17,
+      "sor_score": 0.4104284358894004,
+      "record": "8-3"
+    },
+    {
+      "rank": 17,
+      "team": "Ole Miss",
+      "power_rank": 16,
+      "sor_score": 0.39641435587238033,
+      "record": "7-4"
+    },
+    {
+      "rank": 18,
+      "team": "LSU",
+      "power_rank": 4,
+      "sor_score": 0.15112558300234208,
+      "record": "6-5"
+    },
+    {
+      "rank": 19,
+      "team": "Louisville",
+      "power_rank": 12,
+      "sor_score": 0.2987982461416715,
+      "record": "8-3"
+    },
+    {
+      "rank": 20,
+      "team": "Boise State",
+      "power_rank": 19,
+      "sor_score": 0.3842610808757338,
+      "record": "9-2"
+    },
+    {
+      "rank": 21,
+      "team": "Oklahoma",
+      "power_rank": 21,
+      "sor_score": 0.336282147260916,
+      "record": "7-4"
+    },
+    {
+      "rank": 22,
+      "team": "USC",
+      "power_rank": 27,
+      "sor_score": 0.39589886088853904,
+      "record": "8-3"
+    },
+    {
+      "rank": 23,
+      "team": "Florida",
+      "power_rank": 23,
+      "sor_score": 0.35890270033200067,
+      "record": "7-4"
+    },
+    {
+      "rank": 24,
+      "team": "Kentucky",
+      "power_rank": 25,
+      "sor_score": 0.34971164962567963,
+      "record": "7-4"
+    },
+    {
+      "rank": 25,
+      "team": "Arizona",
+      "power_rank": 24,
+      "sor_score": 0.3114130202684234,
+      "record": "8-3"
+    },
+    {
+      "rank": 26,
+      "team": "Oklahoma State",
+      "power_rank": 20,
+      "sor_score": 0.16822187797320015,
+      "record": "7-4"
+    },
+    {
+      "rank": 27,
+      "team": "Auburn",
+      "power_rank": 34,
+      "sor_score": 0.3065606905737457,
+      "record": "7-4"
+    },
+    {
+      "rank": 28,
+      "team": "Liberty",
+      "power_rank": 30,
+      "sor_score": 0.25692390598063414,
+      "record": "10-1"
+    },
+    {
+      "rank": 29,
+      "team": "Missouri",
+      "power_rank": 33,
+      "sor_score": 0.2930710530095604,
+      "record": "7-4"
+    },
+    {
+      "rank": 30,
+      "team": "Wisconsin",
+      "power_rank": 28,
+      "sor_score": 0.1772843969921747,
+      "record": "7-4"
+    },
+    {
+      "rank": 31,
+      "team": "Nebraska",
+      "power_rank": 26,
+      "sor_score": 0.10921397541396669,
+      "record": "7-4"
+    },
+    {
+      "rank": 32,
+      "team": "South Carolina",
+      "power_rank": 31,
+      "sor_score": 0.1278445388553603,
+      "record": "6-5"
+    },
+    {
+      "rank": 33,
+      "team": "Northwestern",
+      "power_rank": 29,
+      "sor_score": 0.05561683276533188,
+      "record": "6-5"
+    },
+    {
+      "rank": 34,
+      "team": "SMU",
+      "power_rank": 36,
+      "sor_score": 0.10449545828548387,
+      "record": "7-4"
+    },
+    {
+      "rank": 35,
+      "team": "Louisiana Tech",
+      "power_rank": 48,
+      "sor_score": 0.24272877270058327,
+      "record": "9-2"
+    },
+    {
+      "rank": 36,
+      "team": "Washington",
+      "power_rank": 38,
+      "sor_score": 0.12466201630011779,
+      "record": "7-4"
+    },
+    {
+      "rank": 37,
+      "team": "Texas State",
+      "power_rank": 35,
+      "sor_score": 0.06415289222201992,
+      "record": "7-4"
+    },
+    {
+      "rank": 38,
+      "team": "Penn State",
+      "power_rank": 32,
+      "sor_score": 0.020805117369820752,
+      "record": "6-5"
+    },
+    {
+      "rank": 39,
+      "team": "Baylor",
+      "power_rank": 37,
+      "sor_score": 0.05799823929275125,
+      "record": "6-5"
+    },
+    {
+      "rank": 40,
+      "team": "Duke",
+      "power_rank": 39,
+      "sor_score": 0.07386493214239623,
+      "record": "7-4"
+    },
+    {
+      "rank": 41,
+      "team": "UTSA",
+      "power_rank": 81,
+      "sor_score": 0.364491828610179,
+      "record": "9-2"
+    },
+    {
+      "rank": 42,
+      "team": "New Mexico",
+      "power_rank": 53,
+      "sor_score": 0.16207045571367518,
+      "record": "9-2"
+    },
+    {
+      "rank": 43,
+      "team": "Oregon State",
+      "power_rank": 41,
+      "sor_score": 0.01793343447390387,
+      "record": "6-5"
+    },
+    {
+      "rank": 44,
+      "team": "North Carolina",
+      "power_rank": 42,
+      "sor_score": 0.027127267507668498,
+      "record": "5-6"
+    },
+    {
+      "rank": 45,
+      "team": "UCF",
+      "power_rank": 43,
+      "sor_score": 0.05415405124808898,
+      "record": "6-5"
+    },
+    {
+      "rank": 46,
+      "team": "Illinois",
+      "power_rank": 45,
+      "sor_score": 0.07538300924643632,
+      "record": "6-5"
+    },
+    {
+      "rank": 47,
+      "team": "Kansas",
+      "power_rank": 40,
+      "sor_score": 0.0023611818731091327,
+      "record": "4-7"
+    },
+    {
+      "rank": 48,
+      "team": "Memphis",
+      "power_rank": 46,
+      "sor_score": 0.06734212742874275,
+      "record": "8-3"
+    },
+    {
+      "rank": 49,
+      "team": "Clemson",
+      "power_rank": 54,
+      "sor_score": 0.11643290971473458,
+      "record": "7-4"
+    },
+    {
+      "rank": 50,
+      "team": "Air Force",
+      "power_rank": 57,
+      "sor_score": 0.11341658352779134,
+      "record": "9-2"
+    },
+    {
+      "rank": 51,
+      "team": "Cincinnati",
+      "power_rank": 47,
+      "sor_score": 0.04524791257254547,
+      "record": "6-5"
+    },
+    {
+      "rank": 52,
+      "team": "Arizona State",
+      "power_rank": 50,
+      "sor_score": 0.052788976963608764,
+      "record": "6-5"
+    },
+    {
+      "rank": 53,
+      "team": "North Dakota State",
+      "power_rank": 59,
+      "sor_score": 0.11801958538620963,
+      "record": "9-2"
+    },
+    {
+      "rank": 54,
+      "team": "Texas A&M",
+      "power_rank": 44,
+      "sor_score": 0.008470561148583806,
+      "record": "4-7"
+    },
+    {
+      "rank": 55,
+      "team": "Mississippi State",
+      "power_rank": 49,
+      "sor_score": 0.03288431086484152,
+      "record": "5-6"
+    },
+    {
+      "rank": 56,
+      "team": "Iowa State",
+      "power_rank": 52,
+      "sor_score": 0.02835911934727418,
+      "record": "5-6"
+    },
+    {
+      "rank": 57,
+      "team": "TCU",
+      "power_rank": 51,
+      "sor_score": 0.015112778470874642,
+      "record": "5-6"
+    },
+    {
+      "rank": 58,
+      "team": "James Madison",
+      "power_rank": 61,
+      "sor_score": 0.055523260194546314,
+      "record": "8-3"
+    },
+    {
+      "rank": 59,
+      "team": "Michigan",
+      "power_rank": 65,
+      "sor_score": 0.062022216519032045,
+      "record": "6-5"
+    },
+    {
+      "rank": 60,
+      "team": "Louisiana",
+      "power_rank": 58,
+      "sor_score": 0.03775756769173532,
+      "record": "8-3"
+    },
+    {
+      "rank": 61,
+      "team": "Arkansas",
+      "power_rank": 56,
+      "sor_score": 0.018838074330645334,
+      "record": "4-7"
+    },
+    {
+      "rank": 62,
+      "team": "NC State",
+      "power_rank": 55,
+      "sor_score": 0.004215444758303173,
+      "record": "5-6"
+    },
+    {
+      "rank": 63,
+      "team": "Pittsburgh",
+      "power_rank": 60,
+      "sor_score": 0.02419765294281734,
+      "record": "6-5"
+    },
+    {
+      "rank": 64,
+      "team": "Virginia",
+      "power_rank": 64,
+      "sor_score": 0.02092567313382112,
+      "record": "6-5"
+    },
+    {
+      "rank": 65,
+      "team": "Florida State",
+      "power_rank": 63,
+      "sor_score": 0.012270666989590092,
+      "record": "5-6"
+    },
+    {
+      "rank": 66,
+      "team": "Minnesota",
+      "power_rank": 72,
+      "sor_score": 0.06081459457406844,
+      "record": "6-5"
+    },
+    {
+      "rank": 67,
+      "team": "Kansas State",
+      "power_rank": 62,
+      "sor_score": 0.0010441331499877592,
+      "record": "4-7"
+    },
+    {
+      "rank": 68,
+      "team": "North Texas",
+      "power_rank": 71,
+      "sor_score": 0.039009669902521575,
+      "record": "7-4"
+    },
+    {
+      "rank": 69,
+      "team": "Georgia Southern",
+      "power_rank": 68,
+      "sor_score": 0.017206322707210973,
+      "record": "7-4"
+    },
+    {
+      "rank": 70,
+      "team": "West Virginia",
+      "power_rank": 67,
+      "sor_score": 0.014461071218571807,
+      "record": "5-6"
+    },
+    {
+      "rank": 71,
+      "team": "Vanderbilt",
+      "power_rank": 66,
+      "sor_score": 0.01026710367305109,
+      "record": "4-7"
+    },
+    {
+      "rank": 72,
+      "team": "Tulsa",
+      "power_rank": 69,
+      "sor_score": 0.018224999813827258,
+      "record": "7-4"
+    },
+    {
+      "rank": 73,
+      "team": "Michigan State",
+      "power_rank": 70,
+      "sor_score": 0.0011855230806495879,
+      "record": "3-8"
+    },
+    {
+      "rank": 74,
+      "team": "Western Michigan",
+      "power_rank": 75,
+      "sor_score": 0.04217496207954957,
+      "record": "8-3"
+    },
+    {
+      "rank": 75,
+      "team": "Syracuse",
+      "power_rank": 73,
+      "sor_score": 0.006665227566670264,
+      "record": "5-6"
+    },
+    {
+      "rank": 76,
+      "team": "Maryland",
+      "power_rank": 74,
+      "sor_score": 0.002687235763022303,
+      "record": "4-7"
+    },
+    {
+      "rank": 77,
+      "team": "Virginia Tech",
+      "power_rank": 76,
+      "sor_score": 0.012933535271909092,
+      "record": "6-5"
+    },
+    {
+      "rank": 78,
+      "team": "Fresno State",
+      "power_rank": 79,
+      "sor_score": 0.0122432765993494,
+      "record": "6-5"
+    },
+    {
+      "rank": 79,
+      "team": "Purdue",
+      "power_rank": 77,
+      "sor_score": 0.001360239906939253,
+      "record": "3-8"
+    },
+    {
+      "rank": 80,
+      "team": "Florida Atlantic",
+      "power_rank": 80,
+      "sor_score": 0.022777656419638578,
+      "record": "7-4"
+    },
+    {
+      "rank": 81,
+      "team": "Navy",
+      "power_rank": 78,
+      "sor_score": 0.0013495044150822297,
+      "record": "4-6"
+    },
+    {
+      "rank": 82,
+      "team": "San Diego State",
+      "power_rank": 82,
+      "sor_score": 0.019640644361312534,
+      "record": "6-5"
+    },
+    {
+      "rank": 83,
+      "team": "Toledo",
+      "power_rank": 86,
+      "sor_score": 0.0740917265906193,
+      "record": "9-2"
+    },
+    {
+      "rank": 84,
+      "team": "Stanford",
+      "power_rank": 87,
+      "sor_score": 0.06919364546849331,
+      "record": "6-5"
+    },
+    {
+      "rank": 85,
+      "team": "UConn",
+      "power_rank": 83,
+      "sor_score": 0.002689621320145299,
+      "record": "6-5"
+    },
+    {
+      "rank": 86,
+      "team": "Georgia Tech",
+      "power_rank": 84,
+      "sor_score": 0.0003538734789756125,
+      "record": "3-8"
+    },
+    {
+      "rank": 87,
+      "team": "Colorado",
+      "power_rank": 85,
+      "sor_score": 0.009779142833867799,
+      "record": "4-7"
+    },
+    {
+      "rank": 88,
+      "team": "Jacksonville State",
+      "power_rank": 89,
+      "sor_score": 0.025688413143823172,
+      "record": "8-3"
+    },
+    {
+      "rank": 89,
+      "team": "Army",
+      "power_rank": 88,
+      "sor_score": 0.0027368270790390707,
+      "record": "5-5"
+    },
+    {
+      "rank": 90,
+      "team": "Nevada",
+      "power_rank": 90,
+      "sor_score": 0.0007462858147093308,
+      "record": "5-6"
+    },
+    {
+      "rank": 91,
+      "team": "East Carolina",
+      "power_rank": 91,
+      "sor_score": 0.014518430233564446,
+      "record": "7-4"
+    },
+    {
+      "rank": 92,
+      "team": "South Alabama",
+      "power_rank": 92,
+      "sor_score": 0.0037645806322066182,
+      "record": "6-5"
+    },
+    {
+      "rank": 93,
+      "team": "Utah State",
+      "power_rank": 93,
+      "sor_score": 0.0009365486591489075,
+      "record": "4-7"
+    },
+    {
+      "rank": 94,
+      "team": "UNLV",
+      "power_rank": 97,
+      "sor_score": 0.025086244150059726,
+      "record": "7-4"
+    },
+    {
+      "rank": 95,
+      "team": "Miami (OH)",
+      "power_rank": 94,
+      "sor_score": 0.005742161256273123,
+      "record": "7-4"
+    },
+    {
+      "rank": 96,
+      "team": "Boston College",
+      "power_rank": 95,
+      "sor_score": 0.007458804237923412,
+      "record": "5-6"
+    },
+    {
+      "rank": 97,
+      "team": "UAB",
+      "power_rank": 96,
+      "sor_score": 0.0034234052672650036,
+      "record": "6-5"
+    },
+    {
+      "rank": 98,
+      "team": "South Florida",
+      "power_rank": 98,
+      "sor_score": 0.0014888114067660282,
+      "record": "6-5"
+    },
+    {
+      "rank": 99,
+      "team": "Arkansas State",
+      "power_rank": 99,
+      "sor_score": 6.886450484633593e-05,
+      "record": "4-7"
+    },
+    {
+      "rank": 100,
+      "team": "Marshall",
+      "power_rank": 100,
+      "sor_score": 0.0018390705889808128,
+      "record": "6-5"
+    },
+    {
+      "rank": 101,
+      "team": "Rutgers",
+      "power_rank": 101,
+      "sor_score": 0.00018401366024235971,
+      "record": "3-8"
+    },
+    {
+      "rank": 102,
+      "team": "Ohio",
+      "power_rank": 104,
+      "sor_score": 0.02523086482550083,
+      "record": "8-3"
+    },
+    {
+      "rank": 103,
+      "team": "Georgia State",
+      "power_rank": 102,
+      "sor_score": 0.00020678823390615544,
+      "record": "5-6"
+    },
+    {
+      "rank": 104,
+      "team": "Kennesaw State",
+      "power_rank": 103,
+      "sor_score": 0.0003406870465476195,
+      "record": "5-6"
+    },
+    {
+      "rank": 105,
+      "team": "Delaware",
+      "power_rank": 105,
+      "sor_score": 0.0017142582158279536,
+      "record": "6-5"
+    },
+    {
+      "rank": 106,
+      "team": "Buffalo",
+      "power_rank": 111,
+      "sor_score": 0.0314513244671324,
+      "record": "8-3"
+    },
+    {
+      "rank": 107,
+      "team": "Central Michigan",
+      "power_rank": 106,
+      "sor_score": 0.00015156844406260327,
+      "record": "5-6"
+    },
+    {
+      "rank": 108,
+      "team": "Hawai'i",
+      "power_rank": 107,
+      "sor_score": 1.6324313971267508e-06,
+      "record": "3-8"
+    },
+    {
+      "rank": 109,
+      "team": "Wyoming",
+      "power_rank": 108,
+      "sor_score": 0.009420647560947704,
+      "record": "7-4"
+    },
+    {
+      "rank": 110,
+      "team": "Tulane",
+      "power_rank": 109,
+      "sor_score": 0.007484927094537718,
+      "record": "6-5"
+    },
+    {
+      "rank": 111,
+      "team": "Washington State",
+      "power_rank": 110,
+      "sor_score": 4.793907514148217e-06,
+      "record": "2-9"
+    },
+    {
+      "rank": 112,
+      "team": "Middle Tennessee",
+      "power_rank": 112,
+      "sor_score": 0.002588564562270286,
+      "record": "6-5"
+    },
+    {
+      "rank": 113,
+      "team": "App State",
+      "power_rank": 114,
+      "sor_score": 0.009005290328101448,
+      "record": "7-4"
+    },
+    {
+      "rank": 114,
+      "team": "San Jos\u00e9 State",
+      "power_rank": 113,
+      "sor_score": 7.086899124077634e-05,
+      "record": "5-7"
+    },
+    {
+      "rank": 115,
+      "team": "Florida International",
+      "power_rank": 115,
+      "sor_score": 1.3174738934859659e-05,
+      "record": "4-7"
+    },
+    {
+      "rank": 116,
+      "team": "Colorado State",
+      "power_rank": 116,
+      "sor_score": 6.580164646514345e-05,
+      "record": "3-8"
+    },
+    {
+      "rank": 117,
+      "team": "Western Kentucky",
+      "power_rank": 117,
+      "sor_score": 8.243626389579903e-05,
+      "record": "4-7"
+    },
+    {
+      "rank": 118,
+      "team": "California",
+      "power_rank": 118,
+      "sor_score": 0.00013380708460850334,
+      "record": "3-8"
+    },
+    {
+      "rank": 119,
+      "team": "Rice",
+      "power_rank": 119,
+      "sor_score": 5.251976198247802e-07,
+      "record": "2-9"
+    },
+    {
+      "rank": 120,
+      "team": "Temple",
+      "power_rank": 120,
+      "sor_score": 4.543161037368665e-08,
+      "record": "2-9"
+    },
+    {
+      "rank": 121,
+      "team": "Coastal Carolina",
+      "power_rank": 121,
+      "sor_score": 4.2763298399374854e-05,
+      "record": "4-7"
+    },
+    {
+      "rank": 122,
+      "team": "Southern Miss",
+      "power_rank": 122,
+      "sor_score": 2.5899780673103795e-06,
+      "record": "3-8"
+    },
+    {
+      "rank": 123,
+      "team": "Ball State",
+      "power_rank": 123,
+      "sor_score": 1.8508152143276424e-06,
+      "record": "3-8"
+    },
+    {
+      "rank": 124,
+      "team": "Eastern Michigan",
+      "power_rank": 124,
+      "sor_score": 1.7008202828339892e-05,
+      "record": "4-7"
+    },
+    {
+      "rank": 125,
+      "team": "Massachusetts",
+      "power_rank": 125,
+      "sor_score": 1.2566910347732968e-05,
+      "record": "5-6"
+    },
+    {
+      "rank": 126,
+      "team": "Troy",
+      "power_rank": 126,
+      "sor_score": 6.548966228767695e-05,
+      "record": "4-7"
+    },
+    {
+      "rank": 127,
+      "team": "Old Dominion",
+      "power_rank": 127,
+      "sor_score": 3.931012339953735e-06,
+      "record": "3-8"
+    },
+    {
+      "rank": 128,
+      "team": "Bowling Green",
+      "power_rank": 128,
+      "sor_score": 3.107493257588658e-06,
+      "record": "3-8"
+    },
+    {
+      "rank": 129,
+      "team": "New Mexico State",
+      "power_rank": 129,
+      "sor_score": 5.598699272070269e-07,
+      "record": "3-8"
+    },
+    {
+      "rank": 130,
+      "team": "UL Monroe",
+      "power_rank": 130,
+      "sor_score": 2.179573986351723e-07,
+      "record": "2-9"
+    },
+    {
+      "rank": 131,
+      "team": "Akron",
+      "power_rank": 131,
+      "sor_score": 1.7974922688828572e-08,
+      "record": "2-9"
+    },
+    {
+      "rank": 132,
+      "team": "Missouri State",
+      "power_rank": 132,
+      "sor_score": 1.5894531359078256e-05,
+      "record": "4-7"
+    },
+    {
+      "rank": 133,
+      "team": "Sam Houston",
+      "power_rank": 133,
+      "sor_score": 2.051569558969228e-10,
+      "record": "1-10"
+    },
+    {
+      "rank": 134,
+      "team": "Kent State",
+      "power_rank": 134,
+      "sor_score": 8.187991454153708e-07,
+      "record": "3-8"
+    },
+    {
+      "rank": 135,
+      "team": "Northern Illinois",
+      "power_rank": 135,
+      "sor_score": -0.0,
+      "record": "0-11"
+    },
+    {
+      "rank": 136,
+      "team": "Charlotte",
+      "power_rank": 136,
+      "sor_score": 3.720183721812225e-09,
+      "record": "1-10"
+    },
+    {
+      "rank": 137,
+      "team": "UTEP",
+      "power_rank": 137,
+      "sor_score": 4.3901151821520805e-09,
+      "record": "1-10"
+    },
+    {
+      "rank": 138,
+      "team": "Sacramento State",
+      "power_rank": 138,
+      "sor_score": 1.73334275160681e-09,
+      "record": "2-9"
+    }
+  ],
+  "outside_top_12": [
+    {
+      "rank": 13,
+      "team": "Oregon"
+    },
+    {
+      "rank": 14,
+      "team": "Ohio State"
+    },
+    {
+      "rank": 15,
+      "team": "Iowa"
+    },
+    {
+      "rank": 16,
+      "team": "Kentucky"
+    },
+    {
+      "rank": 17,
+      "team": "Boise State"
+    },
+    {
+      "rank": 18,
+      "team": "USC"
+    },
+    {
+      "rank": 19,
+      "team": "Arizona"
+    },
+    {
+      "rank": 20,
+      "team": "Houston"
+    },
+    {
+      "rank": 21,
+      "team": "South Carolina"
+    },
+    {
+      "rank": 22,
+      "team": "Oklahoma"
+    },
+    {
+      "rank": 23,
+      "team": "Louisville"
+    },
+    {
+      "rank": 24,
+      "team": "Florida"
+    },
+    {
+      "rank": 25,
+      "team": "Ole Miss"
+    }
+  ],
+  "watchlist_note": "CFP-ranked teams outside the top 12; inclusion is not a selection probability or a guarantee of a remaining path.",
+  "current_title_lean": {
+    "team": "Georgia",
+    "basis": "Current neutral-power leader; preliminary, not a championship probability"
+  },
+  "publication_policy": "Same retained ADVPI and seed-read methods; no research challenger promoted."
+}

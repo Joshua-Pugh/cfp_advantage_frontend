@@ -1,0 +1,91 @@
+{
+  "generated_at": "2026-11-23T22:09:52.946Z",
+  "game_id": "401858316",
+  "season": 2026,
+  "week": 13,
+  "date": "2026-11-28",
+  "kickoff_at": "2026-11-28T20:30:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "SMU",
+  "away_full_name": "SMU Mustangs",
+  "away_conference": "ACC",
+  "away_ap_rank": 0,
+  "home_team": "Stanford",
+  "home_full_name": "Stanford Cardinal",
+  "home_conference": "ACC",
+  "home_ap_rank": 0,
+  "projected_winner": "SMU Mustangs",
+  "projected_margin": 6.41,
+  "projection_closeness": 0.6946,
+  "context_label": "Mixed Framework Read",
+  "context_note": "The frozen Control Framework is split and does not strongly reinforce the baseline.",
+  "matchup_conviction": {
+    "label": "Fragile Edge",
+    "note": "CFP Advantage has a lean, but this sits in a historical range where modest edges have been easier to overturn.",
+    "historical_model_win_rate": 0.613,
+    "framework_support": {
+      "strength": "Framework Strongly Supports",
+      "support_components": 5,
+      "conflict_components": 0
+    }
+  },
+  "key_advantages": {
+    "Stanford": [
+      "More efficient Control Finish",
+      "Higher Control Drive Shutout Rate"
+    ],
+    "SMU": [
+      "Stronger Control Creation",
+      "More consistent Control Rate",
+      "Stronger Control Denial",
+      "Higher overall ADV strength",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 70.895531,
+    "adv_schedule_strength": 49.759167,
+    "games_before_target": 11,
+    "recent_form": "Stable, Below Baseline",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": 0.11053171911854864,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.484127,
+    "control_finish": 0.868852,
+    "control_denial": 0.641221,
+    "comparison_stats": {
+      "games_available": 11,
+      "yards_per_game": 446.3,
+      "yards_per_play": 6.55,
+      "points_per_drive": 2.61,
+      "rush_yards_per_game": 142.8,
+      "pass_yards_per_game": 303.5,
+      "turnover_margin": -5
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 37.801883,
+    "adv_schedule_strength": 52.915519,
+    "games_before_target": 11,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": -0.6370165652275699,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.358779,
+    "control_finish": 0.893617,
+    "control_denial": 0.515873,
+    "comparison_stats": {
+      "games_available": 11,
+      "yards_per_game": 371.9,
+      "yards_per_play": 5.65,
+      "points_per_drive": 2.1,
+      "rush_yards_per_game": 129.5,
+      "pass_yards_per_game": 242.5,
+      "turnover_margin": 4
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401858316/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401858316.json"
+}

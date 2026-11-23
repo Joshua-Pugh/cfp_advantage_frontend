@@ -1,0 +1,86 @@
+{
+  "generated_at": "2026-11-23T22:09:52.946Z",
+  "game_id": "401856880",
+  "season": 2026,
+  "week": 13,
+  "date": "2026-11-28",
+  "kickoff_at": "2026-11-28T02:00:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "West Virginia",
+  "away_full_name": "West Virginia Mountaineers",
+  "away_conference": "Big 12",
+  "away_ap_rank": 0,
+  "home_team": "Utah",
+  "home_full_name": "Utah Utes",
+  "home_conference": "Big 12",
+  "home_ap_rank": 2,
+  "projected_winner": "Utah Utes",
+  "projected_margin": 20.48,
+  "projection_closeness": 0.0249,
+  "context_label": "Mixed Framework Read",
+  "context_note": "The frozen Control Framework is split and does not strongly reinforce the baseline.",
+  "matchup_conviction": {
+    "label": "Strong Separation",
+    "note": "Large baseline separation with non-conflicting matchup context. Historically, this game shape has been much harder to overturn.",
+    "historical_model_win_rate": 0.836,
+    "framework_support": {
+      "strength": "Framework Supports",
+      "support_components": 3,
+      "conflict_components": 0
+    }
+  },
+  "key_advantages": {
+    "Utah": [
+      "More consistent Control Rate",
+      "Higher overall ADV strength",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ],
+    "West Virginia": []
+  },
+  "away_profile": {
+    "pregame_adv_rating": 50.762817,
+    "adv_schedule_strength": 57.194635,
+    "games_before_target": 11,
+    "recent_form": "Declining",
+    "recent_form_note": "Recent ADV has declined with manageable volatility.",
+    "talent_yield": -0.3115417725669847,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.453901,
+    "control_finish": 0.90625,
+    "control_denial": 0.526316,
+    "comparison_stats": {
+      "games_available": 11,
+      "yards_per_game": 458.9,
+      "yards_per_play": 6.12,
+      "points_per_drive": 2.65,
+      "rush_yards_per_game": 248.7,
+      "pass_yards_per_game": 210.2,
+      "turnover_margin": 2
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 106.544555,
+    "adv_schedule_strength": 55.635464,
+    "games_before_target": 11,
+    "recent_form": "Improving, Still Below Baseline",
+    "recent_form_note": "Recent ADV has improved with manageable volatility.",
+    "talent_yield": 1.592001821634983,
+    "talent_yield_label": "Well Above Expectation",
+    "control_creation": 0.473684,
+    "control_finish": 0.920635,
+    "control_denial": 0.546099,
+    "comparison_stats": {
+      "games_available": 11,
+      "yards_per_game": 466.8,
+      "yards_per_play": 6.8,
+      "points_per_drive": 3.14,
+      "rush_yards_per_game": 216.3,
+      "pass_yards_per_game": 250.5,
+      "turnover_margin": 4
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401856880/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401856880.json"
+}

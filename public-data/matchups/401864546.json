@@ -1,0 +1,91 @@
+{
+  "generated_at": "2026-11-23T22:09:52.946Z",
+  "game_id": "401864546",
+  "season": 2026,
+  "week": 13,
+  "date": "2026-11-27",
+  "kickoff_at": "2026-11-27T21:30:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "Air Force",
+  "away_full_name": "Air Force Falcons",
+  "away_conference": "Mountain West",
+  "away_ap_rank": 0,
+  "home_team": "New Mexico",
+  "home_full_name": "New Mexico Lobos",
+  "home_conference": "Mountain West",
+  "home_ap_rank": 0,
+  "projected_winner": "New Mexico Lobos",
+  "projected_margin": 3.83,
+  "projection_closeness": 0.8178,
+  "context_label": "Mixed Framework Read",
+  "context_note": "The frozen Control Framework is split and does not strongly reinforce the baseline.",
+  "matchup_conviction": {
+    "label": "Context Pushback",
+    "note": "The baseline has a lean, but stable Control Framework traits point to meaningful matchup resistance.",
+    "historical_model_win_rate": 0.525,
+    "framework_support": {
+      "strength": "Framework Conflicts",
+      "support_components": 0,
+      "conflict_components": 5
+    }
+  },
+  "key_advantages": {
+    "New Mexico": [
+      "More efficient Control Finish",
+      "Higher Control Drive Shutout Rate",
+      "Higher overall ADV strength"
+    ],
+    "Air Force": [
+      "Stronger Control Creation",
+      "More consistent Control Rate",
+      "Stronger Control Denial",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 51.64187,
+    "adv_schedule_strength": 14.357779,
+    "games_before_target": 11,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": 4.398890092996233,
+    "talent_yield_label": "Well Above Expectation",
+    "control_creation": 0.570093,
+    "control_finish": 0.819672,
+    "control_denial": 0.576923,
+    "comparison_stats": {
+      "games_available": 11,
+      "yards_per_game": 415.4,
+      "yards_per_play": 5.76,
+      "points_per_drive": 3.24,
+      "rush_yards_per_game": 351.7,
+      "pass_yards_per_game": 64.4,
+      "turnover_margin": 2
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 58.482423,
+    "adv_schedule_strength": 13.891514,
+    "games_before_target": 11,
+    "recent_form": "Declining",
+    "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+    "talent_yield": 0.9921996886650982,
+    "talent_yield_label": "Above Expectation",
+    "control_creation": 0.423077,
+    "control_finish": 0.854545,
+    "control_denial": 0.429907,
+    "comparison_stats": {
+      "games_available": 11,
+      "yards_per_game": 363.7,
+      "yards_per_play": 5.64,
+      "points_per_drive": 2.4,
+      "rush_yards_per_game": 210.9,
+      "pass_yards_per_game": 152.8,
+      "turnover_margin": 17
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401864546/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401864546.json"
+}

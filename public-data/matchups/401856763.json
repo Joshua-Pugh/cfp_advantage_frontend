@@ -1,0 +1,91 @@
+{
+  "generated_at": "2026-11-23T22:09:52.946Z",
+  "game_id": "401856763",
+  "season": 2026,
+  "week": 13,
+  "date": "2026-11-28",
+  "kickoff_at": "2026-11-28T21:15:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "Oklahoma",
+  "away_full_name": "Oklahoma Sooners",
+  "away_conference": "SEC",
+  "away_ap_rank": 19,
+  "home_team": "Missouri",
+  "home_full_name": "Missouri Tigers",
+  "home_conference": "SEC",
+  "home_ap_rank": 24,
+  "projected_winner": "Missouri Tigers",
+  "projected_margin": 5.81,
+  "projection_closeness": 0.7235,
+  "context_label": "Mixed Framework Read",
+  "context_note": "The frozen Control Framework is split and does not strongly reinforce the baseline.",
+  "matchup_conviction": {
+    "label": "Fragile Edge",
+    "note": "CFP Advantage has a lean, but this sits in a historical range where modest edges have been easier to overturn.",
+    "historical_model_win_rate": 0.613,
+    "framework_support": {
+      "strength": "Framework Strongly Supports",
+      "support_components": 4,
+      "conflict_components": 1
+    }
+  },
+  "key_advantages": {
+    "Missouri": [
+      "Stronger Control Creation",
+      "More efficient Control Finish",
+      "Stronger Control Denial",
+      "Higher Control Drive Shutout Rate",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ],
+    "Oklahoma": [
+      "Higher overall ADV strength",
+      "Stronger schedule context"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 80.395192,
+    "adv_schedule_strength": 68.031556,
+    "games_before_target": 11,
+    "recent_form": "Improving",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": -0.18376052805071907,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.352,
+    "control_finish": 0.818182,
+    "control_denial": 0.625,
+    "comparison_stats": {
+      "games_available": 11,
+      "yards_per_game": 342.4,
+      "yards_per_play": 5.14,
+      "points_per_drive": 1.7,
+      "rush_yards_per_game": 121.6,
+      "pass_yards_per_game": 220.7,
+      "turnover_margin": -3
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 70.235634,
+    "adv_schedule_strength": 55.553816,
+    "games_before_target": 11,
+    "recent_form": "Stable, Below Baseline",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -0.2649873168653112,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.375,
+    "control_finish": 0.901961,
+    "control_denial": 0.648,
+    "comparison_stats": {
+      "games_available": 11,
+      "yards_per_game": 401.4,
+      "yards_per_play": 6.1,
+      "points_per_drive": 2.43,
+      "rush_yards_per_game": 147.7,
+      "pass_yards_per_game": 253.6,
+      "turnover_margin": 11
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401856763/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401856763.json"
+}

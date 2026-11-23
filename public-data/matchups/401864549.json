@@ -1,0 +1,92 @@
+{
+  "generated_at": "2026-11-23T22:09:52.946Z",
+  "game_id": "401864549",
+  "season": 2026,
+  "week": 13,
+  "date": "2026-11-27",
+  "kickoff_at": "2026-11-27T20:30:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "North Dakota State",
+  "away_full_name": "North Dakota State Bison",
+  "away_conference": "Mountain West",
+  "away_ap_rank": 0,
+  "home_team": "San José State",
+  "home_full_name": "San José State Spartans",
+  "home_conference": "Mountain West",
+  "home_ap_rank": 0,
+  "projected_winner": "North Dakota State Bison",
+  "projected_margin": 6.06,
+  "projection_closeness": 0.7114,
+  "context_label": "Mixed Framework Read",
+  "context_note": "The frozen Control Framework is split and does not strongly reinforce the baseline.",
+  "matchup_conviction": {
+    "label": "Fragile Edge",
+    "note": "CFP Advantage has a lean, but this sits in a historical range where modest edges have been easier to overturn.",
+    "historical_model_win_rate": 0.613,
+    "framework_support": {
+      "strength": "Framework Strongly Supports",
+      "support_components": 5,
+      "conflict_components": 0
+    }
+  },
+  "key_advantages": {
+    "San José State": [
+      "More efficient Control Finish",
+      "Higher Control Drive Shutout Rate",
+      "Stronger schedule context"
+    ],
+    "North Dakota State": [
+      "Stronger Control Creation",
+      "More consistent Control Rate",
+      "Stronger Control Denial",
+      "Higher overall ADV strength",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 55.493403,
+    "adv_schedule_strength": 7.26613,
+    "games_before_target": 11,
+    "recent_form": "Stable, Below Baseline",
+    "recent_form_note": "Recent ADV is comparatively stable without a material slope.",
+    "talent_yield": 1.4065899243289108,
+    "talent_yield_label": "Well Above Expectation",
+    "control_creation": 0.396694,
+    "control_finish": 0.791667,
+    "control_denial": 0.71831,
+    "comparison_stats": {
+      "games_available": 11,
+      "yards_per_game": 342.1,
+      "yards_per_play": 5.35,
+      "points_per_drive": 2.32,
+      "rush_yards_per_game": 148.8,
+      "pass_yards_per_game": 193.3,
+      "turnover_margin": 11
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 15.704366,
+    "adv_schedule_strength": 22.256449,
+    "games_before_target": 12,
+    "recent_form": "Stable, Below Baseline",
+    "recent_form_note": "Recent ADV is comparatively stable without a material slope.",
+    "talent_yield": -0.2607060815565174,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.28169,
+    "control_finish": 0.9,
+    "control_denial": 0.603306,
+    "comparison_stats": {
+      "games_available": 12,
+      "yards_per_game": 331.8,
+      "yards_per_play": 5.3,
+      "points_per_drive": 1.57,
+      "rush_yards_per_game": 108.3,
+      "pass_yards_per_game": 223.4,
+      "turnover_margin": 6
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401864549/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401864549.json"
+}

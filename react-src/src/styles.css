@@ -739,6 +739,26 @@ select {
   min-width: 560px;
 }
 
+.current-cfp-outlook .table-value {
+  display: block;
+}
+
+.power-resume-note {
+  display: grid;
+  gap: 4px;
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-left: 4px solid var(--gold);
+  border-radius: 7px;
+  background: var(--soft, var(--paper));
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.power-resume-note strong {
+  color: var(--ink);
+}
+
 .current-cfp-outlook .team-name-with-logo {
   flex-wrap: nowrap;
   min-width: 170px;
@@ -793,6 +813,7 @@ select {
   .current-cfp-outlook .validation-table-wrap {
     overflow: visible;
     border: 0;
+    background: transparent;
   }
 
   .current-cfp-outlook .validation-table-wrap table,
@@ -814,7 +835,8 @@ select {
 
   .current-cfp-outlook .validation-table-wrap tbody {
     display: grid;
-    gap: 12px;
+    gap: 10px;
+    background: transparent;
   }
 
   .current-cfp-outlook .validation-table-wrap tr {
@@ -826,12 +848,13 @@ select {
 
   .current-cfp-outlook .validation-table-wrap td {
     display: grid;
-    grid-template-columns: minmax(118px, 0.8fr) minmax(0, 1.2fr);
-    gap: 12px;
+    grid-template-columns: minmax(0, 42%) minmax(0, 58%);
+    gap: 10px;
     align-items: center;
     padding: 11px 14px;
     border-bottom: 1px solid var(--line);
     overflow-wrap: anywhere;
+    white-space: normal;
   }
 
   .current-cfp-outlook .validation-table-wrap td:last-child {
@@ -844,7 +867,22 @@ select {
     font-size: 0.72rem;
     font-weight: 850;
     letter-spacing: 0.04em;
+    line-height: 1.25;
     text-transform: uppercase;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .current-cfp-outlook .table-value {
+    min-width: 0;
+    justify-self: end;
+    text-align: right;
+    overflow-wrap: anywhere;
+  }
+
+  .current-cfp-outlook .table-value-start {
+    justify-self: start;
+    text-align: left;
   }
 
   .current-cfp-outlook .team-name-with-logo {

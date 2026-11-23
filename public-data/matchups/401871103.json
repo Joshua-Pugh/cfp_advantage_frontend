@@ -1,0 +1,89 @@
+{
+  "generated_at": "2026-11-23T22:09:52.946Z",
+  "game_id": "401871103",
+  "season": 2026,
+  "week": 13,
+  "date": "2026-11-28",
+  "kickoff_at": "2026-11-28T18:00:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "Southern Miss",
+  "away_full_name": "Southern Miss Golden Eagles",
+  "away_conference": "Sun Belt",
+  "away_ap_rank": 0,
+  "home_team": "Old Dominion",
+  "home_full_name": "Old Dominion Monarchs",
+  "home_conference": "Sun Belt",
+  "home_ap_rank": 0,
+  "projected_winner": "Southern Miss Golden Eagles",
+  "projected_margin": 1.95,
+  "projection_closeness": 0.9073,
+  "context_label": "Strong Framework Support",
+  "context_note": "Southern Miss owns support across control, finishing, denial, and finishing resistance.",
+  "matchup_conviction": {
+    "label": "Fragile Edge",
+    "note": "CFP Advantage has a lean, but this sits in a historical range where modest edges have been easier to overturn.",
+    "historical_model_win_rate": 0.66,
+    "framework_support": {
+      "strength": "Framework Strongly Supports",
+      "support_components": 5,
+      "conflict_components": 0
+    }
+  },
+  "key_advantages": {
+    "Old Dominion": [],
+    "Southern Miss": [
+      "Stronger Control Creation",
+      "More consistent Control Rate",
+      "More efficient Control Finish",
+      "Stronger Control Denial",
+      "Higher Control Drive Shutout Rate",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": -1.719581,
+    "adv_schedule_strength": 26.303147,
+    "games_before_target": 11,
+    "recent_form": "Declining",
+    "recent_form_note": "Recent ADV has declined with manageable volatility.",
+    "talent_yield": -0.6196564935173395,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.321918,
+    "control_finish": 0.851064,
+    "control_denial": 0.809859,
+    "comparison_stats": {
+      "games_available": 11,
+      "yards_per_game": 397.4,
+      "yards_per_play": 5.64,
+      "points_per_drive": 1.99,
+      "rush_yards_per_game": 157.5,
+      "pass_yards_per_game": 239.9,
+      "turnover_margin": -4
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": -1.352783,
+    "adv_schedule_strength": 23.442672,
+    "games_before_target": 11,
+    "recent_form": "Improving, Still Below Baseline",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": 0.008303492100300458,
+    "talent_yield_label": "Near Expectation",
+    "control_creation": 0.190141,
+    "control_finish": 0.740741,
+    "control_denial": 0.678082,
+    "comparison_stats": {
+      "games_available": 11,
+      "yards_per_game": 279.1,
+      "yards_per_play": 4.36,
+      "points_per_drive": 1.07,
+      "rush_yards_per_game": 90.8,
+      "pass_yards_per_game": 188.3,
+      "turnover_margin": -1
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401871103/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401871103.json"
+}

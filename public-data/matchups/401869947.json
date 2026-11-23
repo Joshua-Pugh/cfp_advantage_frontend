@@ -1,0 +1,92 @@
+{
+  "generated_at": "2026-11-23T22:09:52.946Z",
+  "game_id": "401869947",
+  "season": 2026,
+  "week": 13,
+  "date": "2026-11-28",
+  "kickoff_at": "2026-11-28T19:00:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "Coastal Carolina",
+  "away_full_name": "Coastal Carolina Chanticleers",
+  "away_conference": "Sun Belt",
+  "away_ap_rank": 0,
+  "home_team": "James Madison",
+  "home_full_name": "James Madison Dukes",
+  "home_conference": "Sun Belt",
+  "home_ap_rank": 0,
+  "projected_winner": "James Madison Dukes",
+  "projected_margin": 20.94,
+  "projection_closeness": 0.003,
+  "context_label": "Strong Framework Support",
+  "context_note": "James Madison owns support across control, finishing, denial, and finishing resistance.",
+  "matchup_conviction": {
+    "label": "Strong Separation",
+    "note": "Large baseline separation with non-conflicting matchup context. Historically, this game shape has been much harder to overturn.",
+    "historical_model_win_rate": 0.836,
+    "framework_support": {
+      "strength": "Framework Strongly Supports",
+      "support_components": 5,
+      "conflict_components": 0
+    }
+  },
+  "key_advantages": {
+    "James Madison": [
+      "Stronger Control Creation",
+      "More consistent Control Rate",
+      "More efficient Control Finish",
+      "Stronger Control Denial",
+      "Higher Control Drive Shutout Rate",
+      "Higher overall ADV strength",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ],
+    "Coastal Carolina": [
+      "Stronger schedule context"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 2.368043,
+    "adv_schedule_strength": 23.368043,
+    "games_before_target": 11,
+    "recent_form": "Declining",
+    "recent_form_note": "Recent ADV has declined with manageable volatility.",
+    "talent_yield": -0.8841639914208754,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.352941,
+    "control_finish": 0.8125,
+    "control_denial": 0.535714,
+    "comparison_stats": {
+      "games_available": 11,
+      "yards_per_game": 361.9,
+      "yards_per_play": 5.56,
+      "points_per_drive": 1.9,
+      "rush_yards_per_game": 117.6,
+      "pass_yards_per_game": 244.3,
+      "turnover_margin": -2
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 56.730145,
+    "adv_schedule_strength": 16.082417,
+    "games_before_target": 11,
+    "recent_form": "Declining",
+    "recent_form_note": "Season-to-date ADV is high while recent results are declining and unstable.",
+    "talent_yield": 0.8102026917545795,
+    "talent_yield_label": "Above Expectation",
+    "control_creation": 0.464286,
+    "control_finish": 0.938462,
+    "control_denial": 0.647059,
+    "comparison_stats": {
+      "games_available": 11,
+      "yards_per_game": 444.3,
+      "yards_per_play": 6.39,
+      "points_per_drive": 2.91,
+      "rush_yards_per_game": 189.8,
+      "pass_yards_per_game": 254.5,
+      "turnover_margin": 1
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401869947/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401869947.json"
+}

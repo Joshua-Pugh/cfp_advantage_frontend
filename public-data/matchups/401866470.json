@@ -1,0 +1,90 @@
+{
+  "generated_at": "2026-11-23T22:09:52.946Z",
+  "game_id": "401866470",
+  "season": 2026,
+  "week": 13,
+  "date": "2026-11-25",
+  "kickoff_at": "2026-11-25T00:00:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "Kent State",
+  "away_full_name": "Kent State Golden Flashes",
+  "away_conference": "Mid-American",
+  "away_ap_rank": 0,
+  "home_team": "Eastern Michigan",
+  "home_full_name": "Eastern Michigan Eagles",
+  "home_conference": "Mid-American",
+  "home_ap_rank": 0,
+  "projected_winner": "Eastern Michigan Eagles",
+  "projected_margin": 11.95,
+  "projection_closeness": 0.431,
+  "context_label": "Strong Framework Support",
+  "context_note": "Eastern Michigan owns support across control, finishing, denial, and finishing resistance.",
+  "matchup_conviction": {
+    "label": "Supported Edge",
+    "note": "The matchup shape supports the lean with meaningful but not overwhelming separation.",
+    "historical_model_win_rate": 0.723,
+    "framework_support": {
+      "strength": "Framework Strongly Supports",
+      "support_components": 5,
+      "conflict_components": 0
+    }
+  },
+  "key_advantages": {
+    "Eastern Michigan": [
+      "Stronger Control Creation",
+      "More consistent Control Rate",
+      "More efficient Control Finish",
+      "Stronger Control Denial",
+      "Higher Control Drive Shutout Rate",
+      "Higher overall ADV strength",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ],
+    "Kent State": []
+  },
+  "away_profile": {
+    "pregame_adv_rating": -8.317432,
+    "adv_schedule_strength": 20.455295,
+    "games_before_target": 11,
+    "recent_form": "Stable, Above Baseline",
+    "recent_form_note": "Recent ADV is too volatile for a reliable direction label.",
+    "talent_yield": -0.6855518545742487,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.227642,
+    "control_finish": 0.714286,
+    "control_denial": 0.652893,
+    "comparison_stats": {
+      "games_available": 11,
+      "yards_per_game": 287.6,
+      "yards_per_play": 4.69,
+      "points_per_drive": 1.24,
+      "rush_yards_per_game": 91,
+      "pass_yards_per_game": 196.6,
+      "turnover_margin": -11
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": -0.397042,
+    "adv_schedule_strength": 17.489321,
+    "games_before_target": 11,
+    "recent_form": "Improving, Still Below Baseline",
+    "recent_form_note": "Recent ADV has improved with manageable volatility.",
+    "talent_yield": -0.8963077945606832,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.347107,
+    "control_finish": 0.785714,
+    "control_denial": 0.772358,
+    "comparison_stats": {
+      "games_available": 11,
+      "yards_per_game": 306.7,
+      "yards_per_play": 4.73,
+      "points_per_drive": 1.74,
+      "rush_yards_per_game": 110.2,
+      "pass_yards_per_game": 196.5,
+      "turnover_margin": -1
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401866470/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401866470.json"
+}

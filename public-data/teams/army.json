@@ -1,16 +1,36 @@
 {
-  "generated_at": "2026-11-09T02:27:18.779Z",
+  "generated_at": "2026-11-23T22:09:52.946Z",
   "team": "Army",
   "full_name": "Army Black Knights",
   "season": 2026,
   "conference": "American Athletic",
   "classification": "fbs",
   "tier": "g5",
-  "record": "5-4",
-  "points_for": 290,
-  "points_against": 228,
-  "average_score_margin": 6.8889,
-  "current_pregame_profile": null,
+  "record": "5-5",
+  "points_for": 296,
+  "points_against": 238,
+  "average_score_margin": 5.8,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 28.73598,
+    "adv_schedule_strength": 27.93598,
+    "games_before_target": 10,
+    "recent_form": "Declining",
+    "recent_form_note": "Recent ADV has declined with manageable volatility.",
+    "talent_yield": 2.8671795453621005,
+    "talent_yield_label": "Well Above Expectation",
+    "control_creation": 0.5,
+    "control_finish": 0.92,
+    "control_denial": 0.610169,
+    "comparison_stats": {
+      "games_available": 10,
+      "yards_per_game": 379.3,
+      "yards_per_play": 5.97,
+      "points_per_drive": 3.05,
+      "rush_yards_per_game": 310.2,
+      "pass_yards_per_game": 69.1,
+      "turnover_margin": 1
+    }
+  },
   "canonical_url": "https://cfpadvantage.com/teams/2026/army/",
   "data_url": "https://cfpadvantage.com/public-data/teams/army.json"
 }

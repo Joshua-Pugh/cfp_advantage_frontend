@@ -1,16 +1,36 @@
 {
-  "generated_at": "2026-11-09T02:27:18.779Z",
+  "generated_at": "2026-11-23T22:09:52.946Z",
   "team": "Navy",
   "full_name": "Navy Midshipmen",
   "season": 2026,
   "conference": "American Athletic",
   "classification": "fbs",
   "tier": "g5",
-  "record": "3-6",
-  "points_for": 263,
-  "points_against": 274,
-  "average_score_margin": -1.2222,
-  "current_pregame_profile": null,
+  "record": "4-6",
+  "points_for": 301,
+  "points_against": 308,
+  "average_score_margin": -0.7,
+  "current_pregame_profile": {
+    "pregame_adv_rating": 41.015273,
+    "adv_schedule_strength": 39.340273,
+    "games_before_target": 10,
+    "recent_form": "Improving, Still Below Baseline",
+    "recent_form_note": "Recent ADV has improved with manageable volatility.",
+    "talent_yield": 3.2022105920164363,
+    "talent_yield_label": "Well Above Expectation",
+    "control_creation": 0.46087,
+    "control_finish": 0.867925,
+    "control_denial": 0.742647,
+    "comparison_stats": {
+      "games_available": 10,
+      "yards_per_game": 417.5,
+      "yards_per_play": 6.28,
+      "points_per_drive": 2.6,
+      "rush_yards_per_game": 301.8,
+      "pass_yards_per_game": 115.7,
+      "turnover_margin": -4
+    }
+  },
   "canonical_url": "https://cfpadvantage.com/teams/2026/navy/",
   "data_url": "https://cfpadvantage.com/public-data/teams/navy.json"
 }

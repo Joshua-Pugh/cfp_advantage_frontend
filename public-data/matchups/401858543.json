@@ -1,0 +1,92 @@
+{
+  "generated_at": "2026-11-23T22:09:52.946Z",
+  "game_id": "401858543",
+  "season": 2026,
+  "week": 13,
+  "date": "2026-11-28",
+  "kickoff_at": "2026-11-28T20:30:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "USC",
+  "away_full_name": "USC Trojans",
+  "away_conference": "Big Ten",
+  "away_ap_rank": 15,
+  "home_team": "UCLA",
+  "home_full_name": "UCLA Bruins",
+  "home_conference": "Big Ten",
+  "home_ap_rank": 10,
+  "projected_winner": "UCLA Bruins",
+  "projected_margin": 5.75,
+  "projection_closeness": 0.7261,
+  "context_label": "Framework Conflict",
+  "context_note": "The baseline favors UCLA, but the opponent owns the stronger control-and-finish profile.",
+  "matchup_conviction": {
+    "label": "Context Pushback",
+    "note": "The baseline has a lean, but stable Control Framework traits point to meaningful matchup resistance.",
+    "historical_model_win_rate": 0.525,
+    "framework_support": {
+      "strength": "Framework Conflicts",
+      "support_components": 0,
+      "conflict_components": 5
+    }
+  },
+  "key_advantages": {
+    "UCLA": [
+      "Higher overall ADV strength"
+    ],
+    "USC": [
+      "Stronger Control Creation",
+      "More consistent Control Rate",
+      "More efficient Control Finish",
+      "Stronger Control Denial",
+      "Higher Control Drive Shutout Rate",
+      "Stronger schedule context",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 72.75245,
+    "adv_schedule_strength": 60.843359,
+    "games_before_target": 11,
+    "recent_form": "Improving, Still Below Baseline",
+    "recent_form_note": "Recent ADV is rising but game-to-game volatility remains high.",
+    "talent_yield": -0.7555983313292487,
+    "talent_yield_label": "Below Expectation",
+    "control_creation": 0.504425,
+    "control_finish": 0.894737,
+    "control_denial": 0.592857,
+    "comparison_stats": {
+      "games_available": 11,
+      "yards_per_game": 422.4,
+      "yards_per_play": 6.19,
+      "points_per_drive": 3.18,
+      "rush_yards_per_game": 131.5,
+      "pass_yards_per_game": 290.8,
+      "turnover_margin": -1
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": 101.322506,
+    "adv_schedule_strength": 48.072506,
+    "games_before_target": 11,
+    "recent_form": "Declining",
+    "recent_form_note": "Recent ADV has declined with manageable volatility.",
+    "talent_yield": 0.7938425933840889,
+    "talent_yield_label": "Above Expectation",
+    "control_creation": 0.407143,
+    "control_finish": 0.824561,
+    "control_denial": 0.495575,
+    "comparison_stats": {
+      "games_available": 11,
+      "yards_per_game": 413.1,
+      "yards_per_play": 6.21,
+      "points_per_drive": 2.16,
+      "rush_yards_per_game": 194,
+      "pass_yards_per_game": 219.1,
+      "turnover_margin": 14
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401858543/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401858543.json"
+}

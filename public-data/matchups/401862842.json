@@ -1,0 +1,89 @@
+{
+  "generated_at": "2026-11-23T22:09:52.946Z",
+  "game_id": "401862842",
+  "season": 2026,
+  "week": 13,
+  "date": "2026-11-28",
+  "kickoff_at": "2026-11-28T17:00:00.000Z",
+  "game_type": "Conference Game",
+  "away_team": "Navy",
+  "away_full_name": "Navy Midshipmen",
+  "away_conference": "American Athletic",
+  "away_ap_rank": 0,
+  "home_team": "Charlotte",
+  "home_full_name": "Charlotte 49ers",
+  "home_conference": "American Athletic",
+  "home_ap_rank": 0,
+  "projected_winner": "Navy Midshipmen",
+  "projected_margin": 12,
+  "projection_closeness": 0.4287,
+  "context_label": "Mixed Framework Read",
+  "context_note": "The frozen Control Framework is split and does not strongly reinforce the baseline.",
+  "matchup_conviction": {
+    "label": "Supported Edge",
+    "note": "The matchup shape supports the lean with meaningful but not overwhelming separation.",
+    "historical_model_win_rate": 0.723,
+    "framework_support": {
+      "strength": "Framework Strongly Supports",
+      "support_components": 5,
+      "conflict_components": 0
+    }
+  },
+  "key_advantages": {
+    "Charlotte": [],
+    "Navy": [
+      "Stronger Control Creation",
+      "More consistent Control Rate",
+      "Stronger Control Denial",
+      "Higher overall ADV strength",
+      "Stronger schedule context",
+      "Creates more Control Pressure",
+      "Limits Control Pressure better"
+    ]
+  },
+  "away_profile": {
+    "pregame_adv_rating": 41.015273,
+    "adv_schedule_strength": 39.340273,
+    "games_before_target": 10,
+    "recent_form": "Improving, Still Below Baseline",
+    "recent_form_note": "Recent ADV has improved with manageable volatility.",
+    "talent_yield": 3.2022105920164363,
+    "talent_yield_label": "Well Above Expectation",
+    "control_creation": 0.46087,
+    "control_finish": 0.867925,
+    "control_denial": 0.742647,
+    "comparison_stats": {
+      "games_available": 10,
+      "yards_per_game": 417.5,
+      "yards_per_play": 6.28,
+      "points_per_drive": 2.6,
+      "rush_yards_per_game": 301.8,
+      "pass_yards_per_game": 115.7,
+      "turnover_margin": -4
+    }
+  },
+  "home_profile": {
+    "pregame_adv_rating": -18.006032,
+    "adv_schedule_strength": 32.255332,
+    "games_before_target": 11,
+    "recent_form": "Cooling, Still Above Baseline",
+    "recent_form_note": "Recent ADV has declined with manageable volatility.",
+    "talent_yield": -1.279210670909932,
+    "talent_yield_label": "Well Below Expectation",
+    "control_creation": 0.257353,
+    "control_finish": 0.857143,
+    "control_denial": 0.53913,
+    "comparison_stats": {
+      "games_available": 11,
+      "yards_per_game": 302.2,
+      "yards_per_play": 5,
+      "points_per_drive": 1.82,
+      "rush_yards_per_game": 114.9,
+      "pass_yards_per_game": 187.3,
+      "turnover_margin": -4
+    }
+  },
+  "contains_ats_recommendation": false,
+  "canonical_url": "https://cfpadvantage.com/matchups/401862842/",
+  "data_url": "https://cfpadvantage.com/public-data/matchups/401862842.json"
+}
