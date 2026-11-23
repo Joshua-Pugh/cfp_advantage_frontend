@@ -3553,7 +3553,7 @@
     "path_probabilities": "The probabilities describe remaining record thresholds, not CFP selection odds.",
     "selection_odds_status": "withheld_until_committee_proxy_and_auto_bid_logic_are_chronologically_validated"
   },
-  "generated_at": "2026-11-23T22:14:51.857252+00:00",
+  "generated_at": "2026-11-23T23:04:13.521504+00:00",
   "entering_week": 13,
   "ap_snapshot": {
     "season": 2026,
@@ -4624,37 +4624,37 @@
     },
     {
       "rank": 19,
-      "team": "Louisville",
-      "power_rank": 12,
-      "sor_score": 0.2987982461416715,
-      "record": "8-3"
-    },
-    {
-      "rank": 20,
       "team": "Boise State",
       "power_rank": 19,
       "sor_score": 0.3842610808757338,
       "record": "9-2"
     },
     {
-      "rank": 21,
-      "team": "Oklahoma",
-      "power_rank": 21,
-      "sor_score": 0.336282147260916,
-      "record": "7-4"
+      "rank": 20,
+      "team": "Louisville",
+      "power_rank": 12,
+      "sor_score": 0.2987982461416715,
+      "record": "8-3"
     },
     {
-      "rank": 22,
+      "rank": 21,
       "team": "USC",
       "power_rank": 27,
       "sor_score": 0.39589886088853904,
       "record": "8-3"
     },
     {
-      "rank": 23,
+      "rank": 22,
       "team": "Florida",
       "power_rank": 23,
       "sor_score": 0.35890270033200067,
+      "record": "7-4"
+    },
+    {
+      "rank": 23,
+      "team": "Oklahoma",
+      "power_rank": 21,
+      "sor_score": 0.336282147260916,
       "record": "7-4"
     },
     {
@@ -4673,31 +4673,31 @@
     },
     {
       "rank": 26,
-      "team": "Oklahoma State",
-      "power_rank": 20,
-      "sor_score": 0.16822187797320015,
-      "record": "7-4"
-    },
-    {
-      "rank": 27,
       "team": "Auburn",
       "power_rank": 34,
       "sor_score": 0.3065606905737457,
       "record": "7-4"
     },
     {
-      "rank": 28,
-      "team": "Liberty",
-      "power_rank": 30,
-      "sor_score": 0.25692390598063414,
-      "record": "10-1"
+      "rank": 27,
+      "team": "Oklahoma State",
+      "power_rank": 20,
+      "sor_score": 0.16822187797320015,
+      "record": "7-4"
     },
     {
-      "rank": 29,
+      "rank": 28,
       "team": "Missouri",
       "power_rank": 33,
       "sor_score": 0.2930710530095604,
       "record": "7-4"
+    },
+    {
+      "rank": 29,
+      "team": "Liberty",
+      "power_rank": 30,
+      "sor_score": 0.25692390598063414,
+      "record": "10-1"
     },
     {
       "rank": 30,
@@ -4722,24 +4722,24 @@
     },
     {
       "rank": 33,
+      "team": "Louisiana Tech",
+      "power_rank": 48,
+      "sor_score": 0.24272877270058327,
+      "record": "9-2"
+    },
+    {
+      "rank": 34,
       "team": "Northwestern",
       "power_rank": 29,
       "sor_score": 0.05561683276533188,
       "record": "6-5"
     },
     {
-      "rank": 34,
+      "rank": 35,
       "team": "SMU",
       "power_rank": 36,
       "sor_score": 0.10449545828548387,
       "record": "7-4"
-    },
-    {
-      "rank": 35,
-      "team": "Louisiana Tech",
-      "power_rank": 48,
-      "sor_score": 0.24272877270058327,
-      "record": "9-2"
     },
     {
       "rank": 36,
@@ -4750,17 +4750,17 @@
     },
     {
       "rank": 37,
+      "team": "UTSA",
+      "power_rank": 81,
+      "sor_score": 0.364491828610179,
+      "record": "9-2"
+    },
+    {
+      "rank": 38,
       "team": "Texas State",
       "power_rank": 35,
       "sor_score": 0.06415289222201992,
       "record": "7-4"
-    },
-    {
-      "rank": 38,
-      "team": "Penn State",
-      "power_rank": 32,
-      "sor_score": 0.020805117369820752,
-      "record": "6-5"
     },
     {
       "rank": 39,
@@ -4771,17 +4771,17 @@
     },
     {
       "rank": 40,
+      "team": "Penn State",
+      "power_rank": 32,
+      "sor_score": 0.020805117369820752,
+      "record": "6-5"
+    },
+    {
+      "rank": 41,
       "team": "Duke",
       "power_rank": 39,
       "sor_score": 0.07386493214239623,
       "record": "7-4"
-    },
-    {
-      "rank": 41,
-      "team": "UTSA",
-      "power_rank": 81,
-      "sor_score": 0.364491828610179,
-      "record": "9-2"
     },
     {
       "rank": 42,
@@ -4792,38 +4792,38 @@
     },
     {
       "rank": 43,
-      "team": "Oregon State",
-      "power_rank": 41,
-      "sor_score": 0.01793343447390387,
-      "record": "6-5"
-    },
-    {
-      "rank": 44,
-      "team": "North Carolina",
-      "power_rank": 42,
-      "sor_score": 0.027127267507668498,
-      "record": "5-6"
-    },
-    {
-      "rank": 45,
-      "team": "UCF",
-      "power_rank": 43,
-      "sor_score": 0.05415405124808898,
-      "record": "6-5"
-    },
-    {
-      "rank": 46,
       "team": "Illinois",
       "power_rank": 45,
       "sor_score": 0.07538300924643632,
       "record": "6-5"
     },
     {
+      "rank": 44,
+      "team": "Oregon State",
+      "power_rank": 41,
+      "sor_score": 0.01793343447390387,
+      "record": "6-5"
+    },
+    {
+      "rank": 45,
+      "team": "Clemson",
+      "power_rank": 54,
+      "sor_score": 0.11643290971473458,
+      "record": "7-4"
+    },
+    {
+      "rank": 46,
+      "team": "North Carolina",
+      "power_rank": 42,
+      "sor_score": 0.027127267507668498,
+      "record": "5-6"
+    },
+    {
       "rank": 47,
-      "team": "Kansas",
-      "power_rank": 40,
-      "sor_score": 0.0023611818731091327,
-      "record": "4-7"
+      "team": "UCF",
+      "power_rank": 43,
+      "sor_score": 0.05415405124808898,
+      "record": "6-5"
     },
     {
       "rank": 48,
@@ -4834,10 +4834,10 @@
     },
     {
       "rank": 49,
-      "team": "Clemson",
-      "power_rank": 54,
-      "sor_score": 0.11643290971473458,
-      "record": "7-4"
+      "team": "Kansas",
+      "power_rank": 40,
+      "sor_score": 0.0023611818731091327,
+      "record": "4-7"
     },
     {
       "rank": 50,
@@ -4848,10 +4848,10 @@
     },
     {
       "rank": 51,
-      "team": "Cincinnati",
-      "power_rank": 47,
-      "sor_score": 0.04524791257254547,
-      "record": "6-5"
+      "team": "North Dakota State",
+      "power_rank": 59,
+      "sor_score": 0.11801958538620963,
+      "record": "9-2"
     },
     {
       "rank": 52,
@@ -4862,10 +4862,10 @@
     },
     {
       "rank": 53,
-      "team": "North Dakota State",
-      "power_rank": 59,
-      "sor_score": 0.11801958538620963,
-      "record": "9-2"
+      "team": "Cincinnati",
+      "power_rank": 47,
+      "sor_score": 0.04524791257254547,
+      "record": "6-5"
     },
     {
       "rank": 54,
@@ -4890,24 +4890,24 @@
     },
     {
       "rank": 57,
-      "team": "TCU",
-      "power_rank": 51,
-      "sor_score": 0.015112778470874642,
-      "record": "5-6"
-    },
-    {
-      "rank": 58,
       "team": "James Madison",
       "power_rank": 61,
       "sor_score": 0.055523260194546314,
       "record": "8-3"
     },
     {
-      "rank": 59,
+      "rank": 58,
       "team": "Michigan",
       "power_rank": 65,
       "sor_score": 0.062022216519032045,
       "record": "6-5"
+    },
+    {
+      "rank": 59,
+      "team": "TCU",
+      "power_rank": 51,
+      "sor_score": 0.015112778470874642,
+      "record": "5-6"
     },
     {
       "rank": 60,
@@ -4925,52 +4925,52 @@
     },
     {
       "rank": 62,
-      "team": "NC State",
-      "power_rank": 55,
-      "sor_score": 0.004215444758303173,
-      "record": "5-6"
-    },
-    {
-      "rank": 63,
       "team": "Pittsburgh",
       "power_rank": 60,
       "sor_score": 0.02419765294281734,
       "record": "6-5"
     },
     {
-      "rank": 64,
-      "team": "Virginia",
-      "power_rank": 64,
-      "sor_score": 0.02092567313382112,
-      "record": "6-5"
-    },
-    {
-      "rank": 65,
-      "team": "Florida State",
-      "power_rank": 63,
-      "sor_score": 0.012270666989590092,
+      "rank": 63,
+      "team": "NC State",
+      "power_rank": 55,
+      "sor_score": 0.004215444758303173,
       "record": "5-6"
     },
     {
-      "rank": 66,
+      "rank": 64,
       "team": "Minnesota",
       "power_rank": 72,
       "sor_score": 0.06081459457406844,
       "record": "6-5"
     },
     {
-      "rank": 67,
-      "team": "Kansas State",
-      "power_rank": 62,
-      "sor_score": 0.0010441331499877592,
-      "record": "4-7"
+      "rank": 65,
+      "team": "Virginia",
+      "power_rank": 64,
+      "sor_score": 0.02092567313382112,
+      "record": "6-5"
     },
     {
-      "rank": 68,
+      "rank": 66,
+      "team": "Florida State",
+      "power_rank": 63,
+      "sor_score": 0.012270666989590092,
+      "record": "5-6"
+    },
+    {
+      "rank": 67,
       "team": "North Texas",
       "power_rank": 71,
       "sor_score": 0.039009669902521575,
       "record": "7-4"
+    },
+    {
+      "rank": 68,
+      "team": "Kansas State",
+      "power_rank": 62,
+      "sor_score": 0.0010441331499877592,
+      "record": "4-7"
     },
     {
       "rank": 69,
@@ -4988,31 +4988,31 @@
     },
     {
       "rank": 71,
-      "team": "Vanderbilt",
-      "power_rank": 66,
-      "sor_score": 0.01026710367305109,
-      "record": "4-7"
-    },
-    {
-      "rank": 72,
       "team": "Tulsa",
       "power_rank": 69,
       "sor_score": 0.018224999813827258,
       "record": "7-4"
     },
     {
-      "rank": 73,
-      "team": "Michigan State",
-      "power_rank": 70,
-      "sor_score": 0.0011855230806495879,
-      "record": "3-8"
+      "rank": 72,
+      "team": "Vanderbilt",
+      "power_rank": 66,
+      "sor_score": 0.01026710367305109,
+      "record": "4-7"
     },
     {
-      "rank": 74,
+      "rank": 73,
       "team": "Western Michigan",
       "power_rank": 75,
       "sor_score": 0.04217496207954957,
       "record": "8-3"
+    },
+    {
+      "rank": 74,
+      "team": "Michigan State",
+      "power_rank": 70,
+      "sor_score": 0.0011855230806495879,
+      "record": "3-8"
     },
     {
       "rank": 75,
@@ -5037,24 +5037,24 @@
     },
     {
       "rank": 78,
+      "team": "Florida Atlantic",
+      "power_rank": 80,
+      "sor_score": 0.022777656419638578,
+      "record": "7-4"
+    },
+    {
+      "rank": 79,
       "team": "Fresno State",
       "power_rank": 79,
       "sor_score": 0.0122432765993494,
       "record": "6-5"
     },
     {
-      "rank": 79,
+      "rank": 80,
       "team": "Purdue",
       "power_rank": 77,
       "sor_score": 0.001360239906939253,
       "record": "3-8"
-    },
-    {
-      "rank": 80,
-      "team": "Florida Atlantic",
-      "power_rank": 80,
-      "sor_score": 0.022777656419638578,
-      "record": "7-4"
     },
     {
       "rank": 81,
@@ -5065,17 +5065,17 @@
     },
     {
       "rank": 82,
-      "team": "San Diego State",
-      "power_rank": 82,
-      "sor_score": 0.019640644361312534,
-      "record": "6-5"
-    },
-    {
-      "rank": 83,
       "team": "Toledo",
       "power_rank": 86,
       "sor_score": 0.0740917265906193,
       "record": "9-2"
+    },
+    {
+      "rank": 83,
+      "team": "San Diego State",
+      "power_rank": 82,
+      "sor_score": 0.019640644361312534,
+      "record": "6-5"
     },
     {
       "rank": 84,
@@ -5198,17 +5198,17 @@
     },
     {
       "rank": 101,
-      "team": "Rutgers",
-      "power_rank": 101,
-      "sor_score": 0.00018401366024235971,
-      "record": "3-8"
-    },
-    {
-      "rank": 102,
       "team": "Ohio",
       "power_rank": 104,
       "sor_score": 0.02523086482550083,
       "record": "8-3"
+    },
+    {
+      "rank": 102,
+      "team": "Rutgers",
+      "power_rank": 101,
+      "sor_score": 0.00018401366024235971,
+      "record": "3-8"
     },
     {
       "rank": 103,
@@ -5226,17 +5226,17 @@
     },
     {
       "rank": 105,
-      "team": "Delaware",
-      "power_rank": 105,
-      "sor_score": 0.0017142582158279536,
-      "record": "6-5"
-    },
-    {
-      "rank": 106,
       "team": "Buffalo",
       "power_rank": 111,
       "sor_score": 0.0314513244671324,
       "record": "8-3"
+    },
+    {
+      "rank": 106,
+      "team": "Delaware",
+      "power_rank": 105,
+      "sor_score": 0.0017142582158279536,
+      "record": "6-5"
     },
     {
       "rank": 107,
