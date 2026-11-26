@@ -1,22 +1,22 @@
 {
   "name": "CFP Advantage Public Model Record",
-  "generated_at": "2026-11-23T23:06:49.595Z",
+  "generated_at": "2026-11-26T00:53:29.945Z",
   "season": 2026,
   "current_season": {
     "scope": "2026 development validation",
-    "updated_at": "2026-11-17T17:44:55.164571+00:00",
-    "update_policy": "Updated after each certified weekly publish or grade run; this is not a live scoreboard.",
+    "updated_at": "2026-11-23T22:08:19.986020+00:00",
+    "update_policy": "Updated after certified weekly receipts are published and graded; this is not a live scoreboard.",
     "summary": {
-      "games_published": 693,
-      "games_graded": 627,
-      "games_pending": 66,
-      "winner_accuracy": 0.709729,
-      "margin_mae": 12.886846
+      "games_published": 762,
+      "games_graded": 693,
+      "games_pending": 69,
+      "winner_accuracy": 0.708514,
+      "margin_mae": 12.80185
     },
     "weeks": [
       {
         "week": 1,
-        "published_at_utc": "2026-09-08T15:16:48.568751+00:00",
+        "published_at_utc": "2026-08-20T01:43:00.634091+00:00",
         "run_label": "certified-internal-anchor-2026-v1",
         "publication_status": "final-public",
         "receipt_version": 2,
@@ -132,7 +132,7 @@
         "games_graded": 62,
         "games_pending": 0,
         "winner_accuracy": 0.629032,
-        "margin_mae": 14.878763
+        "margin_mae": 14.878762
       },
       {
         "week": 11,
@@ -153,10 +153,20 @@
         "publication_status": "final-public",
         "receipt_version": 1,
         "games_published": 66,
+        "games_graded": 66,
+        "games_pending": 0,
+        "winner_accuracy": 0.69697,
+        "margin_mae": 11.99439
+      },
+      {
+        "week": 13,
+        "published_at_utc": "2026-11-23T22:08:19.986020+00:00",
+        "run_label": "manual-sunday-2026-week-12-to-13",
+        "publication_status": "final-public",
+        "receipt_version": 1,
+        "games_published": 69,
         "games_graded": 0,
-        "games_pending": 66,
-        "winner_accuracy": null,
-        "margin_mae": null
+        "games_pending": 69
       }
     ],
     "specification_note": "The 2026 specification changed prospectively beginning with Week 4 after rating defects were identified. Weeks 1-3 remain preserved as originally published. Clean prospective validation restarts in 2027."

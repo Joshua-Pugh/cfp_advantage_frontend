@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { api } from "../lib/api";
+import { loadModelRecord } from "../lib/model-record.mjs";
 import Header from "../components/Header";
 import SeasonValidationCard from "../components/SeasonValidationCard";
 import Footer from "../components/Footer";
@@ -16,9 +16,8 @@ function Home() {
   useEffect(() => {
     async function loadValidation() {
       try {
-        const payload = await api(
-          "/api/product-a/live-tracker?season=2026"
-        );
+        const record = await loadModelRecord();
+        const payload = record.current_season;
 
         setValidation(payload.summary || {});
       } catch (error) {

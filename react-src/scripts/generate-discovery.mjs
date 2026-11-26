@@ -1,3 +1,4 @@
+import { fetchArchiveTracker } from "../src/lib/model-record.mjs";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
@@ -214,7 +215,7 @@ export function publicDiscoveryPlugin() {
       const [weeklyPayload, teamPayload, liveTrackerPayload] = await Promise.all([
         fetchJson("/api/product-a/current-week?limit=150&include_schedule_only=true"),
         fetchJson(`/api/teams?season=${encodeURIComponent(season)}&tier=fbs`),
-        fetchJson("/api/product-a/live-tracker"),
+        fetchArchiveTracker(),
       ]);
 
       const games = (weeklyPayload.matchups || []).map(cleanMatchup);

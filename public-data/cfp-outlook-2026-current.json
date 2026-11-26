@@ -5,10 +5,14 @@
   "status": "preliminary_outlook_not_championship_pick",
   "committee_snapshot": {
     "season": 2026,
-    "through_week": 11,
-    "released_at": "2026-11-17",
-    "source": "https://collegefootballplayoff.com/news/2026/11/17/rankings",
+    "through_week": 12,
+    "released_at": "2026-11-24",
+    "source": "https://collegefootballplayoff.com/rankings",
     "status": "official_committee_snapshot",
+    "source_provider": "CFBD archived Playoff Committee Rankings",
+    "source_week": 13,
+    "fetched_at_utc": "2026-11-26T00:47:47.305802+00:00",
+    "source_sha256": "a711c94884b66d862bb012757cdac604b99c91252fe0ed841df309f0897773e6",
     "rankings": [
       {
         "rank": 1,
@@ -20,19 +24,19 @@
       },
       {
         "rank": 3,
-        "team": "Alabama"
-      },
-      {
-        "rank": 4,
-        "team": "UCLA"
-      },
-      {
-        "rank": 5,
         "team": "Texas"
       },
       {
-        "rank": 6,
+        "rank": 4,
         "team": "Notre Dame"
+      },
+      {
+        "rank": 5,
+        "team": "Tennessee"
+      },
+      {
+        "rank": 6,
+        "team": "Alabama"
       },
       {
         "rank": 7,
@@ -40,11 +44,11 @@
       },
       {
         "rank": 8,
-        "team": "Indiana"
+        "team": "Wake Forest"
       },
       {
         "rank": 9,
-        "team": "Tennessee"
+        "team": "UCLA"
       },
       {
         "rank": 10,
@@ -52,63 +56,63 @@
       },
       {
         "rank": 11,
-        "team": "Wake Forest"
-      },
-      {
-        "rank": 12,
         "team": "Texas Tech"
       },
       {
-        "rank": 13,
+        "rank": 12,
         "team": "Oregon"
       },
       {
-        "rank": 14,
-        "team": "Ohio State"
-      },
-      {
-        "rank": 15,
+        "rank": 13,
         "team": "Iowa"
       },
       {
-        "rank": 16,
-        "team": "Kentucky"
+        "rank": 14,
+        "team": "Indiana"
       },
       {
-        "rank": 17,
-        "team": "Boise State"
-      },
-      {
-        "rank": 18,
+        "rank": 15,
         "team": "USC"
       },
       {
-        "rank": 19,
+        "rank": 16,
         "team": "Arizona"
       },
       {
-        "rank": 20,
-        "team": "Houston"
-      },
-      {
-        "rank": 21,
-        "team": "South Carolina"
-      },
-      {
-        "rank": 22,
+        "rank": 17,
         "team": "Oklahoma"
       },
       {
-        "rank": 23,
+        "rank": 18,
+        "team": "Houston"
+      },
+      {
+        "rank": 19,
         "team": "Louisville"
       },
       {
-        "rank": 24,
+        "rank": 20,
         "team": "Florida"
       },
       {
-        "rank": 25,
+        "rank": 21,
+        "team": "Ohio State"
+      },
+      {
+        "rank": 22,
         "team": "Ole Miss"
+      },
+      {
+        "rank": 23,
+        "team": "Missouri"
+      },
+      {
+        "rank": 24,
+        "team": "Washington"
+      },
+      {
+        "rank": 25,
+        "team": "Nebraska"
       }
     ]
   },
@@ -116,16 +120,16 @@
     {
       "round": "first_round",
       "higher_seed": 5,
-      "higher_seed_team": "Texas",
+      "higher_seed_team": "Tennessee",
       "lower_seed": 12,
-      "lower_seed_team": "Texas Tech"
+      "lower_seed_team": "Oregon"
     },
     {
       "round": "first_round",
       "higher_seed": 6,
-      "higher_seed_team": "Notre Dame",
+      "higher_seed_team": "Alabama",
       "lower_seed": 11,
-      "lower_seed_team": "Wake Forest"
+      "lower_seed_team": "Texas Tech"
     },
     {
       "round": "first_round",
@@ -137,9 +141,9 @@
     {
       "round": "first_round",
       "higher_seed": 8,
-      "higher_seed_team": "Indiana",
+      "higher_seed_team": "Wake Forest",
       "lower_seed": 9,
-      "lower_seed_team": "Tennessee"
+      "lower_seed_team": "UCLA"
     },
     {
       "round": "quarterfinal_bye",
@@ -154,12 +158,12 @@
     {
       "round": "quarterfinal_bye",
       "seed": 3,
-      "team": "Alabama"
+      "team": "Texas"
     },
     {
       "round": "quarterfinal_bye",
       "seed": 4,
-      "team": "UCLA"
+      "team": "Notre Dame"
     }
   ],
   "remaining_games": [
@@ -3553,7 +3557,7 @@
     "path_probabilities": "The probabilities describe remaining record thresholds, not CFP selection odds.",
     "selection_odds_status": "withheld_until_committee_proxy_and_auto_bid_logic_are_chronologically_validated"
   },
-  "generated_at": "2026-11-23T23:06:18.559081+00:00",
+  "generated_at": "2026-11-26T00:50:47.281375+00:00",
   "entering_week": 13,
   "ap_snapshot": {
     "season": 2026,
@@ -5466,34 +5470,34 @@
   "outside_top_12": [
     {
       "rank": 13,
-      "team": "Oregon"
-    },
-    {
-      "rank": 15,
       "team": "Iowa"
     },
     {
-      "rank": 17,
-      "team": "Boise State"
+      "rank": 14,
+      "team": "Indiana"
     },
     {
-      "rank": 18,
+      "rank": 15,
       "team": "USC"
     },
     {
-      "rank": 19,
+      "rank": 16,
       "team": "Arizona"
     },
     {
-      "rank": 20,
+      "rank": 18,
       "team": "Houston"
     },
     {
-      "rank": 23,
+      "rank": 19,
       "team": "Louisville"
     },
     {
       "team": "Liberty",
+      "rank": null
+    },
+    {
+      "team": "Boise State",
       "rank": null
     }
   ],
